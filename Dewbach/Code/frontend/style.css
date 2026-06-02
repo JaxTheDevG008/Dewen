@@ -3,7 +3,7 @@
   --close-noti-popup-hover-bg-color: oklch(93.403% 0.00011 271.152);
   --bd-color: oklch(89.755% 0.0001 271.152);
   --text-color: black;
-  --sidebar-bg: rgba(27, 54, 60, 0.2);
+  --sidebar-bg: rgba(62, 62, 62, 0.2);
   --input-bg: oklch(93.1% 0.00011 271.152);
   --btn-bg-color: var(--input-bg);
   --btn-hover-bg-color: oklch(90.06% 0.0001 271.152);
@@ -20,12 +20,7 @@
   --task-attribute-separator-color: black;
   --task-options-btn-bg-color: oklch(93.1% 0.00011 271.152);
   --task-options-btn-hover-bg-color: oklch(86.07% 0.0001 271.152);
-  --focus-timer-bg-color: linear-gradient(
-    45deg,
-    oklch(88% 0.04 240),
-    oklch(84% 0.035 245),
-    oklch(68.698% 0.02551 250.245)
-  );
+  --timer-progress-ring-color: oklch(57.737% 0.05546 247.083);
   --fc-buttons-bg-color: oklch(100% 0.00011 271.152 / 0.3);
   --fc-buttons-icon-color: black;
   --fc-daygrid-day-bg-color: oklch(97.913% 0.00011 271.152);
@@ -33,148 +28,12 @@
   --fc-border-color: oklch(100% 0.00011 271.152);
 }
 
-[data-theme="ocean"] {
-  --bg-color: oklch(96% 0.02 235); 
-  --work-areas-bg-color: oklch(97% 0.015 235);
-  --task-bg-color: oklch(97% 0.015 235);
-  --task-hover-bg-color: oklch(82.317% 0.02693 239.259);
-  --input-bg: oklch(95% 0.02 235);
-  --task-creation-div-bg-color: oklch(96% 0.018 235);
-  --bd-color: oklch(86% 0.03 240);
-  --input-bd-color: oklch(88% 0.03 240);
-  --fc-border-color: oklch(88% 0.03 240);
-  --text-color: oklch(16% 0.03 255); 
-  --task-attribute-separator-color: oklch(20% 0.03 255);
-  --sidebar-bg: oklch(94% 0.02 240 / 0.7);
-  --btn-bg-color: oklch(92.923% 0.01941 235.921);
-  --btn-hover-bg-color: oklch(90% 0.03 240);
-  --theme-btn-bg-color: oklch(17% 0.04 255);
-  --theme-btn-hover-bg-color: oklch(24% 0.05 255);
-  --task-options-btn-bg-color: oklch(95% 0.02 235);
-  --task-options-btn-hover-bg-color: oklch(90% 0.03 240);
-  --close-noti-popup-hover-bg-color: oklch(90% 0.03 240);
-  --ask-for-noti-popup-bg-color: oklch(40% 0.04 250 / 0.14);
-  --focus-timer-bg-color: linear-gradient(
-    45deg,
-    oklch(92% 0.03 225), 
-    oklch(80% 0.05 235),
-    oklch(65% 0.06 245), 
-    oklch(50% 0.05 255)     
-  );
-  --fc-buttons-bg-color: oklch(95% 0.02 235 / 0.5);
-  --fc-buttons-icon-color: oklch(16% 0.03 255);
-  --fc-daygrid-day-bg-color: oklch(94% 0.02 235);
-  --fc-daygrid-day-hover-bg-color: oklch(90% 0.03 240);
-}
-
-[data-theme="forest"] {
-  --bg-color: oklch(96% 0.02 150); 
-  --work-areas-bg-color: oklch(97% 0.015 150);
-  --task-bg-color: oklch(97% 0.015 150);
-  --task-hover-bg-color: oklch(92% 0.03 155);
-  --input-bg: oklch(95% 0.02 150);
-  --task-creation-div-bg-color: oklch(96% 0.018 150);
-  --bd-color: oklch(88% 0.03 140); 
-  --input-bd-color: oklch(90% 0.03 140);
-  --fc-border-color: oklch(90% 0.03 140);
-  --text-color: oklch(18% 0.03 120); 
-  --task-attribute-separator-color: oklch(22% 0.03 120);
-  --sidebar-bg: oklch(94% 0.02 150 / 0.7); 
-  --btn-bg-color: oklch(88.636% 0.0179 148.353);
-  --btn-hover-bg-color: oklch(80.745% 0.02508 151.278);
-  --theme-btn-bg-color: oklch(20% 0.04 120); 
-  --theme-btn-hover-bg-color: oklch(28% 0.05 120);
-  --task-options-btn-bg-color: oklch(95% 0.02 150);
-  --task-options-btn-hover-bg-color: oklch(90% 0.03 150);
-  --close-noti-popup-hover-bg-color: oklch(90% 0.03 150);
-  --ask-for-noti-popup-bg-color: oklch(45% 0.04 140 / 0.14);
-  --focus-timer-bg-color: linear-gradient(
-    45deg,
-    oklch(92% 0.03 150), 
-    oklch(78% 0.05 140), 
-    oklch(60% 0.06 130),
-    oklch(45% 0.05 120)  
-  );
-  --fc-buttons-bg-color: oklch(95% 0.02 150 / 0.5);
-  --fc-buttons-icon-color: oklch(18% 0.03 120);
-  --fc-daygrid-day-bg-color: oklch(94% 0.02 150);
-  --fc-daygrid-day-hover-bg-color: oklch(90% 0.03 150);
-}
-
-[data-theme="sunset"] {
-  --bg-color: oklch(96% 0.03 70);
-  --work-areas-bg-color: oklch(97% 0.025 75);
-  --task-bg-color: oklch(97% 0.025 75);
-  --task-hover-bg-color: oklch(92% 0.04 60);
-  --input-bg: oklch(95% 0.03 75);
-  --task-creation-div-bg-color: oklch(96% 0.025 75);
-  --bd-color: oklch(88% 0.04 55);
-  --input-bd-color: oklch(90% 0.04 55);
-  --fc-border-color: oklch(90% 0.04 55);
-  --text-color: oklch(20% 0.04 35); 
-  --task-attribute-separator-color: oklch(25% 0.04 35);
-  --sidebar-bg: oklch(94% 0.03 70 / 0.7);
-  --btn-bg-color: oklch(90.396% 0.02852 74.234);
-  --btn-hover-bg-color: oklch(83.587% 0.03509 64.416);
-  --theme-btn-bg-color: oklch(25% 0.05 30);
-  --theme-btn-hover-bg-color: oklch(32% 0.06 30);
-  --task-options-btn-bg-color: oklch(95% 0.03 75);
-  --task-options-btn-hover-bg-color: oklch(90% 0.04 65);
-  --close-noti-popup-hover-bg-color: oklch(90% 0.04 60);
-  --ask-for-noti-popup-bg-color: oklch(55% 0.05 50 / 0.15);
-  --focus-timer-bg-color: linear-gradient(
-    45deg,
-    oklch(92% 0.04 80), 
-    oklch(80% 0.06 60),  
-    oklch(65% 0.07 45), 
-    oklch(50% 0.06 35) 
-  );
-  --fc-buttons-bg-color: oklch(95% 0.03 75 / 0.5);
-  --fc-buttons-icon-color: oklch(20% 0.04 35);
-  --fc-daygrid-day-bg-color: oklch(94% 0.03 75);
-  --fc-daygrid-day-hover-bg-color: oklch(90% 0.04 65);
-}
-
-[data-theme="rose"] {
-  --bg-color: oklch(96% 0.03 5); 
-  --work-areas-bg-color: oklch(97% 0.025 10);
-  --task-bg-color: oklch(97% 0.025 10);
-  --task-hover-bg-color: oklch(92% 0.04 350);
-  --input-bg: oklch(95% 0.03 10);
-  --task-creation-div-bg-color: oklch(96% 0.025 10);
-  --bd-color: oklch(88% 0.04 355); 
-  --input-bd-color: oklch(90% 0.04 355);
-  --fc-border-color: oklch(90% 0.04 355);
-  --text-color: oklch(18% 0.03 20); 
-  --task-attribute-separator-color: oklch(22% 0.03 20);
-  --sidebar-bg: oklch(94% 0.03 10 / 0.7);
-  --btn-bg-color: oklch(91.185% 0.02679 8.813);
-  --btn-hover-bg-color: oklch(84.018% 0.03805 349.808);
-  --theme-btn-bg-color: oklch(22% 0.05 20);
-  --theme-btn-hover-bg-color: oklch(30% 0.06 20);
-  --task-options-btn-bg-color: oklch(95% 0.03 10);
-  --task-options-btn-hover-bg-color: oklch(90% 0.04 350);
-  --close-noti-popup-hover-bg-color: oklch(90% 0.04 350);
-  --ask-for-noti-popup-bg-color: oklch(55% 0.05 350 / 0.15);
-  --focus-timer-bg-color: linear-gradient(
-    45deg,
-    oklch(92% 0.03 10),  
-    oklch(80% 0.05 5),  
-    oklch(65% 0.06 355), 
-    oklch(50% 0.05 350) 
-  );
-  --fc-buttons-bg-color: oklch(95% 0.03 10 / 0.5);
-  --fc-buttons-icon-color: oklch(18% 0.03 20);
-  --fc-daygrid-day-bg-color: oklch(94% 0.03 10);
-  --fc-daygrid-day-hover-bg-color: oklch(90% 0.04 350);
-}
-
 [data-mode="dark"] {
-  --bg-color: oklch(14.077% 0.0044 285.776);
+  --bg-color: linear-gradient(180deg, oklch(18.22% 0.00002 271.152) 0%, oklch(18.717% 0.00202 286.054) 100%);
   --close-noti-popup-hover-bg-color: oklch(11.779% 0.05035 260.832);
   --bd-color: oklch(33.289% 0.00004 271.152);
   --text-color: white;
-  --sidebar-bg: rgba(27, 54, 60, 0.2);
+  --sidebar-bg: rgba(61, 61, 61, 0.2);
   --input-bg: oklch(20.687% 0.00986 285.48);
   --btn-bg-color: var(--input-bg);
   --btn-hover-bg-color: oklch(23.337% 0.01149 285.452);
@@ -191,12 +50,7 @@
   --task-attribute-separator-color: rgb(255, 255, 255);
   --task-options-btn-bg-color: oklch(26.741% 0.04452 281.116);
   --task-options-btn-hover-bg-color: oklch(36.324% 0.06848 281.337);
-  --focus-timer-bg-color: linear-gradient(
-    45deg,
-    oklch(28% 0.04 240),
-    oklch(22% 0.03 245),
-    oklch(18% 0.015 255)
-  );
+  --timer-progress-ring-color: oklch(57.737% 0.05546 247.083);
   --fc-buttons-bg-color: oklch(11.779% 0.05035 260.832);
   --fc-buttons-icon-color: white;
   --fc-daygrid-day-bg-color: oklch(20.687% 0.00986 285.48);
@@ -204,144 +58,12 @@
   --fc-border-color: oklch(11.779% 0.05035 260.832);
 }
 
-[data-theme="ocean"][data-mode="dark"] {
-  --bg-color: oklch(14% 0.03 250);
-  --work-areas-bg-color: oklch(18% 0.03 245);
-  --task-bg-color: oklch(18% 0.03 245);
-  --task-hover-bg-color: oklch(24% 0.04 240);
-  --input-bg: oklch(22% 0.03 245);
-  --task-creation-div-bg-color: oklch(19% 0.03 245);
-  --bd-color: oklch(30% 0.03 240);
-  --input-bd-color: oklch(28% 0.03 240);
-  --fc-border-color: oklch(28% 0.03 240);
-  --text-color: oklch(92% 0.01 250);
-  --task-attribute-separator-color: oklch(85% 0.01 250);
-  --sidebar-bg: oklch(20% 0.03 245 / 0.6);
-  --btn-bg-color: oklch(24.907% 0.03669 246.56);
-  --btn-hover-bg-color: oklch(32.375% 0.05444 241.278);
-  --theme-btn-bg-color: oklch(90% 0.01 250);
-  --theme-btn-hover-bg-color: oklch(75% 0.01 250);
-  --task-options-btn-bg-color: oklch(22% 0.03 245);
-  --task-options-btn-hover-bg-color: oklch(26% 0.04 240);
-  --close-noti-popup-hover-bg-color: oklch(24% 0.04 240);
-  --ask-for-noti-popup-bg-color: oklch(20% 0.03 250 / 0.3);
-  --focus-timer-bg-color: linear-gradient(
-    45deg,
-    oklch(30% 0.04 240),
-    oklch(24% 0.05 245),
-    oklch(18% 0.05 255)
-  );
-  --fc-buttons-bg-color: oklch(22% 0.03 245 / 0.5);
-  --fc-buttons-icon-color: oklch(92% 0.01 250);
-  --fc-daygrid-day-bg-color: oklch(20% 0.03 245);
-  --fc-daygrid-day-hover-bg-color: oklch(24% 0.04 240);
-}
-
-[data-theme="forest"][data-mode="dark"] {
-  --bg-color: oklch(14% 0.03 145);
-  --work-areas-bg-color: oklch(18% 0.03 145);
-  --task-bg-color: oklch(18% 0.03 145);
-  --task-hover-bg-color: oklch(24% 0.04 135);
-  --input-bg: oklch(22% 0.03 145);
-  --task-creation-div-bg-color: oklch(19% 0.03 145);
-  --bd-color: oklch(30% 0.03 130);
-  --input-bd-color: oklch(28% 0.03 130);
-  --fc-border-color: oklch(28% 0.03 130);
-  --text-color: oklch(92% 0.01 120);
-  --task-attribute-separator-color: oklch(85% 0.01 115);
-  --sidebar-bg: oklch(20% 0.03 145 / 0.6);
-  --btn-bg-color: oklch(26.534% 0.03637 144.504);
-  --btn-hover-bg-color: oklch(33.927% 0.05737 140.226);
-  --theme-btn-bg-color: oklch(88% 0.01 120);
-  --theme-btn-hover-bg-color: oklch(75% 0.01 120);
-  --task-options-btn-bg-color: oklch(22% 0.03 145);
-  --task-options-btn-hover-bg-color: oklch(26% 0.04 140);
-  --close-noti-popup-hover-bg-color: oklch(24% 0.04 140);
-  --ask-for-noti-popup-bg-color: oklch(20% 0.03 140 / 0.25);
-  --focus-timer-bg-color: linear-gradient(
-    45deg,
-    oklch(28% 0.04 145),
-    oklch(24% 0.05 140),
-    oklch(18% 0.05 135)
-  );
-  --fc-buttons-bg-color: oklch(22% 0.03 145 / 0.5);
-  --fc-buttons-icon-color: oklch(92% 0.01 120);
-  --fc-daygrid-day-bg-color: oklch(20% 0.03 145);
-  --fc-daygrid-day-hover-bg-color: oklch(24% 0.04 140);
-}
-
-[data-theme="sunset"][data-mode="dark"] {
-  --bg-color: oklch(14% 0.03 40);
-  --work-areas-bg-color: oklch(18% 0.03 45);
-  --task-bg-color: oklch(18% 0.03 45);
-  --task-hover-bg-color: oklch(24% 0.04 55);
-  --input-bg: oklch(22% 0.03 50);
-  --task-creation-div-bg-color: oklch(19% 0.03 50);
-  --bd-color: oklch(30% 0.04 55);
-  --input-bd-color: oklch(28% 0.04 55);
-  --fc-border-color: oklch(28% 0.04 55);
-  --text-color: oklch(92% 0.01 35);
-  --task-attribute-separator-color: oklch(85% 0.01 30);
-  --sidebar-bg: oklch(20% 0.03 50 / 0.65);
-  --btn-bg-color: oklch(25.531% 0.03842 48.073);
-  --btn-hover-bg-color: oklch(33.681% 0.0557 55.738);
-  --theme-btn-bg-color: oklch(90% 0.01 40);
-  --theme-btn-hover-bg-color: oklch(75% 0.01 40);
-  --task-options-btn-bg-color: oklch(22% 0.03 50);
-  --task-options-btn-hover-bg-color: oklch(26% 0.04 55);
-  --close-noti-popup-hover-bg-color: oklch(24% 0.04 55);
-  --ask-for-noti-popup-bg-color: oklch(20% 0.03 45 / 0.25);
-  --focus-timer-bg-color: linear-gradient(
-    45deg,
-    oklch(28% 0.04 35),
-    oklch(24% 0.05 40),
-    oklch(18% 0.05 50)
-  );
-  --fc-buttons-bg-color: oklch(22% 0.03 50 / 0.5);
-  --fc-buttons-icon-color: oklch(92% 0.01 35);
-  --fc-daygrid-day-bg-color: oklch(20% 0.03 50);
-  --fc-daygrid-day-hover-bg-color: oklch(24% 0.04 55);
-}
-
-[data-theme="rose"][data-mode="dark"] {
-  --bg-color: oklch(14% 0.03 355);
-  --work-areas-bg-color: oklch(18% 0.03 350);
-  --task-bg-color: oklch(18% 0.03 350);
-  --task-hover-bg-color: oklch(22% 0.04 345);
-  --input-bg: oklch(20% 0.03 350);
-  --task-creation-div-bg-color: oklch(19% 0.03 350);
-  --bd-color: oklch(30% 0.04 355);
-  --input-bd-color: oklch(28% 0.04 355);
-  --fc-border-color: oklch(28% 0.04 355);
-  --text-color: oklch(92% 0.01 20);
-  --task-attribute-separator-color: oklch(85% 0.01 20);
-  --sidebar-bg: oklch(20% 0.03 350 / 0.6);
-  --btn-bg-color: oklch(26.9% 0.03915 352.375);
-  --btn-hover-bg-color: oklch(33.742% 0.05563 346.571);
-  --theme-btn-bg-color: oklch(90% 0.01 20);
-  --theme-btn-hover-bg-color: oklch(75% 0.01 20);
-  --task-options-btn-bg-color: oklch(22% 0.03 350);
-  --task-options-btn-hover-bg-color: oklch(26% 0.04 345);
-  --close-noti-popup-hover-bg-color: oklch(24% 0.04 345);
-  --ask-for-noti-popup-bg-color: oklch(20% 0.03 350 / 0.25);
-  --focus-timer-bg-color: linear-gradient(
-    45deg,
-    oklch(30% 0.04 355),
-    oklch(24% 0.05 350),
-    oklch(18% 0.05 345)
-  );
-  --fc-buttons-bg-color: oklch(22% 0.03 350 / 0.5);
-  --fc-buttons-icon-color: oklch(92% 0.01 20);
-  --fc-daygrid-day-bg-color: oklch(20% 0.03 350);
-  --fc-daygrid-day-hover-bg-color: oklch(24% 0.04 345);
-}
-
 body {
   font-family: "Inter";
   display: flex;
   flex-direction: row;
   width: 100%;
-  background-color: var(--bg-color);
+  background: var(--bg-color);
   color: var(--text-color);
   align-items: flex-start;
 }
@@ -474,7 +196,8 @@ button:hover {
   z-index: 9990;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 15px;
   width: 225px;
   background: var(--sidebar-bg);
   backdrop-filter: blur(8px);
@@ -500,7 +223,7 @@ button:hover {
 .workspaceLabel {
   font-size: 1.2rem;
   padding: 10px;
-  background: linear-gradient(45deg, #a1c6d1, #1b363c, #2d545e);
+  background-color: #5F7D99;
   border-radius: 12px;
   color: white;
   width: 150px;
@@ -536,6 +259,10 @@ button:hover {
 .sidebar button:hover {
   background-color: var(--btn-bg-color);
   cursor: pointer;
+}
+
+.sidebar button.active {
+  background-color: var(--btn-hover-bg-color);
 }
 
 .sidebar img {
@@ -616,6 +343,7 @@ button:hover {
   display: flex;
   gap: 15px;
   flex-direction: column;
+  border-radius: 20px;
 }
 
 .commandCenter {
@@ -629,6 +357,7 @@ button:hover {
   margin-top: 15px;
   margin-bottom: 0px;
   order: 0;
+  background: var(--header-bg-color);
 }
 
 :root.calendarView .commandCenter,
@@ -832,6 +561,10 @@ button:hover {
   gap: 10px;
 }
 
+.agentBtnDiv {
+  position: relative;
+}
+
 .agentBtn {
   display: flex;
   text-align: center;
@@ -848,12 +581,7 @@ button:hover {
 }
 
 .agentBtn:hover {
-  background-color: oklch(94.155% 0.04169 219.505);
-  cursor: pointer;
-}
-
-[data-mode="dark"] .agentBtn:hover {
-  background-color: oklch(28.765% 0.05456 225.113);
+  background-color: #b3bae7;
   cursor: pointer;
 }
 
@@ -866,8 +594,7 @@ button:hover {
 }
 
 .agentBtn:hover .agentIcon {
-  filter: brightness(0) saturate(100%) invert(58%) sepia(85%) saturate(3033%)
-    hue-rotate(166deg) brightness(101%) contrast(105%);
+  filter: invert(21%) sepia(50%) saturate(3015%) hue-rotate(222deg) brightness(91%) contrast(93%); 
   opacity: 0.7;
   transition: 0.2s ease;
 }
@@ -876,6 +603,34 @@ button:hover {
   filter: brightness(0) invert(1);
   opacity: 0.7;
   transition: 0.2s ease;
+}
+
+.aiOptions {
+  display: none;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0);
+  background-color: var(--work-areas-bg-color);
+  width: fit-content;
+  border-radius: 12px;
+  position: absolute;
+  z-index: 9999;
+}
+
+.aiOptionsList {
+  list-style-type: none;
+  margin: 15px;
+  padding: 0px;
+}
+
+.aiOptionsList li {
+  padding: 10px 15px;
+  border-radius: 12px;
+}
+
+.aiOptions.show {
+  display: flex;
 }
 
 .overlay {
@@ -901,12 +656,16 @@ button:hover {
   border-radius: 15px;
   width: 450px;
   max-height: 600px;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 6px;
   overflow-y: auto;
+}
+
+.aiDiv.show {
+  display: flex;
 }
 
 .aiName {
@@ -1069,26 +828,215 @@ button:hover {
   color: var(--text-color);
 }
 
-.customThemeSelector {
+.customizeBtn {
   background-color: var(--btn-bg-color);
   border: 1px solid var(--bd-color);
   border-radius: 12px;
-  padding: 12px 15px;
+  padding: 5px 5px;
   color: var(--text-color);
 }
 
-.customThemeSelector:hover {
+.customizeBtn:hover {
   background-color: var(--btn-hover-bg-color);
   cursor: pointer;
 }
 
-.miniAnalytics {
+.customizeDiv {
+  padding: 15px;
+  border: none;
+  height: 100vh;
+  position: fixed;
+  z-index: 9990;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 15px;
+  width: 300px;
+  background: var(--work-areas-bg-color);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--text-color);
+  box-sizing: border-box;
+  top: 0px;
+  right: 0px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.customizeDiv.show {
+  display: flex;
+}
+
+.customizeHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.closeCustomizeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: transparent;
+  border: none;
+  color: var(--text-color);
+}
+
+.customizeBgOptions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 600px;
+}
+
+.customizeBgOptions button {
+  flex: 0 0 calc(16.66% - 10px); 
+  box-sizing: border-box;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;          
+  text-align: center;     
+  overflow: hidden;        
+  text-overflow: ellipsis;     
+  white-space: nowrap;     
+}
+
+.redBgBtn {
+  background-color: maroon;
+  border: none;
+}
+
+.goldBgBtn {
+  background-color: rgb(226, 160, 57);
+  border: none;
+}
+
+.lightGreenBgBtn {
+  background-color: lightgreen;
+  border: none;
+}
+
+.greenBgBtn {
+  background-color: forestgreen;
+  border: none;
+}
+
+.tealBgBtn {
+  background-color: teal;
+  border: none;
+}
+
+.aquaBgBtn {
+  background-color: rgb(0, 213, 255);
+  border: none;
+}
+
+.blueBgBtn {
+  background-color: rgb(0, 149, 255);
+  border: none;
+}
+
+.violetBgBtn {
+  background-color: rgb(198, 130, 238);
+  border: none;
+}
+
+.purpleBgBtn {
+  background-color: rgb(142, 0, 185);
+  border: none;
+}
+
+.pinkBgBtn {
+  background-color: pink;
+  border: none;
+}
+
+.whiteBgBtn {
+  background-color: white;
+}
+
+.blackBgBtn {
+  background-color: black;
+  border: none;
+}
+
+.miniAnalyticsDiv {
   display: flex;
   position: relative;
+  height: 122px;
   gap: 20px;
   margin: 10px;
   top: 0px;
   order: 1;
+}
+
+.expandMiniAnalyticsBtn {
+  background-color: var(--btn-bg-color);
+  border: 1px solid var(--bd-color);
+  border-radius: 12px;
+  padding: 8px 12px;
+  width: 10px;
+  height: 142px;
+  color: var(--text-color);
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expandMiniAnalyticsBtn:hover {
+  background-color: var(--btn-hover-bg-color);
+  cursor: pointer;
+}
+
+.expandMiniAnalyticsIcon {
+  width: 16px;
+  filter: brightness(0);
+}
+
+[data-mode="dark"] .expandMiniAnalyticsIcon {
+  filter: brightness(0) invert(1);
+  opacity: 0.7;
+  transition: 0.2s ease;
+}
+
+.expandMiniAnalyticsTooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.expandMiniAnalyticsTooltipText {
+  visibility: hidden;
+  width: 130px;
+  background-color: var(--work-areas-bg-color);
+  color: var(--text-color);
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+}
+
+.expandMiniAnalyticsTooltip:hover .expandMiniAnalyticsTooltipText {
+  visibility: visible;
+}
+
+.miniAnalytics {
+  position: relative;
+  display: none;
+  gap: 20px;
+  margin-left: 40px;
+  flex-direction: row;
+  order: 0;
+}
+
+.miniAnalytics.show {
+  display: flex;
 }
 
 .miniAnalytics div {
@@ -1097,10 +1045,10 @@ button:hover {
   padding: 10px 40px;
   border-radius: 20px;
   position: relative;
-  width: 125px;
-  height: 122.5px;
+  width: 100px;
+  height: 122px;
   overflow: hidden;
-  top: -px;
+  bottom: 20px;
 }
 
 :root.isAnalyticsView .miniAnalytics div {
@@ -1115,7 +1063,7 @@ button:hover {
   transition: 0.2s ease;
   width: 205px;
   top: 100px;
-  left: 160px;
+  left: 140px;
   transform: translate(-50%, -50%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   opacity: 15%;
@@ -1129,7 +1077,7 @@ button:hover {
   transition: 0.2s ease;
   width: 225px;
   top: 100px;
-  left: 160px;
+  left: 140px;
   transform: translate(-50%, -50%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   opacity: 15%;
@@ -1143,7 +1091,7 @@ button:hover {
   transition: 0.2s ease;
   width: 225px;
   top: 120px;
-  left: 160px;
+  left: 140px;
   transform: translate(-50%, -50%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   opacity: 15%;
@@ -1156,7 +1104,7 @@ button:hover {
   transition: 0.2s ease;
   width: 225px;
   top: 120px;
-  left: 160px;
+  left: 140px;
   transform: translate(-50%, -50%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   opacity: 15%;
@@ -1212,7 +1160,7 @@ button:hover {
 
 .workAreaSplit {
   position: relative;
-  width: 1150px;
+  width: 100%;
   border: 1px solid var(--bd-color);
   margin-top: 15px;
   margin-bottom: 25px;
@@ -1935,7 +1883,11 @@ input[type="checkbox"]:checked::before {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--focus-timer-bg-color);
+  background-color: var(--work-areas-bg-color);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  border: 1px solid var(--bd-color);
+  z-index: auto;
 }
 
 :root.isKanbanView .focusTimer {
@@ -1947,7 +1899,7 @@ input[type="checkbox"]:checked::before {
   top: 0px;
   left: 0px;
   margin: 20px;
-  color: white;
+  color: var(--text-color);
   font-size: 1.2rem;
 }
 
@@ -1961,7 +1913,8 @@ input[type="checkbox"]:checked::before {
 
 .timerProgressRing {
   fill: none;
-  stroke: white;
+  stroke: var(--timer-progress-ring-color);
+  opacity: 0.3;
   stroke-width: 5;
   stroke-dasharray: 283;
   stroke-dashoffset: 0;
@@ -1969,10 +1922,6 @@ input[type="checkbox"]:checked::before {
   transform: rotate(-90deg);
   transform-origin: center;
   filter: drop-shadow(0 0 2px #82919e);
-}
-
-[data-mode="dark"] .timerProgressRing {
-  filter: drop-shadow(0 0 2px #284e6e);
 }
 
 .currentFoocusedTaskDiv {
@@ -1984,7 +1933,7 @@ input[type="checkbox"]:checked::before {
 
 .taskSelectionDropdown {
   width: 250px;
-  color: var(--text-color);
+  color: #1a1a1a !important;
   border: none;
   padding: 1px 15px;
   padding-right: 5px;
@@ -1992,13 +1941,17 @@ input[type="checkbox"]:checked::before {
   position: relative;
   height: 36px;
   margin-bottom: 17px;
-  background-color: var(--bg-color);
+  background-color: #ffffff !important;
   border: 2px solid var(--bd-color);
+}
+
+.taskSelectionDropdown option {
+  color: #1a1a1a !important;
 }
 
 .currentFocusedTask {
   display: none;
-  color: white;
+  color: var(--text-color);
 }
 
 .timerMinutesDiv {
@@ -2023,7 +1976,8 @@ input[type="checkbox"]:checked::before {
 .timerMinutes {
   font-size: 2rem;
   font-weight: 400;
-  color: white;
+  color: var(--text-color);
+  position: relative;
   z-index: 2;
   margin: 0;
 }
@@ -2056,9 +2010,8 @@ input[type="checkbox"]:checked::before {
   font-weight: 1000;
   height: 35px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  color: black;
+  background-color: var(--btn-bg-color);
+  color: var(--text-color);
 }
 
 .timerControls {
@@ -2074,14 +2027,23 @@ input[type="checkbox"]:checked::before {
   position: relative;
   height: 39px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur();
+  background-color: var(--btn-bg-color);
+}
+
+[data-mode="light"] .startTimerBtn {
+  background-color: #c9ddf1;
 }
 
 .startTimerBtnIcon {
   width: 18px;
   height: 18px;
   filter: brightness(0);
+  opacity: 0.7;
+  transition: 0.2s ease;
+}
+
+[data-mode="dark"] .startTimerBtnIcon {
+  filter: brightness(0) invert(1);
   opacity: 0.7;
   transition: 0.2s ease;
 }
@@ -2094,14 +2056,19 @@ input[type="checkbox"]:checked::before {
   position: relative;
   height: 39px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur();
+  background-color: var(--btn-bg-color);
 }
 
 .pauseTimerBtnIcon {
   width: 18px;
   height: 18px;
   filter: brightness(0);
+  opacity: 0.7;
+  transition: 0.2s ease;
+}
+
+[data-mode="dark"] .pauseTimerBtnIcon {
+  filter: brightness(0) invert(1);
   opacity: 0.7;
   transition: 0.2s ease;
 }
@@ -2114,14 +2081,19 @@ input[type="checkbox"]:checked::before {
   position: relative;
   height: 39px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur();
+  background-color: var(--btn-bg-color);
 }
 
 .restartTimerBtnIcon {
   width: 18px;
   height: 18px;
   filter: brightness(0);
+  opacity: 0.7;
+  transition: 0.2s ease;
+}
+
+[data-mode="dark"] .restartTimerBtnIcon {
+  filter: brightness(0) invert(1);
   opacity: 0.7;
   transition: 0.2s ease;
 }
@@ -2200,6 +2172,8 @@ input[type="checkbox"]:checked::before {
   justify-self: center;
   position: relative;
   text-align: center;
+  height: 100%;
+  margin-top: 20px;
 }
 
 .noNotesYetIcon {
@@ -2926,4 +2900,39 @@ input[type="checkbox"]:checked::before {
 
 :root.isAnalyticsView .analyticsInsights {
   display: flex;
+}
+
+.fc-event {
+  --urgency: 0;
+  position: relative;
+  overflow: visible !important;
+  animation: pulseUrgency calc(2.4s - var(--urgency) * 1.4s) ease-in-out infinite;
+}
+
+.fc-daygrid-event-harness {
+  overflow: visible !important;
+}
+
+@keyframes pulseUrgency {
+  0% {
+    box-shadow: 0 0 calc(4px + var(--urgency) * 6px)
+      rgba(45, 58, 200, calc(0.1 + var(--urgency) * 0.2));
+  }
+  50% {
+    box-shadow: 0 0 calc(8px + var(--urgency) * 28px)
+      rgba(
+        calc(45 + var(--urgency) * 210),
+        calc(58 - var(--urgency) * 38),
+        calc(200 - var(--urgency) * 160),
+        calc(0.2 + var(--urgency) * 0.75)
+      );
+  }
+  100% {
+    box-shadow: 0 0 calc(4px + var(--urgency) * 6px)
+      rgba(45, 58, 200, calc(0.1 + var(--urgency) * 0.2));
+  }
+}
+
+.fc-daygrid-event-harness {
+  overflow: visible !important;
 }

@@ -74,7 +74,7 @@
         <div class="actualCommands">
           <div class="searchDiv">
             <img src="Images/Search-Icon.png" class="searchBarIcon">
-            <input class="searchBar" type="text" placeholder="Search for tasks and notes... (Ctrl/⌘ + K)">
+            <input class="searchBar" type="text">
             <ul class="searchResultsMenu">
               <!-- Search Results -->
             </ul>
@@ -84,52 +84,114 @@
           <div class="commandCenterBtns">
             <button class="themeBtn"></button>
 
-            <button class="agentBtn">
-              <img src="Images/Agent-Icon.png" class="agentIcon">
-            </button>
+            <div class="agentBtnDiv">
+              <button class="agentBtn">
+                <img src="Images/Agent-Icon.png" class="agentIcon">
+              </button>
+
+              <div class="aiOptions">
+                <ul class="aiOptionsList">
+                  <li class="prioritySuggestionOption">Priority Suggestion</li>
+                  <li class="scheduleSuggestionOption">Daily Schedule</li>
+                  <li class="riskReportOption">Risk Report</li>
+                </ul>
+              </div>
+            </div>
 
             <button class="decrastinatorBtn">
               <img src="Images/Decrastinator-Icon.png" class="decrastinatorIcon">
             </button>
           </div>
           
-          <select class="customThemeSelector">
-            <option value="default">Default</option>
-            <option value="ocean">Ocean</option>
-            <option value="forest">Forest</option>
-            <option value="sunset">Sunset</option>
-            <option value="rose">Rose</option>
-          </select>
+          <div class="customizeBtn">
+            <button class="customizeBtn">
+              Customize
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="miniAnalytics">
-        <div class="numberOfTasksDoneDiv">
-          <p class="tasksDoneHeader">TASKS DONE</p>
-          <p class="numberOfTasksDone">0</p>
-          <p class="numberOfTasksTotal">of 0 total</p>
-          <img src="Images/Checkmark.png" class="checkmarkImage">
+      <div class="aiOptions">
+        <ul class="aiOptionsList">
+          <li class="prioritySuggestionOption">Priority Suggestion</li>
+          <li class="scheduleSuggestionOption">Daily Schedule</li>
+          <li class="riskReportOption">Risk Report</li>
+        </ul>
+      </div>
+
+      <div class="aiDiv">
+      </div>
+
+      <div class="miniAnalyticsDiv">
+        <div class="expandMiniAnalytics">
+          <button class="expandMiniAnalyticsBtn">
+            <img src="Images/CollapseExpand Icon.png" class="expandMiniAnalyticsIcon">
+          </button>
+
+          <div class="expandMiniAnalyticsTooltip">
+            <span class="expandMiniAnalyticsTooltipText">Expand Mini Analytics</span>
+          </div>
         </div>
 
-        <div class="numberOfTasksLeftDiv">
-          <p class="tasksLeftHeader">TASKS LEFT</p>
-          <p class="numberOfTasksLeft">0</p>
-          <p class="tasksLeftFooter">tasks remaining</p>
-          <img src="Images/Clock.png" class="clockImage">
-        </div>
+        <div class="miniAnalytics">
+          <div class="numberOfTasksDoneDiv">
+            <p class="tasksDoneHeader">TASKS DONE</p>
+            <p class="numberOfTasksDone">0</p>
+            <p class="numberOfTasksTotal">of 0 total</p>
+            <img src="Images/Checkmark.png" class="checkmarkImage">
+          </div>
 
-        <div class="numberofFocusMinutesDiv">
-          <p class="focusMinutesHeader">FOCUS TIME</p>
-          <p class="numberOfFocusMinutes">0</p>
-          <p class="focusMinutesFooter">total minutes</p>
-          <img src="Images/Decrastinator-Icon.png" class="lightningImage">
-        </div>
+          <div class="numberOfTasksLeftDiv">
+            <p class="tasksLeftHeader">TASKS LEFT</p>
+            <p class="numberOfTasksLeft">0</p>
+            <p class="tasksLeftFooter">tasks remaining</p>
+            <img src="Images/Clock.png" class="clockImage">
+          </div>
 
-        <div class="numberOfSessionsDiv">
-          <p class="sessionsLeftHeader">SESSIONS</p>
-          <p class="numberOfSessionsDone">0</p>
-          <p class="sessionsFooter">focus sessions</p>
-          <img src="Images/Date-Icon.png" class="dateImage">
+          <div class="numberofFocusMinutesDiv">
+            <p class="focusMinutesHeader">FOCUS TIME</p>
+            <p class="numberOfFocusMinutes">0</p>
+            <p class="focusMinutesFooter">total minutes</p>
+            <img src="Images/Decrastinator-Icon.png" class="lightningImage">
+          </div>
+
+          <div class="numberOfSessionsDiv">
+            <p class="sessionsLeftHeader">SESSIONS</p>
+            <p class="numberOfSessionsDone">0</p>
+            <p class="sessionsFooter">focus sessions</p>
+            <img src="Images/Date-Icon.png" class="dateImage">
+          </div>
+        </div>
+      </div>
+
+      <div class="whatToFocusOn">
+
+      </div>
+    </div>
+
+    <div class="customizeDiv">
+      <div class="customizeHeader">
+        <h1 class="customizeHeaderTitle">Customize</h1>
+        <button class="closeCustomizeBtn">✕</button>
+      </div>
+
+      <div class="customizeBg">
+        <div class="customizeBgHeader">
+          <h1 class="customizeBgHeaderTitle">Background</h1>
+        </div>
+        <div class="customizeBgOptions">
+          <button class="redBgBtn" data-theme="red"></button>
+          <button class="goldBgBtn" data-theme="gold"></button>
+          <button class="lightGreenBgBtn" data-theme="lightGreen"></button>
+          <button class="greenBgBtn" data-theme="green"></button>
+          <button class="tealBgBtn" data-theme="teal"></button>
+          <button class="aquaBgBtn" data-theme="aqua"></button>
+          <button class="blueBgBtn" data-theme="blue"></button>
+          <button class="violetBgBtn" data-theme="violet"></button>
+          <button class="purpleBgBtn" data-theme="purple"></button>
+          <button class="pinkBgBtn" data-theme="pink"></button>
+          <button class="whiteBgBtn" data-theme="white"></button>
+          <button class="blackBgBtn" data-theme="black"></button>
         </div>
       </div>
     </div>
@@ -230,8 +292,8 @@
             </div>
 
             <div class="currentFocusedTaskDiv">
-              <select class="taskSelectionDropdown">
-                <option value="" disabled selected>Select Task to Focus On</option>
+              <select required class="taskSelectionDropdown" autocomplete="off">
+                <option value="" disabled selected>Choose a task to focus on...</option>
                 <!-- Task options will dynamically show up here -->
               </select>
 
@@ -240,7 +302,7 @@
 
             <div class="timerButtons">
               <div class="timerLengthOptions flex gap-2">
-                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">15m</button>
+                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">1m</button>
                 <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">25m</button>
                 <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">45m</button>
                 <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">60m</button>

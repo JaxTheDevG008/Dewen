@@ -3,6 +3,7 @@ const askForNotifications = document.querySelector(".askForNotifications");
 const enableNotificationsBtn = document.querySelector(".enableNotificationsBtn");
 const closeNotiPopup = document.querySelector(".closeNotiPopup");
 const sidebar = document.querySelector(".sidebar");
+const sidebarBtns = document.querySelectorAll(".sidebar button");
 const hamburgerBtn = document.querySelector(".hamburgerBtn");
 const analyticsBtn = document.querySelector(".analyticsBtn");
 const closeSidebarBtn = document.querySelector(".closeSidebarBtn");
@@ -15,10 +16,15 @@ const calendarBtn = document.querySelector(".calendarBtn");
 const dashboardContent = document.querySelector(".dashboardContent");
 const commandCenter = document.querySelector(".commandCenter");
 const agentBtn = document.querySelector(".agentBtn");
+const aiOptions = document.querySelector(".aiOptions");
+const aiOptionsList = document.querySelector(".aiOptionsList");
 const decrastinatorBtn = document.querySelector(".decrastinatorBtn");
-const customThemeSelector = document.querySelector(".customThemeSelector");
+const customizeBtn = document.querySelector(".customizeBtn");
+const customizeDiv = document.querySelector(".customizeDiv");
+const customizeBgOptions = document.querySelectorAll(".customizeBgOptions button");
 const currentDate = document.querySelector(".currentDate");
 const dynamicGreeting = document.querySelector(".greeting");
+const expandMiniAnalyticsBtn = document.querySelector(".expandMiniAnalyticsBtn");
 const miniAnalytics = document.querySelector(".miniAnalytics");
 const workAreaSplit = document.querySelector(".workAreaSplit");
 const section1 = document.querySelector(".section1");
@@ -98,6 +104,8 @@ let priorityCompletionChart = null;
 let productivityScoreChart = null;
 let timeOfDayChart = null;
 let currentTaskSort = "dueDate";
+let focusMode = false;
+let activeFocusTask = null;
 
 function showOverlay() {
   overlay.style.display = "block";
@@ -244,6 +252,9 @@ function createTaskElement(task) {
   taskStatusSpan.className = "taskStatusSpan";
   taskStatusSpan.textContent = taskStatus;
 
+  const urgency = getTaskUrgency(task);
+  applyUrgencyStyle(mainTask, urgency);
+
   taskTextAndCheckbox.prepend(checkbox);
   checkbox.addEventListener("change", () => {
     const t = tasks.find(t => String(t.id) === String(taskId));
@@ -355,6 +366,7 @@ function createTaskElement(task) {
     showNoTasksYet();
     refreshTaskDropdown();
     refreshCharts();
+    showNoTasksYet();
     renderCalendarEvents();
     addActivity(`Deleted task: ${task.title}`, "delete");
     taskOptions.remove();
@@ -405,6 +417,7 @@ function addTaskToCalendar(task) {
     : task.dueDate;
 
   calendar.addEvent({
+    id: task.id,
     title: task.title,
     start: startDate,
     allDay: !hasTime,
@@ -768,6 +781,12 @@ window.addEventListener("keydown", (event) => {
   }
 })
 
+function switchKeyCombo() {
+  const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+  const searchBarPlaceholder = isMac ? "Search for tasks and notes... (⌘K)" : "Search for tasks and notes... (Ctrl+K)";
+  searchBar.placeholder = searchBarPlaceholder;
+}
+
 window.addEventListener("scroll", () => {
   if (window.scrollY > 50) {
     searchDiv.classList.add("scrolled");
@@ -810,42 +829,122 @@ function isDark() {
   return document.documentElement.dataset.mode === "dark";
 }
 
-function customThemeSwitch() {
-  let theme = customThemeSelector.value.toLowerCase();
+function getTaskUrgency(task) {
+  if (!task.dueDate || task.completed) return 0;
 
-  if (theme === "default") theme = "light";
+  const now = Date.now();
+  const due = new Date(task.dueDate + (task.dueTime ? `T${task.dueTime}:00` : "T23:59:59")).getTime();
 
-  const themeMode = isDark() ? "dark" : "light";
+  const diff = due - now;
+  if (diff <= 0) return 1;
 
-  document.documentElement.dataset.theme = theme;
-  document.documentElement.dataset.mode = themeMode;
+  const hoursLeft = diff / (1000 * 60 * 60);
+  if (hoursLeft <= 0) return 1;
 
-  localStorage.setItem("theme", theme);
+  const urgency = Math.pow(Math.max(0, 1 - hoursLeft / 72), 2);
+
+  return Math.min(Math.max(urgency, 0), 1);
 }
 
-const desiredTheme = localStorage.getItem("theme");
-if (desiredTheme) {
-  document.documentElement.dataset.theme = desiredTheme;
-  customThemeSelector.value = desiredTheme === "" ? "default" : desiredTheme;
+function applyUrgencyStyle(el, urgency) {
+  if (!el) return;
+  el.style.setProperty("--urgency", urgency.toFixed(3));
+
+  const r = Math.round(45 + urgency * 210);
+  const g = Math.round(58 - urgency * 38);
+  const b = Math.round(200 - urgency * 160);
+
+  el.style.setProperty("--urgency-r", r);
+  el.style.setProperty("--urgency-g", g);
+  el.style.setProperty("--urgency-b", b);
+
+  const duration = 2.4 - urgency * 1.4;
+  el.style.animationDuration = `${duration.toFixed(2)}s`;
 }
 
-function toggleThemeMode() {
-  const currentMode = document.documentElement.dataset.mode;
-  const newThemeMode = currentMode === "dark" ? "light" : "dark";
+customizeBtn.addEventListener("click", () => {
+  customizeDiv.classList.add("show");
+});
 
-  document.documentElement.dataset.mode = newThemeMode;
-  localStorage.setItem("mode", newThemeMode);
-}
+const themes = [
+  {
+    name: "red",
+    light: "linear-gradient(135deg, maroon, #f8dce5)",
+    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, maroon, black 100%)"
+  },
+  {
+    name: "gold",
+    light: "linear-gradient(135deg, rgb(255, 200, 0), #fff6d6)",
+    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, rgb(255, 200, 0), black 100%)"
+  },
+  {
+    name: "lightGreen",
+    light: "linear-gradient(135deg, lightgreen, #f1fff1)",
+    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, lightgreen, black 100%)"
+  },
+  {
+    name: "green",
+    light: "linear-gradient(135deg, forestgreen, #e6f7e6)",
+    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, forestgreen, black 100%)"
+  },
+  {
+    name: "teal",
+    light: "linear-gradient(135deg, teal, #e6f9f9)",
+    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, teal, black 100%)"
+  },
+  {
+    name: "aqua",
+    light: "linear-gradient(135deg, rgb(0, 213, 255), #ecfdff)",
+    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, rgb(0, 213, 255), black 100%)"
+  },
+  {
+    name: "blue",
+    light: "linear-gradient(135deg, rgb(0, 149, 255), #eef8ff)",
+    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, rgb(0, 149, 255), black 100%)"
+  },
+  {
+    name: "violet",
+    light: "linear-gradient(135deg, rgb(198, 130, 238), #f6efff)",
+    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, rgb(198, 130, 238), black 100%)"
+  },
+  {
+    name: "purple",
+    light: "linear-gradient(135deg, rgb(142, 0, 185), #f5ebff)",
+    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, rgb(142, 0, 185), black 100%)"
+  },
+  {
+    name: "pink",
+    light: "linear-gradient(135deg, pink, #fff2f7)",
+    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, pink, black 100%)"
+  },
+  {
+    name: "white",
+    light: "linear-gradient(135deg, white, #fafafa)",
+    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, white, black 100%)"
+  },
+  {
+    name: "black",
+    light: "linear-gradient(135deg, rgb(18, 18, 18), #f2f2f2)",
+    dark: "linear-gradient(135deg, rgb(60, 60, 60) 0%, rgb(18, 18, 18) 25%, black 100%)"
+  }
+];
 
-const savedMode = localStorage.getItem("mode");
-if (savedMode) {
-  document.documentElement.dataset.mode = savedMode;
-} else {
-  document.documentElement.dataset.mode = "light";
-}
+const themesMap = Object.fromEntries(themes.map(t => [t.name, t]));
 
-if (customThemeSelector) {
-  customThemeSelector.addEventListener("change", customThemeSwitch);
+customizeBgOptions.forEach(button => {
+  button.addEventListener("click", () => {
+    const themeName = button.dataset.theme;
+    applyTheme(themeName);
+  });
+})
+
+function applyTheme(themeName) {
+  const theme = themesMap[themeName];
+  if (!theme) return;
+  const darkMode = isDark();
+  const bg = darkMode ? theme.dark : theme.light;
+  document.body.style.background = bg;
+  localStorage.setItem("customTheme", themeName);
 }
 
 function responsiveWebsite() {
@@ -910,6 +1009,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderTasks(currentTaskSort);
 
   searchBar.value = "";
+  switchKeyCombo();
 
   closeSidebarBtn.style.display = "none";
 
@@ -948,6 +1048,15 @@ document.addEventListener("DOMContentLoaded", () => {
         left: "",
         center: "prev,title,next",
         right: "dayGridMonth,dayGridWeek,dayGridDay",
+      },
+      eventDidMount(info) {
+        console.log("event did mount", info.el);
+        const task = tasks.find(t => String(t.id) === String(info.event.id));
+        if (!task) return;
+
+        const urgency = getTaskUrgency(task);
+        applyUrgencyStyle(info.el, urgency);
+        applyUrgencyStyle(info.el.closest('.fc-event') || info.el, urgency);
       },
       dateClick: function (info) {
         taskCreationDiv.style.display = "flex";
@@ -1039,6 +1148,13 @@ function saveEditedTask() {
   refreshCharts();
 }
 
+sidebarBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    sidebarBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  });
+});
+
 dashboardBtn.addEventListener("click", () => {
   document.documentElement.classList.add("dashboardActive");
   document.documentElement.classList.remove("isAnalyticsView");
@@ -1121,41 +1237,40 @@ themeBtn.addEventListener("click", () => {
 });
 
 agentBtn.addEventListener("click", () => {
-  const isaiView = document.documentElement.classList.toggle("aiView");
+   aiOptions.classList.toggle("show");
+});
+
+  /* const isaiView = document.documentElement.classList.toggle("aiView");
 
   if (isaiView) {
-    const aiDiv = document.createElement("div");
-    aiDiv.className = "aiDiv";
+    const aiDiv = document.querySelector(".aiDiv");
 
-    const aiName = document.createElement("div");
-    aiName.className = "aiName";
-    aiName.textContent = "ai Assistant";
-    aiDiv.appendChild(aiName);
+    const aiName = document.querySelector(".aiName");
 
-    const aiPrioritySuggestionBtn = document.createElement("button");
-    aiPrioritySuggestionBtn.className = "aiPrioritySuggestionBtn";
-    aiPrioritySuggestionBtn.textContent = "Start Analysis";
+    const aiPrioritySuggestionBtn = document.querySelector(".aiPrioritySuggestionBtn");
 
-    const aiPrioritySuggestions = document.createElement("div");
-    aiPrioritySuggestions.className = "aiPrioritySuggestions";
+    const aiPrioritySuggestions = document.querySelector(".aiPrioritySuggestions"); 
 
     aiPrioritySuggestionBtn.addEventListener("click", async () => {
       aiPrioritySuggestions.textContent = "Thinking...";
 
-      const raw = await getSuggestedPriorities();
-      if (raw.error) {
+      const data = await getSuggestedPriorities();
+      if (data.error) {
         aiPrioritySuggestions.textContent =
           "ai is busy right now. Try again in a moment.";
         return;
+      } else {
+        console.log(data.priorities);
       }
 
-      const result = JSON.parse(raw);
+      const result = data;
 
       aiPrioritySuggestions.innerHTML = "";
       result.priorities.forEach((item, index) => {
         const entry = document.createElement("div");
         entry.className = "aiResultEntry";
         entry.innerHTML = `<strong>${index + 1}. ${item.title}</strong><p>${item.reason}</p>`;
+        console.log(result);
         aiPrioritySuggestions.appendChild(entry);
       });
     });
@@ -1170,8 +1285,7 @@ agentBtn.addEventListener("click", () => {
     hideOverlay();
     document.querySelector(".aiDiv")?.remove();
     document.querySelectorAll("body >  *").forEach((el) => (el.inert = false));
-  }
-});
+  } */
 
 decrastinatorBtn.addEventListener("click", () => {
   const isDecrastinatorView =
@@ -1275,9 +1389,9 @@ window.addEventListener("load", () => {
   }
 });
 
-const savedTheme = localStorage.getItem("theme");
+const savedTheme = localStorage.getItem("customTheme");
 if (savedTheme) {
-  document.documentElement.dataset.theme = savedTheme;
+  applyTheme(savedTheme);
 }
 
 noTasksYetAlert.style.display = "inline";
@@ -1400,11 +1514,13 @@ addTaskBtn.addEventListener("click", () => {
 });
 
 function showNoTasksYet() {
-  if (taskList.children.length === 0) {
-    noTasksYetAlert.style.display = "inline";
-  } else {
-    noTasksYetAlert.style.display = "none";
-  }
+  setInterval(() => {
+    if (taskList.innerHTML === "") {
+      noTasksYetAlert.style.display = "inline";
+    } else {
+      noTasksYetAlert.style.display = "none";
+    }
+  }, 100);
 }
 
 function showNoNotesYet() {
@@ -1428,6 +1544,9 @@ function updateTasksDoneCount() {
   const tasksLeftDisplay = document.querySelector(".numberOfTasksLeft");
   if (tasksLeftDisplay) {
     tasksLeftDisplay.textContent = tasksLeft;
+  }
+  if (totalTasks === 0) {
+    tasksLeftDisplay.textContent = "-";
   }
 
   const totalTasksDisplay = document.querySelector(".numberOfTasksTotal");
@@ -1568,7 +1687,7 @@ function addActivity(message, type = "info") {
 }
 
 function refreshTaskDropdown() {
-  taskSelectionDropdown.innerHTML = "";
+  taskSelectionDropdown.innerHTML = `<option value="" disabled selected>Choose a task to focus on...</option>`;
 
   tasks.forEach(task => {
     if (!task.completed) {
@@ -1624,15 +1743,33 @@ lengthButtons.forEach((button) => {
   });
 });
 
+function enterFocusMode() {
+  if (!taskSelectionDropdown.value) return;
+
+  focusMode = true;
+
+  activeFocusTask = taskSelectionDropdown.options[taskSelectionDropdown.selectedIndex].text;
+
+  startTimer();
+}
+
+function exitFocusMode() {
+  focusMode = false;
+  activeFocusTask = null;
+
+  currentFocusedTask.style.display = "none";
+  taskSelectionDropdown.style.display = "block";
+}
+
 function startTimer() {
   if (isRunning) return;
 
-  if (!taskSelectionDropdown.value) return;
-  const selectedFocusedTask =
-    taskSelectionDropdown.options[taskSelectionDropdown.selectedIndex].text;
+  if (!taskSelectionDropdown.value && !focusMode) return;
+  const selectedFocusedTask = focusMode ? activeFocusTask : taskSelectionDropdown.options[taskSelectionDropdown.selectedIndex].text;
   currentFocusedTask.textContent = "Focusing on: " + selectedFocusedTask;
   currentFocusedTask.style.display = "inline";
   currentFocusedTask.dataset.order = "2";
+  addActivity(`Started focus session: ${selectedFocusedTask}`, "focus");
 
   const currentFocusedTaskDiv = document.querySelector(
     ".currentFocusedTaskDiv",
@@ -1661,11 +1798,12 @@ function startTimer() {
       if (Notification.permission === "granted") {
         new Notification("Focus timer finished! Take a break.");
       }
+      document.querySelector(".currentFocusedTaskDiv").remove();
+      localStorage.setItem("focusSessions", Number(localStorage.getItem("focusSessions") || 0) + 1);
       updateFocusSessionsCount();
       restartTimer();
     }
   }, 250);
-  addActivity(`Started focus session: ${selectedFocusedTask}`, "focus");
 }
 
 function pauseTimer() {
@@ -1683,12 +1821,17 @@ function restartTimer() {
   updateRing(totalTime);
   startTimerBtn.style.display = "flex";
   pauseTimerBtn.style.display = "none";
-  currentFocusedTask.style.display = "none";
-  taskSelectionDropdown.style.display = "flex";
+  if (!focusMode) {
+    currentFocusedTask.style.display = "none";
+  }
+  taskSelectionDropdown.style.display = "block";
   timerButtons.style.marginTop = "0px";
+
+  focusMode = false;
+  activeFocusTask = null;
 }
 
-startTimerBtn.addEventListener("click", startTimer);
+startTimerBtn.addEventListener("click", enterFocusMode);
 pauseTimerBtn.addEventListener("click", pauseTimer);
 restartTimerBtn.addEventListener("click", restartTimer);
 
@@ -2227,6 +2370,10 @@ if (productivityScoreChartTooltip) {
   });
 }
 
+expandMiniAnalyticsBtn.addEventListener("click", () => {
+  miniAnalytics.classList.toggle("show");
+});
+
 analyticsBtn.addEventListener("click", () => {
   document.documentElement.classList.remove("dashboardActive");
   document.documentElement.classList.add("isAnalyticsView");
@@ -2255,14 +2402,29 @@ function getTasksAsData() {
 }
 
 async function getSuggestedPriorities() {
-  const tasks = getTasksAsData();
+  const payload = getTasksAsData();
 
-  const res = await fetch("http://localhost:5000/api/ai/priorities", {
+  const res = await fetch("http://127.0.0.1:5000/api/ai/priorities", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tasks }),
+    body: JSON.stringify({ tasks: payload }),
   });
 
-  const data = await res.json();
-  return data;
+  if (!res.ok) {
+    throw new Error(`Server error: ${res.status}`);
+  }
+  return await res.json();
+}
+
+async function generateSchedule(tasks) {
+  const res = await fetch("http://127.0.0.1:5000/api/ai/schedule", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ 
+      tasks,
+      start_time: "07:00",
+      end_time: "20:00"
+    })
+  });
+  return await res.json();
 }
