@@ -787,14 +787,6 @@ function switchKeyCombo() {
   searchBar.placeholder = searchBarPlaceholder;
 }
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 50) {
-    searchDiv.classList.add("scrolled");
-  } else {
-    searchDiv.classList.remove("scrolled");
-  }
-});
-
 document.addEventListener("click", (e) => {
   document.querySelectorAll(".taskOptions").forEach((menu) => {
     menu.classList.remove("show");
@@ -864,68 +856,77 @@ function applyUrgencyStyle(el, urgency) {
 
 customizeBtn.addEventListener("click", () => {
   customizeDiv.classList.add("show");
+  customizeDiv.classList.remove("closing");
+});
+
+const closeCustomizeBtn = document.querySelector(".closeCustomizeBtn");
+closeCustomizeBtn.addEventListener("click", () => {
+  customizeDiv.classList.add("closing");
+  setTimeout(() => {
+    customizeDiv.classList.remove("show", "closing");
+  }, 300);
 });
 
 const themes = [
   {
     name: "red",
-    light: "linear-gradient(135deg, maroon, #f8dce5)",
-    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, maroon, black 100%)"
+    light: "linear-gradient(65deg, maroon, #f8dce5)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, rgb(62, 0, 0), black 100%)"
   },
   {
     name: "gold",
-    light: "linear-gradient(135deg, rgb(255, 200, 0), #fff6d6)",
-    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, rgb(255, 200, 0), black 100%)"
+    light: "linear-gradient(65deg, rgb(226, 160, 57), #fff6d6)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, rgb(79, 56, 19), black 100%)"
   },
   {
     name: "lightGreen",
-    light: "linear-gradient(135deg, lightgreen, #f1fff1)",
-    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, lightgreen, black 100%)"
+    light: "linear-gradient(65deg, green, #f1fff1)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, green, black 100%)"
   },
   {
     name: "green",
-    light: "linear-gradient(135deg, forestgreen, #e6f7e6)",
-    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, forestgreen, black 100%)"
+    light: "linear-gradient(65deg, #2a4b2a, rgb(18, 77, 18), #e6f7e6)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, rgb(18, 77, 18), black 100%)"
   },
   {
     name: "teal",
-    light: "linear-gradient(135deg, teal, #e6f9f9)",
-    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, teal, black 100%)"
+    light: "linear-gradient(65deg, rgb(0, 110, 120), #e6f9f9)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, rgb(0, 110, 120), black 100%)"
   },
   {
     name: "aqua",
-    light: "linear-gradient(135deg, rgb(0, 213, 255), #ecfdff)",
-    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, rgb(0, 213, 255), black 100%)"
+    light: "linear-gradient(65deg, #008ca2, rgb(0, 213, 255), #ecfdff)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, rgb(0, 102, 123), black 100%)"
   },
   {
     name: "blue",
-    light: "linear-gradient(135deg, rgb(0, 149, 255), #eef8ff)",
-    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, rgb(0, 149, 255), black 100%)"
+    light: "linear-gradient(65deg, rgb(0, 149, 255), #eef8ff)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, rgb(0, 77, 132), black 100%)"
   },
   {
     name: "violet",
-    light: "linear-gradient(135deg, rgb(198, 130, 238), #f6efff)",
-    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, rgb(198, 130, 238), black 100%)"
+    light: "linear-gradient(65deg, rgb(198, 130, 238), #f6efff)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, rgb(105, 68, 126), black 100%)"
   },
   {
     name: "purple",
-    light: "linear-gradient(135deg, rgb(142, 0, 185), #f5ebff)",
-    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, rgb(142, 0, 185), black 100%)"
+    light: "linear-gradient(65deg, rgb(142, 0, 185), #f5ebff)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, rgb(87, 0, 114), black 100%)"
   },
   {
     name: "pink",
-    light: "linear-gradient(135deg, pink, #fff2f7)",
-    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, pink, black 100%)"
+    light: "linear-gradient(65deg, pink, #fff2f7)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, #a3627b, black 100%)"
   },
   {
     name: "white",
-    light: "linear-gradient(135deg, white, #fafafa)",
-    dark: "linear-gradient(135deg, rgb(18, 18, 18) 25%, white, black 100%)"
+    light: "linear-gradient(65deg, white, #fafafa)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, #7c7c7c, black 100%)"
   },
   {
     name: "black",
-    light: "linear-gradient(135deg, rgb(18, 18, 18), #f2f2f2)",
-    dark: "linear-gradient(135deg, rgb(60, 60, 60) 0%, rgb(18, 18, 18) 25%, black 100%)"
+    light: "linear-gradient(65deg, rgb(18, 18, 18), #f2f2f2)",
+    dark: "linear-gradient(65deg, rgb(60, 60, 60) 0%, rgb(18, 18, 18) 25%, black 100%)"
   }
 ];
 
@@ -950,7 +951,6 @@ function applyTheme(themeName) {
 function responsiveWebsite() {
   if (window.innerWidth < 768) {
     console.log("Mobile");
-    hamburgerBtn.style.display = "flex";
     sidebar.style.display = "none";
     section1.style.flexDirection = "column";
     section2.style.flexDirection = "column";
@@ -958,7 +958,6 @@ function responsiveWebsite() {
     dashboardContent.style.marginLeft = "0px";
   } else {
     console.log("Desktop");
-    hamburgerBtn.style.display = "none";
     sidebar.style.display = "flex";
     section1.style.flexDirection = "row";
     section2.style.flexDirection = "row";
@@ -1223,11 +1222,21 @@ closeNotiPopup.addEventListener("click", () => {
   }, 4000);
 });
 
+const savedMode = localStorage.getItem("mode");
+if (savedMode) {
+  document.documentElement.dataset.mode = savedMode;
+}
+
 themeBtn.addEventListener("click", () => {
   const currentMode = document.documentElement.dataset.mode;
   const newMode = currentMode === "dark" ? "light" : "dark";
   document.documentElement.dataset.mode = newMode;
   localStorage.setItem("mode", newMode);
+
+  const savedTheme = localStorage.getItem("customTheme");
+  if (savedTheme) {
+    applyTheme(savedTheme);
+  }
   
   if (newMode === "dark") {
     themeBtn.innerHTML = `<img src="Images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;

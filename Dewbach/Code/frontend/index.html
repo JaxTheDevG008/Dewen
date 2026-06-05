@@ -27,38 +27,74 @@
     </button>
   </div>
 
-  <div class="hamburgerBtn">
-    <img src="Images/Hamburger-Icon.png" class="hamburgerIcon">
-  </div>
-
   <!-- Navigation -->
   <nav class="sidebar">
-    <div class="sidebarHeader">
-      <h1 class="workspaceLabel">Workspace</h1>
-      <hr class="sidebarHeaderSplit">
+    <div class="sidebarBtns">
+      <button class="dashboardBtn">
+        <img src="Images/Dashboard-Icon.png" class="dashboardIcon">
+        Dashboard
+      </button>
+      <button class="whiteboardBtn">
+        <img src="Images/Whiteboard-Icon.png" class="whiteboardIcon">
+        Whiteboard
+      </button>
+      <button class="calendarBtn">
+        <img src="Images/Date-Icon.png" class="calendarIcon">
+        Calendar
+      </button>
+      <button class="analyticsBtn">
+        <img src="Images/Analytics-Icon.png" class="analyticsIcon">
+        Analytics
+      </button>
+      <button class="settingsBtn">
+        <img src="Images/Settings-Icon.png" class="settingsIcon">
+        Settings
+      </button>
+      <button class="closeSidebarBtn">✕</button>
+    </div>
+  </nav>
+
+  <nav class="topbar">
+    <div class="hamburgerBtn">
+      <img src="Images/Hamburger-Icon.png" class="hamburgerIcon">
     </div>
 
-    <button class="dashboardBtn">
-      <img src="Images/Dashboard-Icon.png" class="dashboardIcon">
-      Dashboard
-    </button>
-    <button class="whiteboardBtn">
-      <img src="Images/Whiteboard-Icon.png" class="whiteboardIcon">
-      Whiteboard
-    </button>
-    <button class="calendarBtn">
-      <img src="Images/Date-Icon.png" class="calendarIcon">
-      Calendar
-    </button>
-    <button class="analyticsBtn">
-      <img src="Images/Analytics-Icon.png" class="analyticsIcon">
-      Analytics
-    </button>
-    <button class="settingsBtn">
-      <img src="Images/Settings-Icon.png" class="settingsIcon">
-      Settings
-    </button>
-    <button class="closeSidebarBtn">✕</button>
+    <div class="searchDiv">
+      <img src="Images/Search-Icon.png" class="searchBarIcon">
+      <input class="searchBar" type="text">
+      <ul class="searchResultsMenu">
+        <!-- Search Results -->
+      </ul>
+      <div class="noSearchResults">No search results</div>
+    </div>
+
+    <div class="commandCenterBtns">
+      <button class="themeBtn"></button>
+
+      <div class="agentBtnDiv">
+        <button class="agentBtn">
+          <img src="Images/Agent-Icon.png" class="agentIcon">
+        </button>
+
+        <div class="aiOptions">
+          <ul class="aiOptionsList">
+            <li class="prioritySuggestionOption">Priority Suggestion</li>
+            <li class="scheduleSuggestionOption">Daily Schedule</li>
+            <li class="riskReportOption">Risk Report</li>
+          </ul>
+        </div>
+      </div>
+
+      <button class="decrastinatorBtn">
+        <img src="Images/Decrastinator-Icon.png" class="decrastinatorIcon">
+      </button>
+    </div>
+    
+    <div class="customizeBtn">
+      <button class="customizeBtn">
+        Customize
+      </button>
+    </div>
   </nav>
 
   <!-- Main Content -->
@@ -69,45 +105,6 @@
         <div class="daySummary">
           <p class="currentDate"></p>
           <h1 class="greeting"></h1>
-        </div>
-
-        <div class="actualCommands">
-          <div class="searchDiv">
-            <img src="Images/Search-Icon.png" class="searchBarIcon">
-            <input class="searchBar" type="text">
-            <ul class="searchResultsMenu">
-              <!-- Search Results -->
-            </ul>
-            <div class="noSearchResults">No search results</div>
-          </div>
-
-          <div class="commandCenterBtns">
-            <button class="themeBtn"></button>
-
-            <div class="agentBtnDiv">
-              <button class="agentBtn">
-                <img src="Images/Agent-Icon.png" class="agentIcon">
-              </button>
-
-              <div class="aiOptions">
-                <ul class="aiOptionsList">
-                  <li class="prioritySuggestionOption">Priority Suggestion</li>
-                  <li class="scheduleSuggestionOption">Daily Schedule</li>
-                  <li class="riskReportOption">Risk Report</li>
-                </ul>
-              </div>
-            </div>
-
-            <button class="decrastinatorBtn">
-              <img src="Images/Decrastinator-Icon.png" class="decrastinatorIcon">
-            </button>
-          </div>
-          
-          <div class="customizeBtn">
-            <button class="customizeBtn">
-              Customize
-            </button>
-          </div>
         </div>
       </div>
 

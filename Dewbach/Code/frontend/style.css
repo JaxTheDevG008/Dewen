@@ -1,71 +1,77 @@
 :root {
-  --bg-color: oklch(99.107% 0.00011 271.152);
-  --close-noti-popup-hover-bg-color: oklch(93.403% 0.00011 271.152);
-  --bd-color: oklch(89.755% 0.0001 271.152);
+  --close-noti-popup-hover-bg-color: rgb(233, 233, 233);
+  --bd-color: rgb(221, 221, 221);
   --text-color: black;
-  --sidebar-bg: rgba(62, 62, 62, 0.2);
-  --input-bg: oklch(93.1% 0.00011 271.152);
+  --input-bg: rgb(232, 232, 232);
   --btn-bg-color: var(--input-bg);
-  --btn-hover-bg-color: oklch(90.06% 0.0001 271.152);
-  --work-areas-bg-color: oklch(100% 0.00011 271.152);
-  --input-bd-color: oklch(100% 0.00011 271.152);
-  --task-bg-color: oklch(100% 0.00011 271.152);
-  --task-hover-bg-color: oklch(93.1% 0.00011 271.152);
-  --theme-btn-bg-color: oklch(20.687% 0.00986 285.48);
-  --theme-btn-hover-bg-color: oklch(36.564% 0.02398 285.138);
-  --task-creation-div-bg-color: oklch(96.416% 0.00011 271.152);
-  --cancel-task-creation-btn-bg-color: oklch(93.1% 0.00011 271.152);
-  --cancel-task-creation-btn-hover-bg-color: oklch(83.127% 0.0022 14.838);
+  --btn-hover-bg-color: rgb(222, 222, 222);
+  --work-areas-bg-color: rgb(232, 232, 232);
+  --input-bd-color: rgb(255, 255, 255);
+  --task-bg-color: rgb(255, 255, 255);
+  --task-hover-bg-color: rgb(232, 232, 232);
+  --theme-btn-bg-color: rgb(23, 23, 28);
+  --theme-btn-hover-bg-color: rgb(61, 61, 75);
+  --task-creation-div-bg-color: rgb(243, 243, 243);
+  --cancel-task-creation-btn-bg-color: rgb(23, 23, 28);
+  --cancel-task-creation-btn-hover-bg-color: rgb(61, 61, 75);
   --ask-for-noti-popup-bg-color: rgba(127, 127, 127, 0.2);
   --task-attribute-separator-color: black;
-  --task-options-btn-bg-color: oklch(93.1% 0.00011 271.152);
-  --task-options-btn-hover-bg-color: oklch(86.07% 0.0001 271.152);
-  --timer-progress-ring-color: oklch(57.737% 0.05546 247.083);
-  --fc-buttons-bg-color: oklch(100% 0.00011 271.152 / 0.3);
+  --task-options-btn-bg-color: rgb(23, 23, 28);
+  --task-options-btn-hover-bg-color: rgb(61, 61, 75);
+  --timer-progress-ring-color: rgb(95, 125, 153);
+  --fc-buttons-bg-color: rgba(255, 255, 255, 0.3);
   --fc-buttons-icon-color: black;
-  --fc-daygrid-day-bg-color: oklch(97.913% 0.00011 271.152);
-  --fc-daygrid-day-hover-bg-color: oklch(96.715% 0.00011 271.152);
-  --fc-border-color: oklch(100% 0.00011 271.152);
+  --fc-daygrid-day-bg-color: rgb(217, 217, 217);
+  --fc-daygrid-day-hover-bg-color: oklch(78.577% 0.00009 271.152);
+  --fc-border-color: oklch(51.795% 0.09629 20.892);
 }
 
 [data-mode="dark"] {
-  --bg-color: linear-gradient(180deg, oklch(18.22% 0.00002 271.152) 0%, oklch(18.717% 0.00202 286.054) 100%);
-  --close-noti-popup-hover-bg-color: oklch(11.779% 0.05035 260.832);
-  --bd-color: oklch(33.289% 0.00004 271.152);
+  --close-noti-popup-hover-bg-color: rgb(0, 4, 24);
+  --bd-color: rgb(54, 54, 54);
   --text-color: white;
-  --sidebar-bg: rgba(61, 61, 61, 0.2);
-  --input-bg: oklch(20.687% 0.00986 285.48);
+  --input-bg: rgb(23, 23, 28);
   --btn-bg-color: var(--input-bg);
-  --btn-hover-bg-color: oklch(23.337% 0.01149 285.452);
-  --work-areas-bg-color: oklch(18.717% 0.00202 286.054);
-  --input-bd-color: oklch(11.779% 0.05035 260.832);
-  --task-bg-color: oklch(18.717% 0.00202 286.054);
-  --task-hover-bg-color: oklch(20.522% 0.01237 270.76);
-  --theme-btn-bg-color: oklch(93.1% 0.00011 271.152);
-  --theme-btn-hover-bg-color: oklch(77.311% 0.00009 271.152);
-  --task-creation-div-bg-color: oklch(17.24% 0.0326 258.33);
-  --cancel-task-creation-btn-bg-color: oklch(20% 0.05 260);
-  --cancel-task-creation-btn-hover-bg-color: oklch(27.167% 0.07952 260.626);
+  --btn-hover-bg-color: rgb(61, 61, 75);
+  --work-areas-bg-color: rgb(23, 23, 28);
+  --input-bd-color: rgb(54, 54, 54);
+  --task-bg-color: rgb(23, 23, 28);
+  --task-hover-bg-color: rgb(61, 61, 75);
+  --theme-btn-bg-color: rgb(232, 232, 232);
+  --theme-btn-hover-bg-color: rgb(181, 181, 181);
+  --task-creation-div-bg-color: rgb(243, 243, 243);
+  --cancel-task-creation-btn-bg-color: rgb(23, 23, 28);
+  --cancel-task-creation-btn-hover-bg-color: rgb(61, 61, 75);
   --ask-for-noti-popup-bg-color: rgba(31, 31, 31, 0.2);
   --task-attribute-separator-color: rgb(255, 255, 255);
-  --task-options-btn-bg-color: oklch(26.741% 0.04452 281.116);
-  --task-options-btn-hover-bg-color: oklch(36.324% 0.06848 281.337);
-  --timer-progress-ring-color: oklch(57.737% 0.05546 247.083);
-  --fc-buttons-bg-color: oklch(11.779% 0.05035 260.832);
+  --task-options-btn-bg-color: rgb(23, 23, 28);
+  --task-options-btn-hover-bg-color: rgb(61, 61, 75);
+  --timer-progress-ring-color: rgb(95, 125, 153);
+  --fc-buttons-bg-color: rgba(255, 255, 255, 0.3);
   --fc-buttons-icon-color: white;
-  --fc-daygrid-day-bg-color: oklch(20.687% 0.00986 285.48);
-  --fc-daygrid-day-hover-bg-color: oklch(24.235% 0.01328 285.346);
-  --fc-border-color: oklch(11.779% 0.05035 260.832);
+  --fc-daygrid-day-bg-color: rgb(26, 26, 28);
+  --fc-daygrid-day-hover-bg-color: rgb(46, 47, 52);
+  --fc-border-color: rgb(0, 4, 24);
+}
+
+html {
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
 }
 
 body {
   font-family: "Inter";
   display: flex;
   flex-direction: row;
-  width: 100%;
-  background: var(--bg-color);
+  width: 100vw;
+  min-height: 100vh;
   color: var(--text-color);
   align-items: flex-start;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -193,51 +199,26 @@ button:hover {
   border: none;
   height: 100vh;
   position: fixed;
-  z-index: 9990;
-  display: flex;
+  z-index: 9800;
+  display: none;
   flex-direction: column;
   justify-content: flex-start;
   gap: 15px;
-  width: 225px;
-  background: var(--sidebar-bg);
+  width: 220px;
+  background-color: rgb(37, 37, 37);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: var(--text-color);
+  color: white;
   box-sizing: border-box;
   top: 0px;
   left: 0px;
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
 }
 
-.sidebarHeader {
+.sidebarBtns {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.workspaceLabel {
-  font-size: 1.2rem;
-  padding: 10px;
-  background-color: #5F7D99;
-  border-radius: 12px;
-  color: white;
-  width: 150px;
-  text-align: center;
-}
-
-.sidebarHeaderSplit {
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  width: 100%;
-  margin: 15px 0;
-}
-
-[data-mode="dark"] .sidebarHeaderSplit {
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  gap: 15px;
+  margin-top: 60px;
 }
 
 .sidebar button {
@@ -247,37 +228,51 @@ button:hover {
   justify-content: center;
   gap: 10px;
   padding: 10px;
-  background-color: var(--sidebar-bg-color);
+  background-color: rgb(37, 37, 37);
   border: none;
   border-radius: 12px;
   position: relative;
   height: 39px;
   font-size: 1rem;
-  color: var(--text-color);
+  color: white;
 }
 
 .sidebar button:hover {
-  background-color: var(--btn-bg-color);
+  background-color: rgb(51, 51, 51);
   cursor: pointer;
 }
 
 .sidebar button.active {
-  background-color: var(--btn-hover-bg-color);
+  background-color: rgb(51, 51, 51);
 }
 
 .sidebar img {
   width: 18px;
   height: 18px;
-
-  filter: brightness(0);
+  filter: brightness(0) invert(1);
   opacity: 0.7;
   transition: 0.2s ease;
 }
 
-[data-mode="dark"] .sidebar img {
-  filter: brightness(0) invert(1);
-  opacity: 0.7;
-  transition: 0.2s ease;
+.topbar {
+  position: fixed;
+  flex-direction: row;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  gap: 10px;
+  padding: 8px 12px;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(37, 37, 37);
+  border: none;
+  border-radius: 12px;
+  height: 5vh;
+  font-size: 1rem;
+  color: var(--text-color);
+  flex-wrap: nowrap;
 }
 
 .hamburgerBtn {
@@ -286,30 +281,23 @@ button:hover {
   justify-content: center;
   gap: 10px;
   padding: 10px;
-  background-color: var(--sidebar-bg-color);
   border: none;
   border-radius: 12px;
   position: relative;
   height: 39px;
   font-size: 1rem;
-  color: var(--text-color);
+  z-index: 9999;
 }
 
 .hamburgerBtn:hover {
-  background-color: var(--btn-bg-color);
+  background-color: rgb(51, 51, 51);
   cursor: pointer;
 }
 
 .hamburgerIcon {
   width: 38px;
   height: 38px;
-  filter: brightness(0);
-}
-
-[data-mode="dark"] .hamburgerIcon {
   filter: brightness(0) invert(1);
-  opacity: 0.7;
-  transition: 0.2s ease;
 }
 
 /* .commandCenter,
@@ -337,6 +325,7 @@ button:hover {
   justify-content: center;
   margin-left: 300px;
   width: 100%;
+  margin-top: 50px;
 }
 
 .header {
@@ -384,41 +373,30 @@ button:hover {
 
 .searchDiv {
   position: relative;
-  width: 100%;
+  width: 280px;
+  flex: 1;
+  min-width: 150px;
+  z-index: 9990;
+  display: flex;
+  align-items: center;
 }
 
 .searchBar {
-  width: 340px;
-  height: 20px;
+  width: 30%;
+  height: 28px;
   border: 1px solid var(--input-bg-color);
   background-color: var(--btn-bg-color);
   color: var(--text-color);
-  padding-left: 40px;
-  z-index: 9999;
+  padding-left: 32px;
+  z-index: 9998;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 20px 8px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+  left: 40%;
 }
 
-.searchDiv.scrolled {
-  position: fixed;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  max-width: 90%;
-  z-index: 1000;
-}
-
-.searchDiv.scrolled .searchBar {
-  position: fixed;
-  top: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  max-width: 90%;
-  z-index: 1000;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.searchDiv.scrolled .searchResultsMenu {
+.searchResultsMenu {
   top: 60px;
   left: 50%;
   transform: translateX(-50%);
@@ -427,30 +405,16 @@ button:hover {
   z-index: 999;
 }
 
-.searchDiv.scrolled .searchBarIcon {
-  top: 39px;
-  left: calc(50% - 278px);
-  filter: brightness(0);
-  opacity: 0.7;
-  transition: 0.2s ease;
-  z-index: 1001;
-}
-
-[data-mode="dark"] .searchDiv.scrolled .searchBarIcon {
-  filter: brightness(0) invert(1);
-  opacity: 0.7;
-  transition: 0.2s ease;
-}
-
 .searchBarIcon {
-  width: 18px;
+  width: 16px;
   position: absolute;
-  left: 20px;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
   filter: brightness(0);
   opacity: 0.7;
   transition: 0.2s ease;
+  z-index: 9999;
 }
 
 [data-mode="dark"] .searchBarIcon {
@@ -464,16 +428,19 @@ button:hover {
   border: 1px solid var(--bd-color);
   border-radius: 12px;
   position: absolute;
-  width: 240px;
-  top: 100%;
   display: none;
   flex-direction: column;
   gap: 5px;
   padding: 10px;
   list-style-type: none;
-  z-index: 1000;
   opacity: 0;
   visibility: hidden;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  max-width: 90%;
+  z-index: 999;
 }
 
 .searchResultsMenu.show {
@@ -498,12 +465,12 @@ button:hover {
 }
 
 .matchHighlight {
-  background-color: oklch(82.939% 0.03512 220.047);
+  background-color: rgb(210, 227, 246);
   color: var(--text-color);
 }
 
 [data-mode="dark"] .matchHighlight {
-  background-color: oklch(31.654% 0.01649 222.028);
+  background-color: rgb(81, 85, 121);
   color: var(--text-color);
 }
 
@@ -544,7 +511,7 @@ button:hover {
   position: relative;
   width: 300px;
   font-weight: bold;
-  color: oklch(75.306% 0.06089 243.311);
+  color: var(--text-color);
 }
 
 .greeting {
@@ -558,7 +525,9 @@ button:hover {
 
 .commandCenterBtns {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .agentBtnDiv {
@@ -581,7 +550,7 @@ button:hover {
 }
 
 .agentBtn:hover {
-  background-color: #b3bae7;
+  background-color: rgb(179, 186, 231);
   cursor: pointer;
 }
 
@@ -640,7 +609,7 @@ button:hover {
   left: 0px;
   width: 100vw;
   height: 100vh;
-  background: oklch(0% 0 0 / 0.3);
+  background: rgba(0, 0, 0, 0.3);
   z-index: 9990;
 }
 
@@ -752,7 +721,7 @@ button:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: rgb(255, 255, 255);
   padding: 2rem;
   border-radius: 15px;
   width: 450px;
@@ -769,7 +738,7 @@ button:hover {
   top: 0px;
   left: 0px;
   margin: 20px;
-  color: black;
+  color: rgb(0, 0, 0);
   font-size: 1.2rem;
 }
 
@@ -818,7 +787,7 @@ button:hover {
   z-index: 10;
   font-size: 4.5rem;
   font-weight: 400;
-  color: black;
+  color: rgb(0, 0, 0);
   z-index: 2;
   margin: 0;
   margin-top: 5px;
@@ -847,7 +816,7 @@ button:hover {
   height: 100vh;
   position: fixed;
   z-index: 9990;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: flex-start;
   gap: 15px;
@@ -855,6 +824,8 @@ button:hover {
   background: var(--work-areas-bg-color);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(5px);
   color: var(--text-color);
   box-sizing: border-box;
   top: 0px;
@@ -863,16 +834,47 @@ button:hover {
   border-bottom-left-radius: 20px;
 }
 
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
 .customizeDiv.show {
   display: flex;
+  animation: slideInFromLeft 0.3s ease-out;
+}
+
+.customizeDiv.closing {
+  animation: slideOutToRight 0.3s ease-in forwards;
 }
 
 .customizeHeader {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
+}
+
+.custoizeHeaderTitle {
+  margin-top: 0px;
 }
 
 .closeCustomizeBtn {
@@ -925,7 +927,7 @@ button:hover {
 }
 
 .tealBgBtn {
-  background-color: teal;
+  background-color: rgb(0, 110, 120);
   border: none;
 }
 
@@ -960,7 +962,6 @@ button:hover {
 
 .blackBgBtn {
   background-color: black;
-  border: none;
 }
 
 .miniAnalyticsDiv {
@@ -1193,6 +1194,10 @@ button:hover {
   overflow-x: hidden;
   overflow-y: auto;
   background-color: var(--work-areas-bg-color);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 :root.isKanbanView .toDoList {
@@ -1291,43 +1296,43 @@ button:hover {
 }
 
 .toDoDropZone {
-  background-color: oklch(96.744% 0.00143 285.225);
+  background-color: rgb(246, 246, 246);
   min-height: 400px;
   width: 30%;
   border-radius: 8px;
   padding: 10px;
   gap: 10px;
-  border: 1px solid oklch(85.452% 0.0001 271.152);
+  border: 1px solid rgb(217, 217, 217);
 }
 
 [data-mode="dark"] .toDoDropZone {
-  background-color: oklch(22.728% 0.00385 285.998);
+  background-color: rgb(57, 57, 67);
 }
 
 .inProgressDropZone {
-  background-color: oklch(97.048% 0.01429 254.737);
+  background-color: rgb(247, 247, 247);
   min-height: 400px;
   width: 30%;
   border-radius: 8px;
   padding: 10px;
-  border: 1px solid oklch(86.49% 0.01415 258.444);
+  border: 1px solid rgb(220, 220, 229);
 }
 
 [data-mode="dark"] .inProgressDropZone {
-  background-color: oklch(24.547% 0.00588 236.946);
+  background-color: rgb(62, 62, 79);
 }
 
 .allDoneDropZone {
-  background-color: oklch(97.932% 0.02065 166.41);
+  background-color: rgb(249, 249, 248);
   min-height: 400px;
   width: 30%;
   border-radius: 8px;
   padding: 10px;
-  border: 1px solid oklch(88.73% 0.01864 166.623);
+  border: 1px solid rgb(226, 226, 224);
 }
 
 [data-mode="dark"] .allDoneDropZone {
-  background-color: oklch(23.25% 0.00354 165.147);
+  background-color: rgb(59, 59, 67);
 }
 
 .addBtn {
@@ -1428,11 +1433,11 @@ input:focus {
   padding: 15px;
   padding-right: 15px;
   width: 500px;
-  background-color: oklch(98.212% 0.00011 271.152);
+  background-color: rgb(250, 250, 250);
 }
 
 [data-mode="dark"] .taskCreationDiv {
-  background-color: oklch(22.728% 0.00385 285.998);
+  background-color: rgb(57, 57, 67);
 }
 
 .actualTaskCreation {
@@ -1600,14 +1605,14 @@ input:focus {
   position: relative;
   bottom: 57px;
   font-family: "Inter";
-  color: oklch(77.628% 0.00009 271.152);
+  color: rgb(197, 197, 197);
 }
 
 .tinyTasksTip {
   font-size: 12px;
   position: relative;
   bottom: 72px;
-  color: oklch(77.628% 0.00009 271.152);
+  color: rgb(197, 197, 197);
   width: 100%;
   margin: 0;
   padding: 0 20px;
@@ -1657,11 +1662,11 @@ input[type="checkbox"] {
 
 input[type="checkbox"]:hover {
   cursor: pointer;
-  border-color: oklch(62.797% 0.11316 167.052);
+  border-color: rgb(70, 190, 140);
 }
 
 input[type="checkbox"]:checked {
-  border-color: oklch(62.797% 0.11316 167.052);
+  border-color: rgb(70, 190, 140);
 }
 
 input[type="checkbox"]::before {
@@ -1671,7 +1676,7 @@ input[type="checkbox"]::before {
   left: 6px;
   width: 7px;
   height: 12px;
-  border: solid oklch(62.797% 0.11316 167.052);
+  border: solid rgb(70, 190, 140);
   border-width: 0 3px 3px 0;
   transform: rotate(45deg) scale(1);
   opacity: 0;
@@ -2031,7 +2036,7 @@ input[type="checkbox"]:checked::before {
 }
 
 [data-mode="light"] .startTimerBtn {
-  background-color: #c9ddf1;
+  background-color: rgb(201, 221, 241);
 }
 
 .startTimerBtnIcon {
@@ -2189,14 +2194,14 @@ input[type="checkbox"]:checked::before {
   position: relative;
   bottom: 53px;
   font-family: "Inter";
-  color: oklch(77.628% 0.00009 271.152);
+  color: rgb(197, 197, 197);
 }
 
 .tinyNotesTip {
   font-size: 12px;
   position: relative;
   bottom: 70px;
-  color: oklch(77.628% 0.00009 271.152);
+  color: rgb(197, 197, 197);
   width: 100%;
   margin: 0;
   padding: 0 20px;
@@ -2214,7 +2219,7 @@ input[type="checkbox"]:checked::before {
   gap: 10px;
   border-radius: 20px;
   padding: 10px;
-  background-color: oklch(98.212% 0.00011 271.152);
+  background-color: rgb(250, 250, 250);
   z-index: 10;
   top: 75px;
   left: 50%;
@@ -2223,7 +2228,7 @@ input[type="checkbox"]:checked::before {
 }
 
 [data-mode="dark"] .noteCreationDiv {
-  background-color: oklch(22.728% 0.00385 285.998);
+  background-color: rgb(57, 57, 67);
 }
 
 .noteInput {
@@ -2705,8 +2710,8 @@ input[type="checkbox"]:checked::before {
 
 .fc .fc-daygrid-day.fc-day-today {
   border-radius: 15px;
-  outline: 3.1px solid #818cf8;
-  color: #818cf8;
+  outline: 3.1px solid rgb(129, 140, 248);
+  color: rgb(129, 140, 248);
   background-color: var(--fc-daygrid-day-bg-color);
 }
 
