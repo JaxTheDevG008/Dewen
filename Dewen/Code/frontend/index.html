@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Dewen</title>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="Images/Dewbach-Favicon.png"/>
+  </head>
+<body>
+  <div class="overlay"></div>
+
+  <!-- Notification Banner -->
+  <div class="askForNotifications">
+    <div class="enableNotiMessage">
+      Enable desktop notifications for the best task experience! (optional)
+    </div>
+    <button class="enableNotificationsBtn">
+      Enable Notifications
+    </button>
+    <button class="closeNotiPopup">
+      ✕
+    </button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="sidebar">
+    <div class="sidebarBtns">
+      <button class="dashboardBtn">
+        <img src="Images/Dashboard-Icon.png" class="dashboardIcon">
+        Dashboard
+      </button>
+      <button class="whiteboardBtn">
+        <img src="Images/Whiteboard-Icon.png" class="whiteboardIcon">
+        Whiteboard
+      </button>
+      <button class="calendarBtn">
+        <img src="Images/Date-Icon.png" class="calendarIcon">
+        Calendar
+      </button>
+      <button class="analyticsBtn">
+        <img src="Images/Analytics-Icon.png" class="analyticsIcon">
+        Analytics
+      </button>
+      <button class="settingsBtn">
+        <img src="Images/Settings-Icon.png" class="settingsIcon">
+        Settings
+      </button>
+    </div>
+  </nav>
+
+  <nav class="topbar">
+    <div class="hamburgerBtn">
+      <img src="Images/Hamburger-Icon.png" class="hamburgerIcon">
+    </div>
+
+    <div class="searchDiv">
+      <div class="searchBarWrapper">
+        <img src="Images/Search-Icon.png" class="searchBarIcon">
+        <input class="searchBar" type="text">
+      </div>
+      <ul class="searchResultsMenu">
+        <!-- Search Results -->
+      </ul>
+      <div class="noSearchResults">No search results</div>
+    </div>
+
+    <div class="dashboardHeaderBtns">
+      <button class="themeBtn"></button>
+
+      <div class="agentBtnDiv">
+        <button class="agentBtn">
+          <img src="Images/Agent-Icon.png" class="agentIcon">
+        </button>
+
+        <div class="aiOptions">
+          <ul class="aiOptionsList">
+            <li class="prioritySuggestionOption">Priority Suggestion</li>
+            <li class="scheduleSuggestionOption">Daily Schedule</li>
+            <li class="riskReportOption">Risk Report</li>
+          </ul>
+        </div>
+      </div>
+
+      <button class="decrastinatorBtn">
+        <img src="Images/Decrastinator-Icon.png" class="decrastinatorIcon">
+      </button>
+
+      <button class="customizeBtn">
+        Customize
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="dashboardContent">
+
+    <div class="header">
+      <div class="dashboardHeader">
+        <div class="daySummary">
+          <p class="currentDate"></p>
+          <h1 class="greeting"></h1>
+        </div>
+      </div>
+
+      <div class="aiOptions">
+        <ul class="aiOptionsList">
+          <li class="prioritySuggestionOption">Priority Suggestion</li>
+          <li class="scheduleSuggestionOption">Daily Schedule</li>
+          <li class="riskReportOption">Risk Report</li>
+        </ul>
+      </div>
+
+      <div class="aiDiv">
+      </div>
+
+      <div class="bottomRowOfHeader">
+        <div class="miniAnalyticsDiv">
+          <div class="expandMiniAnalytics">
+            <button class="expandMiniAnalyticsBtn">
+              <img src="Images/CollapseExpand Icon.png" class="expandMiniAnalyticsIcon">
+            </button>
+
+            <div class="expandMiniAnalyticsTooltip">
+              <span class="expandMiniAnalyticsTooltipText">Expand Mini Analytics</span>
+            </div>
+          </div>
+
+          <div class="miniAnalytics">
+            <div class="numberOfTasksDoneDiv">
+              <p class="tasksDoneHeader">TASKS DONE</p>
+              <p class="numberOfTasksDone">0</p>
+              <p class="numberOfTasksTotal">of 0 total</p>
+              <img src="Images/Checkmark.png" class="checkmarkImage">
+            </div>
+
+            <div class="numberOfTasksLeftDiv">
+              <p class="tasksLeftHeader">TASKS LEFT</p>
+              <p class="numberOfTasksLeft">0</p>
+              <p class="tasksLeftFooter">tasks remaining</p>
+              <img src="Images/Clock.png" class="clockImage">
+            </div>
+
+            <div class="numberofFocusMinutesDiv">
+              <p class="focusMinutesHeader">FOCUS TIME</p>
+              <p class="numberOfFocusMinutes">0</p>
+              <p class="focusMinutesFooter">total minutes</p>
+              <img src="Images/Decrastinator-Icon.png" class="lightningImage">
+            </div>
+
+            <div class="numberOfSessionsDiv">
+              <p class="sessionsLeftHeader">SESSIONS</p>
+              <p class="numberOfSessionsDone">0</p>
+              <p class="sessionsFooter">focus sessions</p>
+              <img src="Images/Date-Icon.png" class="dateImage">
+            </div>
+          </div>
+        </div>
+
+        <div class="whatToFocusOn">
+          <div class="whatToFocusOnHeader">What to focus on</div>
+          <ul class="focusOnList">
+            <!-- Focus suggestions will dynamically show up here -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="customizeDiv">
+      <div class="customizeHeader">
+        <h1 class="customizeHeaderTitle">Customize</h1>
+        <button class="closeCustomizeBtn">✕</button>
+      </div>
+
+      <div class="customizeBg">
+        <div class="customizeBgHeader">
+          <h1 class="customizeBgHeaderTitle">Background</h1>
+        </div>
+        <div class="customizeBgOptions">
+          <button class="redBgBtn" data-theme="red"></button>
+          <button class="goldBgBtn" data-theme="gold"></button>
+          <button class="lightGreenBgBtn" data-theme="lightGreen"></button>
+          <button class="greenBgBtn" data-theme="green"></button>
+          <button class="tealBgBtn" data-theme="teal"></button>
+          <button class="aquaBgBtn" data-theme="aqua"></button>
+          <button class="blueBgBtn" data-theme="blue"></button>
+          <button class="violetBgBtn" data-theme="violet"></button>
+          <button class="purpleBgBtn" data-theme="purple"></button>
+          <button class="pinkBgBtn" data-theme="pink"></button>
+          <button class="whiteBgBtn" data-theme="white"></button>
+          <button class="blackBgBtn" data-theme="black"></button>
+        </div>
+      </div>
+    </div>
+
+    <hr class="workAreaSplit">
+
+    <!-- Work Area -->
+    <div class="mainWorkArea">
+
+      <div class="section1">
+        <!-- To-Do List -->
+        <section class="toDoList">
+          <div class="toDoListHeader">
+            <h1 class="toDoListName">Tasks</h1>
+            <div class="options">
+              <select class="taskSortSelector">
+                <option value="dateCreated">Date Created</option>
+                <option value="priority">Priority</option>
+                <option value="dueDate">Due Date</option>
+              </select>
+              <select class="taskViewSelector">
+                <option value="listView">List View</option>
+                <option value="KanbanView">Kanban Board</option>
+                <option value="timelineView">Timeline View</option>
+              </select>
+              <button class="addBtn">
+                Add
+              </button>
+            </div>
+
+            <hr class="toDoListLineSplit">
+          </div>
+
+          <div class="noTasksYetAlert">
+            <img src="Images/No-Tasks-Yet-Icon.png" class="noTasksYetIcon">
+            <h2 class="noTasksYet">No tasks yet</h2>
+            <p class="tinyTasksTip">Add a task to get started.</p>
+          </div>
+
+          <div class="taskCreationDiv">
+            <div class="actualTaskCreation">
+              <input class="taskInput" type="text" placeholder="What needs to be done?">
+            </div>
+
+            <div class="taskAttrCreation">
+              <select class="taskPrioritySelector">
+                <option class="noPriorityOption" value="None">None</option>
+                <option class="lowPriorityOption" value="Low">Low</option>
+                <option class="mediumPriorityOption" value="Medium">Medium</option>
+                <option class="highPriorityOption" value="High">High</option>
+              </select>
+              <input class="taskDateInput" type="date">
+              <input class="taskTimeInput" type="time">
+              <select class="taskStatusSelector">
+                <option class="toDoStatus" value="To Do">To Do</option>
+                <option class="inProgressStatus" value="In Progress">In Progress</option>
+                <option class="blockedStatus" value="Blocked">Blocked</option>
+                <option class="doneStatus" value="Done">Done</option>
+              </select>
+            </div>
+
+            <div class="addAndCancelTaskButtons">
+              <button class="cancelTaskCreationBtn">Cancel</button>
+              <button type="button" class="addTaskBtn"><img class="addTaskBtnIcon" src="Images/Add-Task-Icon.png" alt="Add Task Icon">Add Task</button>
+            </div>
+          </div>
+          
+          <div class="mainToDoListContent">
+            <ul class="taskList">
+              <!-- Tasks will dynamically show up here -->
+            </ul>
+
+            <div class="dropZones">
+              <div class="toDoDropZone" data-status="todo">
+                To Do
+              </div>
+              <div class="inProgressDropZone" data-status="in-progress">
+                In Progress
+              </div>
+              <div class="allDoneDropZone" data-status="done">
+                Completed
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Focus Timer -->
+        <section class="focusTimer">
+          <h1 class="focusTimerName">Focus Timer</h1>
+
+          <div class="mainTimer">
+            <div class="timerMinutesDiv">
+              <svg viewBox="0 0 100 100">
+                <circle class="track" cx="50" cy="50" r="45"/>
+                <circle class="timerProgressRing" cx="50" cy="50" r="45"/>
+              </svg>
+              <span class="timerMinutes"></span>
+            </div>
+
+            <div class="currentFocusedTaskDiv">
+              <select required class="taskSelectionDropdown" autocomplete="off">
+                <option value="" disabled selected>Choose a task to focus on...</option>
+                <!-- Task options will dynamically show up here -->
+              </select>
+
+              <div class="currentFocusedTask">task</div>
+            </div>
+
+            <div class="timerButtons">
+              <div class="timerLengthOptions flex gap-2">
+                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">1m</button>
+                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">25m</button>
+                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">45m</button>
+                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">60m</button>
+              </div>
+
+              <div class="timerControls">
+                <button class="startTimerBtn">
+                  <img src="Images/Start-Timer-Icon.png" class="startTimerBtnIcon w-4">
+                </button>
+                <button class="pauseTimerBtn">
+                  <img src="Images/Pause-Timer-Icon.png" class="pauseTimerBtnIcon w-4">
+                </button>
+                <button class="restartTimerBtn">
+                  <img src="Images/Restart-Timer-Icon.png" class="restartTimerBtnIcon w-4">
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="section2">
+        <div class="notesAndActivityDiv">
+          <section class="notes">
+            <div class="notesHeader">
+              <h1 class="notesName">Quick Notes</h1>
+              <div class="options">
+                <button class="addBtn2">
+                  Add
+                </button>
+              </div>
+            </div>
+
+            <hr class="notesLineSplit">
+
+            <div class="noNotesYetAlert">
+              <img src="Images/No-Notes-Yet-Icon.png" class="noNotesYetIcon">
+              <h2 class="noNotesYet">No notes yet</h2>
+              <p class="tinyNotesTip">Add a note to get started.</p>
+            </div>
+
+            <div class="noteCreationDiv">
+              <textarea class="noteInput" placeholder="Write something..." minlength="1" maxlength="500"></textarea>
+              <div class="noteColorOptions">
+                <button class="defaultColor" data-color="var(--work-areas-bg-color)"></button>
+                <button class="yellowColor" data-color="rgb(255, 213, 0)"></button>
+                <button class="orangeColor" data-color="rgb(255, 136, 0)"></button>
+                <button class="greenColor" data-color="rgb(0, 163, 111)"></button>
+                <button class="blueColor" data-color="rgb(0, 149, 255)"></button>
+                <button class="purpleColor" data-color="rgb(134, 0, 212)"></button>
+              </div>
+              <div class="cancelAndAddNoteButtons">
+                <button class="cancelNoteCreationBtn">Cancel</button>
+                <button class="addNoteBtn">Add Note</button>
+              </div>
+            </div>
+
+            <div class="mainNotesContent">
+              <ul class="notesList">
+                <!-- Notes items will dynamically show up here -->
+              </ul>
+            </div>
+          </section>
+
+          <section class="activity">
+            <h1 class="activityName">Activity</h1>
+
+            <hr class="activityLineSplit">
+
+            <div class="mainActivityContent">
+              <ul class="activityList">
+                <!-- Activity items will dynamically show up here -->
+              </ul>
+            </div>
+          </section>
+        </div>
+
+        <section class="calendar">
+          <div id="calendar"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="analyticsContent">
+    <div class="analyticsHeader">
+      <h1 class="analyticsName">Analytics</h1>
+    </div>
+    
+    <hr class="analyticsHeaderSplit">
+
+    <div class="analyticsMainContent">
+      <div class="charts">
+        <div class="chartSection1">
+          <div class="weeklyTaskChart">
+            <canvas id="weeklyTaskChart"></canvas>
+          </div>
+          <div class="priorityCompletionChart">
+            <canvas id="priorityCompletionChart"></canvas>
+          </div>
+        </div>
+        <div class="chartSection2">
+          <div class="productivityScoreChart">
+            <canvas id="productivityScoreChart"></canvas>
+            <div class="productivityScoreChartText"></div>
+            <div class="productivityScoreChartTooltip">
+              <div class="analyticsInsights"></div>
+            </div>
+          </div>
+          <div class="timeOfDayChart">
+            <canvas id="timeOfDayChart"></canvas>
+            <div class="peakProductivityHoursReminder"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
