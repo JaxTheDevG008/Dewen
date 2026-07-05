@@ -1,4 +1,4 @@
-# Dewen
+# Dewen - a subscription-free and private take on productivity software
 [Check out my project here](https://dewbach.netlify.app)
 ## Purpose
 Most task and project mangement websites these days force a subscription on you, obligate you to use AI, and use your data to train models without your consent. 
