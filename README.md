@@ -6,12 +6,13 @@ Most task and project mangement websites these days force a subscription on you,
 
 To learn the basics of frontend, backend, full-stack, and APIs, I thought that it would be a good idea to build my own from scratch, completely striped of these modern problems while delivering a clean interface, local-first privacy, and useful productivity tools.
 
+---
 ## Materials
 - Frontend: HTML, CSS, and Vanilla JavaScript
 - Backend: Python
 - Database: IndexedDB
 - Version Control: Git and GitHub
-
+---
 ## Features
 
 ### Current
