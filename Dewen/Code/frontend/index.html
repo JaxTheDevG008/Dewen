@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8"/>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dewen</title>
     <link rel="stylesheet" href="style.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,17 +33,13 @@
         <img src="Images/Dashboard-Icon.png" class="dashboardIcon">
         Dashboard
       </button>
-      <button class="whiteboardBtn">
+      <!-- <button class="whiteboardBtn">
         <img src="Images/Whiteboard-Icon.png" class="whiteboardIcon">
         Whiteboard
-      </button>
+      </button> -->
       <button class="calendarBtn">
         <img src="Images/Date-Icon.png" class="calendarIcon">
         Calendar
-      </button>
-      <button class="analyticsBtn">
-        <img src="Images/Analytics-Icon.png" class="analyticsIcon">
-        Analytics
       </button>
       <button class="settingsBtn">
         <img src="Images/Settings-Icon.png" class="settingsIcon">
@@ -77,7 +72,7 @@
           <img src="Images/Agent-Icon.png" class="agentIcon">
         </button>
 
-        <div class="aiOptions">
+        <div class="aiOptionsDiv">
           <ul class="aiOptionsList">
             <li class="prioritySuggestionOption">Priority Suggestion</li>
             <li class="scheduleSuggestionOption">Daily Schedule</li>
@@ -96,6 +91,45 @@
     </div>
   </nav>
 
+  <div class="customizeDiv">
+    <div class="customizeHeader">
+      <h1 class="customizeHeaderTitle">Customize</h1>
+      <button class="closeCustomizeBtn">✕</button>
+    </div>
+
+    <div class="customizeBg">
+      <div class="customizeBgHeader">
+        <h1 class="customizeBgHeaderTitle">Background</h1>
+      </div>
+      <div class="customizeBgOptions">
+        <button class="redBgBtn" data-theme="red"></button>
+        <button class="goldBgBtn" data-theme="gold"></button>
+        <button class="lightGreenBgBtn" data-theme="lightGreen"></button>
+        <button class="greenBgBtn" data-theme="green"></button>
+        <button class="tealBgBtn" data-theme="teal"></button>
+        <button class="aquaBgBtn" data-theme="aqua"></button>
+        <button class="blueBgBtn" data-theme="blue"></button>
+        <button class="violetBgBtn" data-theme="violet"></button>
+        <button class="purpleBgBtn" data-theme="purple"></button>
+        <button class="pinkBgBtn" data-theme="pink"></button>
+        <button class="whiteBgBtn" data-theme="white"></button>
+        <button class="blackBgBtn" data-theme="black"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="decrastinatorDiv">
+    <div class="decrastinatorName">Decrastinator</div>
+    <div class="closeDecrastinatorBtn">✕</div>
+    <select class="decrastinatorTaskSelector" autocomplete="off">
+      <option value="" disabled selected>Select a task</option>
+    </select>
+    <div class="startDecrastinatorBtn">
+      <img src="Images/Start-Timer-Icon.png" class="startDecrastinatorIcon w-4" alt="Start Decrastinator">
+    </div>
+    <div class="decrastinatorMinutesDiv">3:00</div>
+  </div>
+
   <!-- Main Content -->
   <div class="dashboardContent">
 
@@ -105,14 +139,6 @@
           <p class="currentDate"></p>
           <h1 class="greeting"></h1>
         </div>
-      </div>
-
-      <div class="aiOptions">
-        <ul class="aiOptionsList">
-          <li class="prioritySuggestionOption">Priority Suggestion</li>
-          <li class="scheduleSuggestionOption">Daily Schedule</li>
-          <li class="riskReportOption">Risk Report</li>
-        </ul>
       </div>
 
       <div class="aiDiv">
@@ -145,17 +171,18 @@
               <img src="Images/Clock.png" class="clockImage">
             </div>
 
-            <div class="numberofFocusMinutesDiv">
-              <p class="focusMinutesHeader">FOCUS TIME</p>
-              <p class="numberOfFocusMinutes">0</p>
-              <p class="focusMinutesFooter">total minutes</p>
+            <div class="energyGaugeDiv">
+              <p class="energyGaugeHeader">ENERGY GAUGE</p>
+              <p class="percentOfEnergy">100%</p>
+              <span class="energyGauge"></span>
+              <p class="energyGaugeFooter"></p>
               <img src="Images/Decrastinator-Icon.png" class="lightningImage">
             </div>
 
-            <div class="numberOfSessionsDiv">
-              <p class="sessionsLeftHeader">SESSIONS</p>
-              <p class="numberOfSessionsDone">0</p>
-              <p class="sessionsFooter">focus sessions</p>
+            <div class="freeTimeDiv">
+              <p class="freeTimeHeader">FREE TIME</p>
+              <p class="numberOfFreeTime">0</p>
+              <p class="freeTimeFooter">available</p>
               <img src="Images/Date-Icon.png" class="dateImage">
             </div>
           </div>
@@ -166,33 +193,6 @@
           <ul class="focusOnList">
             <!-- Focus suggestions will dynamically show up here -->
           </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="customizeDiv">
-      <div class="customizeHeader">
-        <h1 class="customizeHeaderTitle">Customize</h1>
-        <button class="closeCustomizeBtn">✕</button>
-      </div>
-
-      <div class="customizeBg">
-        <div class="customizeBgHeader">
-          <h1 class="customizeBgHeaderTitle">Background</h1>
-        </div>
-        <div class="customizeBgOptions">
-          <button class="redBgBtn" data-theme="red"></button>
-          <button class="goldBgBtn" data-theme="gold"></button>
-          <button class="lightGreenBgBtn" data-theme="lightGreen"></button>
-          <button class="greenBgBtn" data-theme="green"></button>
-          <button class="tealBgBtn" data-theme="teal"></button>
-          <button class="aquaBgBtn" data-theme="aqua"></button>
-          <button class="blueBgBtn" data-theme="blue"></button>
-          <button class="violetBgBtn" data-theme="violet"></button>
-          <button class="purpleBgBtn" data-theme="purple"></button>
-          <button class="pinkBgBtn" data-theme="pink"></button>
-          <button class="whiteBgBtn" data-theme="white"></button>
-          <button class="blackBgBtn" data-theme="black"></button>
         </div>
       </div>
     </div>
@@ -252,6 +252,13 @@
                 <option class="blockedStatus" value="Blocked">Blocked</option>
                 <option class="doneStatus" value="Done">Done</option>
               </select>
+              <select class="taskRecurrenceSelector">
+                <option class="noRecurrenceOption" value="none">None</option>
+                <option class="dailyRecurrenceOption" value="daily">Daily</option>
+                <option class="weeklyRecurrenceOption" value="weekly">Weekly</option>
+                <option class="monthlyRecurrenceOption" value="monthly">Monthly</option>
+                <option class="yearlyRecurrenceOption" value="yearly">Yearly</option>
+              </select>
             </div>
 
             <div class="addAndCancelTaskButtons">
@@ -303,7 +310,7 @@
 
             <div class="timerButtons">
               <div class="timerLengthOptions flex gap-2">
-                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">1m</button>
+                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">15m</button>
                 <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">25m</button>
                 <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">45m</button>
                 <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">60m</button>
@@ -388,39 +395,81 @@
     </div>
   </div>
 
-  <div class="analyticsContent">
-    <div class="analyticsHeader">
-      <h1 class="analyticsName">Analytics</h1>
+  <div class="settingsContent">
+    <div class="settingsNavigator">
+      <h1 class="settingsHeader">Settings</h1>
+      <ul class="settingsNavList">
+        <li><a href="#personal" class="settingsNavItem">Personal</a></li>
+        <li><a href="#ai" class="settingsNavItem">AI</a></li>
+        <li><a href="#accessibility" class="settingsNavItem">Accessibility</a></li>
+        <li><a href="#about" class="settingsNavItem">About</a></li>
+      </ul>
     </div>
-    
-    <hr class="analyticsHeaderSplit">
 
-    <div class="analyticsMainContent">
-      <div class="charts">
-        <div class="chartSection1">
-          <div class="weeklyTaskChart">
-            <canvas id="weeklyTaskChart"></canvas>
+    <div class="actualSettings">
+      <div class="personalSection">
+        <div class="fullNameInputDiv">
+          <label for="fullNameInput" class="fullNameLabel">Full Name:</label>
+          <input type="text" class="fullNameInput" placeholder="Enter your full name">
+        </div>
+
+        <div class="preferredNameInputDiv">
+          <label for="preferredNameInput" class="preferredNameLabel">Preferred Name:</label>
+          <input type="text" class="preferredNameInput" placeholder="Enter your preferred name">
+        </div>
+      </div> 
+
+      <div class="aiSection">
+        <div class="aiToggleDiv">
+          <span class="aiToggleLabel">Enable AI</span>
+          <input type="checkbox" id="aiToggle">
+          <label for="aiToggle" class="aiToggleBtn"></label>
+        </div>
+        <div class="aiModelDiv">
+          <label for="aiModelSelect" class="aiModelLabel">AI Model:</label>
+          <select class="aiModelSelect">
+            <option value="OpenAI">OpenAI</option>
+            <option value="Anthropic">Anthropic</option>
+            <option value="Google">Google</option>
+            <option value="OpenRouter">OpenRouter</option>
+          </select>
+        </div>
+        <div class="apiKeyDiv">
+          <label for="apiKeyInput" class="apiKeyLabel">API Key:</label>
+          <input type="text" id="apiKeyInput" class="apiKeyInput" placeholder="Enter your API key">
+        </div>
+      </div>
+
+      <div class="aboutSection">
+        <div class="aboutSettingsInfo">
+          <div class="appName">Dewen</div>
+          <div class="versionInfo">Version: v1.0.0</div>
+          <div class="developerInfo">Developed by <span class="developerName"><a href="https://github.com/JaxTheDevG008" target="_blank">Jaxon Penka</a></span></div>
+        </div>
+        <div class="aboutSettingsBtns">
+          <div class="githubBtn">
+            <a href="https://github.com/JaxTheDevG008/Dewen" target="_blank">
+              <img src="Images/GitHub-Logo.png" class="githubIcon">
+            </a>
           </div>
-          <div class="priorityCompletionChart">
-            <canvas id="priorityCompletionChart"></canvas>
+          <div class="reportABugBtn">
+            <button class="reportABugBtn">
+              <a href="https://github.com/JaxTheDevG008/Dewen/issues/new" target="_blank">Report a Bug</a>
+            </button>
+          </div>
+          <div class="requestAFeatureBtn">
+            <button class="requestAFeatureBtn">
+              <a href="https://github.com/JaxTheDevG008/Dewen/issues/new" target="_blank">Request a Feature</a>
+            </button>
           </div>
         </div>
-        <div class="chartSection2">
-          <div class="productivityScoreChart">
-            <canvas id="productivityScoreChart"></canvas>
-            <div class="productivityScoreChartText"></div>
-            <div class="productivityScoreChartTooltip">
-              <div class="analyticsInsights"></div>
-            </div>
-          </div>
-          <div class="timeOfDayChart">
-            <canvas id="timeOfDayChart"></canvas>
-            <div class="peakProductivityHoursReminder"></div>
-          </div>
+        <div class="aboutFooter">
+          &copy; 2026 Jaxon Penka. All rights reserved.
         </div>
       </div>
     </div>
   </div>
-  <script type="module" src="main.js"></script>
+<script type="module" src="main.js"></script>
 </body>
 </html>
+

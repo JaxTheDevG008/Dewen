@@ -294,7 +294,7 @@ button:hover {
   padding: 8px 12px;
   width: 100vw;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: rgb(37, 37, 37);
   border: none;
   border-radius: 12px;
@@ -373,28 +373,6 @@ button:hover {
   align-items: flex-end;
 }
 
-@keyframes dashboardGoToMiddle {
-  from {
-    transform: translateX(-50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes dashboardGoToRight {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(-50px);
-    opacity: 0;
-  }
-}
-
 .header {
   display: flex;
   gap: 15px;
@@ -425,12 +403,6 @@ button:hover {
   display: none;
 }
 
-:root.isAnalyticsView .dashboardHeader,
-:root.isAnalyticsView .workAreaSplit,
-:root.isAnalyticsView .mainWorkArea {
-  display: none;
-}
-
 .actualCommands {
   display: flex;
   align-items: center;
@@ -446,6 +418,7 @@ button:hover {
   z-index: 9990;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   flex-direction: column;
 }
 
@@ -604,7 +577,7 @@ button:hover {
 .greeting {
   font-size: 1.8rem;
   position: relative;
-  width: 300px;
+  width: 100%;
   color: var(--text-color);
   margin: 0px;
 }
@@ -662,7 +635,7 @@ button:hover {
   transition: 0.2s ease;
 }
 
-.aiOptions {
+.aiOptionsDiv {
   display: none;
   flex-direction: column;
   gap: 15px;
@@ -686,7 +659,12 @@ button:hover {
   border-radius: 12px;
 }
 
-.aiOptions.show {
+.aiOptionsList li:hover {
+  background-color: var(--task-hover-bg-color);
+  cursor: pointer;
+}
+
+.aiOptionsDiv.show {
   display: flex;
 }
 
@@ -707,7 +685,7 @@ button:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: var(--bg-color);
+  background-color: var(--work-areas-bg-color);
   color: var(--text-color);
   padding: 2rem;
   border-radius: 15px;
@@ -814,11 +792,15 @@ button:hover {
   border-radius: 15px;
   width: 450px;
   height: 250px;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 6px;
+}
+
+:root.decrastinatorView .decrastinatorDiv {
+  display: flex;
 }
 
 .decrastinatorName {
@@ -828,6 +810,27 @@ button:hover {
   margin: 20px;
   color: rgb(0, 0, 0);
   font-size: 1.2rem;
+}
+
+.closeDecrastinatorBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--btn-bg-color);
+  border: none;
+  border-radius: 12px;
+  padding: 10px 10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.closeDecrastinatorBtn:hover {
+  cursor: pointer;
+  background-color: var(--btn-hover-bg-color);
 }
 
 .decrastinatorTaskSelector {
@@ -920,6 +923,7 @@ button:hover {
   right: 0px;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
+  top: auto;
 }
 
 @keyframes slideInFromLeft {
@@ -1088,6 +1092,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  order: 0;
 }
 
 .expandMiniAnalyticsBtn:hover {
@@ -1133,7 +1138,7 @@ button:hover {
   display: none;
   gap: 20px;
   flex-direction: row;
-  order: 0;
+  order: 1;
 }
 
 .miniAnalytics.show {
@@ -1149,10 +1154,10 @@ button:hover {
   width: 100px;
   height: 122px;
   overflow: hidden;
-}
-
-:root.isAnalyticsView .miniAnalytics div {
-  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .checkmarkImage {
@@ -1212,9 +1217,9 @@ button:hover {
 
 .tasksDoneHeader,
 .tasksLeftHeader,
-.focusMinutesHeader,
-.sessionsLeftHeader {
-  font-size: 19px;
+.energyGaugeHeader,
+.freeTimeHeader {
+  font-size: 17px;
   color: gray;
   margin: 0;
   position: absolute;
@@ -1225,8 +1230,8 @@ button:hover {
 
 .numberOfTasksDone,
 .numberOfTasksLeft,
-.numberOfFocusMinutes,
-.numberOfSessionsDone {
+.percentOfEnergy,
+.numberOfFreeTime {
   font-size: 35px;
   color: var(--text-color);
   margin: 0;
@@ -1236,10 +1241,26 @@ button:hover {
   transform: translate(-50%, -50%);
 }
 
+.percentOfEnergy {
+  left: 35%;
+}
+
+.energyGauge {
+  position: relative;
+  top: 50%;
+  right: 50%;
+  transform: translate(30%, -200%);
+  width: 100px;
+  height: 10px;
+  border-radius: 12px;
+  background-color: #90ee90;
+  border: 2px solid var(--bd-color);
+}
+
 .numberOfTasksTotal,
 .tasksLeftFooter,
-.focusMinutesFooter,
-.sessionsFooter {
+.energyGaugeFooter,
+.freeTimeFooter {
   font-size: 16px;
   color: gray;
   margin: 0;
@@ -1253,7 +1274,7 @@ button:hover {
   font-size: 1rem;
   color: var(--text-color);
   text-align: left;
-  width: 400px;
+  width: 100%;
   height: 112px;
   background-color: var(--work-areas-bg-color);
   border: 1px solid var(--bd-color);
@@ -1261,7 +1282,7 @@ button:hover {
   padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  order: 1;
+  order: 2;
   margin: 0px;
 }
 
@@ -1274,6 +1295,27 @@ button:hover {
   width: 100%;
   height: fit-content;
   margin-bottom: 10px;
+}
+
+.focusOnList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  font-size: 0.8rem;
+}
+
+.priorityMarker {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
 }
 
 .bottomRowOfHeader {
@@ -1430,8 +1472,8 @@ button:hover {
 }
 
 .toDoDropZone {
-  background-color: rgb(246, 246, 246);
-  min-height: 400px;
+  background-color: rgb(241, 241, 241);
+  min-height: 650px;
   width: 30%;
   border-radius: 8px;
   padding: 10px;
@@ -1444,7 +1486,7 @@ button:hover {
 }
 
 .inProgressDropZone {
-  background-color: rgb(247, 247, 247);
+  background-color: rgb(246, 254, 255);
   min-height: 400px;
   width: 30%;
   border-radius: 8px;
@@ -1457,7 +1499,7 @@ button:hover {
 }
 
 .allDoneDropZone {
-  background-color: rgb(249, 249, 248);
+  background-color: rgb(245, 255, 243);
   min-height: 400px;
   width: 30%;
   border-radius: 8px;
@@ -1566,7 +1608,7 @@ input:focus {
   border-radius: 20px;
   padding: 15px;
   padding-right: 15px;
-  width: 500px;
+  width: 610px;
   background-color: rgb(250, 250, 250);
 }
 
@@ -1623,6 +1665,7 @@ input:focus {
   margin-right: 0px;
   border: none;
   color: var(--text-color);
+  height: 15px;
 }
 
 .taskDateInput:hover {
@@ -1636,6 +1679,7 @@ input:focus {
   margin-right: 0px;
   border: none;
   color: var(--text-color);
+  height: 15px;
 }
 
 .taskTimeInput:hover {
@@ -1656,6 +1700,23 @@ input:focus {
 }
 
 .taskStatusSelector:hover {
+  cursor: pointer;
+}
+
+.taskRecurrenceSelector {
+  background-color: var(--input-bg);
+  width: fit-content;
+  color: var(--text-color);
+  border: none;
+  padding: 1px 15px;
+  padding-right: 5px;
+  border-radius: 12px;
+  position: relative;
+  height: 36px;
+  left: 0px;
+}
+
+.taskRecurrenceSelector:hover {
   cursor: pointer;
 }
 
@@ -1772,9 +1833,14 @@ input:focus {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
   gap: 6px;
   color: var(--text-color);
   font-size: 20px;
+}
+
+:root.isKanbanView .listTask {
+  font-size: 15px;
 }
 
 .taskTextAndCheckbox {
@@ -1782,28 +1848,28 @@ input:focus {
   flex-direction: row;
 }
 
-input[type="checkbox"] {
+.taskCheckbox {
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 23px;
+  height: 23px;
   border: 2px solid gray;
   border-radius: 20px;
   position: relative;
-  padding: 0px;
+  padding: 10px;
   vertical-align: middle;
   background-color: var(--work-areas-bg-color);
 }
 
-input[type="checkbox"]:hover {
+.taskCheckbox:hover {
   cursor: pointer;
   border-color: rgb(70, 190, 140);
 }
 
-input[type="checkbox"]:checked {
+.taskCheckbox:checked {
   border-color: rgb(70, 190, 140);
 }
 
-input[type="checkbox"]::before {
+.taskCheckbox::before {
   content: "";
   position: absolute;
   top: 2px;
@@ -1816,7 +1882,46 @@ input[type="checkbox"]::before {
   opacity: 0;
 }
 
-input[type="checkbox"]:checked::before {
+.taskCheckbox:checked::before {
+  opacity: 1;
+  animation: checkmark 0.3s ease forwards;
+}
+
+.subtaskCheckbox {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid gray;
+  border-radius: 20px;
+  position: relative;
+  padding: 10px;
+  vertical-align: middle;
+  background-color: var(--work-areas-bg-color);
+}
+
+.subtaskCheckbox:hover {
+  cursor: pointer;
+  border-color: rgb(70, 190, 140);
+}
+
+.subtaskCheckbox:checked {
+  border-color: rgb(70, 190, 140);
+}
+
+.subtaskCheckbox::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 6px;
+  height: 10px;
+  border: solid rgb(70, 190, 140);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg) scale(1);
+  opacity: 0;
+}
+
+.subtaskCheckbox:checked::before {
   opacity: 1;
   animation: checkmark 0.3s ease forwards;
 }
@@ -1840,6 +1945,7 @@ input[type="checkbox"]:checked::before {
   gap: 10px;
   border: none;
   border-radius: 20px;
+  width: 95%;
   padding: 15px;
   background-color: var(--task-bg-color);
   backdrop-filter: blur(5px);
@@ -1908,6 +2014,34 @@ input[type="checkbox"]:checked::before {
 
 .taskStatusSpan {
   order: 3;
+  position: relative;
+  border-right: 1px solid var(--task-attribute-separator-color);
+  padding-right: 10px;
+}
+
+.taskRecurrenceSpan {
+  order: 4;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.taskRecurrenceImg {
+  width: 18px;
+  order: 1;
+  filter: brightness(0);
+}
+
+[data-mode="dark"] .taskRecurrenceImg {
+  filter: brightness(0) invert(1);
+  opacity: 0.7;
+  transition: 0.2s ease;
+}
+
+.taskRecurrenceText {
+  order: 2;
 }
 
 .taskOptionsBtnDiv {
@@ -1985,6 +2119,48 @@ input[type="checkbox"]:checked::before {
   align-items: center;
   color: var(--text-color);
   padding: 8px 12px;
+}
+
+.addSubtaskOption {
+  display: flex;
+  opacity: 1;
+  align-items: center;
+  color: var(--text-color);
+  padding: 8px 12px;
+}
+
+.subtaskList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  font-size: 0.8rem;
+  order: 1;
+}
+
+.subtask {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: flex-start;
+  gap: 10px;
+  border: none;
+  border-radius: 20px;
+  padding: 15px;
+  background-color: var(--task-bg-color);
+  backdrop-filter: blur(5px);
+  color: var(--text-color);
+  overflow: visible;
+  z-index: auto;
+}
+
+.subtask:hover {
+  background-color: var(--task-hover-bg-color);
 }
 
 .deleteOption {
@@ -2827,8 +3003,6 @@ input[type="checkbox"]:checked::before {
   --fc-border-color: rgba(128, 128, 128, 0.4) !important;
 }
 
-/* make the calendar cells look like cards with some padding and a subtle shadow */
-
 .fc .fc-daygrid-day {
   border: 3px solid var(--bg-color);
   background-color: var(--fc-daygrid-day-bg-color);
@@ -2858,207 +3032,6 @@ input[type="checkbox"]:checked::before {
   text-align: left;
   flex-grow: 1;
   margin: 10px;
-}
-
-.analyticsContent {
-  position: relative;
-  display: none;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  width: 100%;
-  margin-right: 120px;
-  max-width: 1160px;
-  margin-left: auto;
-  margin-right: auto;
-  transition: transform 0.6s cubic-bezier(.22,.9,.38,1);
-  transform: translateX(0);
-}
-
-:root.isAnalyticsView .analyticsContent {
-  display: flex;
-}
-
-:root.sidebarHidden .analyticsContent {
-  transform: translateX(0);
-  align-items: center;
-}
-
-:root:not(.sidebarHidden) .analyticsContent {
-  transform: translateX(150px);
-  align-items: flex-end;
-}
-
-.analyticsHeader {
-  display: none;
-  order: 0;
-}
-
-:root.isAnalyticsView .analyticsHeader {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.analyticsInsights {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 0 20px 20px 20px;
-}
-
-.analyticsHeaderSplit {
-  background-color: gray;
-  border: 1px solid gray;
-  width: 100%;
-}
-
-.analyticsMainContent {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.charts {
-  display: flex;
-  flex-direction: column;
-  order: 1;
-  width: 100%;
-  margin: 10px;
-  padding: 0px 20px 20px 20px;
-  background-color: var(--work-areas-bg-color);
-  border-radius: 20px;
-  border: 1px solid var(--work-areas-bg-color);
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  gap: 20px;
-}
-
-:root.isAnalyticsView .miniAnalytics {
-  flex-shrink: 0;
-  width: 250px;
-  order: 0;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 20px;
-  background-color: var(--work-areas-bg-color);
-  border-radius: 20px;
-  border: 1px solid var(--work-areas-bg-color);
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.chartSection1 {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  width: auto;
-  order: 1;
-}
-
-.weeklyTaskAndPriorityCompletionCharts {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.weeklyTaskChart,
-.priorityCompletionChart {
-  width: 500px;
-  height: 500px;
-}
-
-.chartSection2 {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  order: 2;
-  position: relative;
-  bottom: 250px;
-}
-
-.timeOfDayChart {
-  width: 500px;
-  height: 500px;
-}
-
-.peakProductivityHoursReminder {
-  position: absolute;
-  color: gray;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.productivityScoreChart {
-  width: 500px;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 20px 0;
-}
-
-#productivityScoreChart {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transition: filter 0.4s ease;
-}
-
-.productivityScoreChartText {
-  display: flex;
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-  z-index: 1;
-}
-
-.productivityScoreChartTooltip {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  --tooltip-x: 0px;
-  --tooltip-y: 0px;
-}
-
-.productivityScoreChartTooltip .analyticsInsights {
-  visibility: hidden;
-  background-color: var(--work-areas-bg-color);
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
-  color: var(--text-color);
-  text-align: center;
-  padding: 15px;
-  border-radius: 12px;
-  position: fixed;
-  z-index: 0;
-  opacity: 0;
-  transition: opacity 0.3s;
-  width: 200px;
-  height: 175px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-size: 0.9rem;
-  left: var(--tooltip-x);
-  top: var(--tooltip-y);
-  pointer-events: none;
-}
-
-.productivityScoreChartTooltip:hover .analyticsInsights {
-  visibility: visible;
-  opacity: 1;
-  z-index: 999;
-}
-
-:root.isAnalyticsView .analyticsInsights {
-  display: flex;
 }
 
 .fc-event {
@@ -3094,4 +3067,254 @@ input[type="checkbox"]:checked::before {
 
 .fc-daygrid-event-harness {
   overflow: visible !important;
+}
+
+.settingsContent {
+  position: relative;
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  margin-top: 80px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.3s;
+  transform: translateX(0);
+}
+
+.isSettingsView .dashboardContent {
+  display: none;
+}
+
+.isSettingsView .settingsContent {
+  display: flex;
+}
+
+html:not([class*="settingsView"]) .personalSection {
+  display: flex;
+}
+
+.settingsNavigator {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.settingsNavList {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  gap: 30px;
+}
+
+.settingsNavList a {
+  padding: 10px 15px;
+  border-radius: 12px;
+  color: var(--text-color);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.settingsNavList a:hover {
+  background-color: var(--btn-bg-color);
+  cursor: pointer;
+}
+
+.settingsNavList a.active {
+  background-color: var(--btn-bg-color);
+  cursor: pointer;
+}
+
+.actualSettings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.personalSection,
+.aiSection,
+.accessibilitySection,
+.aboutSection {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.fullNameInput,
+.preferredNameInput {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid var(--bd-color);
+  border-radius: 12px;
+  background-color: var(--work-areas-bg-color);
+  color: var(--text-color);
+}
+
+.aboutSettingsInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.appName {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.aboutSettingsBtns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.developerInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.developerName a {
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.developerName a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.githubIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: rgb(255, 255, 255);
+  color: var(--text-color);
+  font-weight: 600;
+  height: 40px;
+  width: 40px;
+  border: 1px solid var(--bd-color);
+  border-radius: 40px;
+}
+
+.githubIcon:hover {
+  background-color: var(--btn-hover-bg-color);
+  cursor: pointer;
+}
+
+.reportABugBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: var(--btn-bg-color);
+  color: var(--text-color);
+  font-weight: 600;
+  height: 40px;
+  width: 120px;
+  border: 1px solid var(--bd-color);
+  border-radius: 40px;
+}
+
+.requestAFeatureBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: var(--btn-bg-color);
+  color: var(--text-color);
+  font-weight: 600;
+  height: 40px;
+  width: 160px;
+  border: 1px solid var(--bd-color);
+  border-radius: 40px;
+}
+
+.reportABugBtn a,
+.requestAFeatureBtn a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.reportABugBtn:hover {
+  background-color: var(--btn-hover-bg-color);
+  cursor: pointer;
+}
+
+.aiToggleDiv {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.aiToggleBtn {
+  background-color: var(--btn-bg-color);
+  width: 60px;
+  height: 30px;
+  border-radius: 200px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.aiToggleBtn::before {
+  position: absolute;
+  content: "";
+  background-color: var(--text-color);
+  width: 20px;
+  height: 20px;
+  border-radius: 200px;
+  margin: 5px;
+  transition: 0.2s;
+}
+
+#aiToggle:checked + .aiToggleBtn {
+  background-color: rgb(70, 190, 140);
+}
+
+#aiToggle:checked + .aiToggleBtn::before {
+  transform: translateX(30px);
+}
+
+#aiToggle {
+  display: none;
+}
+
+.aiModelSelect,
+.apiKeyInput {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid var(--bd-color);
+  border-radius: 12px;
+  background-color: var(--work-areas-bg-color);
+  color: var(--text-color);
 }
