@@ -1,10 +1,15 @@
 /*
 
-!/Dewbach/
+!/Dewen/
 !/README.md
 !.gitignore
+
+.env
+.env.*
+node_modules/
 
 .vscode/
 .github/
 
-/Portfolio/
+/Portfolio/.env
+node_modules/

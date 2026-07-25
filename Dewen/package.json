@@ -1,8 +1,16 @@
 {
   "dependencies": {
-    "@fullcalendar/core": "^6.1.20",
-    "@fullcalendar/daygrid": "^6.1.20",
+    "@fullcalendar/core": "^6.1.21",
+    "@fullcalendar/daygrid": "^6.1.21",
+    "@fullcalendar/interaction": "^6.1.21",
     "chrono-node": "^2.9.1",
+    "dexie": "^4.4.4",
+    "i18next": "^26.3.4",
+    "i18next-browser-languagedetector": "^8.2.1",
     "tldraw": "^4.5.7"
-  }
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  },
+  "type": "module"
 }

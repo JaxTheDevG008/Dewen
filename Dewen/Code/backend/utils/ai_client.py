@@ -224,7 +224,7 @@ def parse_time_value(match):
 
 def clean_task_title(text):
     cleaned = re.sub(r"\s+", " ", text).strip(" ,.;:-")
-    cleaned = re.sub(r"^(remind me to|remember to|please|task to)\s+", "", cleaned, flags=re.I)
+    cleaned = re.sub(r"^(remind me to|remember to|i need to|please|task to)\s+", "", cleaned, flags=re.I)
     return cleaned.strip(" ,.;:-")
 
 def parse_task_locally(text):
