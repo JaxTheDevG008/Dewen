@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Dewen</title>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="/style.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" sizes="32x32" href="Images/Dewbach-Favicon.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/Images/Dewbach-Favicon.png"/>
   </head>
 <body>
   <div class="overlay"></div>
@@ -26,67 +26,67 @@
     </button>
   </div>
 
+  <div class="searchDiv">
+    <div class="searchBarWrapper">
+      <img src="/Images/Search-Icon.png" class="searchBarIcon">
+      <input class="searchBar" type="text">
+    </div>
+    <ul class="searchResultsMenu">
+      <!-- Search Results -->
+    </ul>
+    <div class="noSearchResults">No search results</div>
+  </div>
+
   <!-- Navigation -->
   <nav class="sidebar">
+    <div class="sidebarHeader">
+      <div class="sidebarHeaderRow1">
+        <div class="hamburgerBtn">
+          <img src="/Images/Hamburger-Icon.png" class="hamburgerIcon">
+        </div>
+      </div>
+      <div class="sidebarHeaderRow2">
+        <button class="themeBtn"></button>
+
+          <div class="agentBtnDiv">
+              <button class="agentBtn">
+                <img src="/Images/Agent-Icon.png" class="agentIcon">
+              </button>
+
+              <div class="aiOptionsDiv">
+                <ul class="aiOptionsList">
+                  <li class="prioritySuggestionOption">Priority Suggestion</li>
+                  <li class="scheduleSuggestionOption">Daily Schedule</li>
+                  <li class="riskReportOption">Risk Report</li>
+                </ul>
+              </div>
+          </div>
+
+          <button class="decrastinatorBtn">
+            <img src="/Images/Decrastinator-Icon.png" class="decrastinatorIcon">
+          </button>
+
+          <button class="customizeBtn">
+            Customize
+          </button>
+      </div>
+    </div>
     <div class="sidebarBtns">
       <button class="dashboardBtn">
-        <img src="Images/Dashboard-Icon.png" class="dashboardIcon">
+        <img src="/Images/Dashboard-Icon.png" class="dashboardIcon">
         Dashboard
       </button>
       <!-- <button class="whiteboardBtn">
-        <img src="Images/Whiteboard-Icon.png" class="whiteboardIcon">
+        <img src="/Images/Whiteboard-Icon.png" class="whiteboardIcon">
         Whiteboard
       </button> -->
       <button class="calendarBtn">
-        <img src="Images/Date-Icon.png" class="calendarIcon">
+        <img src="/Images/Date-Icon.png" class="calendarIcon">
         Calendar
       </button>
       <button class="settingsBtn">
-        <img src="Images/Settings-Icon.png" class="settingsIcon">
+        <img src="/Images/Settings-Icon.png" class="settingsIcon">
         Settings
-      </button>
-    </div>
-  </nav>
-
-  <nav class="topbar">
-    <div class="hamburgerBtn">
-      <img src="Images/Hamburger-Icon.png" class="hamburgerIcon">
-    </div>
-
-    <div class="searchDiv">
-      <div class="searchBarWrapper">
-        <img src="Images/Search-Icon.png" class="searchBarIcon">
-        <input class="searchBar" type="text">
-      </div>
-      <ul class="searchResultsMenu">
-        <!-- Search Results -->
-      </ul>
-      <div class="noSearchResults">No search results</div>
-    </div>
-
-    <div class="dashboardHeaderBtns">
-      <button class="themeBtn"></button>
-
-      <div class="agentBtnDiv">
-        <button class="agentBtn">
-          <img src="Images/Agent-Icon.png" class="agentIcon">
-        </button>
-
-        <div class="aiOptionsDiv">
-          <ul class="aiOptionsList">
-            <li class="prioritySuggestionOption">Priority Suggestion</li>
-            <li class="scheduleSuggestionOption">Daily Schedule</li>
-            <li class="riskReportOption">Risk Report</li>
-          </ul>
-        </div>
-      </div>
-
-      <button class="decrastinatorBtn">
-        <img src="Images/Decrastinator-Icon.png" class="decrastinatorIcon">
-      </button>
-
-      <button class="customizeBtn">
-        Customize
       </button>
     </div>
   </nav>
@@ -125,7 +125,7 @@
       <option value="" disabled selected>Select a task</option>
     </select>
     <div class="startDecrastinatorBtn">
-      <img src="Images/Start-Timer-Icon.png" class="startDecrastinatorIcon w-4" alt="Start Decrastinator">
+      <img src="/Images/Start-Timer-Icon.png" class="startDecrastinatorIcon w-4" alt="Start Decrastinator">
     </div>
     <div class="decrastinatorMinutesDiv">3:00</div>
   </div>
@@ -148,7 +148,7 @@
         <div class="miniAnalyticsDiv">
           <div class="expandMiniAnalytics">
             <button class="expandMiniAnalyticsBtn">
-              <img src="Images/CollapseExpand Icon.png" class="expandMiniAnalyticsIcon">
+              <img src="/Images/CollapseExpand Icon.png" class="expandMiniAnalyticsIcon">
             </button>
 
             <div class="expandMiniAnalyticsTooltip">
@@ -157,33 +157,35 @@
           </div>
 
           <div class="miniAnalytics">
-            <div class="numberOfTasksDoneDiv">
+            <div class="miniAnalytic numberOfTasksDoneDiv">
               <p class="tasksDoneHeader">TASKS DONE</p>
-              <p class="numberOfTasksDone">0</p>
               <p class="numberOfTasksTotal">of 0 total</p>
-              <img src="Images/Checkmark.png" class="checkmarkImage">
+              <img src="/Images/Checkmark.png" class="checkmarkImage">
             </div>
 
-            <div class="numberOfTasksLeftDiv">
-              <p class="tasksLeftHeader">TASKS LEFT</p>
-              <p class="numberOfTasksLeft">0</p>
-              <p class="tasksLeftFooter">tasks remaining</p>
-              <img src="Images/Clock.png" class="clockImage">
+            <div class="miniAnalytic riskReportDiv">
+              <p class="riskReportHeader">RISK REPORT</p>
+              <div class="riskReportItems">
+                <p class="numberOfTasksOverdue"></p>
+                <p class="numberOfTasksDueToday"></p>
+              </div>
+              <p class="riskReportFooter"></p>
+              <img src="/Images/Risk_Report_Icon.png" class="riskReportIcon">
             </div>
 
-            <div class="energyGaugeDiv">
-              <p class="energyGaugeHeader">ENERGY GAUGE</p>
-              <p class="percentOfEnergy">100%</p>
-              <span class="energyGauge"></span>
-              <p class="energyGaugeFooter"></p>
-              <img src="Images/Decrastinator-Icon.png" class="lightningImage">
+            <div class="miniAnalytic momentumDiv">
+              <p class="momentumHeader">MOMENTUM</p>
+              <div class="momentumItems">
+                <p class="numberOfTasksDone">0</p>
+              </div>
+              <img src="/Images/Decrastinator-Icon.png" class="lightningImage">
             </div>
 
-            <div class="freeTimeDiv">
+            <div class="miniAnalytic freeTimeDiv">
               <p class="freeTimeHeader">FREE TIME</p>
               <p class="numberOfFreeTime">0</p>
               <p class="freeTimeFooter">available</p>
-              <img src="Images/Date-Icon.png" class="dateImage">
+              <img src="/Images/Date-Icon.png" class="dateImage">
             </div>
           </div>
         </div>
@@ -227,7 +229,7 @@
           </div>
 
           <div class="noTasksYetAlert">
-            <img src="Images/No-Tasks-Yet-Icon.png" class="noTasksYetIcon">
+            <img src="/Images/No-Tasks-Yet-Icon.png" class="noTasksYetIcon">
             <h2 class="noTasksYet">No tasks yet</h2>
             <p class="tinyTasksTip">Add a task to get started.</p>
           </div>
@@ -261,9 +263,17 @@
               </select>
             </div>
 
+            <div class="blockedByDiv">
+              <label for="blockedByInput" class="blockedByLabel">Blocked By:</label>
+              <select class="blockedByInput" autocomplete="off">
+                <option value="disabled" disabled selected>Select a task</option>
+                <!-- Task options will dynamically show up here -->
+              </select>
+            </div>
+
             <div class="addAndCancelTaskButtons">
               <button class="cancelTaskCreationBtn">Cancel</button>
-              <button type="button" class="addTaskBtn"><img class="addTaskBtnIcon" src="Images/Add-Task-Icon.png" alt="Add Task Icon">Add Task</button>
+              <button type="button" class="addTaskBtn"><img class="addTaskBtnIcon" src="/Images/Add-Task-Icon.png" alt="Add Task Icon">Add Task</button>
             </div>
           </div>
           
@@ -288,7 +298,10 @@
 
         <!-- Focus Timer -->
         <section class="focusTimer">
-          <h1 class="focusTimerName">Focus Timer</h1>
+          <select class="timerOptionsDropdown">
+            <option value="focusTimer">Focus Timer</option>
+            <option value="breakTimer">Break Timer</option>
+          </select>
 
           <div class="mainTimer">
             <div class="timerMinutesDiv">
@@ -318,13 +331,13 @@
 
               <div class="timerControls">
                 <button class="startTimerBtn">
-                  <img src="Images/Start-Timer-Icon.png" class="startTimerBtnIcon w-4">
+                  <img src="/Images/Start-Timer-Icon.png" class="startTimerBtnIcon w-4">
                 </button>
                 <button class="pauseTimerBtn">
-                  <img src="Images/Pause-Timer-Icon.png" class="pauseTimerBtnIcon w-4">
+                  <img src="/Images/Pause-Timer-Icon.png" class="pauseTimerBtnIcon w-4">
                 </button>
                 <button class="restartTimerBtn">
-                  <img src="Images/Restart-Timer-Icon.png" class="restartTimerBtnIcon w-4">
+                  <img src="/Images/Restart-Timer-Icon.png" class="restartTimerBtnIcon w-4">
                 </button>
               </div>
             </div>
@@ -334,6 +347,7 @@
 
       <div class="section2">
         <div class="notesAndActivityDiv">
+          <!-- Quick Notes -->
           <section class="notes">
             <div class="notesHeader">
               <h1 class="notesName">Quick Notes</h1>
@@ -347,7 +361,7 @@
             <hr class="notesLineSplit">
 
             <div class="noNotesYetAlert">
-              <img src="Images/No-Notes-Yet-Icon.png" class="noNotesYetIcon">
+              <img src="/Images/No-Notes-Yet-Icon.png" class="noNotesYetIcon">
               <h2 class="noNotesYet">No notes yet</h2>
               <p class="tinyNotesTip">Add a note to get started.</p>
             </div>
@@ -375,6 +389,7 @@
             </div>
           </section>
 
+          <!-- Activity Feed -->
           <section class="activity">
             <h1 class="activityName">Activity</h1>
 
@@ -388,6 +403,7 @@
           </section>
         </div>
 
+        <!-- Calendar -->
         <section class="calendar">
           <div id="calendar"></div>
         </section>
@@ -436,7 +452,7 @@
         </div>
         <div class="apiKeyDiv">
           <label for="apiKeyInput" class="apiKeyLabel">API Key:</label>
-          <input type="text" id="apiKeyInput" class="apiKeyInput" placeholder="Enter your API key">
+          <input type="text" id="apiKeyInput" class="apiKeyInput" placeholder="Coming soon!">
         </div>
       </div>
 
@@ -449,7 +465,7 @@
         <div class="aboutSettingsBtns">
           <div class="githubBtn">
             <a href="https://github.com/JaxTheDevG008/Dewen" target="_blank">
-              <img src="Images/GitHub-Logo.png" class="githubIcon">
+              <img src="/Images/GitHub-Logo.png" class="githubIcon">
             </a>
           </div>
           <div class="reportABugBtn">
@@ -469,7 +485,7 @@
       </div>
     </div>
   </div>
-<script type="module" src="main.js"></script>
+<script type="module" src="./main.ts"></script>
 </body>
 </html>
 
