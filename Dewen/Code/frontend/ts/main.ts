@@ -155,19 +155,30 @@ let focusMode = false;
 let timerMode = "focus";
 let activeFocusTask: string | undefined;
 
+type Priority = "Low" | "Medium" | "High" | "None";
+
+type Status = "To Do" | "In Progress" | "Blocked" | "Done";
+
+type Recurrence =
+    | "none"
+    | "daily"
+    | "weekly"
+    | "monthly"
+    | "yearly";
+
 interface Task {
-  id: number;
+  id: string;
   title: string;
   completed: boolean;
-  priority: "Low" | "Medium" | "High" | "None";
+  priority: Priority;
   dueDate: string | null;
   dueTime: string | null;
-  status: string;
+  status: Status;
   tags: string[];
   createdAt: number;
-  recurrence: "none" | "daily" | "weekly" | "monthly" | "yearly";
+  recurrence: Recurrence;
   lastCompleted: string | null;
-  subtasks: Task[] | null;
+  subtasks: Task[];
 }
 
 interface Note {
@@ -226,6 +237,8 @@ function createTaskElement(task: Task): HTMLLIElement | null {
 
   const taskStatus = task.status;
 
+  const taskRecurrence = task.recurrence;
+
   const taskOptionsBtnDiv = document.createElement("div");
   taskOptionsBtnDiv.className = "taskOptionsBtnDiv";
 
@@ -259,8 +272,8 @@ function createTaskElement(task: Task): HTMLLIElement | null {
   listTask.dataset.priority = taskPriority;
   listTask.dataset.dueDate = taskDate ?? undefined;
   listTask.dataset.dueTime = taskTime ?? undefined;
-  listTask.dataset.status = normalizeTaskStatus(task.status);
-  listTask.dataset.recurrence = task.recurrence ?? undefined;
+  listTask.dataset.status = taskStatus ?? undefined;
+  listTask.dataset.recurrence = taskRecurrence ?? undefined;
   listTask.id = taskId ? `task-${taskId}` : "";
 
   const mainTask = document.createElement("label") as HTMLLabelElement;
@@ -440,11 +453,10 @@ function createTaskElement(task: Task): HTMLLIElement | null {
   updateTasksDueTodayCount();
 
   editOption.addEventListener("click", () => {
-    editingTaskId = taskId;
+    editingTaskId = Number(taskId);
     isEditing = true;
 
     taskInput?.blur();
-
 
     if (taskInput) taskInput.value = "";
     if (taskPrioritySelector) taskPrioritySelector.value = "None";
@@ -1241,11 +1253,11 @@ function createTask(taskData: Partial<Task>) {
 function addTask() {
   const task = createTask({
     title: taskInput?.value,
-    priority: taskPrioritySelector?.value as "Low" | "Medium" | "High" | "None",
+    priority: taskPrioritySelector?.value as Priority,
     dueDate: taskDateInput?.value || null,
     dueTime: taskTimeInput?.value || null,
-    status: taskStatusSelector?.value,
-    recurrence: taskRecurrenceSelector?.value as "none" | "daily" | "weekly" | "monthly" | "yearly",
+    status: taskStatusSelector?.value as Status,
+    recurrence: taskRecurrenceSelector?.value as Recurrence,
   });
   if (!task) return;
 
