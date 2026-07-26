@@ -244,7 +244,7 @@ function createTaskElement(task: Task): HTMLLIElement | null {
 
   const taskOptionsBtn = document.createElement("button");
   taskOptionsBtn.className = "taskOptionsBtn";
-  taskOptionsBtn.innerHTML = `<img class="taskOptionsBtnIcon" src="Images/Task-Options-Icon.png" alt="Task Options Icon">`;
+  taskOptionsBtn.innerHTML = `<img class="taskOptionsBtnIcon" src="/Images/Task-Options-Icon.png" alt="Task Options Icon">`;
 
   const taskOptions = document.createElement("div");
   taskOptions.className = "taskOptions";
@@ -332,7 +332,7 @@ function createTaskElement(task: Task): HTMLLIElement | null {
 
   const taskDateImg = document.createElement("img");
   taskDateImg.className = "taskDateImg";
-  taskDateImg.src = "Images/Date-Icon.png";
+  taskDateImg.src = "/Images/Date-Icon.png";
   taskDateImg.alt = "Date Icon";
 
   taskDateAndTimeSpan.textContent =
@@ -361,7 +361,7 @@ function createTaskElement(task: Task): HTMLLIElement | null {
   if (recurrenceText) {
     const recurrenceImg = document.createElement("img");
     recurrenceImg.className = "taskRecurrenceImg";
-    recurrenceImg.src = "Images/Restart-Timer-Icon.png";
+    recurrenceImg.src = "/Images/Restart-Timer-Icon.png";
     recurrenceImg.alt = "Recurrence Icon";
 
     taskRecurrenceSpan.appendChild(recurrenceImg);
@@ -936,12 +936,12 @@ function createNoteElement(note: Note) {
   const editNoteBtn = document.createElement("button");
   editNoteBtn.className = "editNoteBtn";
   editNoteBtn.style.display = "none";
-  editNoteBtn.innerHTML = `<img src="Images/Edit-Icon.png" class="editIcon" alt="Edit Icon">`;
+  editNoteBtn.innerHTML = `<img src="/Images/Edit-Icon.png" class="editIcon" alt="Edit Icon">`;
   editNoteBtn.style.backgroundColor = "transparent";
   const deleteNoteBtn = document.createElement("button");
   deleteNoteBtn.className = "deleteNoteBtn";
   deleteNoteBtn.style.display = "none";
-  deleteNoteBtn.innerHTML = `<img src="Images/Delete-Icon.png" class="deleteIcon" alt="Delete Icon">`;
+  deleteNoteBtn.innerHTML = `<img src="/Images/Delete-Icon.png" class="deleteIcon" alt="Delete Icon">`;
   deleteNoteBtn.style.backgroundColor = "transparent";
 
   noteOptionsDiv.append(editNoteBtn, deleteNoteBtn);
@@ -1032,7 +1032,7 @@ function renderWhatToFocusOn(limit = 3) {
 
     const priorityMarker = document.createElement("img");
     priorityMarker.className = "priorityMarker";
-    priorityMarker.src = `Images/Versatile Circle.png`;
+    priorityMarker.src = `/Images/Versatile Circle.png`;
     priorityMarker.alt = `${task.priority}`;
 
     if (priority === "High") {
@@ -1591,10 +1591,10 @@ function searchBarMagic() {
     searchResultIcon.className = `searchResultIcon searchResultIcon--${result.type}`;
 
     if (result.type === "task") {
-      searchResultIcon.src = "Images/Checkmark.png";
+      searchResultIcon.src = "/Images/Checkmark.png";
       searchResultIcon.alt = "Task Icon";
     } else if (result.type === "note") {
-      searchResultIcon.src = "Images/Note-Icon.png";
+      searchResultIcon.src = "/Images/Note-Icon.png";
       searchResultIcon.alt = "Note Icon";
     } else {
       searchResultIcon.src = "";
@@ -2288,9 +2288,9 @@ themeBtn?.addEventListener("click", () => {
   }
 
   if (newMode === "dark") {
-    themeBtn.innerHTML = `<img src="Images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
+    themeBtn.innerHTML = `<img src="/Images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
   } else {
-    themeBtn.innerHTML = `<img src="Images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
+    themeBtn.innerHTML = `<img src="/Images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
   }
 });
 
@@ -2454,7 +2454,7 @@ closeDecrastinatorBtn?.addEventListener("click", () => {
     decrastinatorDiv.style.display = "none";
   }
   hideOverlay();
-  if (themeBtn) themeBtn.innerHTML = `<img src="Images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
+  if (themeBtn) themeBtn.innerHTML = `<img src="/Images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
   document.querySelectorAll("body >  *").forEach((el) => ((el as HTMLElement).inert = false));
   clearInterval(Number(decrastinatorIntervalId));
   decrastinatorIsRunning = false;
@@ -2462,9 +2462,9 @@ closeDecrastinatorBtn?.addEventListener("click", () => {
 
 window.addEventListener("load", () => {
   if (isDark() && themeBtn) {
-    themeBtn.innerHTML = `<img src="Images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
+    themeBtn.innerHTML = `<img src="/Images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
   } else {
-    if (themeBtn) themeBtn.innerHTML = `<img src="Images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
+    if (themeBtn) themeBtn.innerHTML = `<img src="/Images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
   }
 });
 
@@ -2710,10 +2710,10 @@ function getTimeAgo(timestamp: number) {
 
 function getActivityIcon(type: string) {
   const activityIcons = {
-    task: "Images/Checkmark.png",
-    note: "Images/Note-Icon.png",
-    focus: "Images/Clock.png",
-    delete: "Images/Delete-Icon.png",
+    task: "/Images/Checkmark.png",
+    note: "/Images/Note-Icon.png",
+    focus: "/Images/Clock.png",
+    delete: "/Images/Delete-Icon.png",
   };
   const normalizedActivityType = type?.toLowerCase().trim();
   if (normalizedActivityType && normalizedActivityType in activityIcons) return activityIcons[(normalizedActivityType as keyof typeof activityIcons)] || "";
