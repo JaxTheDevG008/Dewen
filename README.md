@@ -8,7 +8,8 @@ To learn frontend, backend, full-stack, and APIs, I thought that it would be a g
 
 ---
 ## Materials
-- Frontend: HTML, CSS, and Vanilla JavaScript
+- Frontend: HTML, CSS, and TypeScript
+- Framework: None (React soon)
 - Backend: Python
 - Database: IndexedDB
 - Version Control: Git and GitHub
