@@ -21,7 +21,7 @@ To learn frontend, backend, full-stack, and APIs, I thought that it would be a g
 - Focus Timer - Track your sessions using the Pomodoro method
 - Quick Notes - Mini notes to help you jot down ideas quickly
 - Calendar - Uses FullCalendar.js to display your tasks in a calendar view
-- Activity Panel - Track your activites throughout the app, whether that's task addition or starting a focus session
+- Activity Panel - Track your activities throughout the app, whether that's task addition or starting a focus session
 - Search/Command Bar - Search your tasks and notes or create tasks instantly with :a [task description]
 
 ### Coming Soon
