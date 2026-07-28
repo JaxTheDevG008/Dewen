@@ -1,16 +1,12 @@
 /*
 
-!/Dewen
-!/Dewen/**
+!/Dewen/
 !/README.md
 !.gitignore
+!/LICENSE
 
-.env
-.env.*
-node_modules/
-dist/
-
-.vscode/
-.github/
-
-/Portfolio/.env
+**/node_modules/
+**/.env
+**/.env.*
+**/dist/
+**/.vscode/
