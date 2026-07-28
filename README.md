@@ -2,7 +2,7 @@
 
 [Check out my project here](https://dewen.netlify.app)
 ## Purpose
-Most task and project mangement websites these days force a subscription on you, obligate you to use AI, and use your data to train models without your consent. 
+Most task and project management websites these days force a subscription on you, obligate you to use AI, and use your data to train models without your consent. 
 
 To learn frontend, backend, full-stack, and APIs, I thought that it would be a good idea to build my own from scratch, completely stripped of these modern problems while delivering a clean interface, local-first privacy, and useful productivity tools.
 
