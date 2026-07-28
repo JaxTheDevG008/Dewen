@@ -1,15 +1,16 @@
 /*
 
-!/Dewen/
+!/Dewen
+!/Dewen/**
 !/README.md
 !.gitignore
 
 .env
 .env.*
 node_modules/
+dist/
 
 .vscode/
 .github/
 
 /Portfolio/.env
-node_modules/
