@@ -146,10 +146,10 @@ let isDraggable = false;
 let editingNoteColor: string | null = null;
 let activityLog = getActivityLog();
 let calendar: Calendar | null = null;
-let editingTaskId: number | null = null;
+let editingTaskId: string | null = null;
 let isEditing: boolean = false;
 let isAddingSubtask = false;
-let currentParentTaskId: number | null = null;
+let currentParentTaskId: string | null = null;
 let currentTaskSort = "dueDate";
 let focusMode = false;
 let timerMode = "focus";
@@ -453,7 +453,7 @@ function createTaskElement(task: Task): HTMLLIElement | null {
   updateTasksDueTodayCount();
 
   editOption.addEventListener("click", () => {
-    editingTaskId = Number(taskId);
+    editingTaskId = String(taskId);
     isEditing = true;
 
     taskInput?.blur();
@@ -1971,8 +1971,8 @@ document.addEventListener("DOMContentLoaded", () => {
             hideOverlay();
 
             if (taskInput) taskInput.value = "";
-             if (taskDateInput) taskDateInput.value = "";
-
+            if (taskDateInput) taskDateInput.value = "";
+            if (taskTimeInput) taskTimeInput.value = "";
             if (toDoList && toDoListHeader) toDoList.insertBefore(taskCreationDiv, toDoListHeader.nextSibling);
           });
 
@@ -1993,6 +1993,7 @@ document.addEventListener("DOMContentLoaded", () => {
           hideOverlay();
 
           if (taskInput) taskInput.value = "";
+          if (taskTimeInput) taskTimeInput.value = "";
           if (taskDateInput) taskDateInput.value = "";
 
           toDoList.insertBefore(taskCreationDiv, toDoListHeader.nextSibling);
@@ -2048,7 +2049,7 @@ taskStatusSelector?.addEventListener("change", () => {
 });
 
 function saveEditedTask() {
-  const task = tasks.find((t) => String(t.id) === String(editingTaskId));
+  const task = tasks.find((t) => String(t.id) === editingTaskId);
   if (!task) return;
 
   if (taskInput) task.title = taskInput.value.trim();
@@ -2066,7 +2067,7 @@ function saveEditedTask() {
   editingTaskId = null;
   isEditing = false;
   if (taskCreationDiv) taskCreationDiv.style.display = "none";
-  document.body.removeChild(taskCreationDiv);
+  if (taskCreationDiv?.parentNode) taskCreationDiv.parentNode.removeChild(taskCreationDiv);
   hideOverlay();
 }
 
@@ -2479,14 +2480,15 @@ if (noTasksYetAlert && noNotesYetAlert) {
 }
 
 function normalizeTaskStatus(status: string | null): string {
-  if (!status) return "to-do";
+  if (!status) return "To Do";
   const normalized = status.toLowerCase().replace(/\s/g, "-");
 
-  if (normalized === "todo") return "to-do";
-  if (normalized === "in-progress") return "in-progress";
-  if (normalized === "done") return "done";
+  if (normalized === "todo") return "To Do";
+  if (normalized === "in-progress") return "In Progress";
+  if (normalized === "blocked") return "Blocked";
+  if (normalized === "done") return "Done";
 
-  return normalized;
+  return "To Do";
 }
 
 taskViewSelector?.addEventListener("change", () => {
