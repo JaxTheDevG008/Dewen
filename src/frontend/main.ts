@@ -2460,6 +2460,7 @@ closeDecrastinatorBtn?.addEventListener("click", () => {
   decrastinatorIsRunning = false;
 });
 
+// please fix these i beg you for the love of god
 window.addEventListener("load", () => {
   if (isDark() && themeBtn) {
     themeBtn.innerHTML = `<img src="/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
