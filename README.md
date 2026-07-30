@@ -28,3 +28,6 @@ To learn frontend, backend, full-stack, and APIs, I thought that it would be a g
 - AI - Turn this on to help assist you in your workflow, or turn it off if you don't feel like it
 - Calendar Tab - Gives the calendar its own section to help you manage your schedules more efficiently
 - Automation - If AI is enabled, this lets users create custom automations in a simple interface
+---
+## AI Usage
+I used AI to help me with features, layout, and debugging, while still retaining the information the AI creates. Even though I used AI, this is not a fully vibe-coded or AI-generated app.
