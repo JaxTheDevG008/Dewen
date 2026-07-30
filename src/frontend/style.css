@@ -23,8 +23,8 @@
   --fc-daygrid-day-bg-color: rgb(217, 217, 217);
   --fc-daygrid-day-hover-bg-color: oklch(78.577% 0.00009 271.152);
   --fc-border-color: oklch(51.795% 0.09629 20.892);
-  --accent-color: black;
-  --accent-text-color: white;
+  --accent-color: rgb(212, 212, 212);
+  --accent-text-color: black;
 }
 
 [data-mode="dark"] {
