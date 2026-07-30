@@ -55,9 +55,9 @@
 
               <div class="aiOptionsDiv">
                 <ul class="aiOptionsList">
-                  <li class="prioritySuggestionOption">Priority Suggestion</li>
-                  <li class="scheduleSuggestionOption">Daily Schedule</li>
-                  <li class="riskReportOption">Risk Report</li>
+                  <li class="taskBreakdownOpt">Task Breakdown</li>
+                  <li class="scheduleSuggestionOpt">Daily Schedule</li>
+                  <li class="prioritySuggestionsOpt">Priority Suggestions</li>
                 </ul>
               </div>
           </div>
@@ -116,15 +116,35 @@
         <button class="blackBgBtn" data-theme="black"></button>
       </div>
     </div>
+
+    <div class="customizeAccent">
+      <div class="customizeAccentHeader">
+        <h1 class="customizeAccentHeaderTitle">Accent</h1>
+      </div>
+      <div class="customizeAccentOptions">
+        <button class="redAccentBtn" data-theme="red"></button>
+        <button class="goldAccentBtn" data-theme="gold"></button>
+        <button class="lightGreenAccentBtn" data-theme="lightGreen"></button>
+        <button class="greenAccentBtn" data-theme="green"></button>
+        <button class="tealAccentBtn" data-theme="teal"></button>
+        <button class="aquaAccentBtn" data-theme="aqua"></button>
+        <button class="blueAccentBtn" data-theme="blue"></button>
+        <button class="violetAccentBtn" data-theme="violet"></button>
+        <button class="purpleAccentBtn" data-theme="purple"></button>
+        <button class="pinkAccentBtn" data-theme="pink"></button>
+        <button class="whiteAccentBtn" data-theme="white"></button>
+        <button class="blackAccentBtn" data-theme="black"></button>
+      </div>
+    </div>
   </div>
 
   <div class="decrastinatorDiv">
     <div class="decrastinatorName">Decrastinator</div>
-    <div class="closeDecrastinatorBtn">✕</div>
-    <select class="decrastinatorTaskSelector" autocomplete="off">
+    <div class="closeDecrastinatorBtn accentItem">✕</div>
+    <select class="decrastinatorTaskSelector accentItem" autocomplete="off">
       <option value="" disabled selected>Select a task</option>
     </select>
-    <div class="startDecrastinatorBtn">
+    <div class="startDecrastinatorBtn accentItem">
       <img src="/images/Start-Timer-Icon.png" class="startDecrastinatorIcon w-4" alt="Start Decrastinator">
     </div>
     <div class="decrastinatorMinutesDiv">3:00</div>
@@ -147,7 +167,7 @@
       <div class="bottomRowOfHeader">
         <div class="miniAnalyticsDiv">
           <div class="expandMiniAnalytics">
-            <button class="expandMiniAnalyticsBtn">
+            <button class="expandMiniAnalyticsBtn accentItem">
               <img src="/images/CollapseExpand Icon.png" class="expandMiniAnalyticsIcon">
             </button>
 
@@ -157,10 +177,12 @@
           </div>
 
           <div class="miniAnalytics">
-            <div class="miniAnalytic numberOfTasksDoneDiv">
-              <p class="tasksDoneHeader">TASKS DONE</p>
-              <p class="numberOfTasksTotal">of 0 total</p>
-              <img src="/images/Checkmark.png" class="checkmarkImage">
+            <div class="miniAnalytic whatToFocusOnDiv">
+              <div class="whatToFocusOnHeader">WHAT TO FOCUS ON</div>
+              <ul class="focusOnList">
+                <!-- Focus suggestions will dynamically show up here -->
+              </ul>
+              <img src="/images/Target-Icon.png" class="targetIcon" alt="Target Icon">
             </div>
 
             <div class="miniAnalytic riskReportDiv">
@@ -170,7 +192,7 @@
                 <p class="numberOfTasksDueToday"></p>
               </div>
               <p class="riskReportFooter"></p>
-              <img src="/images/Risk_Report_Icon.png" class="riskReportIcon">
+              <img src="/images/Risk_Report_Icon.png" class="riskReportIcon" alt="Risk Report Icon">
             </div>
 
             <div class="miniAnalytic momentumDiv">
@@ -178,23 +200,16 @@
               <div class="momentumItems">
                 <p class="numberOfTasksDone">0</p>
               </div>
-              <img src="/images/Decrastinator-Icon.png" class="lightningImage">
+              <img src="/images/Graph-Icon.png" class="graphIcon" alt="Graph Icon">
             </div>
 
             <div class="miniAnalytic freeTimeDiv">
               <p class="freeTimeHeader">FREE TIME</p>
               <p class="numberOfFreeTime">0</p>
               <p class="freeTimeFooter">available</p>
-              <img src="/images/Date-Icon.png" class="dateImage">
+              <img src="/images/Clock.png" class="clockIcon" alt="Clock Icon">
             </div>
           </div>
-        </div>
-
-        <div class="whatToFocusOn">
-          <div class="whatToFocusOnHeader">What to focus on</div>
-          <ul class="focusOnList">
-            <!-- Focus suggestions will dynamically show up here -->
-          </ul>
         </div>
       </div>
     </div>
@@ -210,17 +225,17 @@
           <div class="toDoListHeader">
             <h1 class="toDoListName">Tasks</h1>
             <div class="options">
-              <select class="taskSortSelector">
+              <select class="taskSortSelector accentItem">
                 <option value="dateCreated">Date Created</option>
                 <option value="priority">Priority</option>
                 <option value="dueDate">Due Date</option>
               </select>
-              <select class="taskViewSelector">
+              <select class="taskViewSelector accentItem">
                 <option value="listView">List View</option>
                 <option value="KanbanView">Kanban Board</option>
                 <option value="timelineView">Timeline View</option>
               </select>
-              <button class="addBtn">
+              <button class="addBtn accentItem">
                 Add
               </button>
             </div>
@@ -236,25 +251,25 @@
 
           <div class="taskCreationDiv">
             <div class="actualTaskCreation">
-              <input class="taskInput" type="text" placeholder="What needs to be done?">
+              <input class="taskInput accentItem" type="text" placeholder="What needs to be done?">
             </div>
 
             <div class="taskAttrCreation">
-              <select class="taskPrioritySelector">
+              <select class="taskPrioritySelector accentItem">
                 <option class="noPriorityOption" value="None">None</option>
                 <option class="lowPriorityOption" value="Low">Low</option>
                 <option class="mediumPriorityOption" value="Medium">Medium</option>
                 <option class="highPriorityOption" value="High">High</option>
               </select>
-              <input class="taskDateInput" type="date">
-              <input class="taskTimeInput" type="time">
-              <select class="taskStatusSelector">
+              <input class="taskDateInput accentItem" type="date">
+              <input class="taskTimeInput accentItem" type="time">
+              <select class="taskStatusSelector accentItem">
                 <option class="toDoStatus" value="To Do">To Do</option>
                 <option class="inProgressStatus" value="In Progress">In Progress</option>
                 <option class="blockedStatus" value="Blocked">Blocked</option>
                 <option class="doneStatus" value="Done">Done</option>
               </select>
-              <select class="taskRecurrenceSelector">
+              <select class="taskRecurrenceSelector accentItem">
                 <option class="noRecurrenceOption" value="none">None</option>
                 <option class="dailyRecurrenceOption" value="daily">Daily</option>
                 <option class="weeklyRecurrenceOption" value="weekly">Weekly</option>
@@ -265,15 +280,15 @@
 
             <div class="blockedByDiv">
               <label for="blockedByInput" class="blockedByLabel">Blocked By:</label>
-              <select class="blockedByInput" autocomplete="off">
+              <select class="blockedByInput accentItem" autocomplete="off">
                 <option value="disabled" disabled selected>Select a task</option>
                 <!-- Task options will dynamically show up here -->
               </select>
             </div>
 
             <div class="addAndCancelTaskButtons">
-              <button class="cancelTaskCreationBtn">Cancel</button>
-              <button type="button" class="addTaskBtn"><img class="addTaskBtnIcon" src="/images/Add-Task-Icon.png" alt="Add Task Icon">Add Task</button>
+              <button class="cancelTaskCreationBtn accentItem">Cancel</button>
+              <button type="button" class="addTaskBtn accentItem"><img class="addTaskBtnIcon" src="/images/Add-Task-Icon.png" alt="Add Task Icon">Add Task</button>
             </div>
           </div>
           
@@ -298,7 +313,7 @@
 
         <!-- Focus Timer -->
         <section class="focusTimer">
-          <select class="timerOptionsDropdown">
+          <select class="timerOptionsDropdown accentItem">
             <option value="focusTimer">Focus Timer</option>
             <option value="breakTimer">Break Timer</option>
           </select>
@@ -307,13 +322,13 @@
             <div class="timerMinutesDiv">
               <svg viewBox="0 0 100 100">
                 <circle class="track" cx="50" cy="50" r="45"/>
-                <circle class="timerProgressRing" cx="50" cy="50" r="45"/>
+                <circle class="timerProgressRing accentItem" cx="50" cy="50" r="45"/>
               </svg>
               <span class="timerMinutes"></span>
             </div>
 
             <div class="currentFocusedTaskDiv">
-              <select required class="taskSelectionDropdown" autocomplete="off">
+              <select required class="taskSelectionDropdown accentItem" autocomplete="off">
                 <option value="" disabled selected>Choose a task to focus on...</option>
                 <!-- Task options will dynamically show up here -->
               </select>
@@ -323,20 +338,20 @@
 
             <div class="timerButtons">
               <div class="timerLengthOptions flex gap-2">
-                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">15m</button>
-                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">25m</button>
-                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">45m</button>
-                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold">60m</button>
+                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold accentItem">15m</button>
+                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold accentItem">25m</button>
+                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold accentItem">45m</button>
+                <button class="px-4 py-2 rounded-full bg-blue-500 font-semibold accentItem">60m</button>
               </div>
 
               <div class="timerControls">
-                <button class="startTimerBtn">
+                <button class="startTimerBtn accentItem">
                   <img src="/images/Start-Timer-Icon.png" class="startTimerBtnIcon w-4">
                 </button>
-                <button class="pauseTimerBtn">
+                <button class="pauseTimerBtn accentItem">
                   <img src="/images/Pause-Timer-Icon.png" class="pauseTimerBtnIcon w-4">
                 </button>
-                <button class="restartTimerBtn">
+                <button class="restartTimerBtn accentItem">
                   <img src="/images/Restart-Timer-Icon.png" class="restartTimerBtnIcon w-4">
                 </button>
               </div>
@@ -352,7 +367,7 @@
             <div class="notesHeader">
               <h1 class="notesName">Quick Notes</h1>
               <div class="options">
-                <button class="addBtn2">
+                <button class="addBtn2 accentItem">
                   Add
                 </button>
               </div>
@@ -377,8 +392,8 @@
                 <button class="purpleColor" data-color="rgb(134, 0, 212)"></button>
               </div>
               <div class="cancelAndAddNoteButtons">
-                <button class="cancelNoteCreationBtn">Cancel</button>
-                <button class="addNoteBtn">Add Note</button>
+                <button class="cancelNoteCreationBtn accentItem">Cancel</button>
+                <button class="addNoteBtn accentItem">Add Note</button>
               </div>
             </div>
 
@@ -443,7 +458,7 @@
         </div>
         <div class="aiModelDiv">
           <label for="aiModelSelect" class="aiModelLabel">AI Model:</label>
-          <select class="aiModelSelect">
+          <select class="aiModelSelect accentItem" id="aiModelSelect">
             <option value="OpenAI">OpenAI</option>
             <option value="Anthropic">Anthropic</option>
             <option value="Google">Google</option>
@@ -452,7 +467,7 @@
         </div>
         <div class="apiKeyDiv">
           <label for="apiKeyInput" class="apiKeyLabel">API Key:</label>
-          <input type="text" id="apiKeyInput" class="apiKeyInput" placeholder="Coming soon!">
+          <input type="text" id="apiKeyInput" class="apiKeyInput accentItem" placeholder="Coming soon!">
         </div>
       </div>
 
@@ -469,12 +484,12 @@
             </a>
           </div>
           <div class="reportABugBtn">
-            <button class="reportABugBtn">
+            <button class="reportABugBtn accentItem">
               <a href="https://github.com/JaxTheDevG008/Dewen/issues/new" target="_blank">Report a Bug</a>
             </button>
           </div>
           <div class="requestAFeatureBtn">
-            <button class="requestAFeatureBtn">
+            <button class="requestAFeatureBtn accentItem">
               <a href="https://github.com/JaxTheDevG008/Dewen/issues/new" target="_blank">Request a Feature</a>
             </button>
           </div>
@@ -485,7 +500,8 @@
       </div>
     </div>
   </div>
-<script type="module" src="ts/main.ts"></script>
+<!-- <script type="module" src="ts/main.ts"></script> -->
+<script type="module" src="/main.ts"></script>
 </body>
 </html>
 

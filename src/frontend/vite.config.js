@@ -10,10 +10,10 @@ export default defineConfig({
       injectRegister: "inline",
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
       devOptions: {
-        enabled: true
+        enabled: false
       },
       workbox: {
-          globPatterns: ["**/*.{js,css,html,ico,png,jpg,jpeg,svg,webp,gif,PNG,JPG,JPEG,SVG,webmanifest}"],
+        globPatterns: ["**/*.{js,css,html,ico,png,jpg,jpeg,svg,webp,gif,PNG,JPG,JPEG,SVG,webmanifest}"],
         maximumFileSizeToCacheInBytes: 3000000
       },
     })

@@ -21,7 +21,7 @@ const closeNotiPopup = getElement<HTMLButtonElement>(".closeNotiPopup");
 const sidebar = getElement<HTMLDivElement>(".sidebar");
 const sidebarBtns = getAllElements<HTMLButtonElement>(".sidebar button");
 const hamburgerBtn = getElement<HTMLButtonElement>(".hamburgerBtn");
-const whatToFocusOn = getElement<HTMLDivElement>(".whatToFocusOn");
+const whatToFocusOnDiv = getElement<HTMLDivElement>(".whatToFocusOnDiv");
 const focusOnList = getElement<HTMLUListElement>(".focusOnList");
 const header = getElement<HTMLHeadElement>(".header");
 const searchDiv = getElement<HTMLDivElement>(".searchDiv");
@@ -36,8 +36,8 @@ const agentBtn = getElement<HTMLButtonElement>(".agentBtn");
 const aiToggle = (document.getElementById("aiToggle") as HTMLInputElement | null) || (() => { throw new Error("AI Toggle not found"); })();
 const aiOptionsDiv = getElement<HTMLDivElement>(".aiOptionsDiv");
 /** const aiOptionsList = getElement<HTMLUListElement>(".aiOptionsList"); */
-const prioritySuggestionOption = getElement<HTMLButtonElement>(
-  ".prioritySuggestionOption",
+const prioritySuggestionsOpt = getElement<HTMLButtonElement>(
+  ".prioritySuggestionsOpt",
 );
 /** const scheduleSuggestionOption = getElement<HTMLButtonElement>(
   ".scheduleSuggestionOption",
@@ -51,9 +51,14 @@ const customizeDiv = getElement<HTMLDivElement>(".customizeDiv");
 const customizeBgOptions = getAllElements<HTMLButtonElement>(
   ".customizeBgOptions button",
 );
+const customizeAccentOptions = getAllElements<HTMLButtonElement>(
+  ".customizeAccentOptions button",
+);
 const currentDate = getElement<HTMLDivElement>(".currentDate");
 const dynamicGreeting = getElement<HTMLHeadingElement>(".greeting");
+const miniAnalyticsDiv = getElement<HTMLDivElement>(".miniAnalyticsDiv");
 const expandMiniAnalyticsBtn = getElement<HTMLButtonElement>(".expandMiniAnalyticsBtn");
+const expandMiniAnalyticsIcon = getElement<HTMLImageElement>(".expandMiniAnalyticsIcon");
 const miniAnalytics = getElement<HTMLDivElement>(".miniAnalytics");
 /* const momentumItems = getElement<HTMLUListElement>(".momentumItems");
 const momentumDivFooter = getElement<HTMLDivElement>(".momentumDivFooter");
@@ -1716,7 +1721,7 @@ closeCustomizeBtn?.addEventListener("click", () => {
   }, 300);
 });
 
-const themes = [
+const bgThemes = [
   {
     name: "red",
     light: "linear-gradient(65deg, maroon, #f8dce5)",
@@ -1779,22 +1784,108 @@ const themes = [
   },
 ];
 
-const themesMap = Object.fromEntries(themes.map((t) => [t.name, t]));
+const accentThemes = [
+  {
+    name: "red",
+    light: "rgb(212, 146, 146)",
+    dark: "rgb(62, 0, 0)",
+  },
+  {
+    name: "gold",
+    light: "rgb(231, 196, 139)",
+    dark: "rgb(79, 56, 19)",
+  },
+  {
+    name: "lightGreen",
+    light: "rgb(155, 203, 121)",
+    dark: "rgb(38, 60, 25)",
+  },
+  {
+    name: "green",
+    light: "#7fd77f",
+    dark: "rgb(18, 77, 18)",
+  },
+  {
+    name: "teal",
+    light: "rgb(152, 209, 215)",
+    dark: "rgb(0, 58, 64)",
+  },
+  {
+    name: "aqua",
+    light: "rgb(123, 201, 217)",
+    dark: "rgb(0, 91, 109)",
+  },
+  {
+    name: "blue",
+    light: "rgb(140, 187, 221)",
+    dark: "rgb(0, 51, 88)",
+  },
+  {
+    name: "violet",
+    light: "rgb(205, 161, 231)",
+    dark: "rgb(77, 50, 92)",
+  },
+  {
+    name: "purple",
+    light: "rgb(201, 136, 221)",
+    dark: "rgb(66, 0, 86)",
+  },
+  {
+    name: "pink",
+    light: "pink",
+    dark: "#a3627b",
+  },
+  {
+    name: "white",
+    light: "rgb(212, 212, 212)",
+    dark: "#7c7c7c",
+  },
+  {
+    name: "black",
+    light: "#4d4d4d",
+    dark: "rgb(37, 37, 37)",
+  },
+];
+
+const bgThemesMap = Object.fromEntries(bgThemes.map((t) => [t.name, t]));
+const accentThemesMap = Object.fromEntries(accentThemes.map((t) => [t.name, t]));
 
 customizeBgOptions.forEach((button) => {
   button.addEventListener("click", () => {
-    const themeName = button.dataset.theme;
-    applyTheme(String(themeName));
+    const bgThemeName = button.dataset.theme;
+    applyBgTheme(String(bgThemeName));
+    customizeBgOptions.forEach((b) => b.classList.remove("active"));
+    button.classList.add("active");
   });
 });
 
-function applyTheme(themeName: string) {
-  const theme = themesMap[themeName];
+customizeAccentOptions.forEach((button) => {
+  button.addEventListener("click", () => {
+    const accentThemeName = button.dataset.theme;
+    applyAccentTheme(String(accentThemeName));
+    customizeAccentOptions.forEach((b) => b.classList.remove("active"));
+    button.classList.add("active");
+  });
+});
+
+function applyBgTheme(themeName: string) {
+  const theme = bgThemesMap[themeName];
   if (!theme) return;
   const darkMode = isDark();
   const bg = darkMode ? theme.dark : theme.light;
   document.body.style.background = bg;
-  localStorage.setItem("customTheme", themeName);
+  localStorage.setItem("customBgTheme", themeName);
+}
+
+function applyAccentTheme(themeName: string) {
+  const theme = accentThemesMap[themeName];
+  if (!theme) return;
+  const darkMode = isDark();
+  const accent = darkMode ? theme.dark : theme.light;
+  document.documentElement.style.setProperty("--accent-color", accent);
+  document.documentElement.style.setProperty("--accent-text-color", darkMode || themeName === "black" ? "white" : "black");
+  if (timerProgressRing && themeName === "white") timerProgressRing.style.stroke = "rgb(151, 151, 151)";
+  localStorage.setItem("customAccentTheme", themeName);
 }
 
 function responsiveWebsite() {
@@ -1867,7 +1958,44 @@ document.addEventListener("DOMContentLoaded", () => {
   updateTasksOverdueCount();
   updateTasksDueTodayCount();
 
-  if (localStorage.getItem("miniAnalyticsExpanded") === "true" && miniAnalytics) miniAnalytics.classList.add("show");
+  const savedBgTheme = localStorage.getItem("customBgTheme");
+  const savedAccentTheme = localStorage.getItem("customAccentTheme");
+
+  if (savedBgTheme) {
+    const bgButton = Array.from(customizeBgOptions).find((b) => b.dataset.theme === savedBgTheme);
+    if (bgButton) bgButton.classList.add("active");
+  }
+
+  if (savedAccentTheme) {
+    const accentButton = Array.from(customizeAccentOptions).find((b) => b.dataset.theme === savedAccentTheme);
+    if (accentButton) accentButton.classList.add("active");
+  }
+
+  const lastActiveView = localStorage.getItem("lastActiveView");
+  if (lastActiveView) {
+    if (lastActiveView === "calendar") {
+      document.documentElement.classList.add("calendarView");
+      document.documentElement.classList.remove("dashboardActive");
+      document.documentElement.classList.remove("isSettingsView");
+      if (calendarBtn) calendarBtn.classList.add("active");
+    } else if (lastActiveView === "settiings") {
+      document.documentElement.classList.add("isSettingsView");
+      document.documentElement.classList.remove("dashboardActive");
+      document.documentElement.classList.remove("calendarView");
+      if (settingsBtn) settingsBtn.classList.add("active");
+    } else {
+      document.documentElement.classList.add("dashboardActive");
+      document.documentElement.classList.remove("calendarView");
+      document.documentElement.classList.remove("isSettingsView");
+      if (dashboardBtn) dashboardBtn.classList.add("active");
+    }
+  }
+
+  if (localStorage.getItem("miniAnalyticsExpanded") === "true" && miniAnalytics) {
+    miniAnalytics.classList.add("show");
+    if (miniAnalyticsDiv) miniAnalyticsDiv.style.marginBottom = miniAnalytics.classList.contains("show") ? "70px" : "0px";
+    if (expandMiniAnalyticsIcon) expandMiniAnalyticsIcon.style.rotate = miniAnalytics.classList.contains("show") ? "-90deg" : "90deg";
+  }
 
   currentTaskSort = taskSortSelector?.value || "dateCreated";
   setTaskView(localStorage.getItem("taskViewOption") || "listView", false);
@@ -2160,18 +2288,24 @@ dashboardBtn?.addEventListener("click", () => {
   document.documentElement.classList.add("dashboardActive");
   document.documentElement.classList.remove("isSettingsView");
   document.documentElement.classList.remove("calendarView");
+
+  localStorage.setItem("lastActiveView", "dashboard");
 });
 
 calendarBtn?.addEventListener("click", () => {
   document.documentElement.classList.add("calendarView");
   document.documentElement.classList.remove("dashboardActive");
   document.documentElement.classList.remove("isSettingsView");
+
+  localStorage.setItem("lastActiveView", "calendar");
 });
 
 settingsBtn?.addEventListener("click", () => {
   document.documentElement.classList.add("isSettingsView");
   document.documentElement.classList.remove("dashboardActive");
   document.documentElement.classList.remove("calendarView");
+
+  localStorage.setItem("lastActiveView", "settings");
 
   preferredNameInput.value = localStorage.getItem("preferredName") || "";
   fullNameInput.value = localStorage.getItem("fullName") || "";
@@ -2282,10 +2416,11 @@ themeBtn?.addEventListener("click", () => {
   document.documentElement.dataset.mode = newMode;
   localStorage.setItem("mode", newMode);
 
-  const savedTheme = localStorage.getItem("customTheme");
-  if (savedTheme) {
-    applyTheme(savedTheme);
-  }
+  const savedBgTheme = localStorage.getItem("customBgTheme");
+  if (savedBgTheme) applyBgTheme(savedBgTheme);
+
+  const savedAccentTheme = localStorage.getItem("customAccentTheme");
+  if (savedAccentTheme) applyAccentTheme(savedAccentTheme);
 
   if (newMode === "dark") {
     themeBtn.innerHTML = `<img src="/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
@@ -2298,7 +2433,7 @@ agentBtn?.addEventListener("click", () => {
   if (aiOptionsDiv) aiOptionsDiv.classList.toggle("show");
 });
 
-prioritySuggestionOption?.addEventListener("click", () => {
+prioritySuggestionsOpt?.addEventListener("click", () => {
   const isaiView = document.documentElement.classList.toggle("aiView");
 
   if (isaiView) {
@@ -2469,10 +2604,11 @@ window.addEventListener("load", () => {
   }
 });
 
-const savedTheme = localStorage.getItem("customTheme");
-if (savedTheme) {
-  applyTheme(savedTheme);
-}
+const savedBgTheme = localStorage.getItem("customBgTheme");
+if (savedBgTheme) applyBgTheme(savedBgTheme);
+
+const savedAccentTheme = localStorage.getItem("customAccentTheme");
+if (savedAccentTheme) applyAccentTheme(savedAccentTheme);
 
 if (noTasksYetAlert && noNotesYetAlert) {
   noTasksYetAlert.style.display = "inline";
@@ -3112,6 +3248,8 @@ expandMiniAnalyticsBtn?.addEventListener("click", () => {
       "miniAnalyticsExpanded",
       miniAnalytics.classList.contains("show").toString()
     );
+    if (miniAnalyticsDiv) miniAnalyticsDiv.style.marginBottom = miniAnalytics.classList.contains("show") ? "70px" : "0px";
+    if (expandMiniAnalyticsIcon) expandMiniAnalyticsIcon.style.rotate = miniAnalytics.classList.contains("show") ? "-90deg" : "90deg";
   }
 });
 

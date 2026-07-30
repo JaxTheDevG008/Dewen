@@ -17,12 +17,14 @@
   --task-attribute-separator-color: black;
   --task-options-btn-bg-color: var(--task-bg-color);
   --task-options-btn-hover-bg-color: var(--task-hover-bg-color);
-  --timer-progress-ring-color: rgb(95, 125, 153);
+  --timer-progress-ring-color: var(--accent-color);
   --fc-buttons-bg-color: rgba(255, 255, 255, 0.3);
   --fc-buttons-icon-color: black;
   --fc-daygrid-day-bg-color: rgb(217, 217, 217);
   --fc-daygrid-day-hover-bg-color: oklch(78.577% 0.00009 271.152);
   --fc-border-color: oklch(51.795% 0.09629 20.892);
+  --accent-color: black;
+  --accent-text-color: white;
 }
 
 [data-mode="dark"] {
@@ -44,7 +46,7 @@
   --task-attribute-separator-color: rgb(255, 255, 255);
   --task-options-btn-bg-color: var(--task-bg-color);
   --task-options-btn-hover-bg-color: var(--task-hover-bg-color);
-  --timer-progress-ring-color: rgb(95, 125, 153);
+  --timer-progress-ring-color: var(--accent-color);
   --fc-buttons-bg-color: rgba(255, 255, 255, 0.3);
   --fc-buttons-icon-color: white;
   --fc-daygrid-day-bg-color: rgb(26, 26, 28);
@@ -405,6 +407,16 @@ button:hover {
   transform: translateX(0);
 }
 
+.accentItem {
+  background-color: var(--accent-color) !important;
+  color: var(--accent-text-color) !important;
+}
+
+.accentItem:hover {
+  background-color: var(--accent-color);
+  filter: brightness(0.9);
+}
+
 :root.sidebarHidden .dashboardContent {
   transform: translateX(0);
   align-items: center;
@@ -441,7 +453,6 @@ button:hover {
 :root.calendarView .dashboardHeader,
 :root.calendarView .expandMiniAnalyticsBtn,
 :root.calendarView .miniAnalytics,
-:root.calendarView .whatToFocusOn,
 :root.calendarView .workAreaSplit,
 :root.calendarView .toDoList,
 :root.calendarView .focusTimer,
@@ -698,6 +709,7 @@ button:hover {
 .aiOptionsList li {
   padding: 10px 15px;
   border-radius: 12px;
+  color: var(--text-color);
 }
 
 .aiOptionsList li:hover {
@@ -1005,7 +1017,6 @@ button:hover {
   margin-bottom: 10px;
   position: relative;
   width: 100%;
-  
 }
 
 .closeCustomizeBtn {
@@ -1026,12 +1037,14 @@ button:hover {
   color: var(--btn-hover-bg-color);
 }
 
-.customizeBgHeaderTitle {
+.customizeBgHeaderTitle,
+.customizeAccentHeaderTitle {
   font-size: 1.2rem;
   color: var(--text-color);
 }
 
-.customizeBgOptions {
+.customizeBgOptions,
+.customizeAccentOptions {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -1040,7 +1053,8 @@ button:hover {
   max-width: 600px;
 }
 
-.customizeBgOptions button {
+.customizeBgOptions button,
+.customizeAccentOptions button {
   flex: 0 0 calc(16.66% - 10px); 
   box-sizing: border-box;
   border-radius: 50%;
@@ -1049,63 +1063,87 @@ button:hover {
   overflow: hidden;        
   text-overflow: ellipsis;     
   white-space: nowrap;     
+  transition: border 0.15s ease;
 }
 
-.redBgBtn {
+.customizeBgOptions button:hover,
+.customizeAccentOptions button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.customizeBgOptions button.active,
+.customizeAccentOptions button.active {
+  border: 3px solid var(--text-color);
+}
+
+.redBgBtn,
+.redAccentBtn {
   background-color: maroon;
   border: none;
 }
 
-.goldBgBtn {
+.goldBgBtn,
+.goldAccentBtn {
   background-color: rgb(226, 160, 57);
   border: none;
 }
 
-.lightGreenBgBtn {
+.lightGreenBgBtn,
+.lightGreenAccentBtn {
   background-color: lightgreen;
   border: none;
 }
 
-.greenBgBtn {
+.greenBgBtn,
+.greenAccentBtn {
   background-color: forestgreen;
   border: none;
 }
 
-.tealBgBtn {
+.tealBgBtn,
+.tealAccentBtn {
   background-color: rgb(0, 110, 120);
   border: none;
 }
 
-.aquaBgBtn {
+.aquaBgBtn,
+.aquaAccentBtn {
   background-color: rgb(0, 213, 255);
   border: none;
 }
 
-.blueBgBtn {
+.blueBgBtn,
+.blueAccentBtn {
   background-color: rgb(0, 149, 255);
   border: none;
 }
 
-.violetBgBtn {
+.violetBgBtn,
+.violetAccentBtn {
   background-color: rgb(198, 130, 238);
   border: none;
 }
 
-.purpleBgBtn {
+.purpleBgBtn,
+.purpleAccentBtn {
   background-color: rgb(142, 0, 185);
   border: none;
 }
 
-.pinkBgBtn {
+.pinkBgBtn,
+.pinkAccentBtn {
   background-color: pink;
   border: none;
 }
 
-.whiteBgBtn {
+.whiteBgBtn,
+.whiteAccentBtn {
   background-color: white;
 }
 
-.blackBgBtn {
+.blackBgBtn, 
+.blackAccentBtn {
   background-color: black;
 }
 
@@ -1117,6 +1155,7 @@ button:hover {
   margin: 0px;
   top: 0px;
   order: 0;
+  flex-direction: column;
 }
 
 .expandMiniAnalyticsBtn {
@@ -1124,8 +1163,7 @@ button:hover {
   border: 1px solid var(--bd-color);
   border-radius: 12px;
   padding: 8px 12px;
-  width: 10px;
-  height: 142px;
+  width: 86em;
   color: var(--text-color);
   position: relative;
   display: flex;
@@ -1178,11 +1216,10 @@ button:hover {
   gap: 20px;
   flex-direction: row;
   order: 1;
+  margin-bottom: 20px;
 }
 
-.miniAnalytics.show {
-  display: flex;
-}
+.miniAnalytics.show { display: flex; }
 
 .miniAnalytic {
   background-color: var(--work-areas-bg-color);
@@ -1190,7 +1227,7 @@ button:hover {
   padding: 10px 40px;
   border-radius: 20px;
   position: relative;
-  width: 100px;
+  width: 140px;
   height: 122px;
   overflow: hidden;
   display: flex;
@@ -1199,15 +1236,14 @@ button:hover {
   justify-content: center;
 }
 
-.checkmarkImage {
+.targetIcon {
   position: absolute;
-  filter: invert(66%) sepia(35%) saturate(1475%) hue-rotate(113deg)
-    brightness(97%) contrast(90%);
+  filter: invert(53%) sepia(11%) saturate(2350%) hue-rotate(149deg) brightness(93%) contrast(90%);
   opacity: 0.7;
   transition: 0.2s ease;
   width: 205px;
   top: 100px;
-  left: 140px;
+  left: 365px;
   transform: translate(-50%, -50%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   opacity: 15%;
@@ -1219,41 +1255,40 @@ button:hover {
   opacity: 0.7;
   transition: 0.2s ease;
   width: 225px;
+  top: 120px;
+  left: 180px;
+  transform: translate(-50%, -50%);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  opacity: 15%;
+}
+
+.graphIcon {
+  position: absolute;
+  filter: invert(67%) sepia(13%) saturate(1210%) hue-rotate(86deg) brightness(95%) contrast(88%);
+  opacity: 0.7;
+  transition: 0.2s ease;
+  width: 175px;
   top: 100px;
-  left: 140px;
+  left: 150px;
   transform: translate(-50%, -50%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   opacity: 15%;
 }
 
-.lightningImage {
+.clockIcon {
   position: absolute;
-  filter: invert(61%) sepia(85%) saturate(1600%) hue-rotate(215deg)
-    brightness(101%) contrast(101%);
+  filter: invert(53%) sepia(15%) saturate(1450%) hue-rotate(213deg) brightness(91%) contrast(87%);
   opacity: 0.7;
   transition: 0.2s ease;
   width: 225px;
   top: 120px;
-  left: 140px;
+  left: 180px;
   transform: translate(-50%, -50%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   opacity: 15%;
 }
 
-.dateImage {
-  position: absolute;
-  filter: invert(65%) sepia(91%) saturate(2363%) hue-rotate(204deg) brightness(99%) contrast(93%);
-  opacity: 0.7;
-  transition: 0.2s ease;
-  width: 225px;
-  top: 120px;
-  left: 140px;
-  transform: translate(-50%, -50%);
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-  opacity: 15%;
-}
-
-.tasksDoneHeader,
+.whatToFocusOnHeader,
 .riskReportHeader,
 .momentumHeader,
 .freeTimeHeader {
@@ -1301,7 +1336,6 @@ button:hover {
   bottom: 0px;
 }
 
-.numberOfTasksTotal,
 .riskReportFooter,
 .momentumDivFooter,
 .freeTimeFooter {
@@ -1314,11 +1348,11 @@ button:hover {
   margin: 20px;
 }
 
-.whatToFocusOn {
+.whatToFocusOnDiv {
   font-size: 1rem;
   color: var(--text-color);
   text-align: left;
-  width: 100%;
+  width: 24em;
   height: 112px;
   background-color: var(--work-areas-bg-color);
   border: 1px solid var(--bd-color);
@@ -1326,19 +1360,8 @@ button:hover {
   padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  order: 2;
+  order: 0;
   margin: 0px;
-}
-
-.whatToFocusOnHeader {
-  font-size: 1.2rem;
-  color: var(--text-color);
-  margin: 0px;
-  position: relative;
-  text-align: left;
-  width: 100%;
-  height: fit-content;
-  margin-bottom: 10px;
 }
 
 .focusOnList {
@@ -1351,6 +1374,7 @@ button:hover {
   list-style-type: none;
   margin: 0px;
   padding: 0px;
+  margin-top: 30px;
   font-size: 0.8rem;
 }
 
@@ -1383,17 +1407,12 @@ button:hover {
   position: relative;
   width: 100%;
   border: 1px solid var(--bd-color);
-  margin-top: 15px;
+  margin-top: 45px;
   margin-bottom: 25px;
   order: 2;
 }
 
-.section1 {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
+.section1,
 .section2 {
   display: flex;
   flex-direction: row;
@@ -2277,7 +2296,7 @@ input:focus {
   top: 0px;
   left: 0px;
   margin: 20px;
-  color: black;
+  color: var(--text-color);
   font-size: 1.2rem;
   border: none;
   border-radius: 12px;
@@ -2296,7 +2315,7 @@ input:focus {
 
 .timerProgressRing {
   fill: none;
-  stroke: var(--timer-progress-ring-color);
+  stroke: var(--accent-color);
   opacity: 0.3;
   stroke-width: 5;
   stroke-dasharray: 283;
@@ -2304,7 +2323,7 @@ input:focus {
   transition: stroke-dashoffset 1s linear;
   transform: rotate(-90deg);
   transform-origin: center;
-  filter: drop-shadow(0 0 2px #82919e);
+  filter: drop-shadow(0 0 2px var(--accent-color));
 }
 
 .currentFoocusedTaskDiv {
@@ -3152,13 +3171,9 @@ input:focus {
   transform: translateX(0);
 }
 
-.isSettingsView .dashboardContent {
-  display: none;
-}
+.isSettingsView .dashboardContent { display: none; }
 
-.isSettingsView .settingsContent {
-  display: flex;
-}
+.isSettingsView .settingsContent { display: flex; }
 
 html:not([class*="settingsView"]) .personalSection {
   display: flex;
