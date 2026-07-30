@@ -4,7 +4,7 @@
 ## Purpose
 Most task and project management websites these days force a subscription on you, obligate you to use AI, and use your data to train models without your consent. 
 
-To learn frontend, backend, full-stack, and APIs, I thought that it would be a good idea to build my own from scratch, completely stripped of these modern problems while delivering a clean interface, local-first privacy, and useful productivity tools.
+To learn frontend, backend, full-stack, APIs, and client-side database management, I thought that it would be a good idea to build my own from scratch, completely stripped of these modern problems while delivering a clean interface, local-first privacy, and useful productivity tools.
 
 ---
 ## Materials
@@ -29,5 +29,37 @@ To learn frontend, backend, full-stack, and APIs, I thought that it would be a g
 - Calendar Tab - Gives the calendar its own section to help you manage your schedules more efficiently
 - Automation - If AI is enabled, this lets users create custom automations in a simple interface
 ---
+## Installation
+
+### Prerequisites
+- [Python 3.x](https://python.org)
+- [Node.js](https://nodejs.org)
+
+### Setup
+1. Clone the repo
+```bash
+git clone https://github.com/JaxTheDevG008/Dewen
+cd Dewen
+```
+
+2. Start the Python server
+```bash
+cd src/backend
+uvicorn app:app --reload
+```
+
+3. Open a new terminal window and use `npm` to start Vite
+```bash
+npm install
+npm run dev
+```
+
+4. Copy the link it provides, and paste it into your browser
+
+---
 ## AI Usage
-I used AI to help me with features, layout, and debugging, while still retaining the information the AI creates. Even though I used AI, this is not a fully vibe-coded or AI-generated app.
+I used AI as a collaborative learning partner to help me with features, layout, and debugging, while still retaining the information the AI creates. Even though I used AI, this is not a fully "vibe-coded" or AI-generated app.
+
+---
+## License
+This project utilizes the MIT License for distribution. To learn more, view [LICENSE](LICENSE).
