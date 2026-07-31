@@ -456,7 +456,9 @@ button:hover {
 :root.calendarView .workAreaSplit,
 :root.calendarView .toDoList,
 :root.calendarView .focusTimer,
-:root.calendarView .notes {
+:root.calendarView .notes,
+:root.calendarView .calendar,
+:root.calendarView .activity {
   display: none;
 }
 
@@ -1148,14 +1150,25 @@ button:hover {
 }
 
 .miniAnalyticsDiv {
-  display: flex;
+  display: grid;
   position: relative;
-  height: 122px;
-  gap: 20px;
+  transition: grid-template-rows 0.4s ease-in-out, margin-bottom 0.4s ease-in-out;  
   margin: 0px;
   top: 0px;
   order: 0;
   flex-direction: column;
+  margin-bottom: 0px;
+}
+
+.miniAnalyticsDiv.expanded {
+  gap: 20px;
+  margin-bottom: 0px;
+}
+
+.miniAnalyticsDiv.expanded .miniAnalytics {
+  transform: translateY(0);
+  max-height: 180px;
+  opacity: 1;
 }
 
 .expandMiniAnalyticsBtn {
@@ -1170,6 +1183,7 @@ button:hover {
   align-items: center;
   justify-content: center;
   order: 0;
+  z-index: 10;
 }
 
 .expandMiniAnalyticsBtn:hover {
@@ -1177,15 +1191,20 @@ button:hover {
   cursor: pointer;
 }
 
+.expandMiniAnalyticsBtn.active .expandMiniAnalyticsIcon {
+  transform: rotate(180deg);
+}
+
 .expandMiniAnalyticsIcon {
   width: 16px;
   filter: brightness(0);
+  transition: rotate 0.3s ease, filter 0.2s ease, opacity 0.2s ease;
 }
 
 [data-mode="dark"] .expandMiniAnalyticsIcon {
   filter: brightness(0) invert(1);
   opacity: 0.7;
-  transition: 0.2s ease;
+  transition: 0.2s ease, transform 0.3s ease;
 }
 
 .expandMiniAnalyticsTooltip {
@@ -1200,7 +1219,7 @@ button:hover {
   background-color: var(--work-areas-bg-color);
   color: var(--text-color);
   text-align: center;
-  padding: 5px 0;
+  padding: 5px 0px;
   border-radius: 6px;
   position: absolute;
   z-index: 1;
@@ -1210,16 +1229,26 @@ button:hover {
   visibility: visible;
 }
 
-.miniAnalytics {
-  position: relative;
-  display: none;
-  gap: 20px;
-  flex-direction: row;
-  order: 1;
-  margin-bottom: 20px;
+.miniAnalyticsClip {
+  min-height: 0px;
+  overflow: hidden;
 }
 
-.miniAnalytics.show { display: flex; }
+.miniAnalytics {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  flex-direction: row;
+  order: 1;
+  max-height: 0px;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition:
+    max-height 0.4s ease,
+    transform 0.4s ease,
+    opacity 0.25s ease;
+}
 
 .miniAnalytic {
   background-color: var(--work-areas-bg-color);
@@ -1262,36 +1291,8 @@ button:hover {
   opacity: 15%;
 }
 
-.graphIcon {
-  position: absolute;
-  filter: invert(67%) sepia(13%) saturate(1210%) hue-rotate(86deg) brightness(95%) contrast(88%);
-  opacity: 0.7;
-  transition: 0.2s ease;
-  width: 175px;
-  top: 100px;
-  left: 150px;
-  transform: translate(-50%, -50%);
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-  opacity: 15%;
-}
-
-.clockIcon {
-  position: absolute;
-  filter: invert(53%) sepia(15%) saturate(1450%) hue-rotate(213deg) brightness(91%) contrast(87%);
-  opacity: 0.7;
-  transition: 0.2s ease;
-  width: 225px;
-  top: 120px;
-  left: 180px;
-  transform: translate(-50%, -50%);
-  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-  opacity: 15%;
-}
-
 .whatToFocusOnHeader,
-.riskReportHeader,
-.momentumHeader,
-.freeTimeHeader {
+.riskReportHeader {
   font-size: 18px;
   color: gray;
   margin: 0px;
@@ -1302,9 +1303,7 @@ button:hover {
 }
 
 .numberOfTasksDone,
-.riskReportItems,
-.momentumItems,
-.numberOfFreeTime {
+.riskReportItems {
   font-size: 35px;
   color: var(--text-color);
   margin: 0px;
@@ -1319,26 +1318,26 @@ button:hover {
   gap: 0px;
 }
 
-.riskReportItems,
-.momentumItems {
-  font-size: 1rem;
+.riskReportItems {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
   left: 60%;
-  width: 190px;
-  gap: 0px;
+  gap: 10px;
+  top: 1.5em;
 }
 
 .numberOfTasksOverdue,
 .numberOfTasksDueToday,
-.numberOfTasksDone {
-  font-size: 1rem;
+.numberOfBlockedTasks {
+  font-size: 0.9rem;
   left: 60%;
   width: 190px;
   bottom: 0px;
 }
 
-.riskReportFooter,
-.momentumDivFooter,
-.freeTimeFooter {
+.riskReportFooter {
   font-size: 16px;
   color: gray;
   margin: 0px;
@@ -1407,7 +1406,7 @@ button:hover {
   position: relative;
   width: 100%;
   border: 1px solid var(--bd-color);
-  margin-top: 45px;
+  margin-top: 0px;
   margin-bottom: 25px;
   order: 2;
 }
@@ -3017,17 +3016,6 @@ input:focus {
   width: 817px;
   height: 545px;
   overflow-y: hidden;
-}
-
-:root.calendarView #calendar,
-:root.calendarView .calendar {
-  width: 80vw;
-  height: 980px;
-  margin-top: 0px;
-  top: 0px;
-  left: 0px;
-  margin-right: 0px;
-  right: 0px;
 }
 
 .fc .fc-toolbar {

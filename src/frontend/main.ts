@@ -59,10 +59,10 @@ const dynamicGreeting = getElement<HTMLHeadingElement>(".greeting");
 const miniAnalyticsDiv = getElement<HTMLDivElement>(".miniAnalyticsDiv");
 const expandMiniAnalyticsBtn = getElement<HTMLButtonElement>(".expandMiniAnalyticsBtn");
 const expandMiniAnalyticsIcon = getElement<HTMLImageElement>(".expandMiniAnalyticsIcon");
-const miniAnalytics = getElement<HTMLDivElement>(".miniAnalytics");
-/* const momentumItems = getElement<HTMLUListElement>(".momentumItems");
-const momentumDivFooter = getElement<HTMLDivElement>(".momentumDivFooter");
-const workAreaSplit = getElement<HTMLDivElement>(".workAreaSplit"); */
+/* const miniAnalytics = getElement<HTMLDivElement>(".miniAnalytics");
+const momentumItems = getElement<HTMLUListElement>(".momentumItems");
+const momentumDivFooter = getElement<HTMLDivElement>(".momentumDivFooter"); */
+const workAreaSplit = getElement<HTMLDivElement>(".workAreaSplit");
 const section1 = getElement<HTMLDivElement>(".section1");
 const section2 = getElement<HTMLDivElement>(".section2");
 const toDoList = getElement<HTMLUListElement>(".toDoList");
@@ -413,6 +413,7 @@ function createTaskElement(task: Task): HTMLLIElement | null {
     renderWhatToFocusOn();
     updateTasksOverdueCount();
     updateTasksDueTodayCount();
+    updateBlockedTasksCount();
   });
 
   taskTextAndCheckbox.appendChild(taskTextSpan);
@@ -456,6 +457,7 @@ function createTaskElement(task: Task): HTMLLIElement | null {
   updateTasksDoneCount();
   updateTasksOverdueCount();
   updateTasksDueTodayCount();
+  updateBlockedTasksCount();
 
   editOption.addEventListener("click", () => {
     editingTaskId = String(taskId);
@@ -552,6 +554,7 @@ function createTaskElement(task: Task): HTMLLIElement | null {
     updateTasksDoneCount();
     updateTasksOverdueCount();
     updateTasksDueTodayCount();
+    updateBlockedTasksCount();
     showNoTasksYet();
     refreshTaskDropdown();
     showNoTasksYet();
@@ -1957,6 +1960,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateTasksOverdueCount();
   updateTasksDueTodayCount();
+  updateBlockedTasksCount();
 
   const savedBgTheme = localStorage.getItem("customBgTheme");
   const savedAccentTheme = localStorage.getItem("customAccentTheme");
@@ -1991,10 +1995,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (localStorage.getItem("miniAnalyticsExpanded") === "true" && miniAnalytics) {
-    miniAnalytics.classList.add("show");
-    if (miniAnalyticsDiv) miniAnalyticsDiv.style.marginBottom = miniAnalytics.classList.contains("show") ? "70px" : "0px";
-    if (expandMiniAnalyticsIcon) expandMiniAnalyticsIcon.style.rotate = miniAnalytics.classList.contains("show") ? "-90deg" : "90deg";
+  const isAnalyticsExpanded = localStorage.getItem("miniAnalyticsExpanded") === "true";
+
+  if (isAnalyticsExpanded && workAreaSplit && miniAnalyticsDiv && expandMiniAnalyticsIcon) {
+    miniAnalyticsDiv.classList.add("expanded");
+    workAreaSplit.style.marginTop = "20px";
+    expandMiniAnalyticsIcon.style.setProperty("rotate", "-90deg");
+  } else {
+    miniAnalyticsDiv.classList.remove("expanded");
+    workAreaSplit.style.marginTop = "0px";
+    expandMiniAnalyticsIcon.style.setProperty("rotate", "90deg");
   }
 
   currentTaskSort = taskSortSelector?.value || "dateCreated";
@@ -2293,11 +2303,13 @@ dashboardBtn?.addEventListener("click", () => {
 });
 
 calendarBtn?.addEventListener("click", () => {
-  document.documentElement.classList.add("calendarView");
+  /* document.documentElement.classList.add("calendarView");
   document.documentElement.classList.remove("dashboardActive");
   document.documentElement.classList.remove("isSettingsView");
 
-  localStorage.setItem("lastActiveView", "calendar");
+  localStorage.setItem("lastActiveView", "calendar"); */
+  alert("Calendar view coming soon!");
+  dashboardBtn?.click();
 });
 
 settingsBtn?.addEventListener("click", () => {
@@ -2753,6 +2765,13 @@ function updateTasksDueTodayCount() {
   if (!dueTodayDisplay) return;
   dueTodayDisplay.textContent = 
     `${dueTodayTasks} task${dueTodayTasks === 1 ? "" : "s"} due today`;
+}
+
+function updateBlockedTasksCount() {
+  const blockedTasks = tasks.filter((t) => t.status === "Blocked" && !t.completed).length;
+
+  const blockedDisplay = document.querySelector(".numberOfBlockedTasks");
+  if (blockedDisplay) blockedDisplay.textContent = `${blockedTasks} blocked task${blockedTasks === 1 ? "" : "s"}`;
 }
 
 function updateTasksDoneCount() {
@@ -3242,15 +3261,12 @@ notesList?.addEventListener("click", (e) => {
 });
 
 expandMiniAnalyticsBtn?.addEventListener("click", () => {
-  if (miniAnalytics) {
-    miniAnalytics.classList.toggle("show");
-    localStorage.setItem(
-      "miniAnalyticsExpanded",
-      miniAnalytics.classList.contains("show").toString()
-    );
-    if (miniAnalyticsDiv) miniAnalyticsDiv.style.marginBottom = miniAnalytics.classList.contains("show") ? "70px" : "0px";
-    if (expandMiniAnalyticsIcon) expandMiniAnalyticsIcon.style.rotate = miniAnalytics.classList.contains("show") ? "-90deg" : "90deg";
-  }
+  if (!miniAnalyticsDiv || !expandMiniAnalyticsIcon || !workAreaSplit) return;
+  miniAnalyticsDiv.classList.toggle("expanded");
+  const isExpanded = miniAnalyticsDiv.classList.contains("expanded");
+  localStorage.setItem("miniAnalyticsExpanded", String(isExpanded));
+  workAreaSplit.style.marginTop = isExpanded ? "20px" : "0px";
+  expandMiniAnalyticsIcon.style.rotate = isExpanded ? "-90deg" : "90deg";
 });
 
 function getTasksAsData() {
