@@ -34,6 +34,7 @@ const dashboardContent = getElement<HTMLDivElement>(".dashboardContent");
 const dashboardHeader = getElement<HTMLDivElement>(".dashboardHeader");
 const agentBtn = getElement<HTMLButtonElement>(".agentBtn");
 const aiToggle = (document.getElementById("aiToggle") as HTMLInputElement | null) || (() => { throw new Error("AI Toggle not found"); })();
+const avatarAccentToggle = (document.getElementById("avatarAccentToggle") as HTMLInputElement | null) || (() => { throw new Error("Avatar Accent Toggle not found"); })();
 const aiOptionsDiv = getElement<HTMLDivElement>(".aiOptionsDiv");
 /** const aiOptionsList = getElement<HTMLUListElement>(".aiOptionsList"); */
 const prioritySuggestionsOpt = getElement<HTMLButtonElement>(
@@ -55,6 +56,7 @@ const customizeAccentOptions = getAllElements<HTMLButtonElement>(
   ".customizeAccentOptions button",
 );
 const currentDate = getElement<HTMLDivElement>(".currentDate");
+const avatarIcon = getElement<HTMLImageElement>(".avatarIcon");
 const dynamicGreeting = getElement<HTMLHeadingElement>(".greeting");
 const miniAnalyticsDiv = getElement<HTMLDivElement>(".miniAnalyticsDiv");
 const expandMiniAnalyticsBtn = getElement<HTMLButtonElement>(".expandMiniAnalyticsBtn");
@@ -121,16 +123,16 @@ const activityList = getElement<HTMLUListElement>(".activityList");
 const settingsContent = getElement<HTMLDivElement>(".settingsContent");
 const settingsNavigator = getElement<HTMLDivElement>(".settingsNavigator"); */
 const settingsNavOptions = getAllElements<HTMLButtonElement>(".settingsNavItem");
+const avatarPreviewIcon = getElement<HTMLImageElement>(".avatarPreviewIcon");
+const avatarInput = getElement<HTMLInputElement>(".avatarInput");
+const changeAvatarBtn = getElement<HTMLButtonElement>(".changeAvatarBtn");
+const avatarPresetsBtn = getElement<HTMLButtonElement>(".avatarPresetsBtn");
+const avatarPresetsDiv = getElement<HTMLDivElement>(".avatarPresetsDiv");
+const closeAvatarPresets = getElement<HTMLButtonElement>(".closeAvatarPresets");
+const avatarPresetItems = getAllElements<HTMLDivElement>(".avatarPresetItem");
 const fullNameInput = getElement<HTMLInputElement>(".fullNameInput");
 const preferredNameInput = getElement<HTMLInputElement>(".preferredNameInput");
 const ai_API_BASE = "http://127.0.0.1:5000";
-
-console.log({
-  currentDate,
-  dynamicGreeting,
-  fullNameInput,
-  preferredNameInput,
-});
 
 function safeParse(key: string): any[] {
   try {
@@ -1850,6 +1852,57 @@ const accentThemes = [
   },
 ];
 
+const profilePictureFiltersMap: Record<string, { light: string; dark: string }> = {
+  red: {
+    light: "invert(12%) sepia(18%) saturate(560%) hue-rotate(318deg) brightness(1.04) contrast(0.8)",
+    dark: "invert(12%) sepia(22%) saturate(620%) hue-rotate(318deg) brightness(0.56) contrast(1.18)",
+  },
+  gold: {
+    light: "sepia(0.5) saturate(2.5) hue-rotate(332deg) brightness(1.06) contrast(0.88)",
+    dark: "sepia(0.62) saturate(2.8) hue-rotate(332deg) brightness(0.58) contrast(1.12)",
+  },
+  lightGreen: {
+    light: "sepia(0.45) saturate(2.8) hue-rotate(78deg) brightness(1.07) contrast(0.9)",
+    dark: "sepia(0.58) saturate(3.2) hue-rotate(78deg) brightness(0.6) contrast(1.1)",
+  },
+  green: {
+    light: "sepia(0.5) saturate(3) hue-rotate(96deg) brightness(1.03) contrast(0.91)",
+    dark: "sepia(0.62) saturate(3.4) hue-rotate(96deg) brightness(0.58) contrast(1.12)",
+  },
+  teal: {
+    light: "sepia(0.52) saturate(3) hue-rotate(150deg) brightness(1.02) contrast(0.91)",
+    dark: "sepia(0.64) saturate(3.4) hue-rotate(150deg) brightness(0.57) contrast(1.12)",
+  },
+  aqua: {
+    light: "sepia(0.55) saturate(3.2) hue-rotate(164deg) brightness(1.07) contrast(0.9)",
+    dark: "sepia(0.66) saturate(3.6) hue-rotate(164deg) brightness(0.6) contrast(1.1)",
+  },
+  blue: {
+    light: "sepia(0.52) saturate(3.1) hue-rotate(186deg) brightness(1.05) contrast(0.9)",
+    dark: "sepia(0.64) saturate(3.5) hue-rotate(186deg) brightness(0.58) contrast(1.12)",
+  },
+  violet: {
+    light: "sepia(0.5) saturate(2.8) hue-rotate(226deg) brightness(1.03) contrast(0.91)",
+    dark: "sepia(0.62) saturate(3.2) hue-rotate(226deg) brightness(0.59) contrast(1.1)",
+  },
+  purple: {
+    light: "sepia(0.58) saturate(3) hue-rotate(280deg) brightness(1) contrast(0.92)",
+    dark: "sepia(0.7) saturate(3.4) hue-rotate(280deg) brightness(0.55) contrast(1.15)",
+  },
+  pink: {
+    light: "sepia(0.5) saturate(2.8) hue-rotate(304deg) brightness(1.07) contrast(0.9)",
+    dark: "sepia(0.62) saturate(3.1) hue-rotate(304deg) brightness(0.62) contrast(1.08)",
+  },
+  white: {
+    light: "sepia(0.04) saturate(0.2) brightness(1.1) contrast(0.88)",
+    dark: "sepia(0.03) saturate(0.15) brightness(0.66) contrast(1.04)",
+  },
+  black: {
+    light: "sepia(0.05) saturate(0.1) brightness(0.82) contrast(0.92)",
+    dark: "sepia(0.02) saturate(0.08) brightness(0.38) contrast(1.15)",
+  }
+};
+
 const bgThemesMap = Object.fromEntries(bgThemes.map((t) => [t.name, t]));
 const accentThemesMap = Object.fromEntries(accentThemes.map((t) => [t.name, t]));
 
@@ -1888,8 +1941,36 @@ function applyAccentTheme(themeName: string) {
   document.documentElement.style.setProperty("--accent-color", accent);
   document.documentElement.style.setProperty("--accent-text-color", darkMode || themeName === "black" ? "white" : "black");
   if (timerProgressRing && themeName === "white") timerProgressRing.style.stroke = "rgb(151, 151, 151)";
+  updateAvatarAccentFilter(String(themeName));
   localStorage.setItem("customAccentTheme", themeName);
 }
+
+function updateAvatarAccentFilter(themeName: string = localStorage.getItem("customAccentTheme") || "") {
+  const darkMode = isDark();
+  const avatarAccentTrue = avatarAccentToggle?.checked;
+  const profileFilter = profilePictureFiltersMap[themeName];
+
+  if (avatarPreviewIcon && avatarIcon && avatarAccentTrue && profileFilter) {
+    const filterValue = darkMode ? profileFilter.dark : profileFilter.light;
+    avatarPreviewIcon.style.filter = filterValue;
+    avatarIcon.style.filter = filterValue;
+  } else {
+    avatarPreviewIcon.style.filter = "none";
+    avatarIcon.style.filter = "none";
+  }
+  
+  localStorage.setItem("avatarAccentEnabled", String(avatarAccentTrue));
+}
+
+function loadAvatarAccentState() {
+  const avatarAccentEnabled = localStorage.getItem("avatarAccentEnabled") === "true";
+  if (avatarAccentToggle) avatarAccentToggle.checked = avatarAccentEnabled;
+  updateAvatarAccentFilter();
+}
+
+avatarAccentToggle?.addEventListener("change", () => {
+  updateAvatarAccentFilter();
+});
 
 function responsiveWebsite() {
   if (window.innerWidth < 768) {
@@ -1961,6 +2042,16 @@ document.addEventListener("DOMContentLoaded", () => {
   updateTasksOverdueCount();
   updateTasksDueTodayCount();
   updateBlockedTasksCount();
+
+  const savedAvatar = localStorage.getItem("avatar");
+  if (savedAvatar && avatarPreviewIcon && avatarIcon) { 
+    avatarPreviewIcon.src = savedAvatar;
+    avatarIcon.src = savedAvatar;
+  }
+
+  const avatarAccentEnabled = localStorage.getItem("avatarAccentEnabled") === "true";
+  if (avatarAccentToggle) avatarAccentToggle.checked = avatarAccentEnabled;
+  updateAvatarAccentFilter();
 
   const savedBgTheme = localStorage.getItem("customBgTheme");
   const savedAccentTheme = localStorage.getItem("customAccentTheme");
@@ -2370,6 +2461,55 @@ function setupGreeting() {
   dynamicGreeting.textContent = name ? `${greeting}, ${name}` : greeting;
 }
 
+changeAvatarBtn?.addEventListener("click", () => {
+  avatarInput.click();
+});
+
+avatarInput?.addEventListener("change", () => {
+  const file = avatarInput.files?.[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const dataUrl = e.target?.result as string;
+    localStorage.setItem("avatar", dataUrl);
+    avatarPreviewIcon.src = dataUrl;
+  };
+  reader.readAsDataURL(file);
+
+  if (avatarIcon) avatarIcon.src = URL.createObjectURL(file);
+  localStorage.setItem("avatar", URL.createObjectURL(file));
+});
+
+avatarPresetsBtn?.addEventListener("click", () => {
+  if (avatarPresetsDiv) avatarPresetsDiv.classList.toggle("show");
+  if (overlay) overlay.style.display = avatarPresetsDiv?.classList.contains("show") ? "block" : "none";
+  document.querySelectorAll("body > *").forEach((el) => {
+    if (el !== overlay && el !== avatarPresetsDiv) (el as HTMLElement).inert = avatarPresetsDiv?.classList.contains("show");
+  });
+});
+
+closeAvatarPresets?.addEventListener("click", () => {
+  if (avatarPresetsDiv) avatarPresetsDiv.classList.remove("show");
+  if (overlay) overlay.style.display = "none";
+  document.querySelectorAll("body >  *").forEach((el) => ((el as HTMLElement).inert = false));
+});
+
+avatarPresetItems?.forEach((item) => {
+  item.addEventListener("click", () => {
+    const presetSrc = item.querySelector("img")?.src;
+    if (!presetSrc) return;
+
+    avatarPreviewIcon.src = presetSrc;
+    avatarIcon.src = presetSrc;
+    localStorage.setItem("avatar", presetSrc);
+
+    if (avatarPresetsDiv) avatarPresetsDiv.classList.remove("show");
+    if (overlay) overlay.style.display = "none";
+    document.querySelectorAll("body >  *").forEach((el) => ((el as HTMLElement).inert = false));
+  });
+});
+
 fullNameInput?.addEventListener("input", () => {
   localStorage.setItem("fullName", fullNameInput.value.trim());
   setupGreeting();
@@ -2607,7 +2747,6 @@ closeDecrastinatorBtn?.addEventListener("click", () => {
   decrastinatorIsRunning = false;
 });
 
-// please fix these i beg you for the love of god
 window.addEventListener("load", () => {
   if (isDark() && themeBtn) {
     themeBtn.innerHTML = `<img src="/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;

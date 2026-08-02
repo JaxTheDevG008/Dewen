@@ -165,8 +165,16 @@
         <div class="dashboardHeader">
           <div class="daySummary">
             <p class="currentDate"></p>
-            <img class="avatarIcon">
-            <h1 class="greeting"></h1>
+            <div class="greetingDiv">
+              <div class="avatarIconWrapper">
+                <img
+                  src="/images/Profile-Icon.png"
+                  class="avatarIcon"
+                  alt="Profile Icon"
+                />
+              </div>
+              <h1 class="greeting"></h1>
+            </div>
           </div>
         </div>
 
@@ -539,6 +547,29 @@
 
       <div class="actualSettings">
         <div class="personalSection">
+          <div class="avatarInputDiv">
+            <label for="avatarInput" class="avatarLabel">Avatar:</label>
+            <div class="avatarUploadDiv">
+              <div class="avatarPreviewIconWrapper">
+                <img src="/images/Profile-Icon.png" class="avatarPreviewIcon" />
+              </div>
+              <input type="file" class="avatarInput" accept="image/*" />
+              <div class="avatarControls">
+                <button class="changeAvatarBtn accentItem">
+                  Change Avatar
+                </button>
+                <button class="avatarPresetsBtn accentItem">
+                  Look At Presets
+                </button>
+                <div class="avatarAccentToggleDiv">
+                  <span class="avatarAccentToggleLabel">Turn On Accent</span>
+                  <input type="checkbox" id="avatarAccentToggle" />
+                  <label for="avatarAccentToggle" class="avatarAccentToggleBtn"></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="fullNameInputDiv">
             <label for="fullNameInput" class="fullNameLabel">Full Name:</label>
             <input
@@ -628,6 +659,56 @@
             &copy; 2026 Jaxon Penka. All rights reserved.
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="avatarPresetsDiv">
+      <div class="avatarPresetsHeader">
+        <h2 class="avatarPresetsName">Avatar Presets</h2>
+        <button class="closeAvatarPresets">✕</button>
+      </div>
+      <div class="avatarPresetsGrid">
+        <div class="avatarPresetItem">
+          <img
+            src="/images/avatarPresets/The-Developer-Avatar-Icon.png"
+            class="avatarPresetIcon"
+          />
+          <div class="avatarPresetName">The Developer</div>
+        </div>
+        <div class="avatarPresetItem">
+          <img
+            src="/images/avatarPresets/The-Artist-Avatar-Icon.png"
+            class="avatarPresetIcon"
+          />
+          <div class="avatarPresetName">The Artist</div>
+        </div>
+        <div class="avatarPresetItem">
+          <img
+            src="/images/avatarPresets/The-Entrepreneur-Avatar-Icon.png"
+            class="avatarPresetIcon"
+          />
+          <div class="avatarPresetName">The Entrepreneur</div>
+        </div>
+        <div class="avatarPresetItem">
+          <img
+            src="/images/avatarPresets/The-Student-Avatar-Icon.png"
+            class="avatarPresetIcon"
+          />
+          <div class="avatarPresetName">The Student</div>
+        </div>
+        <div class="avatarPresetItem">
+          <img
+            src="/images/avatarPresets/The-Writer-Avatar-Icon.png"
+            class="avatarPresetIcon"
+          />
+          <div class="avatarPresetName">The Writer</div>
+        </div>
+        <div class="avatarPresetItem">
+          <img
+            src="/images/avatarPresets/The-Scientist-Avatar-Icon.png"
+            class="avatarPresetIcon"
+          />
+          <div class="avatarPresetName">The Scientist</div>
       </div>
     </div>
     <!-- <script type="module" src="ts/main.ts"></script> -->

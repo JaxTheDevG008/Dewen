@@ -637,6 +637,30 @@ button:hover {
   color: var(--text-color);
 }
 
+.greetingDiv {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+
+.avatarIconWrapper {
+  width: 4vw;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.avatarIcon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.18);
+  transform-origin: center;
+}
+
 .greeting {
   font-size: 1.8rem;
   position: relative;
@@ -731,7 +755,7 @@ button:hover {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.3);
-  z-index: 9999;
+  z-index: 9998;
 }
 
 .aiDiv {
@@ -3226,6 +3250,156 @@ html:not([class*="settingsView"]) .personalSection {
   width: 100%;
 }
 
+.avatarInputDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+}
+
+.avatarUploadDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.avatarPreviewIconWrapper {
+  width: 6vw;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.avatarPreviewIcon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.18);
+  transform-origin: center;
+}
+
+[data-mode="dark"] .avatarPreviewIcon {
+  border: 3px solid white;
+}
+
+.avatarInput {
+  display: none;
+}
+
+.avatarControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.changeAvatarBtn,
+.avatarPresetsBtn {
+  background-color: var(--btn-bg-color);
+  color: var(--text-color);
+  font-weight: 600;
+  padding: 10px 15px;
+  border: 1px solid var(--bd-color);
+  border-radius: 12px;
+}
+
+.avatarPresetsDiv {
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(255, 255, 255);
+  padding: 2rem;
+  border-radius: 15px;
+  width: 450px;
+  height: 250px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  overflow-y: auto;
+}
+
+.avatarPresetsDiv.show {
+  display: flex;
+}
+
+.avatarPresetsHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  position: relative;
+  width: 100%;
+}
+
+.avatarPresetsName {
+  position: relative;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+}
+
+.closeAvatarPresets {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--btn-bg-color);
+  border: none;
+  border-radius: 12px;
+  padding: 5px 10px;
+  width: 30px;
+  height: 30px;
+  color: var(--text-color);
+}
+
+.avatarPresetsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.avatarPresetItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 7em;
+  height: 100px;
+}
+
+.avatarPresetItem:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.avatarPresetIcon {
+  width: 4;
+  height: 4em;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid black;
+}
+
+.avatarPresetName {
+  position: relative;
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgb(0, 0, 0);
+}
+
 .fullNameInput,
 .preferredNameInput {
   width: 300px;
@@ -3338,7 +3512,8 @@ html:not([class*="settingsView"]) .personalSection {
   cursor: pointer;
 }
 
-.aiToggleDiv {
+.aiToggleDiv,
+.avatarAccentToggleDiv {
   height: 100%;
   display: flex;
   align-items: center;
@@ -3347,7 +3522,12 @@ html:not([class*="settingsView"]) .personalSection {
   gap: 15px;
 }
 
-.aiToggleBtn {
+.avatarAccentToggleDiv {
+  flex-direction: column;
+}
+
+.aiToggleBtn,
+.avatarAccentToggleBtn {
   background-color: var(--btn-bg-color);
   width: 60px;
   height: 30px;
@@ -3357,7 +3537,8 @@ html:not([class*="settingsView"]) .personalSection {
   transition: background-color 0.2s;
 }
 
-.aiToggleBtn::before {
+.aiToggleBtn::before,
+.avatarAccentToggleBtn::before {
   position: absolute;
   content: "";
   background-color: var(--text-color);
@@ -3368,15 +3549,18 @@ html:not([class*="settingsView"]) .personalSection {
   transition: 0.2s;
 }
 
-#aiToggle:checked + .aiToggleBtn {
+#aiToggle:checked + .aiToggleBtn,
+#avatarAccentToggle:checked + .avatarAccentToggleBtn {
   background-color: rgb(70, 190, 140);
 }
 
-#aiToggle:checked + .aiToggleBtn::before {
+#aiToggle:checked + .aiToggleBtn::before,
+#avatarAccentToggle:checked + .avatarAccentToggleBtn::before {
   transform: translateX(30px);
 }
 
-#aiToggle {
+#aiToggle,
+#avatarAccentToggle {
   display: none;
 }
 
