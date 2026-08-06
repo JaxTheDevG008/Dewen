@@ -22,7 +22,9 @@
   "dependencies": {
     "@fullcalendar/core": "^6.1.21",
     "@fullcalendar/daygrid": "^6.1.21",
-    "@fullcalendar/interaction": "^6.1.21"
+    "@fullcalendar/interaction": "^6.1.21",
+    "rxdb": "^17.4.0",
+    "rxjs": "^7.8.2"
   },
   "overrides": {
     "brace-expansion": "5.0.8"
