@@ -9,9 +9,9 @@ export default function SearchDiv() {
         />
 
         <input className="searchBar" type="text"/>
-      </div>
 
-      <ul className="searchResultsMenu"></ul>
+        <ul className="searchResultsMenu"></ul>
+      </div>
 
       <div className="noSearchResults">No search results</div>
     </div>

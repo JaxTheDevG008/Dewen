@@ -162,7 +162,7 @@ let focusMode = false;
 let timerMode = "focus";
 let activeFocusTask: string | undefined;
 
-type Priority = "Low" | "Medium" | "High" | "None";
+type Priority = "High" | "Medium" | "Low" | "None";
 
 type Status = "To Do" | "In Progress" | "Blocked" | "Done";
 
@@ -1155,25 +1155,29 @@ function parseTimeText(match: RegExpExecArray) {
 
 function cleanParsedTaskTitle(text: string) {
   return text
-    .replace(/\s+/g, " ")
-    .replace(
-      /^(remind me to|remember to|need to|i need to|please|task to)\s+/i,
-      "",
-    )
-    .replace(/^[\s,.;:-]+|[\s,.;:-]+$/g, "");
+    .replace(/^(remind me to|remember to|need to|i need to|please|task to)\s+/i, "")
+    .replace(/\b(which is|that is|i need to|need to)\b\s*/gi, "")
+    .replace(/^[\s,.;:-]+|[\s,.;:-]+$/g, "")
+    .replace(/\s+/g, " ");
 }
+
 
 function parseTaskLocally(text: string) {
   let remaining = text.trim();
   let dueDate = null;
   let dueTime = null;
-  let priority = "normal";
+  let priority: "High" | "Medium" | "Low" | "None" = "None";
 
   const priorityMatch = remaining.match(
-    /\b(high|medium|normal|low)\s+priority\b|\bpriority\s+(high|medium|normal|low)\b/i,
+    /\b(high|medium|normal|low|important|urgent|critical)\s+priority\b|\bpriority\s+(high|medium|normal|low|important|urgent|critical)\b|\b(high|medium|low|important|urgent|critical)\b/i,
   );
   if (priorityMatch) {
-    priority = (priorityMatch[1]?.toLowerCase() || priorityMatch[2]?.toLowerCase()) as "high" | "medium" | "low";
+    const word = (priorityMatch[1] || priorityMatch[2] || priorityMatch[3] || "").toLowerCase();
+    priority = ["urgent", "critical", "important", "high"].includes(word) ? "High"
+      : word === "medium" ? "Medium"
+      : word === "low" ? "Low"
+      : "None";
+      
     remaining =
       `${remaining.slice(0, priorityMatch.index)} ${remaining.slice((priorityMatch.index as number) + priorityMatch[0].length)}`.trim();
   }
@@ -1181,9 +1185,7 @@ function parseTaskLocally(text: string) {
   const relativeDateMatch = remaining.match(/\b(today|tomorrow)\b/i);
   if (relativeDateMatch) {
     const due = new Date();
-    if (relativeDateMatch[1]?.toLowerCase() === "tomorrow") {
-      due.setDate(due.getDate() + 1);
-    }
+    if (relativeDateMatch[1]?.toLowerCase() === "tomorrow") due.setDate(due.getDate() + 1);
     dueDate = formatDateInputValue(due);
     remaining =
       `${remaining.slice(0, relativeDateMatch.index)} ${remaining.slice((relativeDateMatch.index as number) + relativeDateMatch[0].length)}`.trim();
@@ -1213,7 +1215,7 @@ function parseTaskLocally(text: string) {
   const title = cleanParsedTaskTitle(remaining) || text.trim();
 
   return {
-    parsed: Boolean(dueDate || dueTime || priority !== "normal"),
+    parsed: Boolean(dueDate || dueTime || priority !== "None"),
     task: {
       title,
       dueDate,
@@ -1333,6 +1335,10 @@ const modifierKey = isMac ? "⌘K" : "Ctrl+K";
 const searchBarPlaceholders = [
   `Search for tasks and notes... (${modifierKey})`,
   `Create tasks with ":a <task description>" (${modifierKey})`,
+  `Create notes with ":n <note content>" (${modifierKey})`,
+  `Complete tasks with ":c <task description>" (${modifierKey})`,
+  `Delete tasks with ":d <task description>" (${modifierKey})`,
+  `Start focus timer with ":f <duration>, <task>" (${modifierKey})`,
 ];
 let currentIndex = 0;
 if (searchBar) searchBar.placeholder = searchBarPlaceholders[0] ?? "";
@@ -1370,7 +1376,7 @@ async function handleSearchKeys(e: KeyboardEvent) {
     e.preventDefault();
     const input = searchBar?.value.trim();
     if (input && input.startsWith(":a ")) {
-      console.log("ai command triggered");
+      console.log("create task triggered");
       const text = input.slice(3).trim();
       if (!text) return;
       let taskCreated = false;
@@ -1421,6 +1427,77 @@ async function handleSearchKeys(e: KeyboardEvent) {
       if (searchBar) searchBar.value = "";
       return;
     }
+
+    if (input && input.startsWith(":n ")) {
+      console.log("create note triggered");
+      const text = input.slice(3).trim();
+      if (!text) return;
+      const note = {
+        id: crypto.randomUUID(),
+        text,
+        color: selectedNoteColor || null,
+      };
+      allNotes.push(note);
+      saveNotes();
+      renderNotes();
+      addActivity("Added a note", "note");
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (input && input.startsWith(":c ")) {
+      console.log("complete task triggered");
+      const text = input.slice(3).trim();
+      if (!text) return;
+      const matchingTask = tasks.find((task) =>
+        task.title.toLowerCase().includes(text.toLowerCase()),
+      );
+      if (matchingTask) {
+        matchingTask.completed = true;
+        matchingTask.completedAt = new Date().toISOString();
+        saveTasks();
+        renderTasks(currentTaskSort);
+        renderCalendarEvents();
+        updateTasksDoneCount();
+        addActivity(`Completed task: ${matchingTask.title}`, "task");
+      }
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (input && input.startsWith(":d ")) {
+      console.log("delete task triggered");
+      const text = input.slice(3).trim();
+      if (!text) return;
+      const matchingTaskIndex = tasks.findIndex((task) => {
+        return task.title.toLowerCase().includes(text.toLowerCase());
+      });
+      if (matchingTaskIndex !== -1) {
+        const deletedTask = tasks.splice(matchingTaskIndex, 1)[0];
+        saveTasks();
+        renderTasks(currentTaskSort);
+        renderCalendarEvents();
+        updateTasksDoneCount();
+        addActivity(`Deleted task: ${deletedTask.title}`, "task");
+      }
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    // :f <timer duration>, <task> || e.g. :f 25, take out the trash
+    if (input && input.startsWith(":f ")) {
+      console.log("start focus timer triggered");
+      const match = input.slice(3).trim().match(/^(\d+)(?:\s*,\s*(.+))?$/);
+      if (match) {
+        const duration = parseInt(match[1], 10);
+        const taskTitle = match[2] ? match[2].trim() : null;
+        if (!isNaN(duration) && duration > 0) startTimerFromCommandBar(duration, taskTitle || undefined);
+      }
+    }
+
     if (selectedIndex >= 0) {
       (searchResults[selectedIndex] as HTMLElement).click();
       closeSearchBar();
@@ -2702,9 +2779,7 @@ decrastinatorBtn?.addEventListener("click", () => {
       const task = tasks.find((t) => String(t.id) === String(selectedTaskId));
       if (!task) return;
 
-      if (task) {
-        currentFocusedTask.textContent = task.title;
-      }
+      if (task) currentFocusedTask.textContent = task.title;
 
       decrastinatorIntervalId = setInterval(() => {
         decrastinatorTotalSeconds--;
@@ -3140,6 +3215,26 @@ function enterFocusMode() {
   const selectedOption = taskSelectionDropdown.options[taskSelectionDropdown.selectedIndex];
   if (!selectedOption) return;
   activeFocusTask = selectedOption.text;
+  startTimer();
+}
+
+function startTimerFromCommandBar(duration: number, taskTitle?: string | null) {
+  if (taskTitle) {
+    const task = tasks.find((t) => t.title === taskTitle);
+    if (task) {
+      focusMode = true;
+      activeFocusTask = task.title;
+      if (taskSelectionDropdown) {
+        const optionToSelect = Array.from(taskSelectionDropdown.options).find((option) => option.text === task.title);
+        if (optionToSelect) taskSelectionDropdown.value = optionToSelect.value;
+      }
+    }
+  }
+
+  totalTime = duration * 60;
+  totalSeconds = totalTime;
+  updateTimerDisplay();
+  updateRing(totalTime);
   startTimer();
 }
 
