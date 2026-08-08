@@ -1336,8 +1336,8 @@ const searchBarPlaceholders = [
   `Search for tasks and notes... (${modifierKey})`,
   `Create tasks with ":a <task description>" (${modifierKey})`,
   `Create notes with ":n <note content>" (${modifierKey})`,
-  `Complete tasks with ":c <task description>" (${modifierKey})`,
-  `Delete tasks with ":d <task description>" (${modifierKey})`,
+  `Complete tasks with ":c <task>" (${modifierKey})`,
+  `Delete tasks with ":d <task>" (${modifierKey})`,
   `Start focus timer with ":f <duration>, <task>" (${modifierKey})`,
 ];
 let currentIndex = 0;

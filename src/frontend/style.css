@@ -3389,8 +3389,10 @@ html:not([class*="settingsView"]) .personalSection {
 }
 
 .avatarPresetIcon {
-  width: 4;
+  width: 4em;
   height: 4em;
+  display: block;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(---bd-color);
