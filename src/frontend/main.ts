@@ -2523,6 +2523,11 @@ settingsNavOptions.forEach((option) => {
 
     const target = option.getAttribute("href")?.substring(1);
     if (target) (document.querySelector(`.${target}Section`) as HTMLDivElement).style.display = "flex";
+
+    if (target === "ai") {
+      alert("AI features coming soon!");
+      settingsNavOptions[0].click();
+    }
   });
 });
 
