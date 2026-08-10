@@ -33,7 +33,7 @@ const settingsBtn = getElement<HTMLButtonElement>(".settingsBtn");
 const dashboardContent = getElement<HTMLDivElement>(".dashboardContent");
 const dashboardHeader = getElement<HTMLDivElement>(".dashboardHeader");
 const agentBtn = getElement<HTMLButtonElement>(".agentBtn");
-const aiToggle = (document.getElementById("aiToggle") as HTMLInputElement | null) || (() => { throw new Error("AI Toggle not found"); })();
+/* const aiToggle = (document.getElementById("aiToggle") as HTMLInputElement | null) || (() => { throw new Error("AI Toggle not found"); })(); */
 const avatarAccentToggle = (document.getElementById("avatarAccentToggle") as HTMLInputElement | null) || (() => { throw new Error("Avatar Accent Toggle not found"); })();
 const aiOptionsDiv = getElement<HTMLDivElement>(".aiOptionsDiv");
 /** const aiOptionsList = getElement<HTMLUListElement>(".aiOptionsList"); */
@@ -2957,7 +2957,7 @@ function checkTaskDue(listTask: HTMLElement, taskText: string, task: Task) {
   }
 }
 
-function toggleAI() {
+/* function toggleAI() {
   const isChecked = aiToggle?.checked;
   localStorage.setItem("aiEnabled", String(isChecked));
   if (agentBtn) agentBtn.style.display = isChecked ? "flex" : "none";
@@ -2970,7 +2970,7 @@ function loadAIState() {
 }
 
 aiToggle?.addEventListener("change", toggleAI);
-loadAIState();
+loadAIState(); */
 
 function loadActivities() {
   if (activityList) activityList.innerHTML = "";
