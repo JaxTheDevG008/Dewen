@@ -45,8 +45,6 @@ const prioritySuggestionsOpt = getElement<HTMLButtonElement>(
 );
 const riskReportOption = getElement<HTMLButtonElement>(".riskReportOption"); */
 const aiDiv = getElement<HTMLElement>(".aiDiv");
-const decrastinatorBtn = getElement<HTMLButtonElement>(".decrastinatorBtn");
-const closeDecrastinatorBtn = getElement<HTMLButtonElement>(".closeDecrastinatorBtn");
 const customizeBtn = getElement<HTMLButtonElement>(".customizeBtn");
 const customizeDiv = getElement<HTMLDivElement>(".customizeDiv");
 const customizeBgOptions = getAllElements<HTMLButtonElement>(
@@ -95,6 +93,11 @@ const dropZones = getElement<HTMLDivElement>(".dropZones");
 const toDoDropZone = getElement<HTMLDivElement>(".toDoDropZone");
 const inProgressDropZone = getElement<HTMLDivElement>(".inProgressDropZone");
 const allDoneDropZone = getElement<HTMLDivElement>(".allDoneDropZone");
+const projectsBtn = getElement<HTMLButtonElement>(".projectsBtn");
+const projectsDiv = getElement<HTMLDivElement>(".projectsDiv");
+const closeProjectsBtn = getElement<HTMLButtonElement>(".closeProjectsBtn");
+/* const projectList = getElement<HTMLUListElement>(".projectList");
+const addProjectBtn = getElement<HTMLButtonElement>(".addProjectBtn"); */
 const focusTimer = getElement<HTMLDivElement>(".focusTimer");
 const timerOptionsDropdown = getElement<HTMLSelectElement>(".timerOptionsDropdown");
 const taskSelectionDropdown = getElement<HTMLSelectElement>(".taskSelectionDropdown");
@@ -147,8 +150,6 @@ function safeParse(key: string): any[] {
 
 let tasks = safeParse("tasks");
 let allNotes = safeParse("notes");
-let decrastinatorIntervalId: number | null = null;
-let decrastinatorIsRunning = false;
 let isDraggable = false;
 let editingNoteColor: string | null = null;
 let activityLog = getActivityLog();
@@ -1487,7 +1488,6 @@ async function handleSearchKeys(e: KeyboardEvent) {
       return;
     }
 
-    // :f <timer duration>, <task> || e.g. :f 25, take out the trash
     if (input && input.startsWith(":f ")) {
       console.log("start focus timer triggered");
       const match = input.slice(3).trim().match(/^(\d+)(?:\s*,\s*(.+))?$/);
@@ -1496,6 +1496,9 @@ async function handleSearchKeys(e: KeyboardEvent) {
         const taskTitle = match[2] ? match[2].trim() : null;
         if (!isNaN(duration) && duration > 0) startTimerFromCommandBar(duration, taskTitle || undefined);
       }
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
     }
 
     if (selectedIndex >= 0) {
@@ -1789,6 +1792,20 @@ function applyUrgencyStyle(el: HTMLElement | null, urgency: number) {
   const duration = 2.4 - urgency * 1.4;
   el.style.animationDuration = `${duration.toFixed(2)}s`;
 }
+
+projectsBtn?.addEventListener("click", () => {
+  if (projectsDiv) projectsDiv.classList.toggle("show");
+  if (overlay) overlay.style.display = projectsDiv?.classList.contains("show") ? "block" : "none";
+  document.querySelectorAll("body > *").forEach((el) => {
+    if (el !== overlay && el !== projectsDiv) (el as HTMLElement).inert = projectsDiv?.classList.contains("show");
+  });
+});
+
+closeProjectsBtn?.addEventListener("click", () => {
+  if (projectsDiv) projectsDiv.classList.remove("show");
+  if (overlay) overlay.style.display = "none";
+  document.querySelectorAll("body >  *").forEach((el) => ((el as HTMLElement).inert = false));
+});
 
 customizeBtn?.addEventListener("click", () => {
   customizeDiv.classList.add("show");
@@ -2724,104 +2741,6 @@ prioritySuggestionsOpt?.addEventListener("click", () => {
   }
 });
 
-decrastinatorBtn?.addEventListener("click", () => {
-  const isDecrastinatorView =
-    document.documentElement.classList.toggle("decrastinatorView");
-
-  if (isDecrastinatorView) {
-    const decrastinatorDiv = document.querySelector<HTMLDivElement>(".decrastinatorDiv");
-    if (!decrastinatorDiv) return;
-
-    const decrastinatorMinutesDiv = decrastinatorDiv.querySelector(".decrastinatorMinutesDiv");
-    const decrastinatorTaskSelector = decrastinatorDiv.querySelector(".decrastinatorTaskSelector");
-    const startDecrastinatorBtn = decrastinatorDiv.querySelector(".startDecrastinatorBtn");
-
-    decrastinatorDiv.hidden = false;
-    decrastinatorDiv.style.display = "flex";
-
-    let decrastinatorTotalTime = 3 * 60;
-    let decrastinatorTotalSeconds = decrastinatorTotalTime;
-
-    const decrastinatorInitMinutes = Math.floor(decrastinatorTotalSeconds / 60);
-    const decrastinatorInitSeconds = decrastinatorTotalSeconds % 60;
-    if (decrastinatorMinutesDiv) decrastinatorMinutesDiv.textContent = `${decrastinatorInitMinutes}:${decrastinatorInitSeconds.toString().padStart(2, "0")}`;
-    if (decrastinatorTaskSelector) decrastinatorTaskSelector.innerHTML = "";
-
-    const decrastinatorTaskSelectorPlaceholder =
-      document.createElement("option");
-    decrastinatorTaskSelectorPlaceholder.className =
-      "decrastinatorTaskSelectorPlaceholder";
-    decrastinatorTaskSelectorPlaceholder.textContent = "Select a task";
-    decrastinatorTaskSelectorPlaceholder.disabled = true;
-    decrastinatorTaskSelectorPlaceholder.selected = true;
-
-    if (decrastinatorTaskSelector) {
-      decrastinatorTaskSelector.appendChild(decrastinatorTaskSelectorPlaceholder);
-    }
-
-    tasks.forEach((task) => {
-      if (!task.completed) {
-        const decrastinationTaskOption = document.createElement("option");
-        decrastinationTaskOption.value = task.id;
-        decrastinationTaskOption.textContent = task.title;
-        if (decrastinatorTaskSelector) decrastinatorTaskSelector.appendChild(decrastinationTaskOption);
-      }
-    });
-
-    (startDecrastinatorBtn as HTMLButtonElement).onclick = () => {
-      if (decrastinatorIsRunning) return;
-      decrastinatorIsRunning = true;
-
-      const selectedTaskId = (decrastinatorTaskSelector as HTMLSelectElement).value;
-
-      if (!selectedTaskId) return;
-
-      const task = tasks.find((t) => String(t.id) === String(selectedTaskId));
-      if (!task) return;
-
-      if (task) currentFocusedTask.textContent = task.title;
-
-      decrastinatorIntervalId = setInterval(() => {
-        decrastinatorTotalSeconds--;
-
-        const decrastinatorMinutes = Math.floor(decrastinatorTotalSeconds / 60);
-        const decrastinatorSeconds = decrastinatorTotalSeconds % 60;
-        (decrastinatorMinutesDiv as HTMLDivElement).textContent = `${decrastinatorMinutes}:${decrastinatorSeconds.toString().padStart(2, "0")}`;
-
-        if (decrastinatorTotalSeconds <= 0) clearInterval(Number(decrastinatorIntervalId));
-      }, 1000);
-    };
-
-    showOverlay();
-    document
-      .querySelectorAll("body > :not(.decrastinatorDiv):not(.overlay)")
-      .forEach((el) => ((el as HTMLElement).inert = true));
-  } else {
-    hideOverlay();
-    const decrastinatorDiv = document.querySelector<HTMLDivElement>(".decrastinatorDiv");
-    if (decrastinatorDiv) {
-      decrastinatorDiv.hidden = true;
-    }
-    (document.querySelectorAll("body >  *") as NodeListOf<HTMLElement>).forEach((el) => ((el as HTMLElement).inert = false));
-    clearInterval(Number(decrastinatorIntervalId));
-    decrastinatorIsRunning = false;
-  }
-});
-
-closeDecrastinatorBtn?.addEventListener("click", () => {
-  document.documentElement.classList.remove("decrastinatorView");
-  const decrastinatorDiv = document.querySelector<HTMLDivElement>(".decrastinatorDiv");
-  if (decrastinatorDiv) {
-    decrastinatorDiv.hidden = true;
-    decrastinatorDiv.style.display = "none";
-  }
-  hideOverlay();
-  if (themeBtn) themeBtn.innerHTML = `<img src="/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
-  document.querySelectorAll("body >  *").forEach((el) => ((el as HTMLElement).inert = false));
-  clearInterval(Number(decrastinatorIntervalId));
-  decrastinatorIsRunning = false;
-});
-
 window.addEventListener("load", () => {
   if (isDark() && themeBtn) {
     themeBtn.innerHTML = `<img src="/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
@@ -3202,6 +3121,8 @@ timerOptionsDropdown?.addEventListener("change", () => {
   timerMode = timerOptionsDropdown.value;
   if (timerMode === "focus") {
     totalTime = 25 * 60;
+  } else if (timerMode === "decrastinator") {
+    totalTime = 3 * 60;
   } else {
     totalTime = 10 * 60;
   }
@@ -3259,6 +3180,12 @@ function startTimer() {
       currentFocusedTaskDiv.style.display = "flex";
       taskSelectionDropdown.style.display = "none";
     }
+  } else if (timerMode === "decrastinator") {
+    if (currentFocusedTask) {
+      currentFocusedTask.textContent = "Decrastinating";
+      currentFocusedTask.style.display = "inline";
+      lengthButtons.forEach((button) => { button.style.display = "none"; });
+    }
   } else {
     if (currentFocusedTask) {
       currentFocusedTask.textContent = "Taking a break";
@@ -3285,11 +3212,13 @@ function startTimer() {
       intervalId = null;
       isRunning = false;
       if (typeof Notification !== "undefined" && Notification.permission === "granted") {
-        new Notification(
-          timerMode === "focus"
-            ? "Focus session finished! Take a break."
-            : "Break timer finished! Ready to focus."
-        );
+        if (timerMode === "focus") {
+          new Notification("Focus session finished! Take a break.")
+        } else if (timerMode === "decrastinator") {
+          new Notification("Decrastination session finished! Ready to focus.")
+        } else {
+          new Notification("Break time is over! Ready to focus.")
+        }
       }
       const currentFocusedTaskDiv = document.querySelector<HTMLDivElement>(".currentFocusedTaskDiv");
       if (currentFocusedTaskDiv) currentFocusedTaskDiv.style.display = "none";
@@ -3323,6 +3252,10 @@ function restartTimer() {
 
   if (timerMode === "focus") {
     if (taskSelectionDropdown) taskSelectionDropdown.style.display = "block";
+    if (currentFocusedTask) currentFocusedTask.style.display = "none";
+    if (timerButtons) timerButtons.style.marginTop = "0px";
+  } else if (timerMode === "decrastinator") {
+    if (taskSelectionDropdown) taskSelectionDropdown.style.display = "none";
     if (currentFocusedTask) currentFocusedTask.style.display = "none";
     if (timerButtons) timerButtons.style.marginTop = "0px";
   } else {

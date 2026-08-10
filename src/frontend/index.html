@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dewen</title>
+    <title>Dewen - Local-First Task & Project Management</title>
     <link rel="stylesheet" href="/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -65,13 +65,6 @@
               </ul>
             </div>
           </div>
-
-          <button class="decrastinatorBtn">
-            <img
-              src="/images/Decrastinator-Icon.png"
-              class="decrastinatorIcon"
-            />
-          </button>
 
           <button class="customizeBtn">Customize</button>
         </div>
@@ -141,22 +134,6 @@
           <button class="blackAccentBtn" data-theme="black"></button>
         </div>
       </div>
-    </div>
-
-    <div class="decrastinatorDiv">
-      <div class="decrastinatorName">Decrastinator</div>
-      <div class="closeDecrastinatorBtn accentItem">✕</div>
-      <select class="decrastinatorTaskSelector accentItem" autocomplete="off">
-        <option value="" disabled selected>Select a task</option>
-      </select>
-      <div class="startDecrastinatorBtn accentItem">
-        <img
-          src="/images/Start-Timer-Icon.png"
-          class="startDecrastinatorIcon w-4"
-          alt="Start Decrastinator"
-        />
-      </div>
-      <div class="decrastinatorMinutesDiv">3:00</div>
     </div>
 
     <!-- Main Content -->
@@ -249,6 +226,7 @@
             <div class="toDoListHeader">
               <h1 class="toDoListName">Tasks</h1>
               <div class="options">
+                <button class="projectsBtn">Projects</button>
                 <select class="taskSortSelector accentItem">
                   <option value="dateCreated">Date Created</option>
                   <option value="priority">Priority</option>
@@ -359,6 +337,7 @@
           <section class="focusTimer">
             <select class="timerOptionsDropdown accentItem">
               <option value="focusTimer">Focus Timer</option>
+              <option value="decrastinator">Decrastinator</option>
               <option value="breakTimer">Break Timer</option>
             </select>
 
@@ -528,6 +507,32 @@
           <section class="calendar">
             <div id="calendar"></div>
           </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="projectsDiv">
+      <div class="projectsHeader">
+        <h1 class="projectsName">Projects</h1>
+        <button class="closeProjectsBtn">✕</button>
+        <hr class="projectsLineSplit" />
+      </div>
+
+      <div class="projectsContent">
+        <ul class="projectsList">
+          <!-- Projects will dynamically show up here -->
+        </ul>
+
+        <div class="projectCreationDiv">
+          <input
+            type="text"
+            class="projectInput accentItem"
+            placeholder="Enter project name"
+          />
+          <div class="cancelAndAddProjectButtons">
+            <button class="cancelProjectCreationBtn accentItem">Cancel</button>
+            <button class="addProjectBtn accentItem">Add Project</button>
+          </div>
         </div>
       </div>
     </div>
