@@ -2131,7 +2131,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   syncRecurringTasks(new Date());
 
-  toggleAI();
+  // toggleAI();
 
   updateTasksOverdueCount();
   updateTasksDueTodayCount();
