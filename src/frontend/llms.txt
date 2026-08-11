@@ -1,0 +1,15 @@
+# Dewen 
+## > A subscription-free and private take on productivity software
+
+## Purpose
+> Most task and project management websites these days force a subscription on you, obligate you to use AI, and use your data to train models without your consent. 
+> To learn frontend, backend, full-stack, APIs, and client-side database management, I thought that it would be a good idea to build my own from scratch, completely stripped of these modern problems while delivering a clean interface, local-first privacy, and useful productivity tools.
+> Dewen is a local-first task and project management application that helps you stay organized and productive. Track your tasks, start focus sessions, jot down quick notes, and manage your tasks on the calendar, all in one place.
+
+## Features
+- Task Management - Create, edit, and delete tasks instantly
+- Focus Timer - Track your sessions using the Pomodoro method
+- Quick Notes - Mini notes to help you jot down ideas quickly
+- Calendar - Uses FullCalendar.js to display your tasks in a calendar view
+- Activity Panel - Track your activities throughout the app, whether that's task addition or starting a focus session
+- Search/Command Bar - Search your tasks and notes or run commands such as `:f 25, <task>` or `:a <task description`
