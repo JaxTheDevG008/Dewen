@@ -3181,7 +3181,6 @@ html:not([class*="settingsView"]) .personalSection {
 }
 
 .personalSection,
-.aiSection,
 .accessibilitySection,
 .aboutSection {
   display: none;
@@ -3475,7 +3474,6 @@ html:not([class*="settingsView"]) .personalSection {
   cursor: pointer;
 }
 
-.aiToggleDiv,
 .avatarAccentToggleDiv {
   height: 100%;
   display: flex;
@@ -3489,7 +3487,6 @@ html:not([class*="settingsView"]) .personalSection {
   flex-direction: column;
 }
 
-.aiToggleBtn,
 .avatarAccentToggleBtn {
   background-color: var(--btn-bg-color);
   width: 60px;
@@ -3500,7 +3497,6 @@ html:not([class*="settingsView"]) .personalSection {
   transition: background-color 0.2s;
 }
 
-.aiToggleBtn::before,
 .avatarAccentToggleBtn::before {
   position: absolute;
   content: "";
@@ -3512,27 +3508,14 @@ html:not([class*="settingsView"]) .personalSection {
   transition: 0.2s;
 }
 
-#aiToggle:checked + .aiToggleBtn,
 #avatarAccentToggle:checked + .avatarAccentToggleBtn {
   background-color: rgb(70, 190, 140);
 }
 
-#aiToggle:checked + .aiToggleBtn::before,
 #avatarAccentToggle:checked + .avatarAccentToggleBtn::before {
   transform: translateX(30px);
 }
 
-#aiToggle,
 #avatarAccentToggle {
   display: none;
-}
-
-.aiModelSelect,
-.apiKeyInput {
-  width: 300px;
-  padding: 10px;
-  border: 1px solid var(--bd-color);
-  border-radius: 12px;
-  background-color: var(--work-areas-bg-color);
-  color: var(--text-color);
 }
