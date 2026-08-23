@@ -74,6 +74,13 @@ body {
   box-sizing: border-box;
 }
 
+@media (max-width: 1240px) {
+  body {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
 h1 {
   font-weight: 400;
 }
@@ -117,9 +124,22 @@ button:hover {
   gap: 6px;
 }
 
+/* make askForNotifications appear as a div with the overlay showing behind it */
+
+@media (max-width: 1240px),
+  (max-height: 663px),
+    (max-width: 422px) {
+    .askForNotifications {
+      flex-direction: column !important;
+      gap: 10px;
+    }
+  }
+
 .enableNotiMessage {
   text-overflow: ellipsis;
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .enableNotificationsBtn {
@@ -199,7 +219,7 @@ button:hover {
   border: none;
   height: 100vh;
   position: fixed;
-  z-index: 9800;
+  z-index: 9999;
   display: none;
   flex-direction: column;
   justify-content: flex-start;
@@ -268,7 +288,20 @@ button:hover {
 }
 
 .sidebar.closing {
+  display: flex;
   animation: slideOut 0.2s ease-in forwards;
+}
+
+@media (max-width: 1240px) {
+  .sidebar.show {
+    animation: none !important;
+    transform: translateX(0) !important;
+  }
+
+  .sidebar.closing {
+    animation: none !important;
+    transform: translateX(-100%) !important;
+  }
 }
 
 .sidebarBtns {
@@ -295,7 +328,8 @@ button:hover {
 
 .dashboardBtn,
 .calendarBtn,
-.settingsBtn {
+.settingsBtn,
+.closeSidebarBtn {
   display: flex;
   text-align: flex-start;
   align-items: center;
@@ -311,9 +345,16 @@ button:hover {
   color: var(--text-color);
 }
 
+.closeSidebarBtn { display: none; }
+
+@media (max-width: 1240px) {
+  .closeSidebarBtn { display: flex; }
+}
+
 .dashboardBtn:hover,
 .calendarBtn:hover,
-.settingsBtn:hover {
+.settingsBtn:hover,
+.closeSidebarBtn {
   background-color: var(--btn-bg-color);
   cursor: pointer;
 }
@@ -355,6 +396,16 @@ button:hover {
   width: 39px;
   font-size: 1rem;
   z-index: 9999;
+}
+
+@media (max-width: 1240px) {
+  .hamburgerBtn {
+    display: flex;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 9999;
+  }
 }
 
 .hamburgerBtn:hover {
@@ -407,6 +458,15 @@ button:hover {
   transform: translateX(0);
 }
 
+@media (max-width: 1240px) {
+  .dashboardContent {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
 .accentItem {
   background-color: var(--accent-color) !important;
   color: var(--accent-text-color) !important;
@@ -429,6 +489,15 @@ button:hover {
   align-items: flex-end;
 }
 
+@media (max-width: 1240px) {
+  :root:not(.sidebarHidden) .dashboardContent {
+    transform: translateX(0);
+    align-items: center;
+    justify-content: center;
+    margin-left: auto !important;
+  }
+}
+
 .header {
   display: flex;
   gap: 15px;
@@ -439,6 +508,7 @@ button:hover {
 .dashboardHeader {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 1160px;
   position: relative;
   padding: 20px;
@@ -448,6 +518,22 @@ button:hover {
   margin-bottom: 0px;
   order: 0;
   background: var(--header-bg-color);
+}
+
+@media (max-width: 1240px) {
+  .dashboardHeader {
+    width: 51em;
+    max-width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 663px) {
+  .dashboardHeader {
+    width: 100%;
+  }
 }
 
 :root.calendarView .dashboardHeader,
@@ -472,10 +558,12 @@ button:hover {
 .searchDiv {
   display: flex;
   position: fixed;
-  width: 100%;
   top: 0px;
-  left: 33%;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 9997;
+  width: auto;
+  min-width: 400px;
 }
 
 .searchDiv.show {
@@ -500,7 +588,6 @@ button:hover {
   position: relative;
   border-radius: 8px;
   font-size: 13px;
-  left: 20%;
   box-sizing: border-box;
 }
 
@@ -525,8 +612,8 @@ button:hover {
   list-style-type: none;
   opacity: 0;
   visibility: hidden;
-  left: 20%;
-  transform: none;
+  left: 51%;
+  transform: translateX(-50%);
   width: 100%;
   max-width: 400px;
   z-index: 999;
@@ -534,7 +621,6 @@ button:hover {
 
 .searchBarIcon {
   position: absolute;
-  left: 24%;
   top: 50%;
   transform: translateY(-50%);
   font-size: 20px;
@@ -545,6 +631,7 @@ button:hover {
   z-index: 9999;
   line-height: 1;
   width: 15px;
+  left: 4%;
 }
 
 [data-mode="dark"] .searchBarIcon {
@@ -590,13 +677,15 @@ button:hover {
 }
 
 .searchResultIcon--task {
-  filter: invert(31%) sepia(94%) saturate(4529%) hue-rotate(204deg) brightness(102%) contrast(107%);
+  filter: invert(31%) sepia(94%) saturate(4529%) hue-rotate(204deg)
+    brightness(102%) contrast(107%);
   opacity: 0.7;
   transition: 0.2s ease;
 }
 
 .searchResultIcon--note {
-  filter: invert(88%) sepia(85%) saturate(3015%) hue-rotate(345deg) brightness(86%) contrast(101%);
+  filter: invert(88%) sepia(85%) saturate(3015%) hue-rotate(345deg)
+    brightness(86%) contrast(101%);
   opacity: 0.7;
   transition: 0.2s ease;
 }
@@ -648,6 +737,12 @@ button:hover {
   transform-origin: center;
 }
 
+@media (max-width: 1240px) {
+  .avatarIconWrapper {
+    width: 50px;
+  }
+}
+
 .greeting {
   font-size: 1.8rem;
   position: relative;
@@ -689,7 +784,8 @@ button:hover {
 }
 
 .agentBtn:hover .agentIcon {
-  filter: invert(21%) sepia(50%) saturate(3015%) hue-rotate(222deg) brightness(91%) contrast(93%); 
+  filter: invert(21%) sepia(50%) saturate(3015%) hue-rotate(222deg)
+    brightness(91%) contrast(93%);
   opacity: 0.7;
   transition: 0.2s ease;
 }
@@ -931,14 +1027,14 @@ button:hover {
 
 .customizeBgOptions button,
 .customizeAccentOptions button {
-  flex: 0 0 calc(16.66% - 10px); 
+  flex: 0 0 calc(16.66% - 10px);
   box-sizing: border-box;
   border-radius: 50%;
-  aspect-ratio: 1 / 1;          
-  text-align: center;     
-  overflow: hidden;        
-  text-overflow: ellipsis;     
-  white-space: nowrap;     
+  aspect-ratio: 1 / 1;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   transition: border 0.15s ease;
 }
 
@@ -1018,7 +1114,7 @@ button:hover {
   background-color: white;
 }
 
-.blackBgBtn, 
+.blackBgBtn,
 .blackAccentBtn {
   background-color: black;
 }
@@ -1026,7 +1122,9 @@ button:hover {
 .miniAnalyticsDiv {
   display: grid;
   position: relative;
-  transition: grid-template-rows 0.4s ease-in-out, margin-bottom 0.4s ease-in-out;  
+  transition:
+    grid-template-rows 0.4s ease-in-out,
+    margin-bottom 0.4s ease-in-out;
   margin: 0px;
   top: 0px;
   order: 0;
@@ -1041,7 +1139,7 @@ button:hover {
 
 .miniAnalyticsDiv.expanded .miniAnalytics {
   transform: translateY(0);
-  max-height: 180px;
+  max-height: 18em;
   opacity: 1;
 }
 
@@ -1060,6 +1158,12 @@ button:hover {
   z-index: 10;
 }
 
+@media (max-width: 1240px) {
+  .expandMiniAnalyticsBtn {
+    width: 100%;
+  }
+}
+
 .expandMiniAnalyticsBtn:hover {
   background-color: var(--btn-hover-bg-color);
   cursor: pointer;
@@ -1072,13 +1176,18 @@ button:hover {
 .expandMiniAnalyticsIcon {
   width: 16px;
   filter: brightness(0);
-  transition: rotate 0.3s ease, filter 0.2s ease, opacity 0.2s ease;
+  transition:
+    rotate 0.3s ease,
+    filter 0.2s ease,
+    opacity 0.2s ease;
 }
 
 [data-mode="dark"] .expandMiniAnalyticsIcon {
   filter: brightness(0) invert(1);
   opacity: 0.7;
-  transition: 0.2s ease, transform 0.3s ease;
+  transition:
+    0.2s ease,
+    transform 0.3s ease;
 }
 
 .expandMiniAnalyticsTooltip {
@@ -1124,6 +1233,30 @@ button:hover {
     opacity 0.25s ease;
 }
 
+@media (max-width: 1240px) {
+  .miniAnalytics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .miniAnalyticsDiv.expanded .miniAnalytics {
+    max-height: 36em;
+  }
+}
+
+@media (max-width: 663px) {
+  .miniAnalytics {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .miniAnalyticsDiv.expanded .miniAnalytics {
+    max-height: 60em;
+  }
+}
+
 .miniAnalytic {
   background-color: var(--work-areas-bg-color);
   border: 1px solid var(--bd-color);
@@ -1139,14 +1272,46 @@ button:hover {
   justify-content: center;
 }
 
+@media (max-width: 1240px) {
+  .miniAnalytic {
+    width: 21em;
+    height: 122px;
+  }
+}
+
+@media (max-width: 961px) {
+  .miniAnalytic {
+    width: 19em;
+    max-width: 100%;
+    height: 122px;
+  }
+}
+
+@media (max-width: 663px) {
+  .miniAnalytic {
+    width: 17em;
+    max-width: 100%;
+    height: 122px;
+  }
+}
+
+@media (max-width: 422px) {
+  .miniAnalytic {
+    width: 15em;
+    max-width: 100%;
+    height: 122px;
+  }
+}
+
 .targetIcon {
   position: absolute;
-  filter: invert(53%) sepia(11%) saturate(2350%) hue-rotate(149deg) brightness(93%) contrast(90%);
+  filter: invert(53%) sepia(11%) saturate(2350%) hue-rotate(149deg)
+    brightness(93%) contrast(90%);
   opacity: 0.7;
   transition: 0.2s ease;
   width: 205px;
-  top: 100px;
-  left: 365px;
+  top: 80%;
+  left: 90%;
   transform: translate(-50%, -50%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   opacity: 15%;
@@ -1154,19 +1319,48 @@ button:hover {
 
 .riskReportIcon {
   position: absolute;
-  filter: brightness(0) saturate(100%) invert(56%) sepia(35%) saturate(1450%) hue-rotate(318deg) brightness(105%) contrast(102%);
+  filter: brightness(0) saturate(100%) invert(56%) sepia(35%) saturate(1450%)
+    hue-rotate(318deg) brightness(105%) contrast(102%);
   opacity: 0.7;
   transition: 0.2s ease;
   width: 225px;
-  top: 120px;
-  left: 180px;
+  top: 80%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  opacity: 15%;
+}
+
+.upcomingIcon {
+  position: absolute;
+  filter: brightness(0) saturate(100%) invert(15%) sepia(100%) saturate(7493%) hue-rotate(283deg) brightness(95%) contrast(101%);
+  opacity: 0.7;
+  transition: 0.2s ease;
+  width: 225px;
+  top: 80%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  opacity: 15%;
+}
+
+.staleTasksIcon {
+  position: absolute;
+  filter: brightness(0) saturate(100%) invert(53%) sepia(23%) saturate(4924%) hue-rotate(3deg) brightness(108%) contrast(103%);
+  opacity: 0.7;
+  transition: 0.2s ease;
+  width: 225px;
+  top: 80%;
+  left: 92%;
   transform: translate(-50%, -50%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   opacity: 15%;
 }
 
 .whatToFocusOnHeader,
-.riskReportHeader {
+.riskReportHeader,
+.upcomingHeader,
+.staleTasksHeader {
   font-size: 18px;
   color: gray;
   margin: 0px;
@@ -1183,7 +1377,7 @@ button:hover {
   margin: 0px;
   position: absolute;
   top: 50%;
-  left: 40%;
+  left: 60%;
   transform: translate(-50%, -50%);
   background-color: transparent;
   border: none;
@@ -1197,8 +1391,8 @@ button:hover {
   flex-direction: column;
   align-items: center;
   position: relative;
-  left: 60%;
   gap: 10px;
+  left: 60%;
   top: 1.5em;
 }
 
@@ -1206,8 +1400,8 @@ button:hover {
 .numberOfTasksDueToday,
 .numberOfBlockedTasks {
   font-size: 0.9rem;
-  left: 60%;
-  width: 190px;
+  left: 0px;
+  width: 19em;
   bottom: 0px;
 }
 
@@ -1221,12 +1415,14 @@ button:hover {
   margin: 20px;
 }
 
-.whatToFocusOnDiv {
+.whatToFocusOnDiv,
+.upcomingDiv,
+.staleTasksDiv {
   font-size: 1rem;
   color: var(--text-color);
   text-align: left;
   width: 24em;
-  height: 112px;
+  height: 8em;
   background-color: var(--work-areas-bg-color);
   border: 1px solid var(--bd-color);
   border-radius: 16px;
@@ -1237,7 +1433,77 @@ button:hover {
   margin: 0px;
 }
 
-.focusOnList {
+.riskReportDiv {
+  font-size: 1rem;
+  color: var(--text-color);
+  text-align: left;
+  width: 24em;
+  height: 8em;
+  background-color: var(--work-areas-bg-color);
+  border: 1px solid var(--bd-color);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  order: 0;
+}
+
+@media (max-width: 1240px) {
+  .whatToFocusOnDiv,
+  .riskReportDiv,
+  .upcomingDiv,
+  .staleTasksDiv {
+    width: 24em;
+    font-size: 1rem;
+    max-width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+@media (max-width: 961px) {
+  .whatToFocusOnDiv,
+  .riskReportDiv,
+  .upcomingDiv,
+  .staleTasksDiv {
+    width: 22em;
+    font-size: 1rem;
+    max-width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+@media (max-width: 663px) {
+  .whatToFocusOnDiv,
+  .riskReportDiv,
+  .upcomingDiv,
+  .staleTasksDiv { 
+    width: 20em;
+    font-size: 1rem;
+    max-width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+@media (max-width: 422px) {
+  .whatToFocusOnDiv,
+  .riskReportDiv,
+  .upcomingDiv,
+  .staleTasksDiv {
+    width: 16em;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+.focusOnList,
+.upcomingList,
+.staleTasksList {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1249,6 +1515,14 @@ button:hover {
   padding: 0px;
   margin-top: 30px;
   font-size: 0.8rem;
+}
+
+@media (max-width: 1240px) {
+  .focusOnList,
+  .upcomingList,
+  .staleTasksList {
+    font-size: 0.77rem;
+  }
 }
 
 .priorityMarker {
@@ -1276,6 +1550,15 @@ button:hover {
   order: 3;
 }
 
+@media (max-width: 1240px) {
+  .mainWorkArea {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
 .workAreaSplit {
   position: relative;
   width: 100%;
@@ -1290,6 +1573,36 @@ button:hover {
   display: flex;
   flex-direction: row;
   gap: 20px;
+}
+
+@media (max-width: 1240px) {
+  .section1,
+  .section2 {
+    flex-direction: column;
+    gap: 20px;
+    width: 53em;
+  }
+}
+
+@media (max-width: 961px) {
+  .section1,
+  .section2 {
+    width: 35em;
+  }
+}
+
+@media (max-width: 663px) {
+  .section1,
+  .section2 {
+    width: 27em;
+  }
+}
+
+@media (max-width: 422px) {
+  .section1,
+  .section2 {
+    width: 20em;
+  }
 }
 
 .toDoList {
@@ -1310,6 +1623,43 @@ button:hover {
   -webkit-backdrop-filter: blur(8px);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  left: 0px;
+  right: 0px;
+  margin-inline: auto;
+}
+
+@media (max-width: 1240px) {
+  .toDoList,
+  .focusTimer,
+  .notes,
+  .activity,
+  .calendar {
+    width: 100%;
+    height: 100%;
+    max-width: 100em;
+    margin-inline: auto;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 422px) {
+  .toDoList,
+  .focusTimer,
+  .notes,
+  .activity,
+  .calendar {
+    padding: 12px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 1240px) {
+  .toDoList,
+  .focusTimer {
+    height: auto;
+    min-height: 300px;
+    max-height: 520px;
+  }
 }
 
 :root.isKanbanView .toDoList {
@@ -1331,6 +1681,13 @@ button:hover {
   position: relative;
   bottom: 5px;
   font-size: 1.2rem;
+}
+
+.taskCount {
+  position: relative;
+  font-size: 0.9rem;
+  left: 10px;
+  color: gray;
 }
 
 .options {
@@ -1449,6 +1806,23 @@ button:hover {
   padding: 5px 10px;
   height: 35px;
   width: 130px;
+}
+
+@media (max-width: 1240px) {
+  .taskSortSelector,
+  .taskViewSelector {
+    width: auto;
+    min-width: 0px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 422px) {
+  .taskSortSelector,
+  .taskViewSelector {
+    font-size: 0.7rem;
+    padding-inline: 6px;
+  }
 }
 
 .taskSortSelector:hover {
@@ -1583,12 +1957,14 @@ button:hover {
   width: 20px;
   height: 20px;
   opacity: 0.9;
-  transition: filter 0.2s ease, opacity 0.2s ease;
-  filter: brightness(0) invert(1); 
+  transition:
+    filter 0.2s ease,
+    opacity 0.2s ease;
+  filter: brightness(0) invert(1);
 }
 
 [data-mode="dark"] .themeIcon {
-  filter: brightness(0); 
+  filter: brightness(0);
   opacity: 0.75;
 }
 
@@ -2224,7 +2600,6 @@ input:focus {
 .taskOptions div:hover {
   background-color: var(--btn-bg-color);
   cursor: pointer;
-
 }
 
 .taskOptions.show .editOption,
@@ -2249,6 +2624,26 @@ input:focus {
   overflow: hidden;
   border: 1px solid var(--bd-color);
   z-index: auto;
+}
+
+@media (max-width: 1240px) {
+  .focusTimer {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    margin-inline: auto;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 422px) {
+  .focusTimer {
+    width: 100%;
+    height: 380px;
+    max-width: 100%;
+    margin-inline: auto;
+    padding: 15px;
+  }
 }
 
 :root.isKanbanView .focusTimer {
@@ -2480,6 +2875,23 @@ input:focus {
   z-index: 1;
   border: 1px solid var(--bd-color);
   background-color: var(--work-areas-bg-color);
+}
+
+@media (max-width: 1240px) {
+  .notes {
+    width: 100%;
+    height: 330px;
+  }
+}
+
+@media (max-width: 422px) {
+  .notes {
+    width: 100%;
+    height: 300px;
+    max-width: 100%;
+    margin-inline: auto;
+    padding: 15px;
+  }
 }
 
 .notesHeader {
@@ -2761,6 +3173,30 @@ input:focus {
   font-size: 0.875rem;
 }
 
+@media (max-width: 1240px) {
+  .mainNote {
+    width: 94%;
+  }
+}
+
+@media (max-width: 961px) {
+  .mainNote {
+    width: 92%;
+  }
+}
+
+@media (max-width: 663px) {
+  .mainNote {
+    width: 90%;
+  }
+}
+
+@media (max-width: 422px) {
+  .mainNote {
+    width: 88%;
+  }
+}
+
 .mainNoteText {
   position: relative;
   text-align: left;
@@ -2861,6 +3297,27 @@ input:focus {
   box-sizing: border-box;
 }
 
+@media (max-width: 1240px) {
+  .activity {
+    width: 105%;
+    height: 430px;
+  }
+}
+
+@media (max-width: 961px) {
+  .activity {
+    width: 107%;
+    height: 430px;
+  }
+}
+
+@media (max-width: 663px) {
+  .activity {
+    width: 109%;
+    height: 360px;
+  }
+}
+
 .activityName {
   position: absolute;
   top: 0px;
@@ -2921,6 +3378,12 @@ input:focus {
   text-overflow: ellipsis;
 }
 
+@media (max-width: 1240px) {
+  .activityItem {
+    width: 100%;
+  }
+}
+
 .activityIcon {
   width: 36px;
   height: 36px;
@@ -2928,30 +3391,36 @@ input:focus {
 }
 
 .activityIcon--task {
-  filter: invert(31%) sepia(94%) saturate(4529%) hue-rotate(204deg) brightness(102%) contrast(107%);
+  filter: invert(31%) sepia(94%) saturate(4529%) hue-rotate(204deg)
+    brightness(102%) contrast(107%);
   opacity: 0.7;
   transition: 0.2s ease;
 }
 
 .activityIcon--note {
-  filter: invert(88%) sepia(85%) saturate(3015%) hue-rotate(345deg) brightness(86%) contrast(101%);
+  filter: invert(88%) sepia(85%) saturate(3015%) hue-rotate(345deg)
+    brightness(86%) contrast(101%);
   opacity: 0.7;
   transition: 0.2s ease;
 }
 
 [data-mode="dark"].activityIcon--note {
-  filter: invert(88%) sepia(85%) saturate(3015%) hue-rotate(345deg) brightness(101%) contrast(101%);
+  filter: invert(88%) sepia(85%) saturate(3015%) hue-rotate(345deg)
+    brightness(101%) contrast(101%);
   opacity: 0.7;
   transition: 0.2s ease;
 }
 
 .activityIcon--focus {
-  filter: invert(47%) sepia(87%) saturate(1518%) hue-rotate(125deg) brightness(96%) contrast(102%);  opacity: 0.7;
+  filter: invert(47%) sepia(87%) saturate(1518%) hue-rotate(125deg)
+    brightness(96%) contrast(102%);
+  opacity: 0.7;
   transition: 0.2s ease;
 }
 
 .activityIcon--delete {
-  filter: invert(24%) sepia(91%) saturate(3474%) hue-rotate(352deg) brightness(91%) contrast(92%);
+  filter: invert(24%) sepia(91%) saturate(3474%) hue-rotate(352deg)
+    brightness(91%) contrast(92%);
   opacity: 0.7;
   transition: 0.2s ease;
 }
@@ -2978,15 +3447,43 @@ input:focus {
   background-color: var(--work-areas-bg-color);
 }
 
+@media (max-width: 1240px) {
+  .calendar {
+    height: 430px;
+    overflow: hidden;
+    width: 100%;
+  }
+}
+
+@media (max-width: 422px) {
+  .calendar {
+    width: 95%;
+  }
+}
+
 #calendar {
   width: 817px;
   height: 545px;
   overflow-y: hidden;
 }
 
+@media (max-width: 1240px) {
+  #calendar {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .fc .fc-toolbar {
   display: flex !important;
   justify-content: flex-end;
+}
+
+@media (max-width: 1240px) {
+  .fc .fc-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .fc .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) {
@@ -3049,7 +3546,9 @@ input:focus {
   background-color: var(--fc-daygrid-day-bg-color);
   border-radius: 15px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, border-color 0.3s
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s;
 }
 
 .fc .fc-daygrid-day:hover {
@@ -3079,7 +3578,8 @@ input:focus {
   --urgency: 0;
   position: relative;
   overflow: visible !important;
-  animation: pulseUrgency calc(2.4s - var(--urgency) * 1.4s) ease-in-out infinite;
+  animation: pulseUrgency calc(2.4s - var(--urgency) * 1.4s) ease-in-out
+    infinite;
 }
 
 .fc-daygrid-event-harness {
@@ -3125,9 +3625,13 @@ input:focus {
   transform: translateX(0);
 }
 
-.isSettingsView .dashboardContent { display: none; }
+.isSettingsView .dashboardContent {
+  display: none;
+}
 
-.isSettingsView .settingsContent { display: flex; }
+.isSettingsView .settingsContent {
+  display: flex;
+}
 
 html:not([class*="settingsView"]) .personalSection {
   display: flex;
@@ -3518,4 +4022,90 @@ html:not([class*="settingsView"]) .personalSection {
 
 #avatarAccentToggle {
   display: none;
+}
+
+.commandsHelpListDiv {
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(255, 255, 255);
+  padding: 2rem;
+  border-radius: 15px;
+  width: min(90vw, 450px);
+  max-height: min(80vh, 420px);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  overflow-y: auto;
+}
+
+.commandsHelpListDiv.show {
+  display: flex;
+}
+
+.commandsHelpListHeader {
+  display: flex;
+  align-items: flex-start;
+  position: sticky;
+  top: 0px;
+  justify-content: flex-start;
+  gap: 10px;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  position: relative;
+  width: 100%;
+}
+
+.commandsHelpListName {
+  position: relative;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.closeCommandsHelpList {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--btn-bg-color);
+  border: none;
+  border-radius: 12px;
+  padding: 5px 10px;
+  width: 30px;
+  height: 30px;
+  color: var(--text-color);
+}
+
+.commandsList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  padding: 20px;
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
+.commandItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 10px 0px;
+  color: var(--text-color);
+  font-size: 0.875rem;
+  border-radius: 12px;
+  padding: 10px;
+  background-color: var(--fc-daygrid-day-bg-color);
+  width: 100%;
+  box-sizing: border-box;
+  gap: 10px;
 }

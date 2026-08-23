@@ -80,14 +80,17 @@
         <!-- <button class="whiteboardBtn">
         <img src="/images/Whiteboard-Icon.png" class="whiteboardIcon">
         Whiteboard
-      </button> -->
+      </button>
         <button class="calendarBtn">
           <img src="/images/Date-Icon.png" class="calendarIcon" />
           Calendar
-        </button>
+        </button> -->
         <button class="settingsBtn">
           <img src="/images/Settings-Icon.png" class="settingsIcon" />
           Settings
+        </button>
+        <button class="closeSidebarBtn">
+          ✕ Close
         </button>
       </div>
     </nav>
@@ -206,12 +209,28 @@
                   />
                 </div>
 
-                <div class="miniAnalytic">
-                  <div class="momentumHeader">COMING SOON!</div>
+                <div class="miniAnalytic upcomingDiv">
+                  <div class="upcomingHeader">UPCOMING</div>
+                  <ul class="upcomingList">
+                    <!-- Upcoming tasks will dynamically show up here -->
+                  </ul>
+                  <img
+                    src="/images/Date-Icon.png"
+                    class="upcomingIcon"
+                    alt="Upcoming Icon"
+                  />
                 </div>
 
-                <div class="miniAnalytic">
-                  <div class="freeTimeHeader">COMING SOON!</div>
+                <div class="miniAnalytic staleTasksDiv">
+                  <div class="staleTasksHeader">STALE TASKS</div>
+                  <ul class="staleTasksList">
+                    <!-- Quick wins will dynamically show up here -->
+                  </ul>
+                  <img
+                    src="/images/Clock.png"
+                    class="staleTasksIcon"
+                    alt="Quick Wins Icon"
+                  />
                 </div>
               </div>
             </div>
@@ -227,9 +246,9 @@
           <!-- To-Do List -->
           <section class="toDoList">
             <div class="toDoListHeader">
-              <h1 class="toDoListName">Tasks</h1>
+              <h1 class="toDoListName">Tasks <span class="taskCount">0 tasks done</span></h1>
               <div class="options">
-                <button class="projectsBtn">Projects</button>
+                <!-- <button class="projectsBtn">Projects</button> -->
                 <select class="taskSortSelector accentItem">
                   <option value="dateCreated">Date Created</option>
                   <option value="priority">Priority</option>
@@ -514,7 +533,7 @@
       </div>
     </div>
 
-    <div class="projectsDiv">
+    <!-- <div class="projectsDiv">
       <div class="projectsHeader">
         <h1 class="projectsName">Projects</h1>
         <button class="closeProjectsBtn">✕</button>
@@ -523,7 +542,6 @@
 
       <div class="projectsContent">
         <ul class="projectsList">
-          <!-- Projects will dynamically show up here -->
         </ul>
 
         <div class="projectCreationDiv">
@@ -538,7 +556,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="settingsContent">
       <div class="settingsNavigator">
@@ -714,6 +732,28 @@
           <div class="avatarPresetName">The Musician</div>
         </div>
       </div>
+    </div>
+
+    <div class="commandsHelpListDiv">
+      <div class="commandsHelpListHeader">
+        <h1 class="commandsHelpListTitle">Command Help</h1>
+        <button class="closeCommandsHelpList">✕</button>
+      </div>
+      <ul class="commandsList">
+        <li class="commandItem">:a &lt;task description&gt; - Create a task</li>
+        <li class="commandItem">:n &lt;note text&gt; - Create a note</li>
+        <li class="commandItem">:c &lt;task title&gt; - Complete a task</li>
+        <li class="commandItem">:d &lt;task title&gt; - Delete a task</li>
+        <li class="commandItem">:f &lt;duration&gt;, &lt;task title&gt; - Start a focus timer</li>
+        <li class="commandItem">:pt - Pause the current timer</li>
+        <li class="commandItem">:rst - Resume the current timer</li>
+        <li class="commandItem">:rt - Restart the current timer</li>
+        <li class="commandItem">:x - Clear and delete all completed tasks</li>
+        <li class="commandItem">:p &lt;task title&gt;, &lt;priority&gt; - Prioritize a task</li>
+        <li class="commandItem">:et &lt;task title&gt; - Edit a task</li>
+        <li class="commandItem">:en &lt;note text&gt; - Edit a note</li>
+        <li class="commandItem">:h - Show help</li>
+      </ul>
     </div>
     <!-- <script type="module" src="ts/main.ts"></script> -->
     <script type="module" src="/main.ts"></script>

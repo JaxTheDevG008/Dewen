@@ -21,15 +21,17 @@ const closeNotiPopup = getElement<HTMLButtonElement>(".closeNotiPopup");
 const sidebar = getElement<HTMLDivElement>(".sidebar");
 const sidebarBtns = getAllElements<HTMLButtonElement>(".sidebar button");
 const hamburgerBtn = getElement<HTMLButtonElement>(".hamburgerBtn");
-const whatToFocusOnDiv = getElement<HTMLDivElement>(".whatToFocusOnDiv");
 const focusOnList = getElement<HTMLUListElement>(".focusOnList");
+const upcomingList = getElement<HTMLUListElement>(".upcomingList");
+const staleTasksList = getElement<HTMLUListElement>(".staleTasksList");
 const header = getElement<HTMLHeadElement>(".header");
 const searchDiv = getElement<HTMLDivElement>(".searchDiv");
 const searchBar = getElement<HTMLInputElement>(".searchBar");
 const searchResultsMenu = getElement<HTMLDivElement>(".searchResultsMenu");
 const dashboardBtn = getElement<HTMLButtonElement>(".dashboardBtn");
-const calendarBtn = getElement<HTMLButtonElement>(".calendarBtn");
+// const calendarBtn = getElement<HTMLButtonElement>(".calendarBtn");
 const settingsBtn = getElement<HTMLButtonElement>(".settingsBtn");
+const closeSidebarBtn = getElement<HTMLButtonElement>(".closeSidebarBtn");
 const dashboardContent = getElement<HTMLDivElement>(".dashboardContent");
 const dashboardHeader = getElement<HTMLDivElement>(".dashboardHeader");
 const agentBtn = getElement<HTMLButtonElement>(".agentBtn");
@@ -42,8 +44,7 @@ const prioritySuggestionsOpt = getElement<HTMLButtonElement>(
 );
 /** const scheduleSuggestionOption = getElement<HTMLButtonElement>(
   ".scheduleSuggestionOption",
-);
-const riskReportOption = getElement<HTMLButtonElement>(".riskReportOption"); */
+); */
 const aiDiv = getElement<HTMLElement>(".aiDiv");
 const customizeBtn = getElement<HTMLButtonElement>(".customizeBtn");
 const customizeDiv = getElement<HTMLDivElement>(".customizeDiv");
@@ -93,10 +94,10 @@ const dropZones = getElement<HTMLDivElement>(".dropZones");
 const toDoDropZone = getElement<HTMLDivElement>(".toDoDropZone");
 const inProgressDropZone = getElement<HTMLDivElement>(".inProgressDropZone");
 const allDoneDropZone = getElement<HTMLDivElement>(".allDoneDropZone");
-const projectsBtn = getElement<HTMLButtonElement>(".projectsBtn");
+/* const projectsBtn = getElement<HTMLButtonElement>(".projectsBtn");
 const projectsDiv = getElement<HTMLDivElement>(".projectsDiv");
 const closeProjectsBtn = getElement<HTMLButtonElement>(".closeProjectsBtn");
-/* const projectList = getElement<HTMLUListElement>(".projectList");
+const projectList = getElement<HTMLUListElement>(".projectList");
 const addProjectBtn = getElement<HTMLButtonElement>(".addProjectBtn"); */
 const focusTimer = getElement<HTMLDivElement>(".focusTimer");
 const timerOptionsDropdown = getElement<HTMLSelectElement>(".timerOptionsDropdown");
@@ -135,6 +136,8 @@ const closeAvatarPresets = getElement<HTMLButtonElement>(".closeAvatarPresets");
 const avatarPresetItems = getAllElements<HTMLDivElement>(".avatarPresetItem");
 const fullNameInput = getElement<HTMLInputElement>(".fullNameInput");
 const preferredNameInput = getElement<HTMLInputElement>(".preferredNameInput");
+const commandsHelpListDiv = getElement<HTMLDivElement>(".commandsHelpListDiv");
+const closeCommandsHelpListBtn = getElement<HTMLButtonElement>(".closeCommandsHelpList");
 const ai_API_BASE = "http://127.0.0.1:5000";
 
 function safeParse(key: string): any[] {
@@ -186,7 +189,7 @@ interface Task {
   createdAt: number;
   recurrence: Recurrence;
   lastCompleted: string | null;
-  subtasks: Task[];
+  // subtasks: Task[];
 }
 
 interface Note {
@@ -384,13 +387,13 @@ function createTaskElement(task: Task): HTMLLIElement | null {
   const urgency = getTaskUrgency(task);
   applyUrgencyStyle(mainTask, urgency);
 
-  const subtaskList = document.createElement("ul");
+  /* const subtaskList = document.createElement("ul");
   subtaskList.className = "subtaskList";
 
   task.subtasks?.forEach((subtask) => {
     subtaskList.appendChild(createSubtaskElement(subtask));
   });
-  listTask.appendChild(subtaskList);
+  listTask.appendChild(subtaskList); */
 
   taskTextAndCheckbox.prepend(taskCheckbox);
   taskCheckbox.addEventListener("change", () => {
@@ -414,6 +417,8 @@ function createTaskElement(task: Task): HTMLLIElement | null {
     addActivity(`Completed task: ${task.title}`, "task");
     updateTasksDoneCount();
     renderWhatToFocusOn();
+    renderUpcomingTasks();
+    renderStaleTasks();
     updateTasksOverdueCount();
     updateTasksDueTodayCount();
     updateBlockedTasksCount();
@@ -463,49 +468,7 @@ function createTaskElement(task: Task): HTMLLIElement | null {
   updateBlockedTasksCount();
 
   editOption.addEventListener("click", () => {
-    editingTaskId = String(taskId);
-    isEditing = true;
-
-    taskInput?.blur();
-
-    if (taskInput) taskInput.value = "";
-    if (taskPrioritySelector) taskPrioritySelector.value = "None";
-    if (taskDateInput) taskDateInput.value = "";
-    if (taskTimeInput) taskTimeInput.value = "";
-    if (taskStatusSelector) taskStatusSelector.value = "To Do";
-    if (taskRecurrenceSelector) taskRecurrenceSelector.value = "none";
-
-    const task = tasks.find((t) => String(t.id) === editingTaskId);
-
-    taskOptions.classList.remove("show");
-
-    if (taskCreationDiv) document.body.appendChild(taskCreationDiv);
-
-    if (!taskCreationDiv) return;
-    taskCreationDiv.style.display = "flex";
-    taskCreationDiv.style.position = "fixed";
-    taskCreationDiv.style.zIndex = "9999";
-    taskCreationDiv.style.top = "50%";
-    taskCreationDiv.style.left = "50%";
-    taskCreationDiv.style.transform = "translate(-50%, -50%)";
-
-    if (addTaskBtn) {
-      addTaskBtn.textContent = "Save Task";
-      addTaskBtn.style.padding = "0px 8px";
-    }
-
-    showOverlay();
-
-    if (task) {
-      if (taskInput) taskInput.value = task.title;
-      if (taskPrioritySelector) taskPrioritySelector.value = task.priority || "None";
-      if (taskDateInput) taskDateInput.value = task.dueDate || "";
-      if (taskTimeInput) taskTimeInput.value = task.dueTime || "";
-      if (taskStatusSelector) taskStatusSelector.value = task.status || "To Do";
-      if (taskRecurrenceSelector) taskRecurrenceSelector.value = task.dueDate
-        ? task.recurrence || "none"
-        : "none";
-    }
+    openEditTaskUI(taskId);
   });
 
   addSubtaskOption.addEventListener("click", () => {
@@ -563,6 +526,8 @@ function createTaskElement(task: Task): HTMLLIElement | null {
     showNoTasksYet();
     renderCalendarEvents();
     renderWhatToFocusOn();
+    renderUpcomingTasks();
+    renderStaleTasks();
     addActivity(`Deleted task: ${task.title}`, "delete");
     taskOptions.remove();
     listTask.remove();
@@ -684,6 +649,8 @@ function syncRecurringTasks(now = new Date()) {
 
   if (changed) {
     saveTasks();
+    renderUpcomingTasks();
+    renderStaleTasks();
     renderTasks(currentTaskSort);
     renderCalendarEvents();
     updateTasksDoneCount();
@@ -892,6 +859,9 @@ function renderTasks(mode = currentTaskSort) {
   showNoTasksYet();
   updateTasksDoneCount();
   renderWhatToFocusOn();
+  renderUpcomingTasks();
+  renderStaleTasks();
+  renderStaleTasks();
 }
 
 function setTaskView(taskViewOption = "listView", shouldSave = true) {
@@ -1074,6 +1044,68 @@ function renderWhatToFocusOn(limit = 3) {
   });
 }
 
+function renderUpcomingTasks(limit = 3) {
+  if (!upcomingList) return;
+
+  const upcomingTasks = [...tasks]
+    .filter((t) => !t.completed && t.dueDate)
+    .sort((a, b) => {
+      const dateA = new Date(a.dueDate as string);
+      const dateB = new Date(b.dueDate as string);
+      return dateA.getTime() - dateB.getTime();
+    })
+    .slice(0, limit);
+    
+  upcomingList.innerHTML = "";
+  if (upcomingTasks.length === 0) {
+    upcomingList.innerHTML = "<li>No upcoming tasks</li>";
+    return;
+  }
+
+  upcomingTasks.forEach((task) => {
+    const upcomingTaskItem = document.createElement("li");
+    const formattedDate = formatDate(task.dueDate);
+    const formattedTime = formatTime(task.dueTime);
+    const dueDate = 
+      task.dueDate || task.dueTime
+        ? `Due ${formattedDate ? formattedDate : "today"}${formattedTime ? ` at  ${formattedTime}` : ""}`
+        : "No due date";
+    upcomingTaskItem.textContent = `${task.title} (${dueDate})`;
+    upcomingList.appendChild(upcomingTaskItem);
+  });
+}
+
+function renderStaleTasks(limit = 3) {
+  if (!staleTasksList) return;
+
+  const staleTasks = [...tasks]
+    .filter((t) => !t.completed && t.dueDate && new Date(t.dueDate) < new Date())
+    .sort((a, b) => {
+      const dateA = new Date(a.dueDate as string);
+      const dateB = new Date(b.dueDate as string);
+      return dateA.getTime() - dateB.getTime();
+    })
+    .slice(0, limit);
+    
+  staleTasksList.innerHTML = "";
+  if (staleTasks.length === 0) {
+    staleTasksList.innerHTML = "<li>No stale tasks</li>";
+    return;
+  }
+
+  staleTasks.forEach((task) => {
+    const staleTaskItem = document.createElement("li");
+    const formattedDate = formatDate(task.dueDate);
+    const formattedTime = formatTime(task.dueTime);
+    const dueDate = 
+      task.dueDate || task.dueTime
+        ? `Due ${formattedDate ? formattedDate : "today"}${formattedTime ? ` at  ${formattedTime}` : ""}`
+        : "No due date";
+    staleTaskItem.textContent = `${task.title} (${dueDate})`;
+    staleTasksList.appendChild(staleTaskItem);
+  });
+}
+
 /* normalizes status so that it can be used for sorting */
 function normalizeTaskStatusLabel(status: string | null) {
   const normalized = normalizeTaskStatus(status);
@@ -1156,7 +1188,7 @@ function parseTimeText(match: RegExpExecArray) {
 
 function cleanParsedTaskTitle(text: string) {
   return text
-    .replace(/^(remind me to|remember to|need to|i need to|please|task to)\s+/i, "")
+    .replace(/^(remind me to|create a task where|remember to|need to|i need to|please|task to)\s+/i, "")
     .replace(/\b(which is|that is|i need to|need to)\b\s*/gi, "")
     .replace(/^[\s,.;:-]+|[\s,.;:-]+$/g, "")
     .replace(/\s+/g, " ");
@@ -1193,15 +1225,17 @@ function parseTaskLocally(text: string) {
   }
 
   const weekdayMatch = remaining.match(
-    /\b(?:(on|by|due|this|next)\s+)?(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i,
+    /\b(?:(?:on|by|due|this|next)\s+)*(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i,
   );
   if (weekdayMatch) {
+    const matchText = weekdayMatch[0].toLowerCase();
+    const isNext = /\bnext\b/i.test(matchText);
     dueDate = getNextWeekdayDate(
-      weekdayMatch[2]?.toLowerCase() || "",
-      (weekdayMatch[1] || "").toLowerCase() === "next",
+      (weekdayMatch[1] || "").toLowerCase(),
+      isNext,
     );
     remaining =
-      `${remaining.slice(0, weekdayMatch.index)} ${remaining.slice((weekdayMatch.index as number) + weekdayMatch[0].length)}`.trim();
+      `${remaining.slice(0, weekdayMatch.index)} ${remaining.slice((weekdayMatch.index as number) + matchText.length)}`.trim();
   }
 
   const timeMatch = remaining.match(
@@ -1274,6 +1308,13 @@ function addTask() {
   });
   if (!task) return;
 
+  checkTaskNotifications();
+  if (task.dueDate && task.dueTime) {
+    const due = new Date(`${task.dueDate}T${task.dueTime}:00`);
+    const delay = due.getTime() - Date.now();
+    if (delay > 0) setTimeout(checkTaskNotifications, delay);
+  }
+
   if (toDoList) toDoList.style.height = "328.5px";
   if (focusTimer) focusTimer.style.height = "330px";
   if (taskCreationDiv) taskCreationDiv.style.display = "none";
@@ -1308,10 +1349,136 @@ function addNote() {
 function saveTasks() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
   renderWhatToFocusOn();
+  renderUpcomingTasks();
+  renderStaleTasks();
 }
 
 function saveNotes() {
   localStorage.setItem("notes", JSON.stringify(allNotes));
+}
+
+function openEditTaskUI(taskId: string | null) {
+  editingTaskId = String(taskId);
+    isEditing = true;
+
+    taskInput?.blur();
+
+    if (taskInput) taskInput.value = "";
+    if (taskPrioritySelector) taskPrioritySelector.value = "None";
+    if (taskDateInput) taskDateInput.value = "";
+    if (taskTimeInput) taskTimeInput.value = "";
+    if (taskStatusSelector) taskStatusSelector.value = "To Do";
+    if (taskRecurrenceSelector) taskRecurrenceSelector.value = "none";
+
+    const task = tasks.find((t) => String(t.id) === editingTaskId);
+
+    const taskOptions = document.getElementById("taskOptions");
+    if (taskOptions) taskOptions.classList.remove("show");
+
+    if (taskCreationDiv) document.body.appendChild(taskCreationDiv);
+
+    if (!taskCreationDiv) return;
+    taskCreationDiv.style.display = "flex";
+    taskCreationDiv.style.position = "fixed";
+    taskCreationDiv.style.zIndex = "9999";
+    taskCreationDiv.style.top = "50%";
+    taskCreationDiv.style.left = "50%";
+    taskCreationDiv.style.transform = "translate(-50%, -50%)";
+
+    if (addTaskBtn) {
+      addTaskBtn.textContent = "Save Task";
+      addTaskBtn.style.padding = "0px 8px";
+    }
+
+    showOverlay();
+
+    if (task) {
+      if (taskInput) taskInput.value = task.title;
+      if (taskPrioritySelector) taskPrioritySelector.value = task.priority || "None";
+      if (taskDateInput) taskDateInput.value = task.dueDate || "";
+      if (taskTimeInput) taskTimeInput.value = task.dueTime || "";
+      if (taskStatusSelector) taskStatusSelector.value = task.status || "To Do";
+      if (taskRecurrenceSelector) taskRecurrenceSelector.value = task.dueDate
+        ? task.recurrence || "none"
+        : "none";
+    }
+}
+
+function openEditNoteUI(note: Note) {
+  showOverlay();
+
+  const isEditingNote =
+    document.documentElement.classList.toggle("editingNote");
+
+  if (!isEditingNote) return;
+
+  editingNoteColor = note.color || null;
+
+  const noteEditDiv = document.createElement("div");
+  noteEditDiv.className = "noteEditDiv";
+
+  const noteEditInput = document.createElement("textarea");
+  noteEditInput.className = "noteEditInput";
+  noteEditInput.value = note.text || "";
+  noteEditInput.placeholder = "Edit your note...";
+  noteEditInput.style.backgroundColor = note.color || "";
+
+  const editNoteColorOptions = (document
+    .querySelector(".noteColorOptions")
+    ?.cloneNode(true) ?? null) as HTMLElement | null;
+
+  if (!editNoteColorOptions) return;
+
+  editNoteColorOptions.style.flexDirection = "column";
+  editNoteColorOptions.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button && button.dataset.color) {
+        editingNoteColor = button.dataset.color;
+        noteEditInput.style.backgroundColor = editingNoteColor;
+      }
+    });
+  });
+
+  const editNoteOptions = document.createElement("div");
+  editNoteOptions.className = "editNoteOptions";
+
+  const cancelNoteEditBtn = document.createElement("button");
+  cancelNoteEditBtn.className = "cancelNoteEditBtn";
+  cancelNoteEditBtn.textContent = "Cancel";
+
+  const saveNoteBtn = document.createElement("button");
+  saveNoteBtn.className = "saveNoteBtn";
+  saveNoteBtn.textContent = "Save";
+
+  noteEditDiv.appendChild(noteEditInput);
+  noteEditDiv.appendChild(editNoteColorOptions);
+
+  editNoteOptions.appendChild(cancelNoteEditBtn);
+  cancelNoteEditBtn.addEventListener("click", () => {
+    document.documentElement.classList.remove("editingNote");
+    noteEditDiv.remove();
+    editingNoteColor = null;
+    hideOverlay();
+  });
+
+  editNoteOptions.appendChild(saveNoteBtn);
+  saveNoteBtn.addEventListener("click", () => {
+    const newNoteText = noteEditInput.value.trim();
+    if (!newNoteText) return;
+
+    note.text = newNoteText;
+    note.color = editingNoteColor ?? note.color;
+
+    editingNoteColor = null;
+
+    saveNotes();
+    renderNotes();
+    document.documentElement.classList.remove("editingNote");
+    noteEditDiv.remove();
+    hideOverlay();
+  });
+  noteEditDiv.appendChild(editNoteOptions);
+  document.body.appendChild(noteEditDiv);
 }
 
 let selectedIndex = -1;
@@ -1338,9 +1505,10 @@ const searchBarPlaceholders = [
   `Create tasks with ":a <task description>" (${modifierKey})`,
   `Create notes with ":n <note content>" (${modifierKey})`,
   `Complete tasks with ":c <task>" (${modifierKey})`,
-  `Delete tasks with ":d <task>" (${modifierKey})`,
   `Start focus timer with ":f <duration>, <task>" (${modifierKey})`,
+  `Need help with the commands? Type ":h" (${modifierKey})`,
 ];
+
 let currentIndex = 0;
 if (searchBar) searchBar.placeholder = searchBarPlaceholders[0] ?? "";
 
@@ -1468,7 +1636,7 @@ async function handleSearchKeys(e: KeyboardEvent) {
       return;
     }
 
-    if (input && input.startsWith(":d ")) {
+    if (input && input.startsWith(":dt ")) {
       console.log("delete task triggered");
       const text = input.slice(3).trim();
       if (!text) return;
@@ -1481,7 +1649,27 @@ async function handleSearchKeys(e: KeyboardEvent) {
         renderTasks(currentTaskSort);
         renderCalendarEvents();
         updateTasksDoneCount();
+        if (tasks.length === 0 && noTasksYetAlert) showNoTasksYet();
         addActivity(`Deleted task: ${deletedTask.title}`, "task");
+      }
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (input && input.startsWith(":dn ")) {
+      console.log("delete note triggered");
+      const text = input.slice(3).trim();
+      if (!text) return;
+      const matchingNoteIndex = allNotes.findIndex((note) => {
+        return note.text.toLowerCase().includes(text.toLowerCase());
+      });
+      if (matchingNoteIndex !== -1) {
+        allNotes.splice(matchingNoteIndex, 1)[0];
+        saveNotes();
+        renderNotes();
+        if (allNotes.length === 0 && noNotesYetAlert) showNoNotesYet();
+        addActivity("Deleted a note", "note");
       }
       closeSearchBar();
       if (searchBar) searchBar.value = "";
@@ -1496,6 +1684,109 @@ async function handleSearchKeys(e: KeyboardEvent) {
         const taskTitle = match[2] ? match[2].trim() : null;
         if (!isNaN(duration) && duration > 0) startTimerFromCommandBar(duration, taskTitle || undefined);
       }
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (input && input.startsWith(":pt")) {
+      console.log("pause timer triggered");
+      pauseTimer();
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (input && input.startsWith(":rst")) {
+      console.log("resume timer triggered");
+      startTimer();
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (input && input.startsWith(":rt")) {
+      console.log("restart timer triggered");
+      restartTimer();
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (input && input.startsWith(":x")) {
+      console.log("clear and delete all completed tasks triggered");
+      const completedTasks = tasks.filter((task) => task.completed);
+      completedTasks.forEach((task) => {
+        const taskIndex = tasks.findIndex((t) => t.id === task.id);
+        if (taskIndex !== -1) {
+          tasks.splice(taskIndex, 1);
+          addActivity("Deleted all completed tasks", "task");
+          saveTasks();
+          renderTasks(currentTaskSort);
+          renderCalendarEvents();
+          updateTasksDoneCount();
+        }
+      })
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (input && input.startsWith(":p ")) {
+      console.log("prioritize task triggered");
+      const match = input.slice(3).trim().match(/^(.+?)(?:\s*,\s*(high|medium|low))?$/i);
+      if (match) {
+        const taskTitle = match[1].trim();
+        const newPriority = match[2] ? match[2].toLowerCase() : null;
+        const matchingTask = tasks.find((task) =>
+          task.title.toLowerCase().includes(taskTitle.toLowerCase()),
+        );
+        if (matchingTask && newPriority) {
+          matchingTask.priority = normalizeTaskPriority(newPriority);
+          saveTasks();
+          renderTasks(currentTaskSort);
+          renderCalendarEvents();
+          addActivity(`Updated priority of task: ${matchingTask.title} to ${matchingTask.priority}`, "task");
+        }
+      }
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (input && input.startsWith(":et ")) {
+      console.log("edit task triggered");
+      const match = input.slice(4).trim().match(/^(.+?)(?:\s*,\s*(.+))?$/);
+      if (match) {
+        const taskTitle = match[1].trim();
+        const matchingTask = tasks.find((task) =>
+          task.title.toLowerCase().includes(taskTitle.toLowerCase()),
+        );
+        if (matchingTask) openEditTaskUI(matchingTask.id);
+      }
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (input && input.startsWith(":en ")) {
+      console.log("edit note triggered");
+      const match = input.slice(4).trim().match(/^(.+)$/);
+      if (match) {
+        const noteText = match[1].trim();
+        const matchingNote = allNotes.find((note) =>
+          note.text.toLowerCase().includes(noteText.toLowerCase()),
+        );
+        if (matchingNote) openEditNoteUI(matchingNote);
+      }
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (input && input.startsWith(":h")) {
+      console.log("help triggered");
+      showCommandsHelpList();
       closeSearchBar();
       if (searchBar) searchBar.value = "";
       return;
@@ -1518,6 +1809,20 @@ async function handleSearchKeys(e: KeyboardEvent) {
 
   updateHighlightedResult(searchResults);
 }
+
+function showCommandsHelpList() {
+  commandsHelpListDiv.classList.add("show");
+  showOverlay();
+  document.querySelectorAll("body > *").forEach((el) => {
+    if (el !== overlay && el !== commandsHelpListDiv) (el as HTMLElement).inert = commandsHelpListDiv?.classList.contains("show");
+  });
+}
+
+closeCommandsHelpListBtn.addEventListener("click", () => {
+  commandsHelpListDiv.classList.remove("show");
+  hideOverlay();
+  document.querySelectorAll("body >  *").forEach((el) => ((el as HTMLElement).inert = false));
+});
 
 function closeSearchBar() {
   if (searchBar) {
@@ -1728,9 +2033,7 @@ document.addEventListener("click", (e) => {
     menu.classList.remove("show");
   });
 
-  if (!searchDiv.contains((e.target as Node))) {
-    searchResultsMenu.classList.remove("show");
-  }
+  if (!searchDiv.contains((e.target as Node))) searchResultsMenu.classList.remove("show");
 });
 
 document.addEventListener("keydown", handleSearchKeys);
@@ -1793,7 +2096,7 @@ function applyUrgencyStyle(el: HTMLElement | null, urgency: number) {
   el.style.animationDuration = `${duration.toFixed(2)}s`;
 }
 
-projectsBtn?.addEventListener("click", () => {
+/* projectsBtn?.addEventListener("click", () => {
   if (projectsDiv) projectsDiv.classList.toggle("show");
   if (overlay) overlay.style.display = projectsDiv?.classList.contains("show") ? "block" : "none";
   document.querySelectorAll("body > *").forEach((el) => {
@@ -1805,7 +2108,7 @@ closeProjectsBtn?.addEventListener("click", () => {
   if (projectsDiv) projectsDiv.classList.remove("show");
   if (overlay) overlay.style.display = "none";
   document.querySelectorAll("body >  *").forEach((el) => ((el as HTMLElement).inert = false));
-});
+}); */
 
 customizeBtn?.addEventListener("click", () => {
   customizeDiv.classList.add("show");
@@ -2056,75 +2359,96 @@ function updateAvatarAccentFilter(themeName: string = localStorage.getItem("cust
   localStorage.setItem("avatarAccentEnabled", String(avatarAccentTrue));
 }
 
-function loadAvatarAccentState() {
-  const avatarAccentEnabled = localStorage.getItem("avatarAccentEnabled") === "true";
-  if (avatarAccentToggle) avatarAccentToggle.checked = avatarAccentEnabled;
-  updateAvatarAccentFilter();
-}
-
 avatarAccentToggle?.addEventListener("change", () => {
   updateAvatarAccentFilter();
 });
 
-function responsiveWebsite() {
-  if (window.innerWidth < 768) {
-    console.log("Mobile");
-    if (sidebar) sidebar.style.display = "none";
-    if (section1) section1.style.flexDirection = "column";
-    if (section2) section2.style.flexDirection = "column";
-    if (dashboardContent) dashboardContent.style.marginLeft = "0px";
-  } else {
-    console.log("Desktop");
-    if (sidebar) sidebar.style.display = "flex";
-    if (section1) section1.style.flexDirection = "row";
-    if (section2) section2.style.flexDirection = "row";
-    if (dashboardContent) dashboardContent.style.marginLeft = "300px";
-  }
-}
-
-const sidebarHidden = localStorage.getItem("sidebarHidden") === "true";
+const sidebarHidden = window.innerWidth <= 1240
+? true
+: localStorage.getItem("sidebarHidden") === "true";
 let isSidebarVisible = !sidebarHidden;
 
 hamburgerBtn?.addEventListener("click", () => {
+  const isMobile = window.innerWidth <= 1240;
   if (isSidebarVisible) {
-    sidebar?.classList.add("closing");
-    setTimeout(() => {
+    if (isMobile) {
       sidebar?.classList.remove("show", "closing");
-      if (sidebar?.parentNode) document.documentElement.removeChild(sidebar);
-    }, 200);
-    localStorage.setItem("sidebarHidden", "true");
+      if (sidebar?.parentNode) document.body.removeChild(sidebar);
+      hideOverlay();
+      document.querySelectorAll("body >  *").forEach((el) => ((el as HTMLElement).inert = false));
+    } else {
+      sidebar?.classList.add("closing");
+      setTimeout(() => {
+        sidebar?.classList.remove("show", "closing");
+        if (sidebar?.parentNode) document.body.removeChild(sidebar);
+      }, 200);
+    }
+    if (!isMobile) localStorage.setItem("sidebarHidden", "true");
     document.documentElement.classList.add("sidebarHidden");
     isSidebarVisible = false;
   } else {
-    if (!sidebar?.parentNode) document.documentElement.appendChild(sidebar);
+    if (!sidebar?.parentNode) document.body.appendChild(sidebar);
     sidebar.offsetHeight;
     sidebar.classList.add("show");
     sidebar.classList.remove("closing");
-    localStorage.setItem("sidebarHidden", "false");
+    if (isMobile) {
+      showOverlay();
+      document.querySelectorAll("body > *").forEach((el) => {
+        if (el !== overlay && el !== sidebar) (el as HTMLElement).inert = sidebar?.classList.contains("show");
+      });
+    }
+    if (!isMobile) localStorage.setItem("sidebarHidden", "false");
     document.documentElement.classList.remove("sidebarHidden");
     isSidebarVisible = true;
   }
 });
 
+function sidebarInMobile() {
+  const isMobile = window.innerWidth <= 1240;
+  if (!hamburgerBtn || !sidebar) return;
+  if (isMobile) {
+    if (hamburgerBtn.parentNode !== document.body) document.body.prepend(hamburgerBtn);
+  } else {
+    if (hamburgerBtn.parentNode !== sidebar) sidebar.prepend(hamburgerBtn);
+  }
+}
+
+sidebarInMobile();
+window.addEventListener("resize", () => {
+  sidebarInMobile();
+});
+
 document.addEventListener("mousemove", (e) => {
-  if (isSidebarVisible) return;
+  if (window.innerWidth <= 1240) return;
   if (e.clientX <= 20) {
-    if (!sidebar?.parentNode) document.documentElement.appendChild(sidebar);
+    if (!sidebar?.parentNode) document.body.appendChild(sidebar);
     sidebar?.classList.add("show");
     sidebar?.classList.remove("closing");
-  } else if (e.clientX > 250 && sidebar?.classList.contains("show") && !sidebar?.classList.contains("closing")) {
+  } else if (e.clientX > 250 && sidebar?.classList.contains("show") && !sidebar?.classList.contains("closing") && !isSidebarVisible) {
     sidebar?.classList.add("closing");
     setTimeout(() => {
       if (!isSidebarVisible && sidebar?.parentNode) {
         sidebar?.classList.remove("show", "closing");
-        document.documentElement.removeChild(sidebar);
+        document.body.removeChild(sidebar);
       }
     }, 200);
   }
 });
 
-/* window.addEventListener("resize", responsiveWebsite);
-responsiveWebsite(); */
+closeSidebarBtn?.addEventListener("click", () => {
+  if (sidebar?.classList.contains("show")) {
+    sidebar?.classList.add("closing");
+    setTimeout(() => {
+      if (!isSidebarVisible && sidebar?.parentNode) {
+        sidebar?.classList.remove("show", "closing");
+        document.body.removeChild(sidebar);
+      }
+    }, 200);
+    hideOverlay();
+    document.querySelectorAll("body >  *").forEach((el) => ((el as HTMLElement).inert = false));
+    sidebarInMobile();
+  }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   if (taskCreationDiv) taskCreationDiv.style.display = "none";
@@ -2166,12 +2490,12 @@ document.addEventListener("DOMContentLoaded", () => {
       document.documentElement.classList.add("calendarView");
       document.documentElement.classList.remove("dashboardActive");
       document.documentElement.classList.remove("isSettingsView");
-      if (calendarBtn) calendarBtn.classList.add("active");
-    } else if (lastActiveView === "settiings") {
+      // if (calendarBtn) calendarBtn.classList.add("active");
+    /* } else if (lastActiveView === "settiings") {
       document.documentElement.classList.add("isSettingsView");
       document.documentElement.classList.remove("dashboardActive");
       document.documentElement.classList.remove("calendarView");
-      if (settingsBtn) settingsBtn.classList.add("active");
+      if (settingsBtn) settingsBtn.classList.add("active"); */
     } else {
       document.documentElement.classList.add("dashboardActive");
       document.documentElement.classList.remove("calendarView");
@@ -2393,7 +2717,7 @@ function saveEditedTask() {
   hideOverlay();
 }
 
-function createSubtask() {
+/* function createSubtask() {
   return {
     id: crypto.randomUUID(),
     title: taskInput?.value.trim(),
@@ -2431,7 +2755,7 @@ function addSubtask(parentTaskId: string) {
   renderTasks(currentTaskSort);
 }
 
-function createSubtaskElement(subtask: Task) {
+/* function createSubtaskElement(subtask: Task) {
   const subtaskEl = document.createElement("li");
   subtaskEl.className = "subtask";
 
@@ -2470,7 +2794,7 @@ function createSubtaskElement(subtask: Task) {
   subtaskEl.append(subtaskCheckbox, subtaskTitle);
 
   return subtaskEl;
-}
+} */
 
 sidebarBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -2487,15 +2811,15 @@ dashboardBtn?.addEventListener("click", () => {
   localStorage.setItem("lastActiveView", "dashboard");
 });
 
-calendarBtn?.addEventListener("click", () => {
+/* calendarBtn?.addEventListener("click", () => {
   /* document.documentElement.classList.add("calendarView");
   document.documentElement.classList.remove("dashboardActive");
   document.documentElement.classList.remove("isSettingsView");
 
-  localStorage.setItem("lastActiveView", "calendar"); */
+  localStorage.setItem("lastActiveView", "calendar");
   alert("Calendar view coming soon!");
   dashboardBtn?.click();
-});
+}); */
 
 settingsBtn?.addEventListener("click", () => {
   document.documentElement.classList.add("isSettingsView");
@@ -2836,7 +3160,7 @@ cancelTaskCreationBtn?.addEventListener("click", () => {
 
 addTaskBtn?.addEventListener("click", () => {
   if (currentParentTaskId) {
-    addSubtask(String(currentParentTaskId));
+    // addSubtask(String(currentParentTaskId)); 
     currentParentTaskId = null;
   } else if (editingTaskId) {
     saveEditedTask();
@@ -2845,7 +3169,9 @@ addTaskBtn?.addEventListener("click", () => {
   }
   showNoTasksYet();
   renderWhatToFocusOn();
-});
+  renderUpcomingTasks();
+  renderStaleTasks();
+}); 
 
 function showNoTasksYet() {
   if (noTasksYetAlert) noTasksYetAlert.style.display = tasks.length === 0 ? "inline" : "none";
@@ -2910,8 +3236,8 @@ function updateBlockedTasksCount() {
 function updateTasksDoneCount() {
   const doneTasks = tasks.filter((t) => t.completed).length;
 
-  const doneDisplay = document.querySelector(".numberOfTasksDone");
-  if (doneDisplay) doneDisplay.textContent = ` ${doneTasks} tasks done`;
+  const doneDisplay = document.querySelector(".taskCount");
+  if (doneDisplay) doneDisplay.textContent = `${doneTasks} task${doneTasks === 1 ? "" : "s"} done`;
 }
 
 function checkTaskDue(listTask: HTMLElement, taskText: string, task: Task) {
@@ -2919,7 +3245,11 @@ function checkTaskDue(listTask: HTMLElement, taskText: string, task: Task) {
   if (Notification.permission !== "granted" || task.completed) return;
 
   const now = new Date();
-  const today = now.toISOString().split("T")[0];
+  const today = [
+    now.getFullYear(),
+    String(now.getMonth() + 1).padStart(2, "0"),
+    String(now.getDate()).padStart(2, "0"),
+  ].join("-");
 
   if (!listTask) return;
   const currentOccurrence = getCurrentOccurrence(task, now);
@@ -3078,16 +3408,17 @@ function renderNotes() {
   allNotes.forEach(createNoteElement);
 }
 
-setInterval(() => {
+function checkTaskNotifications() {
   syncRecurringTasks();
   tasks.forEach((task) => {
-    const listTask = document.getElementById(task.id);
+    const listTask = document.getElementById(`task-${task.id}`);
     if (!listTask) return;
-
-    const taskText = task.title;
-    checkTaskDue(listTask, taskText, task);
+    checkTaskDue(listTask, task.title, task);
   });
-}, 60000);
+};
+
+checkTaskNotifications();
+setInterval(checkTaskNotifications, 60 * 1000);
 
 const circumference = 283;
 let totalTime = 25 * 60;
@@ -3330,85 +3661,14 @@ notesList?.addEventListener("click", (e) => {
   if (!closestMainNote) return;
 
   if (targetEl?.closest(".editNoteBtn")) {
-    showOverlay();
+    const noteId = (closestMainNote
+      .closest(".listNote")
+      ?.id.replace("note-", "") || null);
 
-    const isEditingNote =
-      document.documentElement.classList.toggle("editingNote");
+    const note = allNotes.find((n) => n.id === noteId);
+    if (!note) return;
 
-    if (isEditingNote) {
-      const noteId = (closestMainNote
-        .closest(".listNote")
-        ?.id.replace("note-", "")) || null;
-      const note = allNotes.find((n) => n.id === noteId);
-      if (!note) return;
-
-      editingNoteColor = note.color || null;
-
-      const noteEditDiv = document.createElement("div");
-      noteEditDiv.className = "noteEditDiv";
-
-      const noteEditInput = document.createElement("textarea");
-      noteEditInput.className = "noteEditInput";
-      noteEditInput.value =
-        (closestMainNote.querySelector(".mainNoteText") as HTMLDivElement)?.textContent || "";
-      noteEditInput.placeholder = "Edit your note...";
-      noteEditInput.style.backgroundColor = note.color || "";
-
-      const editNoteColorOptions = (document
-        .querySelector(".noteColorOptions")
-        ?.cloneNode(true) ?? null) as HTMLElement | null;
-
-      if (!editNoteColorOptions) return;
-
-      editNoteColorOptions.style.flexDirection = "column";
-      editNoteColorOptions.querySelectorAll("button").forEach((button) => {
-        button.addEventListener("click", () => {
-          if (button && button.dataset.color) {
-            editingNoteColor = button.dataset.color;
-            noteEditInput.style.backgroundColor = editingNoteColor;
-          }
-        });
-      });
-
-      const editNoteOptions = document.createElement("div");
-      editNoteOptions.className = "editNoteOptions";
-
-      const cancelNoteEditBtn = document.createElement("button");
-      cancelNoteEditBtn.className = "cancelNoteEditBtn";
-      cancelNoteEditBtn.textContent = "Cancel";
-
-      const saveNoteBtn = document.createElement("button");
-      saveNoteBtn.className = "saveNoteBtn";
-      saveNoteBtn.textContent = "Save";
-
-      noteEditDiv.appendChild(noteEditInput);
-      noteEditDiv.appendChild(editNoteColorOptions);
-      editNoteOptions.appendChild(cancelNoteEditBtn);
-      cancelNoteEditBtn.addEventListener("click", () => {
-        document.documentElement.classList.remove("editingNote");
-        noteEditDiv.remove();
-        editingNoteColor = null;
-        hideOverlay();
-      });
-      editNoteOptions.appendChild(saveNoteBtn);
-      saveNoteBtn.addEventListener("click", () => {
-        const newNoteText = noteEditInput.value.trim();
-        if (!newNoteText) return;
-
-        note.text = newNoteText;
-        note.color = editingNoteColor ?? note.color;
-
-        editingNoteColor = null;
-
-        saveNotes();
-        renderNotes();
-        document.documentElement.classList.remove("editingNote");
-        noteEditDiv.remove();
-        hideOverlay();
-      });
-      noteEditDiv.appendChild(editNoteOptions);
-      document.body.appendChild(noteEditDiv);
-    }
+    openEditNoteUI(note);
   }
 
   if (targetEl?.closest(".deleteNoteBtn")) {
