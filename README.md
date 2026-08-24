@@ -22,8 +22,7 @@ To learn frontend, backend, full-stack, APIs, and client-side database managemen
 - Quick Notes - Mini notes to help you jot down ideas quickly
 - Calendar - Uses FullCalendar.js to display your tasks in a calendar view
 - Activity Panel - Track your activities throughout the app, whether that's task addition or starting a focus session
-- Search/Command Bar - Search your tasks and notes or create tasks instantly with :a [task description]
-
+- Search/Command Bar - Search your tasks and notes or run commands to control your workflow (`:h` in the bar for commands)
 ### Coming Soon
 - AI - Turn this on to help assist you in your workflow, or turn it off if you don't feel like it
 - Calendar Tab - Gives the calendar its own section to help you manage your schedules more efficiently
