@@ -101,6 +101,22 @@
         <button class="closeCustomizeBtn">✕</button>
       </div>
 
+      <div class="customizePresets">
+        <div class="customizePresetsHeader">
+          <h1 class="customizePresetsHeaderTitle">Presets</h1>
+        </div>
+        <div class="customizePresetsOptions">
+          <button class="defaultPresetBtn" data-preset="default">Default</button>
+          <button class="oceanPresetBtn" data-preset="ocean">Ocean</button>
+          <button class="forestPresetBtn" data-preset="forest">Forest</button>
+          <button class="sunsetPresetBtn" data-preset="sunset">Sunset</button>
+          <button class="rosePresetBtn" data-preset="rose">Rose</button>
+          <button class="midnightPresetBtn" data-preset="midnight">Midnight</button>
+          <button class="terminalPresetBtn" data-preset="terminal">Terminal</button>
+          <button class="slatePresetBtn" data-preset="slate">Slate</button>
+        </div>
+      </div>
+
       <div class="customizeBg">
         <div class="customizeBgHeader">
           <h1 class="customizeBgHeaderTitle">Background</h1>
@@ -740,19 +756,23 @@
         <button class="closeCommandsHelpList">✕</button>
       </div>
       <ul class="commandsList">
+        <h2 class="categoryName">Create</h2>
         <li class="commandItem">:a &lt;task description&gt; - Create a task</li>
         <li class="commandItem">:n &lt;note text&gt; - Create a note</li>
+        <h2 class="categoryName">Manage</h2>
         <li class="commandItem">:c &lt;task title&gt; - Complete a task</li>
         <li class="commandItem">:d &lt;task title&gt; - Delete a task</li>
-        <li class="commandItem">:f &lt;duration&gt;, &lt;task title&gt; - Start a focus timer</li>
-        <li class="commandItem">:pt - Pause the current timer</li>
-        <li class="commandItem">:rst - Resume the current timer</li>
-        <li class="commandItem">:rt - Restart the current timer</li>
         <li class="commandItem">:x - Clear and delete all completed tasks</li>
         <li class="commandItem">:p &lt;task title&gt;, &lt;priority&gt; - Prioritize a task</li>
         <li class="commandItem">:et &lt;task title&gt; - Edit a task</li>
         <li class="commandItem">:en &lt;note text&gt; - Edit a note</li>
-        <li class="commandItem">:h - Show help</li>
+        <h2 class="categoryName">Focus</h2>
+        <li class="commandItem">:f &lt;duration&gt;, &lt;task title&gt; - Start a focus timer</li>
+        <li class="commandItem">:pt - Pause the current timer</li>
+        <li class="commandItem">:rst - Resume the current timer</li>
+        <li class="commandItem">:rt - Restart the current timer</li>
+        <h2 class="categoryName">Other</h2>
+        <li class="commandItem">:h - Show this help menu</li>
       </ul>
     </div>
     <!-- <script type="module" src="ts/main.ts"></script> -->

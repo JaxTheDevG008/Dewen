@@ -48,6 +48,9 @@ const prioritySuggestionsOpt = getElement<HTMLButtonElement>(
 const aiDiv = getElement<HTMLElement>(".aiDiv");
 const customizeBtn = getElement<HTMLButtonElement>(".customizeBtn");
 const customizeDiv = getElement<HTMLDivElement>(".customizeDiv");
+const customizePresetsOptions = getAllElements<HTMLButtonElement>(
+  ".customizePresetsOptions button",
+);
 const customizeBgOptions = getAllElements<HTMLButtonElement>(
   ".customizeBgOptions button",
 );
@@ -2123,6 +2126,57 @@ closeCustomizeBtn?.addEventListener("click", () => {
   }, 300);
 });
 
+const colorPresets = [
+  {
+    name: "default",
+    bg: "white",
+    accent: "white",
+    darkMode: false,
+  },
+  {
+    name: "ocean",
+    bg: "teal",
+    accent: "aqua",
+    darkMode: false,
+  },
+  {
+    name: "forest",
+    bg: "green",
+    accent: "lightGreen",
+    darkMode: false,
+  },
+  {
+    name: "sunset",
+    bg: "gold",
+    accent: "red",
+    darkMode: false,
+  },
+  {
+    name: "rose",
+    bg: "pink",
+    accent: "violet",
+    darkMode: false,
+  },
+  {
+    name: "midnight",
+    bg: "black",
+    accent: "purple",
+    darkMode: true,
+  },
+  {
+    name: "terminal",
+    bg: "black",
+    accent: "lightGreen",
+    darkMode: true,
+  },
+  {
+    name: "slate",
+    bg: "white",
+    accent: "teal",
+    darkMode: false,
+  },
+];
+
 const bgThemes = [
   {
     name: "red",
@@ -2300,13 +2354,26 @@ const profilePictureFiltersMap: Record<string, { light: string; dark: string }> 
   }
 };
 
+const colorPresetsMap = Object.fromEntries(colorPresets.map((t) => [t.name, t]));
 const bgThemesMap = Object.fromEntries(bgThemes.map((t) => [t.name, t]));
 const accentThemesMap = Object.fromEntries(accentThemes.map((t) => [t.name, t]));
 
+customizePresetsOptions.forEach((button) => {
+  button.addEventListener("click", () => {
+    console.log("preset button clicked:", button.dataset.preset);
+    const preset = button.dataset.preset;
+    if (!preset) return;
+    applyColorPreset(preset);
+    customizePresetsOptions.forEach((b) => b.classList.remove("active"));
+    button.classList.add("active");
+  });
+});
+
 customizeBgOptions.forEach((button) => {
   button.addEventListener("click", () => {
-    const bgThemeName = button.dataset.theme;
-    applyBgTheme(String(bgThemeName));
+    const preset = button.dataset.theme;
+    if (!preset) return;
+    applyBgTheme(String(preset));
     customizeBgOptions.forEach((b) => b.classList.remove("active"));
     button.classList.add("active");
   });
@@ -2321,12 +2388,35 @@ customizeAccentOptions.forEach((button) => {
   });
 });
 
+function applyColorPreset(presetName: string) {
+  const preset = colorPresetsMap[presetName];
+  if (!preset) return;
+  if (preset.darkMode !== isDark()) {
+    document.documentElement.dataset.mode = preset.darkMode ? "dark" : "light";
+    localStorage.setItem("mode", preset.darkMode ? "dark" : "light");
+    if (themeBtn) {
+      themeBtn.querySelector("img")!.src = preset.darkMode ? "/images/Light-Mode-Icon.png" : "/images/Dark-Mode-Icon.png";
+      themeBtn.querySelector("img")!.alt = preset.darkMode ? "Light Mode Icon" : "Dark Mode Icon";
+    }
+  }
+  applyBgTheme(preset.bg);
+  applyAccentTheme(preset.accent);
+  customizeBgOptions.forEach((b) => b.classList.remove("active"));
+  customizeAccentOptions.forEach((b) => b.classList.remove("active"));
+  const bgButton = Array.from(customizeBgOptions).find((b) => b.dataset.theme === preset.bg);
+  const accentButton = Array.from(customizeAccentOptions).find((b) => b.dataset.theme === preset.accent);
+  if (bgButton) bgButton.classList.add("active");
+  if (accentButton) accentButton.classList.add("active");
+  localStorage.setItem("customColorPreset", presetName);
+}
+
 function applyBgTheme(themeName: string) {
   const theme = bgThemesMap[themeName];
   if (!theme) return;
   const darkMode = isDark();
   const bg = darkMode ? theme.dark : theme.light;
   document.body.style.background = bg;
+  localStorage.removeItem("customColorPreset");
   localStorage.setItem("customBgTheme", themeName);
 }
 
@@ -2339,6 +2429,7 @@ function applyAccentTheme(themeName: string) {
   document.documentElement.style.setProperty("--accent-text-color", darkMode || themeName === "black" ? "white" : "black");
   if (timerProgressRing && themeName === "white") timerProgressRing.style.stroke = "rgb(151, 151, 151)";
   updateAvatarAccentFilter(String(themeName));
+  localStorage.removeItem("customColorPreset");
   localStorage.setItem("customAccentTheme", themeName);
 }
 
@@ -2460,6 +2551,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateTasksOverdueCount();
   updateTasksDueTodayCount();
   updateBlockedTasksCount();
+  loadTimerState();
 
   const savedAvatar = localStorage.getItem("avatar");
   if (savedAvatar && avatarPreviewIcon && avatarIcon) { 
@@ -2471,8 +2563,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (avatarAccentToggle) avatarAccentToggle.checked = avatarAccentEnabled;
   updateAvatarAccentFilter();
 
+  const savedColorPreset = localStorage.getItem("customColorPreset");
   const savedBgTheme = localStorage.getItem("customBgTheme");
   const savedAccentTheme = localStorage.getItem("customAccentTheme");
+
+  if (savedColorPreset) {
+    applyColorPreset(savedColorPreset);
+    const presetButton = Array.from(customizePresetsOptions).find((b) => b.dataset.preset === savedColorPreset);
+    if (presetButton) presetButton.classList.add("active");
+  }
 
   if (savedBgTheme) {
     const bgButton = Array.from(customizeBgOptions).find((b) => b.dataset.theme === savedBgTheme);
@@ -3489,8 +3588,78 @@ function startTimerFromCommandBar(duration: number, taskTitle?: string | null) {
   updateRing(totalTime);
   startTimer();
 }
+// create a function where it local storages the timer state and mode so that if the user refreshes the page, the timer continues from where it left off
 
-function startTimer() {
+function saveTimerState(endTime: number | null = null) {
+  const timerState = {
+    totalSeconds,
+    totalTime,
+    timerMode,
+    isRunning,
+    focusMode,
+    activeFocusTask,
+    endTime,
+  };
+  localStorage.setItem("timerState", JSON.stringify(timerState));
+}
+
+function loadTimerState() {
+  const savedState = localStorage.getItem("timerState");
+  if (savedState) {
+    const {
+      totalSeconds: savedTotalSeconds,
+      totalTime: savedTotalTime,
+      timerMode: savedTimerMode,
+      isRunning: savedIsRunning,
+      focusMode: savedFocusMode,
+      activeFocusTask: savedActiveFocusTask,
+      endTime: savedEndTime,
+    } = JSON.parse(savedState);
+    totalTime = savedTotalTime;
+    timerMode = savedTimerMode;
+    isRunning = savedIsRunning;
+    focusMode = savedFocusMode;
+    activeFocusTask = savedActiveFocusTask;
+
+    totalSeconds = savedIsRunning
+      ? Math.max(
+          0,
+          Math.round(
+            ((savedEndTime ?? Date.now() + (savedTotalSeconds * 1000)) - Date.now()) / 1000,
+          ),
+        )
+      : savedTotalSeconds;
+
+    if (activeFocusTask && currentFocusedTask) {
+      currentFocusedTask.textContent = "Focusing on: " + activeFocusTask;
+      currentFocusedTask.style.display = "inline";
+      currentFocusedTask.dataset.order = "2";
+      if (taskSelectionDropdown) taskSelectionDropdown.style.display = "none";
+    }
+
+    if (timerMode === "decrastinator") {
+      if (currentFocusedTask) currentFocusedTask.textContent = "Decrastinating";
+    } else if (timerMode === "break") {
+      if (currentFocusedTask) currentFocusedTask.textContent = "Taking a break";
+    }
+
+    updateTimerDisplay();
+    updateRing(totalSeconds);
+
+    if (savedIsRunning && totalSeconds > 0) {
+      isRunning = false;
+      startTimer(false);
+    } else if (savedIsRunning && totalSeconds <= 0) {
+      restartTimer();
+    } else {
+      isRunning = false;
+      if (startTimerBtn) startTimerBtn.style.display = "flex";
+      if (pauseTimerBtn) pauseTimerBtn.style.display = "none";
+    }
+  }
+}
+
+function startTimer(logActivity = true) {
   if (isRunning) return;
 
   if (timerMode === "focus") {
@@ -3498,13 +3667,15 @@ function startTimer() {
     const selectedFocusedTask = focusMode
       ? activeFocusTask
       : (taskSelectionDropdown?.selectedOptions?.[0]?.textContent as string) || "Unknown task";
+    activeFocusTask = selectedFocusedTask;
     if (currentFocusedTask) {
       currentFocusedTask.textContent = "Focusing on: " + selectedFocusedTask;
       currentFocusedTask.style.display = "inline";
       currentFocusedTask.dataset.order = "2";
     }
+    if (taskSelectionDropdown) taskSelectionDropdown.style.display = "none";
     addActivity(`Started focus session: ${selectedFocusedTask}`, "focus");
-
+    if (logActivity) addActivity(`Started focus session: ${selectedFocusedTask}`, "focus");
     const currentFocusedTaskDiv = document.querySelector<HTMLDivElement>(".currentFocusedTaskDiv");
     if (currentFocusedTaskDiv && taskSelectionDropdown) {
       currentFocusedTaskDiv.style.gap = "5px";
@@ -3527,6 +3698,7 @@ function startTimer() {
   if (timerButtons) timerButtons.style.marginTop = "15px";
 
   isRunning = true;
+  saveTimerState();
   if (startTimerBtn) startTimerBtn.style.display = "none";
   if (pauseTimerBtn) pauseTimerBtn.style.display = "flex";
 
@@ -3555,12 +3727,15 @@ function startTimer() {
       if (currentFocusedTaskDiv) currentFocusedTaskDiv.style.display = "none";
       restartTimer();
     }
+    saveTimerState(endTime);
   }, 1000);
+  saveTimerState(endTime);
 }
 
 function pauseTimer() {
   clearInterval(intervalId as number);
   isRunning = false;
+  saveTimerState(null);
   if (startTimerBtn) startTimerBtn.style.display = "flex";
   if (pauseTimerBtn) pauseTimerBtn.style.display = "none";
 }
@@ -3594,6 +3769,7 @@ function restartTimer() {
     if (currentFocusedTask) currentFocusedTask.style.display = "none";
     if (timerButtons) timerButtons.style.marginTop = "0px";
   }
+  saveTimerState(null);
 }
 
 startTimerBtn?.addEventListener("click", enterFocusMode);

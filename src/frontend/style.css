@@ -1009,12 +1009,14 @@ button:hover {
   color: var(--btn-hover-bg-color);
 }
 
+.customizePresetsHeaderTitle,
 .customizeBgHeaderTitle,
 .customizeAccentHeaderTitle {
   font-size: 1.2rem;
   color: var(--text-color);
 }
 
+.customizePresetsOptions,
 .customizeBgOptions,
 .customizeAccentOptions {
   display: flex;
@@ -1038,6 +1040,7 @@ button:hover {
   transition: border 0.15s ease;
 }
 
+.customizePresetsOptions button:hover,
 .customizeBgOptions button:hover,
 .customizeAccentOptions button:hover {
   transform: scale(1.1);
@@ -1117,6 +1120,101 @@ button:hover {
 .blackBgBtn,
 .blackAccentBtn {
   background-color: black;
+}
+
+.customizePresetsOptions button {
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 5px;
+}
+
+.defaultPresetsBtn {
+  background-color: var(--btn-bg-color);
+  border: 3px solid var(--bd-color);
+  border-radius: 12px;
+  padding: 10px 5px;
+  width: fit-content;
+  color: var(--text-color);
+}
+
+.oceanPresetBtn {
+  background-color: rgb(0, 213, 255);
+  border: none;
+  color: var(--text-color);
+}
+
+[data-mode="dark"] .oceanPresetBtn {
+  background-color: rgb(0, 110, 120);
+  border: none;
+  color: var(--text-color);
+}
+
+.forestPresetBtn {
+  background-color: lightgreen;
+  border: none;
+  color: var(--text-color);
+}
+
+[data-mode="dark"] .forestPresetBtn {
+  background-color: forestgreen;
+  border: none;
+  color: var(--text-color);
+}
+
+.sunsetPresetBtn {
+  background-color: rgb(226, 160, 57);
+  border: none;
+  color: var(--text-color);
+}
+
+[data-mode="dark"] .sunsetPresetBtn {
+  background-color: rgb(226, 160, 57);
+  border: none;
+  color: var(--text-color);
+}
+
+.rosePresetBtn {
+  background-color: pink;
+  border: none;
+  color: var(--text-color);
+}
+
+[data-mode="dark"] .rosePresetBtn {
+  background-color: pink;
+  border: none;
+  color: var(--text-color);
+}
+
+.midnightPresetBtn {
+  background-color: rgb(23, 23, 28);
+  border: 1px solid var(--bd-color);
+  color: white;
+}
+
+[data-mode="dark"] .midnightPresetBtn {
+  background-color: rgb(32, 32, 39);
+  border: 1px solid var(--bd-color);
+  color: white;
+}
+
+.terminalPresetBtn {
+  background-color: rgb(32, 32, 39);
+  border: 1px solid var(--bd-color);
+  color: white;
+}
+
+[data-mode="dark"] .terminalPresetBtn {
+  background-color: rgb(23, 23, 28);
+  border: 1px solid var(--bd-color);
+  color: white;
+}
+
+.slatePresetBtn {
+  background-color: white;
+  border: 1px solid var(--bd-color);
+  color: black;
 }
 
 .miniAnalyticsDiv {
@@ -4092,6 +4190,14 @@ html:not([class*="settingsView"]) .personalSection {
   padding: 20px;
   padding-top: 0px;
   margin-top: 0px;
+}
+
+.categoryName {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .commandItem {
