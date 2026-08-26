@@ -1,6 +1,7 @@
 import { Calendar, type EventMountArg } from "@fullcalendar/core/index.js";
 import dayGridPlugin from "@fullcalendar/daygrid/index.js";
 import interactionPlugin, { type DateClickArg } from "@fullcalendar/interaction/index.js";
+import { db } from "./storage";
 
 function getElement<T extends HTMLElement>(selector: string): T {
   const element = document.querySelector<T>(selector);
@@ -72,7 +73,7 @@ const section2 = getElement<HTMLDivElement>(".section2");
 const toDoList = getElement<HTMLUListElement>(".toDoList");
 const toDoListHeader = getElement<HTMLDivElement>(".toDoListHeader");
 const taskSortSelector = getElement<HTMLSelectElement>(".taskSortSelector");
-const taskViewSelector = getElement<HTMLSelectElement>(".taskViewSelector");
+// const taskViewSelector = getElement<HTMLSelectElement>(".taskViewSelector");
 const addBtn = getElement<HTMLButtonElement>(".addBtn");
 const taskCreationDiv = getElement<HTMLDivElement>(".taskCreationDiv");
 /** const actualTaskCreation = getElement<HTMLDivElement>(".actualTaskCreation"); */
@@ -154,11 +155,11 @@ function safeParse(key: string): any[] {
   }
 }
 
-let tasks = safeParse("tasks");
-let allNotes = safeParse("notes");
+let tasks: any[] = [];
+let allNotes: any[] = [];
 let isDraggable = false;
 let editingNoteColor: string | null = null;
-let activityLog = getActivityLog();
+let activityLog: any[] = [];
 let calendar: Calendar | null = null;
 let editingTaskId: string | null = null;
 let isEditing: boolean = false;
@@ -220,7 +221,7 @@ function hideOverlay() {
   overlay.onclick = null;
 }
 
-function createTaskElement(task: Task): HTMLLIElement | null {
+async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
   if (noTasksYetAlert) noTasksYetAlert.style.display = "none";
 
   const taskId = task.id;
@@ -447,6 +448,7 @@ function createTaskElement(task: Task): HTMLLIElement | null {
 
   taskOptionsBtn.addEventListener("click", (e) => {
     e.stopPropagation();
+    disableScrolling();
 
     const rect = taskOptionsBtn.getBoundingClientRect();
 
@@ -472,10 +474,13 @@ function createTaskElement(task: Task): HTMLLIElement | null {
 
   editOption.addEventListener("click", () => {
     openEditTaskUI(taskId);
+    taskOptions.classList.remove("show");
+    enableScrolling();
   });
 
   addSubtaskOption.addEventListener("click", () => {
     isAddingSubtask = true;
+    enableScrolling();
     const parentTask = tasks.find((t) => String(t.id) === String(taskId));
     if (!parentTask) return;
 
@@ -513,6 +518,7 @@ function createTaskElement(task: Task): HTMLLIElement | null {
   });
 
   deleteOption.addEventListener("click", () => {
+    enableScrolling();
     const taskIndex = tasks.findIndex((t) => String(t.id) === String(taskId));
     if (taskIndex !== -1) {
       tasks.splice(taskIndex, 1);
@@ -660,6 +666,22 @@ function syncRecurringTasks(now = new Date()) {
   }
 
   return changed;
+}
+
+function preventDefault(e: Event) {
+  e.preventDefault();
+}
+
+function disableScrolling(): void {
+  document.body.style.overflow = "hidden";
+  window.addEventListener("wheel", preventDefault, { passive: false });
+  window.addEventListener("touchmove", preventDefault, { passive: false });
+}
+
+function enableScrolling(): void {
+  document.body.style.overflow = "auto";
+  window.removeEventListener("wheel", preventDefault);
+  window.removeEventListener("touchmove", preventDefault);
 }
 
 function getCalendarRange() {
@@ -867,7 +889,7 @@ function renderTasks(mode = currentTaskSort) {
   renderStaleTasks();
 }
 
-function setTaskView(taskViewOption = "listView", shouldSave = true) {
+/* function setTaskView(taskViewOption = "listView", shouldSave = true) {
   const taskViewOptions = ["listView", "KanbanView", "timelineView"];
   const selectedView = taskViewOptions.includes(taskViewOption)
     ? taskViewOption
@@ -886,7 +908,7 @@ function setTaskView(taskViewOption = "listView", shouldSave = true) {
 
   currentTaskSort = taskSortSelector?.value || currentTaskSort || "dateCreated";
   renderTasks(currentTaskSort);
-}
+} */
 
 if (taskSortSelector) {
   taskSortSelector.addEventListener("change", () => {
@@ -1300,7 +1322,7 @@ function createTask(taskData: Partial<Task>) {
   return task;
 }
 
-function addTask() {
+async function addTask() {
   const task = createTask({
     title: taskInput?.value,
     priority: taskPrioritySelector?.value as Priority,
@@ -1328,6 +1350,8 @@ function addTask() {
   if (taskStatusSelector) taskStatusSelector.value = "To Do";
   if (taskRecurrenceSelector) taskRecurrenceSelector.value = "none";
   if (blockedByInput) blockedByInput.value = "disabled";
+
+  await saveTasks();
 }
 
 function addNote() {
@@ -1349,15 +1373,44 @@ function addNote() {
   selectedNoteColor = null;
 }
 
-function saveTasks() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+async function saveTasks() {
+  try {
+    await db.tasks.clear();
+    await db.tasks.bulkAdd(tasks);
+    console.log("Tasks saved to IndexedDB!");
+  } catch (error) {
+    console.error("Error saving tasks to IndexedDB.", error);
+  }
   renderWhatToFocusOn();
   renderUpcomingTasks();
   renderStaleTasks();
 }
 
-function saveNotes() {
-  localStorage.setItem("notes", JSON.stringify(allNotes));
+async function saveNotes() {
+  try {
+    await db.notes.clear();
+    await db.notes.bulkAdd(allNotes);
+    console.log("Notes saved to IndexedDB!");
+  } catch (error) {
+    console.error("Error saving notes to IndexedDB.", error);
+  }
+}
+
+async function saveActivityLog() {
+  try {
+    await db.activity.clear();
+    await db.activity.bulkAdd(activityLog);
+    console.log("Activity log saved to IndexedDB!");
+  } catch (error) {
+    console.error("Error saving activity log to IndexedDB.", error);
+  }
+}
+
+function loadActivities() {
+  if (activityList) activityList.innerHTML = "";
+  activityLog.forEach((activity) => {
+    renderActivity(activity);
+  });
 }
 
 function openEditTaskUI(taskId: string | null) {
@@ -2035,6 +2088,7 @@ document.addEventListener("click", (e) => {
   document.querySelectorAll(".taskOptions").forEach((menu) => {
     menu.classList.remove("show");
   });
+  enableScrolling();
 
   if (!searchDiv.contains((e.target as Node))) searchResultsMenu.classList.remove("show");
 });
@@ -2541,17 +2595,8 @@ closeSidebarBtn?.addEventListener("click", () => {
   }
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   if (taskCreationDiv) taskCreationDiv.style.display = "none";
-
-  syncRecurringTasks(new Date());
-
-  // toggleAI();
-
-  updateTasksOverdueCount();
-  updateTasksDueTodayCount();
-  updateBlockedTasksCount();
-  loadTimerState();
 
   const savedAvatar = localStorage.getItem("avatar");
   if (savedAvatar && avatarPreviewIcon && avatarIcon) { 
@@ -2616,30 +2661,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   currentTaskSort = taskSortSelector?.value || "dateCreated";
-  setTaskView(localStorage.getItem("taskViewOption") || "listView", false);
-
-  if (searchBar) searchBar.value = "";
-
-  if (taskPrioritySelector) taskPrioritySelector.value = "None";
-  if (taskDateInput) taskDateInput.value = "";
-  if (taskTimeInput) taskTimeInput.value = "";
-  if (taskStatusSelector) taskStatusSelector.value = "To Do";
-  if (blockedByInput) blockedByInput.value = "disabled";
-  if (blockedByDiv) blockedByDiv.style.display = "none";
-
-  refreshTaskDropdown();
+  // setTaskView(localStorage.getItem("taskViewOption") || "listView", false); 
 
   const personalSettingsOption = document.querySelector(
     ".settingsNavList a[href='#personal']",
   );
   personalSettingsOption?.classList.add("active");
-
-  if (noteInput) noteInput.value = "";
-
-  const savedNotes = safeParse("notes");
-  savedNotes.forEach((note) => {
-    createNoteElement(note);
-  });
 
   const savedAskForNotiDisplay = localStorage.getItem("askForNotiDisplay");
   if (savedAskForNotiDisplay) {
@@ -2664,7 +2691,40 @@ document.addEventListener("DOMContentLoaded", () => {
     sidebar?.classList.add("show");
   }
 
+  try {
+    await db.open();
+    await Promise.all([ loadSavedItems() ]);
+  } catch (error) {
+    console.error("Database initialization failed. Reverting to memory fallback.", error);
+    tasks = safeParse("tasks");
+    allNotes = safeParse("notes");
+    activityLog = safeParse("activityLog");
+  }
+
+  if (searchBar) searchBar.value = "";
+  if (taskPrioritySelector) taskPrioritySelector.value = "None";
+  if (taskDateInput) taskDateInput.value = "";
+  if (taskTimeInput) taskTimeInput.value = "";
+  if (taskStatusSelector) taskStatusSelector.value = "To Do";
+  if (blockedByInput) blockedByInput.value = "disabled";
+  if (blockedByDiv) blockedByDiv.style.display = "none";
+  if (noteInput) noteInput.value = "";
+
+  renderTasks(currentTaskSort);
+  renderWhatToFocusOn();
+  renderUpcomingTasks();
+  renderStaleTasks();
+  renderCalendarEvents();
+  syncRecurringTasks(new Date());
+  updateTasksOverdueCount();
+  updateTasksDueTodayCount();
+  updateBlockedTasksCount();
+  loadTimerState();
   loadActivities();
+
+  allNotes.forEach((note) => {
+    createNoteElement(note);
+  });
 
   const calendarEl = document.getElementById("calendar");
   if (calendarEl) {
@@ -2749,9 +2809,43 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     console.error("Calendar error");
   }
-
-  renderCalendarEvents();
 });
+
+async function loadSavedItems() {
+  const savedTasks = await db.tasks.toArray();
+  const savedNotes = await db.notes.toArray();
+  const savedActivities = await db.activity.toArray();
+
+  if (savedTasks.length > 0) {
+    tasks = savedTasks;
+  } else {
+    const legacyTasks = safeParse("tasks");
+    if (legacyTasks.length > 0) {
+      await db.tasks.bulkAdd(legacyTasks);
+      tasks = legacyTasks;
+    }
+  }
+
+  if (savedNotes.length > 0) {
+    allNotes = savedNotes;
+  } else {
+    const legacyNotes = safeParse("notes");
+    if (legacyNotes.length > 0) {
+      await db.notes.bulkAdd(legacyNotes);
+      allNotes = legacyNotes;
+    }
+  }
+
+  if (savedActivities.length > 0) {
+    activityLog = savedActivities;
+  } else {
+    const legacyActivities = safeParse("activity");
+    if (legacyActivities.length > 0) {
+      await db.activity.bulkAdd(legacyActivities);
+      activityLog = legacyActivities;
+    }
+  }
+}
 
 function renderCalendarEvents() {
   if (!calendar) return;
@@ -3195,9 +3289,9 @@ function normalizeTaskStatus(status: string | null): string {
   return status;
 }
 
-taskViewSelector?.addEventListener("change", () => {
+/* taskViewSelector?.addEventListener("change", () => {
   setTaskView(taskViewSelector.value);
-});
+}); */
 
 let currentDraggedTask = null;
 
@@ -3257,14 +3351,14 @@ cancelTaskCreationBtn?.addEventListener("click", () => {
   if (taskRecurrenceSelector) taskRecurrenceSelector.value = "none";
 });
 
-addTaskBtn?.addEventListener("click", () => {
+addTaskBtn?.addEventListener("click", async () => {
   if (currentParentTaskId) {
     // addSubtask(String(currentParentTaskId)); 
     currentParentTaskId = null;
   } else if (editingTaskId) {
-    saveEditedTask();
+    await saveEditedTask();
   } else {
-    addTask();
+    await addTask();
   }
   showNoTasksYet();
   renderWhatToFocusOn();
@@ -3396,21 +3490,6 @@ function loadAIState() {
 aiToggle?.addEventListener("change", toggleAI);
 loadAIState(); */
 
-function loadActivities() {
-  if (activityList) activityList.innerHTML = "";
-
-  if (activityLog.length === 0 && activityList) {
-    activityList.innerHTML = "<li class='activityItem'>No activities yet</li>";
-    return;
-  }
-
-  activityLog.forEach(renderActivity);
-}
-
-function getActivityLog() {
-  return safeParse("activityLog");
-}
-
 function getTimeAgo(timestamp: number) {
   const now = Date.now();
   const diff = now - timestamp;
@@ -3469,7 +3548,7 @@ function renderActivity(activity: Activity) {
   if (activityList) activityList.appendChild(activityItem);
 }
 
-function addActivity(message: string, type = "info") {
+async function addActivity(message: string, type = "info") {
   if (!message) return;
 
   const activity = {
@@ -3479,13 +3558,10 @@ function addActivity(message: string, type = "info") {
     timestamp: Date.now(),
   };
 
-  if (activityLog.length > 50) {
-    activityLog.pop();
-  }
+  if (activityLog.length > 50) activityLog.pop();
 
   activityLog.unshift(activity);
-  localStorage.setItem("activityLog", JSON.stringify(activityLog));
-  loadActivities();
+  await saveActivityLog();
 }
 
 function refreshTaskDropdown() {
