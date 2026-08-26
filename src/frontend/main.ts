@@ -2500,11 +2500,10 @@ function updateAvatarAccentFilter(themeName: string = localStorage.getItem("cust
     avatarPreviewIcon.style.filter = "none";
     avatarIcon.style.filter = "none";
   }
-  
-  localStorage.setItem("avatarAccentEnabled", String(avatarAccentTrue));
 }
 
 avatarAccentToggle?.addEventListener("change", () => {
+  localStorage.setItem("avatarAccentEnabled", String(avatarAccentToggle.checked));
   updateAvatarAccentFilter();
 });
 
@@ -2611,6 +2610,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const savedColorPreset = localStorage.getItem("customColorPreset");
   const savedBgTheme = localStorage.getItem("customBgTheme");
   const savedAccentTheme = localStorage.getItem("customAccentTheme");
+
+  if (savedAccentTheme) applyAccentTheme(savedAccentTheme);
+  else updateAvatarAccentFilter();
 
   if (savedColorPreset) {
     applyColorPreset(savedColorPreset);
@@ -3268,9 +3270,6 @@ window.addEventListener("load", () => {
 
 const savedBgTheme = localStorage.getItem("customBgTheme");
 if (savedBgTheme) applyBgTheme(savedBgTheme);
-
-const savedAccentTheme = localStorage.getItem("customAccentTheme");
-if (savedAccentTheme) applyAccentTheme(savedAccentTheme);
 
 if (noTasksYetAlert && noNotesYetAlert) {
   noTasksYetAlert.style.display = "inline";
