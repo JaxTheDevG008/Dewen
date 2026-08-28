@@ -2910,9 +2910,18 @@ function saveEditedTask() {
   refreshTaskDropdown();
   editingTaskId = null;
   isEditing = false;
-  if (taskCreationDiv) taskCreationDiv.style.display = "none";
-  if (taskCreationDiv?.parentNode) taskCreationDiv.parentNode.removeChild(taskCreationDiv);
+  if (taskCreationDiv) {
+    taskCreationDiv.style.display = "none";
+    taskCreationDiv.style.position = "relative";
+    taskCreationDiv.style.top = "0px";
+    taskCreationDiv.style.left = "0px";
+    taskCreationDiv.style.transform = "none";
+    taskCreationDiv.style.order = "0";
+    taskCreationDiv.style.zIndex = "0";
+  }
+
   hideOverlay();
+  if (toDoList && taskCreationDiv && toDoListHeader) toDoList.insertBefore(taskCreationDiv, toDoListHeader.nextSibling);
 }
 
 /* function createSubtask() {
