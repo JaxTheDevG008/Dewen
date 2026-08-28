@@ -1384,6 +1384,7 @@ async function saveTasks() {
   renderWhatToFocusOn();
   renderUpcomingTasks();
   renderStaleTasks();
+  refreshTaskDropdown();
 }
 
 async function saveNotes() {
@@ -1401,6 +1402,7 @@ async function saveActivityLog() {
     await db.activity.clear();
     await db.activity.bulkAdd(activityLog);
     console.log("Activity log saved to IndexedDB!");
+    loadActivities();
   } catch (error) {
     console.error("Error saving activity log to IndexedDB.", error);
   }
@@ -2716,6 +2718,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   renderWhatToFocusOn();
   renderUpcomingTasks();
   renderStaleTasks();
+  refreshTaskDropdown();
   renderCalendarEvents();
   syncRecurringTasks(new Date());
   updateTasksOverdueCount();
@@ -3354,7 +3357,7 @@ addTaskBtn?.addEventListener("click", async () => {
   if (currentParentTaskId) {
     // addSubtask(String(currentParentTaskId)); 
     currentParentTaskId = null;
-  } else if (editingTaskId) {
+  } else if (isEditing) {
     await saveEditedTask();
   } else {
     await addTask();
@@ -3547,7 +3550,7 @@ function renderActivity(activity: Activity) {
   if (activityList) activityList.appendChild(activityItem);
 }
 
-async function addActivity(message: string, type = "info") {
+function addActivity(message: string, type = "info") {
   if (!message) return;
 
   const activity = {
@@ -3560,7 +3563,7 @@ async function addActivity(message: string, type = "info") {
   if (activityLog.length > 50) activityLog.pop();
 
   activityLog.unshift(activity);
-  await saveActivityLog();
+  saveActivityLog();
 }
 
 function refreshTaskDropdown() {
@@ -3941,6 +3944,7 @@ notesList?.addEventListener("click", (e) => {
 expandMiniAnalyticsBtn?.addEventListener("click", () => {
   if (!miniAnalyticsDiv || !expandMiniAnalyticsIcon || !workAreaSplit) return;
   miniAnalyticsDiv.classList.toggle("expanded");
+  loadActivities();
   const isExpanded = miniAnalyticsDiv.classList.contains("expanded");
   localStorage.setItem("miniAnalyticsExpanded", String(isExpanded));
   workAreaSplit.style.marginTop = isExpanded ? "20px" : "0px";
