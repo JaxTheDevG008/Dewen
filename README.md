@@ -11,7 +11,7 @@ To learn frontend, backend, full-stack, APIs, and client-side database managemen
 - Frontend: HTML, CSS, and TypeScript
 - Framework: None (React soon)
 - Backend: Python
-- Database: LocalStorage
+- Database: IndexedDB
 - Version Control: Git and GitHub
 ---
 ## Features
