@@ -1,5 +1,7 @@
 # Dewen <br> <sub style="font-size: 0.5em; font-weight: normal;">A subscription-free and private take on productivity software</sub>
 
+<img width="1365" height="596" alt="image" src="https://github.com/user-attachments/assets/9ed1db4a-926b-4b8a-990b-a7bd8ae3f38e" />
+
 [Check out my project here](https://dewen.netlify.app)
 ## Purpose
 Most task and project management websites these days force a subscription on you, obligate you to use AI, and use your data to train models without your consent. 
