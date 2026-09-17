@@ -26,9 +26,9 @@ To learn frontend, backend, full-stack, APIs, and client-side database managemen
 - Activity Panel - Track your activities throughout the app, whether that's task addition or starting a focus session
 - Search/Command Bar - Search your tasks and notes or run commands to control your workflow (`:h` in the bar for commands)
 ### Coming Soon
-- AI - Turn this on to help assist you in your workflow, or turn it off if you don't feel like it
-- Calendar Tab - Gives the calendar its own section to help you manage your schedules more efficiently
-- Automation - If AI is enabled, this lets users create custom automations in a simple interface
+- [] Agents - Turn this on to help assist you in your workflow, or turn it off if you don't feel like it
+- [] Calendar Tab - Gives the calendar its own section to help you manage your schedules more efficiently
+- [] Automation - If AI is enabled, this lets users create custom automations in a simple interface
 ---
 ## Installation
 
