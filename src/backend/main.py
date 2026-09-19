@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from planner import plan
+from agentCode.planner import plan
+from agentCode.researcher import research
 
 app = FastAPI()
 
@@ -33,3 +34,16 @@ def createPlan(data: dict):
         raise HTTPException(status_code=400, detail=str(error))
 
     return {"plan": result}
+
+@app.post("/research")
+def createResearch(data: dict):
+    instruction = data.get("instruction", "")
+    apiKey = data.get("apiKey", "")
+    tavilyApiKey = data.get("tavilyApiKey", "")
+
+    try:
+        result = research(instruction, apiKey, tavilyApiKey)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error))
+
+    return {"research": result}

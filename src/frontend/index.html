@@ -682,7 +682,20 @@
               type="text"
               id="apiKeyInput"
               class="apiKeyInput accentItem"
-              placeholder="Coming soon!"
+              placeholder="Enter your AI API key"
+            />
+          </div>
+
+          <div class="apiKeyDiv tavilyApiKeyDiv">
+            <label for="tavilyApiKeyInput" class="apiKeyLabel"
+              >Tavily API Key (for the Researcher Agent):</label
+            >
+
+            <input
+              type="text"
+              id="tavilyApiKeyInput"
+              class="tavilyApiKeyInput apiKeyInput accentItem"
+              placeholder="Enter your Tavily API key"
             />
           </div>
         </div>
@@ -830,17 +843,35 @@
               >
             </div>
           </li>
+
+          <li class="agentItem" data-agent="researcherAgent">
+            <div class="agentItemRow1">
+              <img
+                src="/images/agentIcons/Researcher-Agent-Icon.png"
+                class="agentIcon"
+              />
+              <span class="agentName">Researcher Agent</span>
+            </div>
+            <div class="agentItemRow2">
+              <span class="agentTagline"
+                >Assists with research and information gathering</span
+              >
+            </div>
+          </li>
         </ul>
       </div>
 
       <div class="agentArea">
+        <div class="agentAreaHeader">
+          <div class="selectedAgentDiv"></div>
+        </div>
         <div class="agentInstructionsInput">
           <div class="agentInstructionsHeader">
             <h2 class="agentInstructionsTitle">Agent Instructions</h2>
           </div>
           <textarea
             class="agentInstructionsTextarea"
-            placeholder="Enter instructions for the agent..."
+            placeholder="Tell Dewen what you want to plan..."
           ></textarea>
           <div class="agentControls">
             <button class="runAgentBtn accentItem">

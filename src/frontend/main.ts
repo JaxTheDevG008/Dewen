@@ -41,6 +41,9 @@ const dashboardContent = getElement<HTMLDivElement>(".dashboardContent");
 const dashboardHeader = getElement<HTMLDivElement>(".dashboardHeader");
 const agentBtn = getElement<HTMLButtonElement>(".agentBtn");
 const agentDiv = getElement<HTMLDivElement>(".agentDiv");
+const agentItems = getAllElements<HTMLDivElement>(".agentItem");
+const selectedAgentDiv = getElement<HTMLDivElement>(".selectedAgentDiv");
+const defaultAgent = document.querySelector<HTMLDivElement>(".agentItem[data-agent='plannerAgent']");
 const agentInstructionsInput = getElement<HTMLTextAreaElement>(
   ".agentInstructionsTextarea",
 );
@@ -52,6 +55,7 @@ const aiToggle =
     throw new Error("AI Toggle not found");
   })();
 const apiKeyInput = getElement<HTMLInputElement>(".apiKeyInput");
+const tavilyApiKeyInput = getElement<HTMLInputElement>(".tavilyApiKeyInput");
 const avatarAccentToggle =
   (document.getElementById("avatarAccentToggle") as HTMLInputElement | null) ||
   (() => {
@@ -205,6 +209,7 @@ let currentTaskSort = "dueDate";
 let focusMode = false;
 let timerMode = "focus";
 let activeFocusTask: string | undefined;
+let selectedAgent = "plannerAgent";
 
 type Priority = "High" | "Medium" | "Low" | "None";
 
@@ -229,7 +234,7 @@ interface Task {
 }
 
 interface Note {
-  id: number;
+  id: string;
   text: string;
   color: string;
 }
@@ -3642,11 +3647,16 @@ async function toggleAI() {
 async function loadAIState() {
   const aiEnabled = await getSettings("aiEnabled", false);
   const savedApiKey = await getSettings<string | null>("apiKey", null);
+  const savedTavilyApiKey = await getSettings<string | null>("tavilyApiKey", null);
   if (aiToggle) aiToggle.checked = aiEnabled;
   if (agentBtn) agentBtn.style.display = aiEnabled ? "flex" : "none";
   if (apiKeyInput) {
     apiKeyInput.disabled = !aiEnabled;
     apiKeyInput.value = savedApiKey ?? "";
+  }
+  if (tavilyApiKeyInput) {
+    tavilyApiKeyInput.disabled = !aiEnabled;
+    tavilyApiKeyInput.value = savedTavilyApiKey ?? "";
   }
 }
 
@@ -3658,12 +3668,21 @@ apiKeyInput?.addEventListener("input", async () => {
   await saveSettings("apiKey", apiKey);
 });
 
+tavilyApiKeyInput?.addEventListener("input", async () => {
+  const tavilyApiKey = tavilyApiKeyInput.value.trim();
+  await saveSettings("tavilyApiKey", tavilyApiKey);
+});
+
 agentBtn?.addEventListener("click", () => {
+  defaultAgent?.classList.add("selected");
+  selectedAgentDiv.textContent =
+    `Selected Agent: ${agentConfig[selectedAgent as keyof typeof agentConfig].name}`;
   if (agentDiv) agentDiv.classList.toggle("show");
   if (overlay)
     overlay.style.display = agentDiv?.classList.contains("show")
       ? "block"
       : "none";
+    overlay.style.zIndex = "9999";
   document.querySelectorAll("body > *").forEach((el) => {
     if (el !== overlay && el !== agentDiv)
       (el as HTMLElement).inert = agentDiv?.classList.contains("show");
@@ -3671,16 +3690,41 @@ agentBtn?.addEventListener("click", () => {
 });
 
 closeAgentBtn?.addEventListener("click", () => {
+  agentItems?.forEach((i) => i.classList.remove("selected"));
   if (agentDiv) agentDiv.classList.remove("show");
-  if (overlay) overlay.style.display = "none";
+  if (!overlay) return;
+  overlay.style.display = "none";
+  overlay.style.zIndex = "9997";
   document
     .querySelectorAll("body > *")
     .forEach((el) => ((el as HTMLElement).inert = false));
   agentInstructionsInput.value = "";
 });
 
-agentInstructionsInput?.addEventListener("input", () => {
-  agentInstructionsInput.placeholder = "Enter instructions for the agent...";
+const agentConfig = {
+  plannerAgent: {
+    name: "Planner Agent",
+    placeholder: "Tell Dewen what you want to plan...",
+  },
+  researcherAgent: {
+    name: "Researcher Agent",
+    placeholder: "Tell Dewen what you want to research...",
+  },
+};
+
+agentItems?.forEach((item) => {
+  item.addEventListener("click", () => {
+    selectedAgent = item.getAttribute("data-agent") ?? "Planner Agent";
+
+    agentItems?.forEach((i) => i.classList.remove("selected"));
+    item.classList.add("selected");
+    selectedAgentDiv.textContent = `Selected Agent: ${agentConfig[selectedAgent as keyof typeof agentConfig].name}`;
+    console.log("Selected Agent:", selectedAgent);
+    if (agentInstructionsInput) {
+      agentInstructionsInput.placeholder =
+        agentConfig[selectedAgent as keyof typeof agentConfig].placeholder;
+      }
+  });
 });
 
 runAgentBtn?.addEventListener("click", async () => {
@@ -3698,7 +3742,16 @@ runAgentBtn?.addEventListener("click", async () => {
   if (btnSpinner) btnSpinner.style.display = "inline-block";
 
   try {
-    await runPlannerAgent(instructions);
+    switch (selectedAgent) {
+      case "plannerAgent":
+        await runPlannerAgent(instructions);
+        break;
+      case "researcherAgent":
+        await runResearcherAgent(instructions);
+        break;
+      default:
+        throw new Error("Unknown agent selected.");
+    }
     agentInstructionsInput.value = "";
   } catch (error) {
     console.error("Error running planner agent:", error);
@@ -4231,7 +4284,11 @@ type AgentAction =
   | {
       action: "deleteTask";
       taskId: string;
-    };
+    }
+  | {
+      action: "createNote";
+      note: Partial<Note>;
+    }
 
 function executeAgentAction(action: AgentAction) {
   switch (action.action) {
@@ -4281,6 +4338,14 @@ function executeAgentAction(action: AgentAction) {
       showNoTasksYet();
       break;
     }
+
+    case "createNote": {
+      allNotes.push(action.note);
+      saveNotes();
+      renderNotes();
+      addActivity("Added a note", "note");
+      break;
+    }
   }
 }
 
@@ -4294,6 +4359,7 @@ async function runPlannerAgent(instructions: string) {
       "Please set your API key in the settings.";
     return;
   }
+
   const response = await fetch("https://dewen-backend.onrender.com/plan", {
     method: "POST",
     headers: {
@@ -4318,4 +4384,51 @@ async function runPlannerAgent(instructions: string) {
   });
   console.log("Planner Agent response:", data);
   for (const action of data.plan) executeAgentAction(action);
+}
+
+async function runResearcherAgent(instructions: string) {
+  const apiKey = await getSettings<string | null>("apiKey", null);
+  if (!apiKey) {
+    console.error(
+      "API key is not set. Please set your API key in the settings.",
+    );
+    agentInstructionsInput.placeholder =
+      "Please set your API key in the settings.";
+    return;
+  }
+  const tavilyApiKey = await getSettings<string | null>(
+    "tavilyApiKey",
+    null
+  );
+  if (!tavilyApiKey) {
+    console.error(
+      "Tavily API key is not set. Please set your Tavily API key in the settings.",
+    );
+    agentInstructionsInput.placeholder =
+      "Please set your Tavily API key in the settings.";
+    return;
+  }
+
+  const response = await fetch("https://dewen-backend.onrender.com/research", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      instruction: instructions,
+      apiKey,
+      tavilyApiKey,
+    }),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.detail || "Failed to run researcher agent");
+  }
+
+  const data = await response.json();
+  console.log("Researcher Agent input:", {
+    instructions,
+  });
+  console.log("Researcher Agent response:", data);
+  for (const action of data.research) executeAgentAction(action);
 }

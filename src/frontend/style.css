@@ -215,7 +215,7 @@ button:hover {
   border: none;
   height: 100vh;
   position: fixed;
-  z-index: 9999;
+  z-index: 9998;
   display: none;
   flex-direction: column;
   justify-content: flex-start;
@@ -946,13 +946,18 @@ button:hover {
   gap: 6px;
   height: 100%;
   text-align: center;
-  width: 150px;
+  width: 200px;
 }
 
 .agentItem:hover {
   transition: all 0.1s;
   cursor: pointer;
   transform: scale(1.05);
+}
+
+.agentItem.selected,
+.defaultAgent.selected {
+  background-color: var(--accent-color);
 }
 
 .agentItemRow1 {
@@ -1001,6 +1006,15 @@ button:hover {
   gap: 15px;
   width: 20em;
   height: auto;
+}
+
+.selectedAgentDiv {
+  background-color: var(--btn-bg-color);
+  border-radius: 20px;
+  padding: 15px;
+  gap: 6px;
+  width: 100%;
+  padding-right: 0px;
 }
 
 .agentInstructionsInput {
@@ -1089,7 +1103,7 @@ button:hover {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.3);
-  z-index: 9998;
+  z-index: 9997;
 }
 
 .aiDiv {
