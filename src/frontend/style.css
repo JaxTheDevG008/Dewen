@@ -63,7 +63,7 @@ html {
 body {
   font-family: "Inter";
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100vw;
   min-height: 100vh;
   color: var(--text-color);
@@ -124,16 +124,12 @@ button:hover {
   gap: 6px;
 }
 
-/* make askForNotifications appear as a div with the overlay showing behind it */
-
-@media (max-width: 1240px),
-  (max-height: 663px),
-    (max-width: 422px) {
-    .askForNotifications {
-      flex-direction: column !important;
-      gap: 10px;
-    }
+@media (max-width: 1240px), (max-height: 663px), (max-width: 422px) {
+  .askForNotifications {
+    flex-direction: column !important;
+    gap: 10px;
   }
+}
 
 .enableNotiMessage {
   text-overflow: ellipsis;
@@ -328,6 +324,7 @@ button:hover {
 
 .dashboardBtn,
 .calendarBtn,
+.automationsBtn,
 .settingsBtn,
 .closeSidebarBtn {
   display: flex;
@@ -345,14 +342,19 @@ button:hover {
   color: var(--text-color);
 }
 
-.closeSidebarBtn { display: none; }
+.closeSidebarBtn {
+  display: none;
+}
 
 @media (max-width: 1240px) {
-  .closeSidebarBtn { display: flex; }
+  .closeSidebarBtn {
+    display: flex;
+  }
 }
 
 .dashboardBtn:hover,
 .calendarBtn:hover,
+.automationsBtn:hover,
 .settingsBtn:hover,
 .closeSidebarBtn {
   background-color: var(--btn-bg-color);
@@ -361,12 +363,14 @@ button:hover {
 
 .dashboardBtn.active,
 .calendarBtn.active,
+.automationsBtn.active,
 .settingsBtn.active {
   background-color: var(--btn-bg-color);
 }
 
 .dashboardIcon,
 .calendarIcon,
+.automationsIcon,
 .settingsIcon {
   width: 18px;
   height: 18px;
@@ -377,6 +381,7 @@ button:hover {
 
 [data-mode="dark"] .dashboardIcon,
 [data-mode="dark"] .calendarIcon,
+[data-mode="dark"] .automationsIcon,
 [data-mode="dark"] .settingsIcon {
   filter: brightness(0) invert(1);
   opacity: 0.7;
@@ -477,20 +482,26 @@ button:hover {
   filter: brightness(0.9);
 }
 
-:root.sidebarHidden .dashboardContent {
+:root.sidebarHidden .dashboardContent,
+:root.sidebarHidden .automationsContent,
+:root.sidebarHidden .settingsContent {
   transform: translateX(0);
   align-items: center;
   justify-content: center;
   margin-left: auto !important;
 }
 
-:root:not(.sidebarHidden) .dashboardContent {
+:root:not(.sidebarHidden) .dashboardContent,
+:root:not(.sidebarHidden) .automationsContent,
+:root:not(.sidebarHidden) .settingsContent {
   transform: translateX(140px);
   align-items: flex-end;
 }
 
 @media (max-width: 1240px) {
-  :root:not(.sidebarHidden) .dashboardContent {
+  :root:not(.sidebarHidden) .dashboardContent,
+  :root:not(.sidebarHidden) .automationsContent,
+  :root:not(.sidebarHidden) .settingsContent {
     transform: translateX(0);
     align-items: center;
     justify-content: center;
@@ -534,6 +545,53 @@ button:hover {
   .dashboardHeader {
     width: 100%;
   }
+}
+
+.automationsContent {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 80px;
+  width: 1160px;
+  height: 1837px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.3s;
+  transform: translateX(0);
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  border: 1px solid var(--bd-color);
+  padding: 20px;
+}
+
+:root.automationsActive .automationsContent {
+  display: flex;
+}
+
+:root.automationsActive .dashboardContent,
+:root.automationsActive .settingsContent {
+  display: none;
+}
+
+:root:not(.automationsActive) .automationsContent {
+  display: none;
+}
+
+.automationsContentHeader {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  height: fit-content;
+  border-radius: 20px;
 }
 
 :root.calendarView .dashboardHeader,
@@ -775,7 +833,7 @@ button:hover {
   cursor: pointer;
 }
 
-.agentIcon {
+.agentBtnIcon {
   width: 30px;
   filter: brightness(0);
   transition:
@@ -783,51 +841,244 @@ button:hover {
     opacity 0.3s ease;
 }
 
-.agentBtn:hover .agentIcon {
+.agentBtn:hover .agentBtnIcon {
   filter: invert(21%) sepia(50%) saturate(3015%) hue-rotate(222deg)
     brightness(91%) contrast(93%);
   opacity: 0.7;
   transition: 0.2s ease;
 }
 
-[data-mode="dark"] .agentIcon {
+[data-mode="dark"] .agentBtnIcon {
   filter: brightness(0) invert(1);
   opacity: 0.7;
   transition: 0.2s ease;
 }
 
-.aiOptionsDiv {
-  display: none;
-  flex-direction: column;
-  gap: 15px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0);
-  background-color: var(--work-areas-bg-color);
-  width: fit-content;
-  border-radius: 12px;
-  position: absolute;
+.agentDiv {
+  position: fixed;
   z-index: 9999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--task-hover-bg-color);
+  padding: 2rem;
+  border-radius: 15px;
+  width: min(120vw, 900px);
+  height: min(100vh, 720px);
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  overflow-y: auto;
 }
 
-.aiOptionsList {
-  list-style-type: none;
-  margin: 15px;
-  padding: 0px;
+.agentDiv.show {
+  display: flex;
 }
 
-.aiOptionsList li {
-  padding: 10px 15px;
+.agentHeader {
+  display: flex;
+  background-color: var(--work-areas-bg-color);
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  z-index: 100;
+  height: 60px;
+  width: 100%;
+}
+
+.agentDivName {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 20px;
+  color: var(--text-color);
+  font-size: 1.2rem;
+}
+
+.closeAgentBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--btn-bg-color);
+  border: none;
   border-radius: 12px;
+  padding: 5px 10px;
+  width: 30px;
+  height: 30px;
   color: var(--text-color);
 }
 
-.aiOptionsList li:hover {
+.agentSidebar {
+  position: fixed;
+  z-index: 99;
+  left: 0%;
+  background-color: var(--work-areas-bg-color);
+  color: var(--text-color);
+  padding: 2rem;
+  border-radius: 15px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.agentList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 20px 20px 20px;
+}
+
+.agentItem {
   background-color: var(--task-hover-bg-color);
+  border-radius: 20px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+  text-align: center;
+  width: 150px;
+}
+
+.agentItem:hover {
+  transition: all 0.1s;
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.agentItemRow1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.agentItemRow2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.agentIcon {
+  width: 5em;
+  height: 5em;
+  filter: brightness(0);
+  opacity: 0.7;
+  transition: 0.2s ease;
+}
+
+.agentName {
+  font-size: 1.3rem;
+  color: var(--text-color);
+}
+
+.agentTagline {
+  font-size: 0.85rem;
+  color: gray;
+}
+
+.agentArea {
+  position: absolute;
+  top: 35%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 20em;
+  height: auto;
+}
+
+.agentInstructionsInput {
+  width: 100%;
+  height: 35px;
+  color: var(--text-color);
+  padding-left: 10px;
+  z-index: 9998;
+  position: relative;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.agentInstructionsHeader {
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+.agentInstructionsTextarea {
+  width: 21em;
+  height: 100px;
+  padding: 20px;
+  border: 1px solid var(--bd-color);
+  background-color: var(--work-areas-bg-color);
+  color: var(--text-color);
+  border-radius: 20px;
+  font-family: "Inter";
+}
+
+.agentControls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.runAgentBtn {
+  background-color: var(--btn-bg-color);
+  border: 3px solid var(--bd-color);
+  border-radius: 12px;
+  padding: 10px 5px;
+  width: 100%;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.runAgentBtn:hover {
+  background-color: var(--btn-hover-bg-color);
   cursor: pointer;
 }
 
-.aiOptionsDiv.show {
-  display: flex;
+.runAgentSpinner {
+  display: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: agentSpin 0.7s linear infinite;
+}
+
+@keyframes agentSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.clearAgentInstructionsBtn {
+  background-color: var(--btn-bg-color);
+  border: 3px solid var(--bd-color);
+  border-radius: 12px;
+  padding: 10px 5px;
+  width: 100%;
+  color: var(--text-color);
 }
 
 .overlay {
@@ -1431,7 +1682,8 @@ button:hover {
 
 .upcomingIcon {
   position: absolute;
-  filter: brightness(0) saturate(100%) invert(15%) sepia(100%) saturate(7493%) hue-rotate(283deg) brightness(95%) contrast(101%);
+  filter: brightness(0) saturate(100%) invert(15%) sepia(100%) saturate(7493%)
+    hue-rotate(283deg) brightness(95%) contrast(101%);
   opacity: 0.7;
   transition: 0.2s ease;
   width: 225px;
@@ -1444,7 +1696,8 @@ button:hover {
 
 .staleTasksIcon {
   position: absolute;
-  filter: brightness(0) saturate(100%) invert(53%) sepia(23%) saturate(4924%) hue-rotate(3deg) brightness(108%) contrast(103%);
+  filter: brightness(0) saturate(100%) invert(53%) sepia(23%) saturate(4924%)
+    hue-rotate(3deg) brightness(108%) contrast(103%);
   opacity: 0.7;
   transition: 0.2s ease;
   width: 225px;
@@ -1576,7 +1829,7 @@ button:hover {
   .whatToFocusOnDiv,
   .riskReportDiv,
   .upcomingDiv,
-  .staleTasksDiv { 
+  .staleTasksDiv {
     width: 20em;
     font-size: 1rem;
     max-width: 100%;
@@ -3981,6 +4234,67 @@ html:not([class*="settingsView"]) .personalSection {
   color: var(--text-color);
 }
 
+.aiSection {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.aiToggleDiv {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.aiToggleBtn {
+  background-color: var(--btn-bg-color);
+  width: 60px;
+  height: 30px;
+  border-radius: 200px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s;
+}
+
+.aiToggleBtn::before {
+  position: absolute;
+  content: "";
+  background-color: var(--text-color);
+  width: 20px;
+  height: 20px;
+  border-radius: 200px;
+  margin: 5px;
+  transition: 0.2s;
+}
+
+#aiToggle:checked + .aiToggleBtn {
+  background-color: rgb(70, 190, 140);
+}
+
+#aiToggle:checked + .aiToggleBtn::before {
+  transform: translateX(30px);
+}
+
+#aiToggle {
+  display: none;
+}
+
+.aiModelSelect,
+.apiKeyInput {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid var(--bd-color);
+  border-radius: 12px;
+  background-color: var(--work-areas-bg-color);
+  color: var(--text-color);
+}
+
 .aboutSettingsInfo {
   display: flex;
   flex-direction: column;
@@ -4135,7 +4449,7 @@ html:not([class*="settingsView"]) .personalSection {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgb(255, 255, 255);
+  background: var(--work-areas-bg-color);
   padding: 2rem;
   border-radius: 15px;
   width: min(90vw, 450px);

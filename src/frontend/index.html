@@ -1,11 +1,21 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="d2942111-f7f5-40fb-84af-b218e61c2a3a"></script>
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="d2942111-f7f5-40fb-84af-b218e61c2a3a"
+    ></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Dewen is a local-first task and project management application that helps you stay organized and productive. Track your tasks, start focus sessions, jot down quick notes, and manage your tasks on the calendar, all in one place." />
-    <meta name="keywords" content="Dewen, task management, project management, productivity, local-first, offline-first, to-do list, focus timer, quick notes, calendar, command bar" />
+    <meta
+      name="description"
+      content="Dewen is a local-first task and project management application that helps you stay organized and productive. Track your tasks, start focus sessions, jot down quick notes, and manage your tasks on the calendar, all in one place."
+    />
+    <meta
+      name="keywords"
+      content="Dewen, task management, project management, productivity, local-first, offline-first, to-do list, focus timer, quick notes, calendar, command bar"
+    />
     <meta name="author" content="Jaxon Penka" />
     <title>Dewen - Local-First Task & Project Management</title>
     <link rel="stylesheet" href="/style.css" />
@@ -58,16 +68,8 @@
 
           <div class="agentBtnDiv">
             <button class="agentBtn">
-              <img src="/images/Agent-Icon.png" class="agentIcon" />
+              <img src="/images/Agent-Icon.png" class="agentBtnIcon" />
             </button>
-
-            <div class="aiOptionsDiv">
-              <ul class="aiOptionsList">
-                <li class="taskBreakdownOpt">Task Breakdown</li>
-                <li class="scheduleSuggestionOpt">Daily Schedule</li>
-                <li class="prioritySuggestionsOpt">Priority Suggestions</li>
-              </ul>
-            </div>
           </div>
 
           <button class="customizeBtn">Customize</button>
@@ -86,13 +88,15 @@
           <img src="/images/Date-Icon.png" class="calendarIcon" />
           Calendar
         </button> -->
+        <button class="automationsBtn">
+          <img src="/images/Decrastinator-Icon.png" class="automationsIcon" />
+          Automations
+        </button>
         <button class="settingsBtn">
           <img src="/images/Settings-Icon.png" class="settingsIcon" />
           Settings
         </button>
-        <button class="closeSidebarBtn">
-          ✕ Close
-        </button>
+        <button class="closeSidebarBtn">✕ Close</button>
       </div>
     </nav>
 
@@ -107,13 +111,19 @@
           <h1 class="customizePresetsHeaderTitle">Presets</h1>
         </div>
         <div class="customizePresetsOptions">
-          <button class="defaultPresetBtn" data-preset="default">Default</button>
+          <button class="defaultPresetBtn" data-preset="default">
+            Default
+          </button>
           <button class="oceanPresetBtn" data-preset="ocean">Ocean</button>
           <button class="forestPresetBtn" data-preset="forest">Forest</button>
           <button class="sunsetPresetBtn" data-preset="sunset">Sunset</button>
           <button class="rosePresetBtn" data-preset="rose">Rose</button>
-          <button class="midnightPresetBtn" data-preset="midnight">Midnight</button>
-          <button class="terminalPresetBtn" data-preset="terminal">Terminal</button>
+          <button class="midnightPresetBtn" data-preset="midnight">
+            Midnight
+          </button>
+          <button class="terminalPresetBtn" data-preset="terminal">
+            Terminal
+          </button>
           <button class="slatePresetBtn" data-preset="slate">Slate</button>
         </div>
       </div>
@@ -263,7 +273,9 @@
           <!-- To-Do List -->
           <section class="toDoList">
             <div class="toDoListHeader">
-              <h1 class="toDoListName">Tasks <span class="taskCount">0 tasks done</span></h1>
+              <h1 class="toDoListName">
+                Tasks <span class="taskCount">0 tasks done</span>
+              </h1>
               <div class="options">
                 <!-- <button class="projectsBtn">Projects</button> -->
                 <select class="taskSortSelector accentItem">
@@ -575,6 +587,23 @@
       </div>
     </div> -->
 
+    <div class="automationsContent">
+      <div class="automationsHeader">
+        <h1 class="automationsName">Automations</h1>
+      </div>
+
+      <div class="automationsListDiv">
+        <div class="automationsListHeader">
+          <h2 class="automationsListTitle">Your Automations</h2>
+          <button class="addAutomationBtn accentItem">Add Automation</button>
+        </div>
+
+        <ul class="automationsList">
+          <!-- Automation items will dynamically show up here -->
+        </ul>
+      </div>
+    </div>
+
     <div class="settingsContent">
       <div class="settingsNavigator">
         <h1 class="settingsHeader">Settings</h1>
@@ -607,7 +636,10 @@
                 <div class="avatarAccentToggleDiv">
                   <span class="avatarAccentToggleLabel">Turn On Accent</span>
                   <input type="checkbox" id="avatarAccentToggle" />
-                  <label for="avatarAccentToggle" class="avatarAccentToggleBtn"></label>
+                  <label
+                    for="avatarAccentToggle"
+                    class="avatarAccentToggleBtn"
+                  ></label>
                 </div>
               </div>
             </div>
@@ -630,6 +662,27 @@
               type="text"
               class="preferredNameInput"
               placeholder="Enter your preferred name"
+            />
+          </div>
+        </div>
+
+        <div class="aiSection">
+          <div class="aiToggleDiv">
+            <span class="aiToggleLabel">Enable AI</span>
+
+            <input type="checkbox" id="aiToggle" />
+
+            <label for="aiToggle" class="aiToggleBtn"></label>
+          </div>
+
+          <div class="apiKeyDiv">
+            <label for="apiKeyInput" class="apiKeyLabel">API Key:</label>
+
+            <input
+              type="text"
+              id="apiKeyInput"
+              class="apiKeyInput accentItem"
+              placeholder="Coming soon!"
             />
           </div>
         </div>
@@ -686,10 +739,7 @@
       </div>
       <div class="avatarPresetsGrid">
         <div class="avatarPresetItem">
-          <img
-            src="/images/Profile-Icon.png"
-            class="avatarPresetIcon"
-          />
+          <img src="/images/Profile-Icon.png" class="avatarPresetIcon" />
           <div class="avatarPresetName">Default</div>
         </div>
         <div class="avatarPresetItem">
@@ -758,6 +808,53 @@
       </div>
     </div>
 
+    <div class="agentDiv">
+      <div class="agentHeader">
+        <h1 class="agentDivName">Dewen Agents</h1>
+        <button class="closeAgentBtn">✕</button>
+      </div>
+
+      <div class="agentSidebar">
+        <ul class="agentList">
+          <li class="agentItem" data-agent="plannerAgent">
+            <div class="agentItemRow1">
+              <img
+                src="/images/agentIcons/Planner-Agent-Icon.png"
+                class="agentIcon"
+              />
+              <span class="agentName">Planner Agent</span>
+            </div>
+            <div class="agentItemRow2">
+              <span class="agentTagline"
+                >Helps you plan and organize your tasks</span
+              >
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="agentArea">
+        <div class="agentInstructionsInput">
+          <div class="agentInstructionsHeader">
+            <h2 class="agentInstructionsTitle">Agent Instructions</h2>
+          </div>
+          <textarea
+            class="agentInstructionsTextarea"
+            placeholder="Enter instructions for the agent..."
+          ></textarea>
+          <div class="agentControls">
+            <button class="runAgentBtn accentItem">
+              <span class="runAgentBtnText">Run Agent</span>
+              <span class="runAgentSpinner" aria-hidden="true"></span>
+            </button>
+            <button class="clearAgentInstructionsBtn accentItem">
+              Clear Instructions
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="commandsHelpListDiv">
       <div class="commandsHelpListHeader">
         <h1 class="commandsHelpListTitle">Command Help</h1>
@@ -771,11 +868,15 @@
         <li class="commandItem">:c &lt;task title&gt; - Complete a task</li>
         <li class="commandItem">:d &lt;task title&gt; - Delete a task</li>
         <li class="commandItem">:x - Clear and delete all completed tasks</li>
-        <li class="commandItem">:p &lt;task title&gt;, &lt;priority&gt; - Prioritize a task</li>
+        <li class="commandItem">
+          :p &lt;task title&gt;, &lt;priority&gt; - Prioritize a task
+        </li>
         <li class="commandItem">:et &lt;task title&gt; - Edit a task</li>
         <li class="commandItem">:en &lt;note text&gt; - Edit a note</li>
         <h2 class="categoryName">Focus</h2>
-        <li class="commandItem">:f &lt;duration&gt;, &lt;task title&gt; - Start a focus timer</li>
+        <li class="commandItem">
+          :f &lt;duration&gt;, &lt;task title&gt; - Start a focus timer
+        </li>
         <li class="commandItem">:pt - Pause the current timer</li>
         <li class="commandItem">:rst - Resume the current timer</li>
         <li class="commandItem">:rt - Restart the current timer</li>

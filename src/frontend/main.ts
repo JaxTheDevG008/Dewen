@@ -36,17 +36,16 @@ const closeSidebarBtn = getElement<HTMLButtonElement>(".closeSidebarBtn");
 const dashboardContent = getElement<HTMLDivElement>(".dashboardContent");
 const dashboardHeader = getElement<HTMLDivElement>(".dashboardHeader");
 const agentBtn = getElement<HTMLButtonElement>(".agentBtn");
-/* const aiToggle = (document.getElementById("aiToggle") as HTMLInputElement | null) || (() => { throw new Error("AI Toggle not found"); })(); */
+const agentDiv = getElement<HTMLDivElement>(".agentDiv");
+const agentInstructionsInput = getElement<HTMLTextAreaElement>(".agentInstructionsTextarea");
+const runAgentBtn = getElement<HTMLButtonElement>(".runAgentBtn");
+const closeAgentBtn = getElement<HTMLButtonElement>(".closeAgentBtn");
+const aiToggle = (document.getElementById("aiToggle") as HTMLInputElement | null) || (() => { throw new Error("AI Toggle not found"); })();
+const apiKeyInput = getElement<HTMLInputElement>(".apiKeyInput");
 const avatarAccentToggle = (document.getElementById("avatarAccentToggle") as HTMLInputElement | null) || (() => { throw new Error("Avatar Accent Toggle not found"); })();
-const aiOptionsDiv = getElement<HTMLDivElement>(".aiOptionsDiv");
-/** const aiOptionsList = getElement<HTMLUListElement>(".aiOptionsList"); */
-const prioritySuggestionsOpt = getElement<HTMLButtonElement>(
-  ".prioritySuggestionsOpt",
-);
 /** const scheduleSuggestionOption = getElement<HTMLButtonElement>(
   ".scheduleSuggestionOption",
 ); */
-const aiDiv = getElement<HTMLElement>(".aiDiv");
 const customizeBtn = getElement<HTMLButtonElement>(".customizeBtn");
 const customizeDiv = getElement<HTMLDivElement>(".customizeDiv");
 const customizePresetsOptions = getAllElements<HTMLButtonElement>(
@@ -142,6 +141,8 @@ const fullNameInput = getElement<HTMLInputElement>(".fullNameInput");
 const preferredNameInput = getElement<HTMLInputElement>(".preferredNameInput");
 const commandsHelpListDiv = getElement<HTMLDivElement>(".commandsHelpListDiv");
 const closeCommandsHelpListBtn = getElement<HTMLButtonElement>(".closeCommandsHelpList");
+const automationsBtn = getElement<HTMLButtonElement>(".automationsBtn");
+const automationsContent = getElement<HTMLDivElement>(".automationsContent");
 const ai_API_BASE = "http://127.0.0.1:5000";
 
 function safeParse(key: string): any[] {
@@ -194,6 +195,7 @@ interface Task {
   recurrence: Recurrence;
   lastCompleted: string | null;
   // subtasks: Task[];
+  blockedBy: string | null;
 }
 
 interface Note {
@@ -1376,7 +1378,7 @@ function addNote() {
 async function saveTasks() {
   try {
     await db.tasks.clear();
-    await db.tasks.bulkAdd(tasks);
+    await db.tasks.bulkPut(tasks);
     console.log("Tasks saved to IndexedDB!");
   } catch (error) {
     console.error("Error saving tasks to IndexedDB.", error);
@@ -1406,6 +1408,18 @@ async function saveActivityLog() {
   } catch (error) {
     console.error("Error saving activity log to IndexedDB.", error);
   }
+}
+
+async function getSettings<T>(key: string, defaultValue: T): Promise<T> {
+  const settings = await db.settings.get(key);
+  return settings ? settings.value : defaultValue;
+}
+
+async function saveSettings<T>(key: string, defaultValue: T) {
+  await db.settings.put({
+    key,
+    value: defaultValue,
+  });
 }
 
 function loadActivities() {
@@ -3014,14 +3028,25 @@ dashboardBtn?.addEventListener("click", () => {
   document.documentElement.classList.add("dashboardActive");
   document.documentElement.classList.remove("isSettingsView");
   document.documentElement.classList.remove("calendarView");
+  document.documentElement.classList.remove("automationsActive");
 
   localStorage.setItem("lastActiveView", "dashboard");
+});
+
+automationsBtn?.addEventListener("click", () => {
+  document.documentElement.classList.add("automationsActive");
+  document.documentElement.classList.remove("dashboardActive");
+  document.documentElement.classList.remove("isSettingsView");
+  document.documentElement.classList.remove("calendarView");
+
+  localStorage.setItem("lastActiveView", "automations");
 });
 
 /* calendarBtn?.addEventListener("click", () => {
   /* document.documentElement.classList.add("calendarView");
   document.documentElement.classList.remove("dashboardActive");
   document.documentElement.classList.remove("isSettingsView");
+  document.documentElement.classList.remove("automationsActive");
 
   localStorage.setItem("lastActiveView", "calendar");
   alert("Calendar view coming soon!");
@@ -3032,6 +3057,7 @@ settingsBtn?.addEventListener("click", () => {
   document.documentElement.classList.add("isSettingsView");
   document.documentElement.classList.remove("dashboardActive");
   document.documentElement.classList.remove("calendarView");
+  document.documentElement.classList.remove("automationsActive");
 
   localStorage.setItem("lastActiveView", "settings");
 
@@ -3203,72 +3229,6 @@ themeBtn?.addEventListener("click", () => {
     themeBtn.innerHTML = `<img src="/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
   } else {
     themeBtn.innerHTML = `<img src="/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
-  }
-});
-
-agentBtn?.addEventListener("click", () => {
-  if (aiOptionsDiv) aiOptionsDiv.classList.toggle("show");
-});
-
-prioritySuggestionsOpt?.addEventListener("click", () => {
-  const isaiView = document.documentElement.classList.toggle("aiView");
-
-  if (isaiView) {
-    const aiName = document.querySelector(".aiName");
-
-    let aiPrioritySuggestionBtn = document.querySelector(
-      ".aiPrioritySuggestionBtn",
-    );
-    if (!aiPrioritySuggestionBtn) {
-      aiPrioritySuggestionBtn = document.createElement("button");
-      aiPrioritySuggestionBtn.className = "aiPrioritySuggestionBtn";
-      aiPrioritySuggestionBtn.textContent = "Get Priority Suggestions";
-    }
-
-    let aiPrioritySuggestions = document.querySelector(
-      ".aiPrioritySuggestions",
-    );
-    if (!aiPrioritySuggestions) {
-      aiPrioritySuggestions = document.createElement("div");
-      aiPrioritySuggestions.className = "aiPrioritySuggestions";
-    }
-
-    if (aiDiv) aiDiv.classList.add("show");
-
-    aiPrioritySuggestionBtn.addEventListener("click", async () => {
-      aiPrioritySuggestions.textContent = "Thinking...";
-
-      const data = await getSuggestedPriorities();
-      if (data.error) {
-        aiPrioritySuggestions.textContent =
-          "ai is busy right now. Try again in a moment.";
-        return;
-      } else {
-        console.log(data.priorities);
-      }
-
-      const result = data;
-
-      aiPrioritySuggestions.innerHTML = "";
-      result.priorities.forEach((item: { title: string; reason: string }, index: number) => {
-        const entry = document.createElement("div");
-        entry.className = "aiResultEntry";
-        entry.innerHTML = `<strong>${index + 1}. ${item.title}</strong><p>${item.reason}</p>`;
-        console.log(result);
-        aiPrioritySuggestions.appendChild(entry);
-      });
-    });
-
-    aiDiv?.append(aiPrioritySuggestionBtn, aiPrioritySuggestions);
-    document.body.appendChild(aiDiv);
-    showOverlay();
-    document
-      .querySelectorAll("body > :not(.aiDiv):not(.overlay)")
-      .forEach((el) => ((el as HTMLElement).inert = true));
-  } else {
-    hideOverlay();
-    document.querySelector(".aiDiv")?.remove();
-    document.querySelectorAll("body >  *").forEach((el) => ((el as HTMLElement).inert = false));
   }
 });
 
@@ -3486,20 +3446,81 @@ function checkTaskDue(listTask: HTMLElement, taskText: string, task: Task) {
   }
 }
 
-/* function toggleAI() {
-  const isChecked = aiToggle?.checked;
-  localStorage.setItem("aiEnabled", String(isChecked));
+async function toggleAI() {
+  const isChecked = aiToggle?.checked ?? false;
+  await saveSettings("aiEnabled", isChecked);
   if (agentBtn) agentBtn.style.display = isChecked ? "flex" : "none";
+  if (apiKeyInput) apiKeyInput.disabled = !isChecked;
 }
 
-function loadAIState() {
-  const aiEnabled = localStorage.getItem("aiEnabled") === "true";
+async function loadAIState() {
+  const aiEnabled = await getSettings("aiEnabled", false);
+  const savedApiKey = await getSettings<string | null>("apiKey", null);
   if (aiToggle) aiToggle.checked = aiEnabled;
   if (agentBtn) agentBtn.style.display = aiEnabled ? "flex" : "none";
+  if (apiKeyInput) {
+    apiKeyInput.disabled = !aiEnabled;
+    apiKeyInput.value = savedApiKey ?? "";
+  }
 }
 
 aiToggle?.addEventListener("change", toggleAI);
-loadAIState(); */
+loadAIState();
+
+apiKeyInput?.addEventListener("input", async () => {
+  const apiKey = apiKeyInput.value.trim();
+  await saveSettings("apiKey", apiKey);
+});
+
+agentBtn?.addEventListener("click", () => {
+  if (agentDiv) agentDiv.classList.toggle("show");
+  if (overlay) overlay.style.display = agentDiv?.classList.contains("show") ? "block" : "none";
+  document.querySelectorAll("body > *").forEach((el) => {
+    if (el !== overlay && el !== agentDiv) (el as HTMLElement).inert = agentDiv?.classList.contains("show");
+  });
+});
+
+closeAgentBtn?.addEventListener("click", () => {
+  if (agentDiv) agentDiv.classList.remove("show");
+  if (overlay) overlay.style.display = "none";
+  document.querySelectorAll("body > *").forEach((el) => ((el as HTMLElement).inert = false));
+});
+
+agentInstructionsInput?.addEventListener("input", () => {
+  agentInstructionsInput.placeholder = "Enter instructions for the agent...";
+});
+
+runAgentBtn?.addEventListener("click", async () => {
+  const instructions = agentInstructionsInput?.value.trim();
+  if (!instructions) return;
+
+  const btn = document.querySelector(".runAgentBtn") as HTMLButtonElement;
+  const btnText = document.querySelector(".runAgentBtnText") as HTMLSpanElement;
+  const btnSpinner = document.querySelector(".runAgentSpinner") as HTMLDivElement;
+
+  btn.disabled = true;
+  if (btnText) btnText.textContent = "Running...";
+  if (btnSpinner) btnSpinner.style.display = "inline-block";
+
+  try {
+    await runPlannerAgent(instructions);
+    agentInstructionsInput.value = "";
+  } catch (error) {
+    console.error("Error running planner agent:", error);
+
+    if (agentInstructionsInput) {
+      agentInstructionsInput.value = "";
+      agentInstructionsInput.placeholder =
+        error instanceof Error
+          ? error.message
+          : "The planner agent failed to run.";
+    }
+  } finally {
+    btn.disabled = false;
+    if (btnText) btnText.textContent = "Run Agent";
+    if (btnSpinner) btnSpinner.style.display = "none";
+  }
+});
 
 function getTimeAgo(timestamp: number) {
   const now = Date.now();
@@ -3972,30 +3993,105 @@ function getTasksAsData() {
   }));
 }
 
-async function getSuggestedPriorities() {
-  const payload = getTasksAsData();
+type AgentAction =
+  | {
+      action: "createTask";
+      task: Partial<Task>;
+    }
+  | {
+      action: "updateTask";
+      taskId: string;
+      changes: Partial<Task>;
+    }
+  | {
+      action: "scheduleTask";
+      taskId: string;
+      dueDate: string | null;
+      dueTime: string | null;
+    }
+  | {
+      action: "deleteTask";
+      taskId: string;
+    };
 
-  const res = await fetch("http://127.0.0.1:5000/api/ai/priorities", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tasks: payload }),
-  });
+function executeAgentAction(action: AgentAction) {
+  switch (action.action) {
+    case "createTask":
+      createTask(action.task);
+      break;
 
-  if (!res.ok) {
-    throw new Error(`Server error: ${res.status}`);
+    case "updateTask": {
+      const task = tasks.find((t) => String(t.id) === String(action.taskId));
+      if (!task) return;
+      console.log("Applying update:", action.changes);
+      Object.assign(task, action.changes);
+      saveTasks();
+      renderTasks(currentTaskSort);
+      renderCalendarEvents();
+      refreshTaskDropdown();
+      updateTasksDoneCount();
+      break;
+    }
+
+    case "scheduleTask": {
+      const task = tasks.find((t) => String(t.id) === String(action.taskId));
+      if (!task) return;
+      task.dueDate = action.dueDate;
+      task.dueTime = action.dueTime;
+      saveTasks();
+      renderTasks(currentTaskSort);
+      renderCalendarEvents();
+      refreshTaskDropdown();
+      break;
+    }
+
+    case "deleteTask": {
+      const taskIndex = tasks.findIndex((t) => String(t.id) === String(action.taskId));
+      if (taskIndex === -1) return;
+      tasks.splice(taskIndex, 1);
+      saveTasks();
+      renderTasks(currentTaskSort);
+      renderCalendarEvents();
+      refreshTaskDropdown();
+      updateTasksDoneCount();
+      updateTasksOverdueCount();
+      updateTasksDueTodayCount();
+      updateBlockedTasksCount();
+      showNoTasksYet();
+      break;
+    }
   }
-  return await res.json();
 }
 
-async function generateSchedule(tasks: Task[]) {
-  const res = await fetch("http://127.0.0.1:5000/api/ai/schedule", {
+async function runPlannerAgent(instructions: string) {
+  const apiKey = await getSettings<string | null>("apiKey", null);
+  if (!apiKey) {
+    console.error("API key is not set. Please set your API key in the settings.");
+    agentInstructionsInput.placeholder = "Please set your API key in the settings.";
+    return;
+  }
+  const response = await fetch("http://127.0.0.1:8000/plan", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
+      instruction: instructions,
       tasks,
-      start_time: "07:00",
-      end_time: "20:00",
+      apiKey,
+      currentDate: new Date().toISOString(),
     }),
   });
-  return await res.json();
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.detail || "Failed to run planner agent");
+  }
+
+  const data = await response.json();
+  console.log("Planner Agent input:", {
+    instructions,
+    tasks,
+  });
+  console.log("Planner Agent response:", data);
+  for (const action of data.plan) executeAgentAction(action);
 }
