@@ -12,6 +12,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def read_root():
+    return {"message": "Dewen API Engine is running"}
+
 @app.get("/health")
 def healthCheck():
     return {"status": "healthy"}
