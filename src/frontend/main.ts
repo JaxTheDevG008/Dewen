@@ -2337,6 +2337,11 @@ const colorPresets = [
 
 const bgThemes = [
   {
+    name: "default",
+    light: "linear-gradient(65deg, white, #fafafa)",
+    dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, #7c7c7c, black 100%)",
+  },
+  {
     name: "red",
     light: "linear-gradient(65deg, maroon, #f8dce5)",
     dark: "linear-gradient(65deg, rgb(18, 18, 18) 25%, rgb(62, 0, 0), black 100%)",
@@ -3396,7 +3401,7 @@ themeBtn?.addEventListener("click", () => {
   document.documentElement.dataset.mode = newMode;
   localStorage.setItem("mode", newMode);
 
-  const savedBgTheme = localStorage.getItem("customBgTheme");
+  const savedBgTheme = localStorage.getItem("customBgTheme") || "default";
   if (savedBgTheme) applyBgTheme(savedBgTheme);
 
   const savedAccentTheme = localStorage.getItem("customAccentTheme");
@@ -3418,7 +3423,7 @@ window.addEventListener("load", () => {
   }
 });
 
-const savedBgTheme = localStorage.getItem("customBgTheme");
+const savedBgTheme = localStorage.getItem("customBgTheme") || "default";
 if (savedBgTheme) applyBgTheme(savedBgTheme);
 
 if (noTasksYetAlert && noNotesYetAlert) {
@@ -3671,6 +3676,7 @@ closeAgentBtn?.addEventListener("click", () => {
   document
     .querySelectorAll("body > *")
     .forEach((el) => ((el as HTMLElement).inert = false));
+  agentInstructionsInput.value = "";
 });
 
 agentInstructionsInput?.addEventListener("input", () => {
