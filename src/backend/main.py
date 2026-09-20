@@ -60,4 +60,4 @@ def createPrioritize(data: dict):
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error))
 
-    return {"prioritize": result}
+    return {"priorities": result}
