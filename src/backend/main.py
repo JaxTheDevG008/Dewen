@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from agentCode.planner import plan
 from agentCode.researcher import research
+from agentCode.prioritizer import prioritize
 
 app = FastAPI()
 
@@ -47,3 +48,16 @@ def createResearch(data: dict):
         raise HTTPException(status_code=400, detail=str(error))
 
     return {"research": result}
+
+@app.post("/prioritize")
+def createPrioritize(data: dict):
+    instruction = data.get("instruction", "")
+    tasks = data.get("tasks", [])
+    apiKey = data.get("apiKey", "")
+
+    try:
+        result = prioritize(instruction, tasks, apiKey)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error))
+
+    return {"prioritize": result}

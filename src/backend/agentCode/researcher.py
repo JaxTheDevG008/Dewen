@@ -18,7 +18,7 @@ def research(instruction, apiKey, tavilyApiKey):
     client = OpenAI(api_key=apiKey)
 
     try:
-            response = client.responses.create(
+        response = client.responses.create(
         model="gpt-5-mini",
         instructions="""
 You are the Dewen Researcher Agent.
@@ -27,11 +27,27 @@ You are an action-based research agent. Your job is to research the user's topic
 
 Do not invent information that is not supported by the search results.
 
-Create exactly one note containing:
+Create exactly one note.
 
-- A concise summary
-- The key findings
-- The source titles and URLs
+The note text MUST follow this exact structure:
+
+Summary:
+[2–4 sentence summary]
+
+Key Findings:
+- [finding]
+- [finding]
+- [finding]
+- [finding]
+
+Sources:
+- [source title]
+- [source title]
+- [source title]
+
+Do NOT include URLs anywhere in the note text.
+Do NOT include citations or URLs after individual findings.
+Keep the note concise and readable.
 
 Return only valid JSON with this structure:
 [
