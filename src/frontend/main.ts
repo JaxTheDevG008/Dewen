@@ -75,6 +75,8 @@ const customizeBgOptions = getAllElements<HTMLButtonElement>(
 const customizeAccentOptions = getAllElements<HTMLButtonElement>(
   ".customizeAccentOptions button",
 );
+const customBgColorInput = getElement<HTMLInputElement>(".customBgColorInput");
+const customAccentColorInput = getElement<HTMLInputElement>(".customAccentColorInput");
 const currentDate = getElement<HTMLDivElement>(".currentDate");
 const avatarIcon = getElement<HTMLImageElement>(".avatarIcon");
 const dynamicGreeting = getElement<HTMLHeadingElement>(".greeting");
@@ -2551,6 +2553,9 @@ customizePresetsOptions.forEach((button) => {
     applyColorPreset(preset);
     customizePresetsOptions.forEach((b) => b.classList.remove("active"));
     button.classList.add("active");
+    resetCustomTextColors();
+    if (customBgColorInput) customBgColorInput.value = "";
+    if (customAccentColorInput) customAccentColorInput.value = "";
   });
 });
 
@@ -2561,6 +2566,9 @@ customizeBgOptions.forEach((button) => {
     applyBgTheme(String(preset));
     customizeBgOptions.forEach((b) => b.classList.remove("active"));
     button.classList.add("active");
+    resetCustomTextColors();
+    if (customBgColorInput) customBgColorInput.value = "";
+    if (customAccentColorInput) customAccentColorInput.value = "";
   });
 });
 
@@ -2570,8 +2578,17 @@ customizeAccentOptions.forEach((button) => {
     applyAccentTheme(String(accentThemeName));
     customizeAccentOptions.forEach((b) => b.classList.remove("active"));
     button.classList.add("active");
+    resetCustomTextColors();
+    if (customBgColorInput) customBgColorInput.value = "";
+    if (customAccentColorInput) customAccentColorInput.value = "";
   });
 });
+
+function resetCustomTextColors() {
+  const textColor = isDark() ? "white" : "black";
+  document.documentElement.style.setProperty("--bg-text-color", textColor);
+  document.documentElement.style.setProperty("--accent-text-color", textColor);
+}
 
 function applyColorPreset(presetName: string) {
   const preset = colorPresetsMap[presetName];
@@ -2588,16 +2605,21 @@ function applyColorPreset(presetName: string) {
         : "Dark Mode Icon";
     }
   }
+
   applyBgTheme(preset.bg);
   applyAccentTheme(preset.accent);
+
   customizeBgOptions.forEach((b) => b.classList.remove("active"));
   customizeAccentOptions.forEach((b) => b.classList.remove("active"));
+
   const bgButton = Array.from(customizeBgOptions).find(
     (b) => b.dataset.theme === preset.bg,
   );
+
   const accentButton = Array.from(customizeAccentOptions).find(
     (b) => b.dataset.theme === preset.accent,
   );
+
   if (bgButton) bgButton.classList.add("active");
   if (accentButton) accentButton.classList.add("active");
   localStorage.setItem("customColorPreset", presetName);
@@ -2610,6 +2632,7 @@ function applyBgTheme(themeName: string) {
   const bg = darkMode ? theme.dark : theme.light;
   document.body.style.background = bg;
   localStorage.removeItem("customColorPreset");
+  localStorage.removeItem("customBgColor");
   localStorage.setItem("customBgTheme", themeName);
 }
 
@@ -2627,8 +2650,75 @@ function applyAccentTheme(themeName: string) {
     timerProgressRing.style.stroke = "rgb(151, 151, 151)";
   updateAvatarAccentFilter(String(themeName));
   localStorage.removeItem("customColorPreset");
+  localStorage.removeItem("customAccentColor");
   localStorage.setItem("customAccentTheme", themeName);
 }
+
+function getTextForCustomBgAndAccentColors(color: string): string {
+  const hex = color.replace("#", "");
+  const r = parseInt(hex.substring(0, 2), 16) / 255;
+  const g = parseInt(hex.substring(2, 4), 16) / 255;
+  const b = parseInt(hex.substring(4, 6), 16) / 255;
+
+  const toLinear = (value: number) => 
+    value <= 0.03928
+      ? value / 12.92
+      : Math.pow((value + 0.055) / 1.055, 2.4);
+
+  const red = toLinear(r);
+  const green = toLinear(g);
+  const blue = toLinear(b);
+
+  const luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+
+  return luminance < 0.5 ? "white" : "black";
+}
+
+
+function applyCustomBgColor(color: string) {
+  document.body.style.background = color;
+  document.documentElement.style.setProperty("--bg-text-color", getTextForCustomBgAndAccentColors(color));
+  localStorage.removeItem("customColorPreset");
+  localStorage.setItem("customBgColor", color);
+  localStorage.removeItem("customBgTheme");
+  customizeBgOptions.forEach((b) => b.classList.remove("active"));
+  customBgColorInput.style.background = color;
+  customBgColorInput.value = color;
+}
+
+function applyCustomAccentColor(color: string) {
+  document.documentElement.style.setProperty("--accent-color", color);
+  document.documentElement.style.setProperty(
+    "--accent-text-color",
+    getTextForCustomBgAndAccentColors(color)
+  );
+  // add a check with the getTextForCustomBgAndAccentColors function to change the color of the expandMiniAnalyticsBtn icon based on the luminance of the custom accent color
+  if (expandMiniAnalyticsBtn) {
+    const textColor = getTextForCustomBgAndAccentColors(color);
+    const icon = expandMiniAnalyticsBtn.querySelector("img");
+    if (icon) {
+      icon.style.filter =
+      textColor === "white"
+        ? "invert(1) sepia(0) saturate(0) hue-rotate(0deg) brightness(1)"
+        : "invert(0) sepia(0) saturate(0) hue-rotate(0deg) brightness(1)";
+    }
+  }
+  updateAvatarAccentFilter();
+  localStorage.removeItem("customColorPreset");
+  localStorage.setItem("customAccentColor", color);
+  localStorage.removeItem("customAccentTheme");
+  customizeAccentOptions.forEach((b) => b.classList.remove("active"));
+  customAccentColorInput.style.background = color;
+  customAccentColorInput.value = color;
+}
+
+customBgColorInput?.addEventListener("input", () => {
+  applyCustomBgColor(customBgColorInput.value);
+});
+
+customAccentColorInput?.addEventListener("input", () => {
+  applyCustomAccentColor(customAccentColorInput.value);
+});
 
 function updateAvatarAccentFilter(
   themeName: string = localStorage.getItem("customAccentTheme") || "",
@@ -2771,9 +2861,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const savedColorPreset = localStorage.getItem("customColorPreset");
   const savedBgTheme = localStorage.getItem("customBgTheme");
   const savedAccentTheme = localStorage.getItem("customAccentTheme");
-
-  if (savedAccentTheme) applyAccentTheme(savedAccentTheme);
-  else updateAvatarAccentFilter();
+  const savedCustomBgColor = localStorage.getItem("customBgColor");
+  const savedCustomAccentColor = localStorage.getItem("customAccentColor");
 
   if (savedColorPreset) {
     applyColorPreset(savedColorPreset);
@@ -2781,6 +2870,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       (b) => b.dataset.preset === savedColorPreset,
     );
     if (presetButton) presetButton.classList.add("active");
+  } else {
+    if (savedBgTheme) applyBgTheme(savedBgTheme);
+    if (savedAccentTheme) applyAccentTheme(savedAccentTheme);
+    else updateAvatarAccentFilter();
   }
 
   if (savedBgTheme) {
@@ -2795,6 +2888,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       (b) => b.dataset.theme === savedAccentTheme,
     );
     if (accentButton) accentButton.classList.add("active");
+  }
+
+  if (savedCustomBgColor) {
+    applyCustomBgColor(savedCustomBgColor);
+  }
+  if (savedCustomAccentColor) {
+    applyCustomAccentColor(savedCustomAccentColor);
   }
 
   const lastActiveView = localStorage.getItem("lastActiveView");
@@ -3417,6 +3517,7 @@ themeBtn?.addEventListener("click", () => {
   } else {
     themeBtn.innerHTML = `<img src="/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
   }
+  resetCustomTextColors();
 });
 
 window.addEventListener("load", () => {
@@ -3427,9 +3528,6 @@ window.addEventListener("load", () => {
       themeBtn.innerHTML = `<img src="/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
   }
 });
-
-const savedBgTheme = localStorage.getItem("customBgTheme") || "default";
-if (savedBgTheme) applyBgTheme(savedBgTheme);
 
 if (noTasksYetAlert && noNotesYetAlert) {
   noTasksYetAlert.style.display = "inline";
@@ -3710,6 +3808,14 @@ const agentConfig = {
     name: "Researcher Agent",
     placeholder: "Tell Dewen what you want to research...",
   },
+  prioritizerAgent: {
+    name: "Prioritizer Agent",
+    placeholder: "Tell Dewen what you want to prioritize...",
+  },
+  organizerAgent: {
+    name: "Organizer Agent",
+    placeholder: "Tell Dewen what you want to organize...",
+  },
 };
 
 agentItems?.forEach((item) => {
@@ -3748,6 +3854,9 @@ runAgentBtn?.addEventListener("click", async () => {
         break;
       case "researcherAgent":
         await runResearcherAgent(instructions);
+        break;
+      case "prioritizerAgent":
+        await runPrioritizerAgent(instructions);
         break;
       default:
         throw new Error("Unknown agent selected.");
@@ -4289,6 +4398,11 @@ type AgentAction =
       action: "createNote";
       note: Partial<Note>;
     }
+  | {
+    action: "prioritizeTask";
+    taskId: string;
+    priority: Priority;
+  }
 
 function executeAgentAction(action: AgentAction) {
   switch (action.action) {
@@ -4346,6 +4460,20 @@ function executeAgentAction(action: AgentAction) {
       addActivity("Added a note", "note");
       break;
     }
+
+    case "prioritizeTask": {
+      const task = tasks.find((t) => String(t.id) === String(action.taskId));
+      if (!task) return;
+      task.priority = action.priority;
+      saveTasks();
+      renderTasks(currentTaskSort);
+      refreshTaskDropdown();
+      break;
+    }
+
+    default:
+      console.error("Unknown agent action:", action);
+      break;
   }
 }
 
@@ -4431,4 +4559,40 @@ async function runResearcherAgent(instructions: string) {
   });
   console.log("Researcher Agent response:", data);
   for (const action of data.research) executeAgentAction(action);
+}
+
+async function runPrioritizerAgent(instructions: string) {
+  const apiKey = await getSettings<string | null>("apiKey", null);
+  if (!apiKey) {
+    console.error(
+      "API key is not set. Please set your API key in the settings.",
+    );
+    agentInstructionsInput.placeholder =
+      "Please set your API key in the settings.";
+    return;
+  }
+
+  const response = await fetch("https://dewen-backend.onrender.com/prioritize", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      instruction: instructions,
+      tasks,
+      apiKey,
+    }),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.detail || "Failed to run prioritizer agent");
+  }
+
+  const data = await response.json();
+  console.log("Prioritizer Agent input:", {
+    instructions,
+    tasks,
+  });
+  console.log("Prioritizer Agent response:", data);
+  for (const action of data.priorities) executeAgentAction(action);
 }

@@ -5,6 +5,8 @@ allowedActions = [
     "deleteTask",
     "createNote",
     "prioritizeTask",
+    "organizeTask",
+    "organizeNote",
 ]
 
 
@@ -31,6 +33,10 @@ def validateAction(action):
         required = ["note"]
     if actionType == "prioritizeTask":
         required = ["taskId", "priority"]
+    if actionType == "organizeTask":
+        required = ["taskId", "newParentId"]
+    if actionType == "organizeNote":
+        required = ["noteId", "newParentId"]
 
     for field in required:
         if field not in action:

@@ -475,6 +475,7 @@ button:hover {
 .accentItem {
   background-color: var(--accent-color) !important;
   color: var(--accent-text-color) !important;
+  transition: none;
 }
 
 .accentItem:hover {
@@ -768,7 +769,7 @@ button:hover {
   position: relative;
   width: 300px;
   font-weight: bold;
-  color: var(--text-color);
+  color: var(--bg-text-color);
 }
 
 .greetingDiv {
@@ -805,7 +806,7 @@ button:hover {
   font-size: 1.8rem;
   position: relative;
   width: 100%;
-  color: var(--text-color);
+  color: var(--bg-text-color);
   margin: 0px;
 }
 
@@ -1385,6 +1386,51 @@ button:hover {
 .blackBgBtn,
 .blackAccentBtn {
   background-color: black;
+}
+
+.customBgColorDiv,
+.customAccentColorDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1em;
+  border: none;
+}
+
+.customBgColorInput,
+.customAccentColorInput {
+  width: 100%;
+  height: 35px;
+  color: var(--text-color);
+  border-radius: 20px;
+  font-size: 13px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0px;
+  border: none;
+  cursor: pointer;
+}
+
+.customBgColorInput::-webkit-color-swatch-wrapper,
+.customAccentColorInput::-webkit-color-swatch-wrapper {
+  padding: 0px;
+  border: none;
+}
+
+.customBgColorInput::-webkit-color-swatch,
+.customAccentColorInput::-webkit-color-swatch {
+  border: none;
+  border-radius: 20px; 
+}
+
+.customBgColorInput::-moz-color-swatch,
+.customAccentColorInput::-moz-color-swatch {
+  border: none;
+  border-radius: 20px;
 }
 
 .customizePresetsOptions button {
@@ -3568,6 +3614,8 @@ input:focus {
   padding: 5px 10px;
   color: var(--text-color);
   text-overflow: ellipsis;
+  overflow-wrap: anywhere;
+  min-width: 0px;
 }
 
 .noteOptionsDiv {

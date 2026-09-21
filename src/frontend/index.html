@@ -146,6 +146,16 @@
           <button class="whiteBgBtn" data-theme="white"></button>
           <button class="blackBgBtn" data-theme="black"></button>
         </div>
+        <div class="customBgColorDiv">
+          <label for="customBgColorInput" class="customBgColorLabel">
+            Custom Background Color:
+          </label>
+          <input
+            type="color"
+            id="customBgColorInput"
+            class="customBgColorInput"
+          />
+        </div>
       </div>
 
       <div class="customizeAccent">
@@ -165,6 +175,16 @@
           <button class="pinkAccentBtn" data-theme="pink"></button>
           <button class="whiteAccentBtn" data-theme="white"></button>
           <button class="blackAccentBtn" data-theme="black"></button>
+        </div>
+        <div class="customAccentColorDiv">
+          <label for="customAccentColorInput" class="customAccentColorLabel">
+            Custom Accent Color:
+          </label>
+          <input
+            type="color"
+            id="customAccentColorInput"
+            class="customAccentColorInput"
+          />
         </div>
       </div>
     </div>
@@ -195,7 +215,7 @@
             <div class="expandMiniAnalytics">
               <button class="expandMiniAnalyticsBtn accentItem">
                 <img
-                  src="/images/CollapseExpand Icon.png"
+                  src="/images/Collapse-Expand-Icon.png"
                   class="expandMiniAnalyticsIcon"
                 />
               </button>
@@ -424,22 +444,22 @@
               <div class="timerButtons">
                 <div class="timerLengthOptions flex gap-2">
                   <button
-                    class="px-4 py-2 rounded-full bg-blue-500 font-semibold accentItem"
+                    class="px-4 py-2 rounded-full font-semibold accentItem"
                   >
                     15m
                   </button>
                   <button
-                    class="px-4 py-2 rounded-full bg-blue-500 font-semibold accentItem"
+                    class="px-4 py-2 rounded-full font-semibold accentItem"
                   >
                     25m
                   </button>
                   <button
-                    class="px-4 py-2 rounded-full bg-blue-500 font-semibold accentItem"
+                    class="px-4 py-2 rounded-full font-semibold accentItem"
                   >
                     45m
                   </button>
                   <button
-                    class="px-4 py-2 rounded-full bg-blue-500 font-semibold accentItem"
+                    class="px-4 py-2 rounded-full font-semibold accentItem"
                   >
                     60m
                   </button>
@@ -676,7 +696,7 @@
           </div>
 
           <div class="apiKeyDiv">
-            <label for="apiKeyInput" class="apiKeyLabel">API Key:</label>
+            <label for="apiKeyInput" class="apiKeyLabel">AI API Key:</label>
 
             <input
               type="text"
@@ -855,6 +875,36 @@
             <div class="agentItemRow2">
               <span class="agentTagline"
                 >Assists with research and information gathering</span
+              >
+            </div>
+          </li>
+
+          <li class="agentItem" data-agent="prioritizerAgent">
+            <div class="agentItemRow1">
+              <img
+                src="/images/agentIcons/Prioritizer-Agent-Icon.png"
+                class="agentIcon"
+              />
+              <span class="agentName">Prioritizer Agent</span>
+            </div>
+            <div class="agentItemRow2">
+              <span class="agentTagline"
+                >Determines what needs the most attention</span
+              >
+            </div>
+          </li>
+
+          <li class="agentItem" data-agent="organizerAgent">
+            <div class="agentItemRow1">
+              <img
+                src="/images/agentIcons/Organizer-Agent-Icon.png"
+                class="agentIcon"
+              />
+              <span class="agentName">Organizer Agent</span>
+            </div>
+            <div class="agentItemRow2">
+              <span class="agentTagline"
+                >Helps you organize tasks and notes effectively</span
               >
             </div>
           </li>
