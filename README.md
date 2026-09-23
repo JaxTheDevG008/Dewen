@@ -66,14 +66,17 @@ I used AI as a collaborative learning partner to help me with features, layout, 
 
 Get the native desktop experience for **Dewen** with offline-capable support and a dedicated interface window.
 
+## Download Desktop App
+
+Get the native desktop experience for **Dewen** with offline-capable support and a dedicated interface window.
+
 | Platform | Download |
 | :--- | :--- |
-| **macOS** (`.dmg`) | [📥 Download for Mac](https://github.com) |
+| **macOS** (`.dmg`) | [📥 Download for Mac](https://github.com/JaxTheDevG008/Dewen/releases/download/v1.0.0/Dewen_0.1.0_aarch64.dmg) |
 | **Windows** (`.exe`) | _Coming Soon_ |
 | **Linux** (`.deb`) | _Coming Soon_ |
 
 > 💡 **Tip:** After downloading the `.dmg` file on macOS, open it and drag the **Dewen** icon into your **Applications** folder. If your Mac blocks the installation, go to *System Settings > Privacy & Security* and click *Open Anyway*.
-
 
 ---
 ## License
