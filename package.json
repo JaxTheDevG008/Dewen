@@ -1,17 +1,29 @@
 {
+  "name": "dewen",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "desktop:dev": "tauri dev",
+    "desktop:build": "tauri build"
+  },
   "dependencies": {
     "@fullcalendar/core": "^6.1.21",
     "@fullcalendar/daygrid": "^6.1.21",
     "@fullcalendar/interaction": "^6.1.21",
-    "chrono-node": "^2.9.1",
-    "dexie": "^4.4.4",
-    "i18next": "^26.3.4",
+    "chrono-node": "^2.31.2",
+    "dexie": "^4.0.4",
+    "i18next": "^24.3.4",
     "i18next-browser-languagedetector": "^8.2.1",
-    "openai": "^7.17.0",
+    "openai": "^4.17.0",
     "tldraw": "^4.5.7"
   },
   "devDependencies": {
-    "typescript": "^6.0.3"
-  },
-  "type": "module"
+    "@tauri-apps/cli": "^2.11.5",
+    "typescript": "^5.0.3"
+  }
 }
