@@ -72,7 +72,15 @@ Get the native desktop experience for **Dewen** with offline-capable support and
 | **Windows** (`.exe`) | _Coming Soon_ |
 | **Linux** (`.deb`) | _Coming Soon_ |
 
-> 💡 **Tip:** After downloading the `.dmg` file on macOS, open it and drag the **Dewen** icon into your **Applications** folder. If your Mac blocks the installation, go to *System Settings > Privacy & Security* and click *Open Anyway*.
+### A Quick Heads Up on macOS Installation
+Because this is an independent, open-source application bundle, macOS may display a warning stating the app is "damaged" on your first launch. This is standard browser quarantine behavior. To bypass this restriction instantly in one step:
+
+1. Drag **Dewen** into your `/Applications` folder.
+2. Open your Terminal and run this single command:
+   ```bash
+   sudo xattr -cr /Applications/Dewen.app
+   ```
+3. Type your Mac screen-lock password when prompted, press **Enter**, and launch the app!
 
 ---
 ## License
