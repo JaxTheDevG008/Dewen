@@ -2219,6 +2219,36 @@ function debounce(func: (...args: any[]) => void, delay: number) {
   };
 }
 
+function updateFavicon() {
+  const favicon = document.querySelector<HTMLLinkElement>(
+    'link[rel="icon"]',
+  ) as HTMLLinkElement | null;
+  if (!favicon) return;
+
+  const isDarkMode = isDark();
+  const newFaviconUrl = isDarkMode
+    ? "/images/Dewen-Dark-Favicon.ico"
+    : "/images/Dewen-Favicon.ico";
+
+  if (favicon.href !== newFaviconUrl) favicon.href = newFaviconUrl;
+}
+
+updateFavicon();
+
+function updateAppLogo() {
+  const div = document.querySelector<HTMLDivElement>(".appLogo") as HTMLDivElement | null;
+  const img = div?.querySelector<HTMLImageElement>(".appLogoIcon") as HTMLImageElement | null;
+  if (!div || !img) return;
+  const isDarkMode = isDark();
+  const newLogoUrl = isDarkMode
+    ? "/images/Dewen-Logo-Dark.png"
+    : "/images/Dewen-Logo.png";
+
+  if (img.src !== newLogoUrl) img.src = newLogoUrl;
+}
+
+updateAppLogo();
+
 searchBar?.addEventListener("input", debounce(searchBarMagic, 150));
 
 searchBar?.addEventListener("focus", () => {
@@ -2897,6 +2927,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     applyCustomAccentColor(savedCustomAccentColor);
   }
 
+  const savedMode = localStorage.getItem("mode");
+  if (savedMode) {
+    document.documentElement.dataset.mode = savedMode;
+    updateFavicon();
+    updateAppLogo();
+  }
+
   const lastActiveView = localStorage.getItem("lastActiveView");
   if (lastActiveView) {
     if (lastActiveView === "calendar") {
@@ -3505,6 +3542,8 @@ themeBtn?.addEventListener("click", () => {
   const newMode = currentMode === "dark" ? "light" : "dark";
   document.documentElement.dataset.mode = newMode;
   localStorage.setItem("mode", newMode);
+  updateFavicon();
+  updateAppLogo();
 
   const savedBgTheme = localStorage.getItem("customBgTheme") || "default";
   if (savedBgTheme) applyBgTheme(savedBgTheme);

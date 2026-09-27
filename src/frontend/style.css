@@ -4366,11 +4366,23 @@ html:not([class*="settingsView"]) .personalSection {
   width: 100%;
 }
 
-.appName {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--text-color);
+.appLogo {
+  width: 11em;         
+  height: 11em;        
+  overflow: hidden;
+  display: inline-flex;  
+  align-items: center;
+  justify-content: center;
 }
+
+.appLogoIcon {
+  width: 100%;           
+  height: 100%;
+  display: block;
+  object-fit: contain;   
+  transform: scale(1.1); 
+}
+
 
 .aboutSettingsBtns {
   display: flex;
