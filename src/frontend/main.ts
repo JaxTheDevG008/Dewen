@@ -298,7 +298,7 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
 
   const taskOptionsBtn = document.createElement("button");
   taskOptionsBtn.className = "taskOptionsBtn";
-  taskOptionsBtn.innerHTML = `<img class="taskOptionsBtnIcon" src="/images/Task-Options-Icon.png" alt="Task Options Icon">`;
+  taskOptionsBtn.innerHTML = `<img class="taskOptionsBtnIcon" src="public/images/Task-Options-Icon.png" alt="Task Options Icon">`;
 
   const taskOptions = document.createElement("div");
   taskOptions.className = "taskOptions";
@@ -386,7 +386,7 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
 
   const taskDateImg = document.createElement("img");
   taskDateImg.className = "taskDateImg";
-  taskDateImg.src = "/images/Date-Icon.png";
+  taskDateImg.src = "public/images/Date-Icon.png";
   taskDateImg.alt = "Date Icon";
 
   taskDateAndTimeSpan.textContent =
@@ -415,7 +415,7 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
   if (recurrenceText) {
     const recurrenceImg = document.createElement("img");
     recurrenceImg.className = "taskRecurrenceImg";
-    recurrenceImg.src = "/images/Restart-Timer-Icon.png";
+    recurrenceImg.src = "public/images/Restart-Timer-Icon.png";
     recurrenceImg.alt = "Recurrence Icon";
 
     taskRecurrenceSpan.appendChild(recurrenceImg);
@@ -1001,12 +1001,12 @@ function createNoteElement(note: Note) {
   const editNoteBtn = document.createElement("button");
   editNoteBtn.className = "editNoteBtn";
   editNoteBtn.style.display = "none";
-  editNoteBtn.innerHTML = `<img src="/images/Edit-Icon.png" class="editIcon" alt="Edit Icon">`;
+  editNoteBtn.innerHTML = `<img src="public/images/Edit-Icon.png" class="editIcon" alt="Edit Icon">`;
   editNoteBtn.style.backgroundColor = "transparent";
   const deleteNoteBtn = document.createElement("button");
   deleteNoteBtn.className = "deleteNoteBtn";
   deleteNoteBtn.style.display = "none";
-  deleteNoteBtn.innerHTML = `<img src="/images/Delete-Icon.png" class="deleteIcon" alt="Delete Icon">`;
+  deleteNoteBtn.innerHTML = `<img src="public/images/Delete-Icon.png" class="deleteIcon" alt="Delete Icon">`;
   deleteNoteBtn.style.backgroundColor = "transparent";
 
   noteOptionsDiv.append(editNoteBtn, deleteNoteBtn);
@@ -3552,19 +3552,19 @@ themeBtn?.addEventListener("click", () => {
   if (savedAccentTheme) applyAccentTheme(savedAccentTheme);
 
   if (newMode === "dark") {
-    themeBtn.innerHTML = `<img src="/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
+    themeBtn.innerHTML = `<img src="public/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
   } else {
-    themeBtn.innerHTML = `<img src="/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
+    themeBtn.innerHTML = `<img src="public/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
   }
   resetCustomTextColors();
 });
 
 window.addEventListener("load", () => {
   if (isDark() && themeBtn) {
-    themeBtn.innerHTML = `<img src="/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
+    themeBtn.innerHTML = `<img src="public/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
   } else {
     if (themeBtn)
-      themeBtn.innerHTML = `<img src="/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
+      themeBtn.innerHTML = `<img src="public/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
   }
 });
 

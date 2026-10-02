@@ -1662,7 +1662,7 @@ button:hover {
   }
 
   .miniAnalyticsDiv.expanded .miniAnalytics {
-    max-height: 60em;
+    max-height: 100em;
   }
 }
 
@@ -1673,7 +1673,7 @@ button:hover {
   border-radius: 20px;
   position: relative;
   width: 140px;
-  height: 122px;
+  height: 15em;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1684,7 +1684,7 @@ button:hover {
 @media (max-width: 1240px) {
   .miniAnalytic {
     width: 21em;
-    height: 122px;
+    height: 15em;
   }
 }
 

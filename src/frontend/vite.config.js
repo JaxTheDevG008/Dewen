@@ -1,10 +1,14 @@
 import { defineConfig } from "vite"
-import react from "@vitejs/plugin-react" 
 import { VitePWA } from "vite-plugin-pwa"
+import { fileURLToPath } from "url"
+import { dirname, resolve } from "path"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export default defineConfig({
+  root: resolve(__dirname, "../../"),
   plugins: [
-    react(),
     VitePWA({
       registerType: "autoUpdate",
       injectRegister: "inline",
@@ -15,7 +19,7 @@ export default defineConfig({
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,jpg,jpeg,svg,webp,gif,PNG,JPG,JPEG,SVG,webmanifest}"],
         maximumFileSizeToCacheInBytes: 3000000
-      },
+      }
     })
   ],
   server: {
@@ -23,8 +27,15 @@ export default defineConfig({
     port: 3000,
     open: true
   },
-  publicDir: "./public",
+  publicDir: "public",
   build: {
-    outDir: "./dist",
+    outDir: "dist",
+    emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, "../../index.html"),
+        app: resolve(__dirname, "../../src/frontend/app.html")
+      }
+    }
   }
 })
