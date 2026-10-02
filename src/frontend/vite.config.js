@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 export default defineConfig({
-  root: resolve(__dirname, "../../"),
+  root: __dirname,
   plugins: [
     VitePWA({
       registerType: "autoUpdate",
@@ -33,8 +33,7 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "../../index.html"),
-        app: resolve(__dirname, "../../src/frontend/app.html")
+        main: resolve(__dirname, "index.html")
       }
     }
   }
