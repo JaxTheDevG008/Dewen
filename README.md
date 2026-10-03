@@ -11,7 +11,7 @@ To learn frontend, backend, full-stack, APIs, and client-side database managemen
 ---
 ## Materials
 - Frontend: HTML, CSS, and TypeScript
-- Framework: None (React soon)
+- Framework: None
 - Backend: Python
 - Database: IndexedDB
 - Version Control: Git and GitHub
