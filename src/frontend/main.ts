@@ -3603,8 +3603,10 @@ themeBtn?.addEventListener("click", () => {
 
   if (newMode === "dark") {
     themeBtn.innerHTML = `<img src="public/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
+    console.log("theme icon updated to:", themeBtn.querySelector("img")!.src);
   } else {
     themeBtn.innerHTML = `<img src="public/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
+    console.log("theme icon updated to:", themeBtn.querySelector("img")!.src);
   }
   resetCustomTextColors();
 });

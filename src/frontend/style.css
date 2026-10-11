@@ -369,7 +369,6 @@ button:hover {
 }
 
 .dashboardIcon,
-.calendarIcon,
 .automationsIcon,
 .settingsIcon {
   width: 18px;
@@ -380,7 +379,6 @@ button:hover {
 }
 
 [data-mode="dark"] .dashboardIcon,
-[data-mode="dark"] .calendarIcon,
 [data-mode="dark"] .automationsIcon,
 [data-mode="dark"] .settingsIcon {
   filter: brightness(0) invert(1);
