@@ -630,7 +630,8 @@
         <h1 class="settingsHeader">Settings</h1>
         <ul class="settingsNavList">
           <li><a href="#personal" class="settingsNavItem">Personal</a></li>
-          <li><a href="#ai" class="settingsNavItem">AI</a></li>
+          <li><a href="#ai" class="settingsNavItem">Agents</a></li>
+          <li><a href="#security" class="settingsNavItem">Security</a></li>
           <li>
             <a href="#accessibility" class="settingsNavItem">Accessibility</a>
           </li>
@@ -700,7 +701,7 @@
             <label for="apiKeyInput" class="apiKeyLabel">AI API Key:</label>
 
             <input
-              type="text"
+              type="password"
               id="apiKeyInput"
               class="apiKeyInput accentItem"
               placeholder="Enter your AI API key"
@@ -713,10 +714,52 @@
             >
 
             <input
-              type="text"
+              type="password"
               id="tavilyApiKeyInput"
               class="tavilyApiKeyInput apiKeyInput accentItem"
               placeholder="Enter your Tavily API key"
+            />
+          </div>
+        </div>
+
+        <div class="securitySection">
+          <div class="securityToggleDiv">
+            <span class="securityToggleLabel">Enable Security</span>
+
+            <input type="checkbox" id="securityToggle" />
+
+            <label for="securityToggle" class="securityToggleBtn"></label>
+          </div>
+
+          <div class="masterPasswordInputDiv">
+            <label for="masterPasswordInput" class="passwordLabel">Master Password:</label>
+
+            <input
+              type="password"
+              id="masterPasswordInput"
+              class="masterPasswordInput accentItem"
+              placeholder="Enter your master password"
+            />
+
+            <label for ="confirmMasterPasswordInput" class="passwordLabel">Confirm Master Password:</label>
+            <input
+              type="password"
+              id="confirmMasterPasswordInput"
+              class="confirmMasterPasswordInput accentItem"
+              placeholder="Confirm your master password"
+            />
+          </div>
+
+          <div class="masterPasswordHintInputDiv">
+            <label for="masterPasswordHintInput" class="passwordHintLabel"
+              >Master Password Hint:</label
+            >
+
+            <input
+              type="text"
+              id="masterPasswordHintInput"
+              class="masterPasswordHintInput accentItem"
+              placeholder="Enter a hint for your master password"
             />
           </div>
         </div>

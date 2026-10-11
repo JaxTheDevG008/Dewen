@@ -1781,6 +1781,27 @@ async function handleSearchKeys(e: KeyboardEvent) {
       return;
     }
 
+    if (input && input.startsWith(":uc ")) {
+      console.log("uncomplete task triggered");
+      const text = input.slice(4).trim();
+      if (!text) return;
+      const matchingTask = tasks.find((task) => 
+        task.title.toLowerCase().includes(text.toLowerCase()),
+      );
+      if (matchingTask) {
+        matchingTask.completed = false;
+        matchingTask.completedAt = null;
+        saveTasks();
+        renderTasks(currentTaskSort);
+        renderCalendarEvents();
+        updateTasksDoneCount();
+        addActivity(`Uncompleted task: ${matchingTask.title}`, "task");
+      }
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
     if (input && input.startsWith(":dt ")) {
       console.log("delete task triggered");
       const text = input.slice(3).trim();
@@ -1845,6 +1866,35 @@ async function handleSearchKeys(e: KeyboardEvent) {
       if (searchBar) searchBar.value = "";
       return;
     }
+
+    if (input && input.startsWith(":dd ")) {
+      console.log("add due date to task or update due date triggered");
+      const match = input
+        .slice(4)
+        .trim()
+        .match(/^(.+?)(?:\s*,\s*(.+))?$/);
+      if (match) {
+        const taskTitle = match[1].trim();
+        const newDueDate = match[2] ? match[2].trim() : null;
+        const matchingTask = tasks.find((task) =>
+          task.title.toLowerCase().includes(taskTitle.toLowerCase()),
+        );
+        if (matchingTask && newDueDate) {
+          matchingTask.dueDate = newDueDate;
+          saveTasks();
+          renderTasks(currentTaskSort);
+          renderCalendarEvents();
+          addActivity(
+            `Updated due date of task: ${matchingTask.title} to ${matchingTask.dueDate}`,
+            "task",
+          );
+        }
+      }
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    };
+    
 
     if (input && input.startsWith(":rst")) {
       console.log("resume timer triggered");
@@ -3819,7 +3869,6 @@ agentBtn?.addEventListener("click", () => {
     overlay.style.display = agentDiv?.classList.contains("show")
       ? "block"
       : "none";
-    overlay.style.zIndex = "9999";
   document.querySelectorAll("body > *").forEach((el) => {
     if (el !== overlay && el !== agentDiv)
       (el as HTMLElement).inert = agentDiv?.classList.contains("show");
@@ -3831,7 +3880,6 @@ closeAgentBtn?.addEventListener("click", () => {
   if (agentDiv) agentDiv.classList.remove("show");
   if (!overlay) return;
   overlay.style.display = "none";
-  overlay.style.zIndex = "9997";
   document
     .querySelectorAll("body > *")
     .forEach((el) => ((el as HTMLElement).inert = false));
