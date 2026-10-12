@@ -3613,10 +3613,10 @@ themeBtn?.addEventListener("click", () => {
 
 window.addEventListener("load", () => {
   if (isDark() && themeBtn) {
-    themeBtn.innerHTML = `<img src="public/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
+    themeBtn.innerHTML = `<img src="/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
   } else {
     if (themeBtn)
-      themeBtn.innerHTML = `<img src="public/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
+      themeBtn.innerHTML = `<img src="/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
   }
 });
 
