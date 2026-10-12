@@ -11,5 +11,5 @@
     "noEmit": true,
     "jsx": "react-jsx",
   },
-  "include": ["."]
+  "include": [".", "../../vite.config.js"]
 }

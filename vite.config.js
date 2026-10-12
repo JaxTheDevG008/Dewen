@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 export default defineConfig({
-  root: __dirname,
+  root: resolve(__dirname, "src/frontend"),
   plugins: [
     VitePWA({
       registerType: "autoUpdate",
@@ -27,13 +27,13 @@ export default defineConfig({
     port: 3000,
     open: true
   },
-  publicDir: "public",
+  publicDir: resolve(__dirname, "src/frontend/public"),
   build: {
-    outDir: resolve(__dirname, "dist"),
+    outDir: resolve(__dirname, "src/frontend/dist"),
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "index.html")
+        main: resolve(__dirname, "src/frontend/index.html")
       }
     }
   }
