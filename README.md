@@ -55,7 +55,7 @@ npm install
 npm run dev
 ```
 
-4. Copy the link it provides, and paste it into your browser
+4. Vite automatically opens the local site in your browser
 
 ---
 ## AI Usage

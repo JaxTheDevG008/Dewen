@@ -4360,7 +4360,8 @@ html:not([class*="settingsView"]) .personalSection {
 .tavilyApiKeyInput,
 .masterPasswordInput,
 .confirmMasterPasswordInput,
-.masterPasswordHintInput {
+.masterPasswordHintInput,
+.languageDropdown {
   width: 300px;
   padding: 10px;
   border: 1px solid var(--bd-color);
