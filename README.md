@@ -27,9 +27,13 @@ To learn frontend, backend, full-stack, APIs, and client-side database managemen
 - Activity Panel - Track your activities throughout the app, whether that's task addition or starting a focus session
 - Search/Command Bar - Search your tasks and notes or run commands to control your workflow (`:h` in the bar for commands)
 ### Coming Soon
-- [ ] Agents - Turn this on to help assist you in your workflow, or turn it off if you don't feel like it
+- [X] Agents - Turn this on to help assist you in your workflow, or turn it off if you don't feel like it
 - [ ] Calendar Tab - Gives the calendar its own section to help you manage your schedules more efficiently
 - [ ] Automation - If AI is enabled, this lets users create custom automations in a simple interface
+- [ ] Desktop App - Gives Dewen a functional desktop version for users (macOS complete so far)
+- [ ] Landing Page - A functional landing page to add a Call-To-Action for Dewen
+- [ ] Collaboration - Utilizes CRDTs to sync edits and add collaboration to a Dewen vault
+- [ ] Security - Speaking of vaults, I want to add a security layer to Dewen (Master Password, Vaults, Encryption, and more)
 ---
 ## Installation
 
