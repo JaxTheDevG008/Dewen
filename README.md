@@ -1,12 +1,26 @@
 # Dewen <br> <sub style="font-size: 0.5em; font-weight: normal;">A subscription-free and local-first take on productivity software</sub>
 
+<p align="left">
+  <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+  <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+  <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python" />
+  <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="NodeJS" />
+  <img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="NPM" />
+  <img src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white" alt="Git" />
+  <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+  <img src="https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7" alt="Netlify" />
+  <img src="https://img.shields.io/badge/tauri-%2324C8DB.svg?style=for-the-badge&logo=tauri&logoColor=%23FFFFFF" alt="Tauri" />
+</p>
+
 <img width="1365" height="596" alt="image" src="https://github.com/user-attachments/assets/9ed1db4a-926b-4b8a-990b-a7bd8ae3f38e" />
 
 [Check out my project here](https://dewen.netlify.app)
+
 ## Purpose
 Most task and project management websites these days force a subscription on you, obligate you to use AI, and use your data to train models without your consent. 
 
-To learn frontend, backend, full-stack, APIs, and client-side database management, I thought that it would be a good idea to build my own from scratch, completely stripped of these modern problems while delivering a clean interface, local-first privacy, and useful productivity tools.
+To master full-stack development, native browser APIs, and client-side database management, I built my own solution from scratch. Dewen is completely stripped of these modern issues while delivering a clean interface, local-first privacy, and useful productivity tools.
 
 ---
 ## Materials
@@ -30,7 +44,7 @@ To learn frontend, backend, full-stack, APIs, and client-side database managemen
 - [X] Agents - Turn this on to help assist you in your workflow, or turn it off if you don't feel like it
 - [ ] Calendar Tab - Gives the calendar its own section to help you manage your schedules more efficiently
 - [ ] Automation - If AI is enabled, this lets users create custom automations in a simple interface
-- [ ] Desktop App - Gives Dewen a functional desktop version for users (macOS complete so far)
+- [X] Desktop App - Gives Dewen a functional desktop version for users (macOS complete so far)
 - [ ] Landing Page - A functional landing page to add a Call-To-Action for Dewen
 - [ ] Collaboration - Utilizes CRDTs to sync edits and add collaboration to a Dewen vault
 - [ ] Security - Speaking of vaults, I want to add a security layer to Dewen (Master Password, Vaults, Encryption, and more)
@@ -40,6 +54,14 @@ Dewen follows a simple architecture to fully operate locally on your device:
 - User UI and Tasks - Handled and rendered by TypeScript and the DOM
 - Persistence and Saving - All of your tasks, notes, activities, settings, and more are saved with the browser- or Tauri-native IndexedDB
 - Local Server - Uses Python and Uvicorn to run a fast and lightweight server in the background to handle agentic actions and automations without cloud dependencies
+
+---
+## Meet the Agents
+When turned on in the settings, Dewen lets you use agents to perform specific tasks:
+- [X] Planner Agent - Helps you plan and organize your tasks
+- [X] Researcher Agent - Uses your Tavily API key to search online for information
+- [X] Prioritizer Agent - Helps you prioritize what needs the most attention
+- [ ] Organizer Agent - Helps you organize your tasks and notes
 
 ---
 ## Installation
@@ -58,7 +80,8 @@ cd Dewen
 2. Start the Python server
 ```bash
 cd src/backend
-uvicorn app:app --reload
+pip install uvicorn fastapi  # Install server requirements
+uvicorn
 ```
 
 3. Open a new terminal window and use `npm` to start Vite
