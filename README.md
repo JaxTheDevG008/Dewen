@@ -48,6 +48,7 @@ To master full-stack development, native browser APIs, and client-side database 
 - [ ] Landing Page - A functional landing page to add a Call-To-Action for Dewen
 - [ ] Collaboration - Utilizes CRDTs to sync edits and add collaboration to a Dewen vault
 - [ ] Security - Speaking of vaults, I want to add a security layer to Dewen (Master Password, Vaults, Encryption, and more)
+- [ ] Self-Hosted Version - Gives users the ability to self-host Dewen on a separate device
 ---
 ## Architecture
 Dewen follows a simple architecture to fully operate locally on your device:
