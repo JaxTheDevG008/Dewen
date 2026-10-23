@@ -11,6 +11,7 @@
   <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
   <img src="https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7" alt="Netlify" />
   <img src="https://img.shields.io/badge/tauri-%2324C8DB.svg?style=for-the-badge&logo=tauri&logoColor=%23FFFFFF" alt="Tauri" />
+  <img src="https://img.shields.io/badge/MIT%20License-red?style=for-the-badge" alt="MIT License">
 </p>
 
 <img width="3186" height="1998" alt="image" src="https://github.com/user-attachments/assets/79190dd1-4ea7-4b2a-80fb-e5d8fd41b012" />
