@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/tauri-%2324C8DB.svg?style=for-the-badge&logo=tauri&logoColor=%23FFFFFF" alt="Tauri" />
 </p>
 
-<img width="1365" height="596" alt="image" src="https://github.com/user-attachments/assets/9ed1db4a-926b-4b8a-990b-a7bd8ae3f38e" />
+<img width="3186" height="1998" alt="image" src="https://github.com/user-attachments/assets/79190dd1-4ea7-4b2a-80fb-e5d8fd41b012" />
 
 [Check out my project here](https://dewen.netlify.app)
 
