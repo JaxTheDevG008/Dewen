@@ -106,7 +106,7 @@ Contributions are welcome! Whether you want to fix a bug, optimize the custom DO
 5. Open a pull request
 
 ---
-## AI Usage
+## AI Usage Disclosure
 I used AI as a collaborative learning partner to help me with features, layout, and debugging, while still retaining the information the AI creates. Even though I used AI, this is not a fully "vibe-coded" or AI-generated app.
 
 ---
