@@ -40,8 +40,8 @@ To master full-stack development, native browser APIs, and client-side database 
 - Calendar - Uses FullCalendar.js to display your tasks in a calendar view
 - Activity Panel - Track your activities throughout the app, whether that's task addition or starting a focus session
 - Search/Command Bar - Search your tasks and notes or run commands to control your workflow (`:h` in the bar for commands)
+- Agents - Turn this on to help assist you in your workflow, or turn it off if you don't feel like it
 ### Coming Soon
-- [X] Agents - Turn this on to help assist you in your workflow, or turn it off if you don't feel like it
 - [ ] Calendar Tab - Gives the calendar its own section to help you manage your schedules more efficiently
 - [ ] Automation - If AI is enabled, this lets users create custom automations in a simple interface
 - [X] Desktop App - Gives Dewen a functional desktop version for users (macOS complete so far)
