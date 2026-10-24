@@ -45,6 +45,7 @@ To master full-stack development, native browser APIs, and client-side database 
 - [ ] Calendar Tab - Gives the calendar its own section to help you manage your schedules more efficiently
 - [ ] Automation - If AI is enabled, this lets users create custom automations in a simple interface
 - [X] Desktop App - Gives Dewen a functional desktop version for users (macOS complete so far)
+- [ ] Local AI - Add a second option for agents where users can choose a local model
 - [ ] Landing Page - A functional landing page to add a Call-To-Action for Dewen
 - [ ] Collaboration - Utilizes CRDTs to sync edits and add collaboration to a Dewen vault
 - [ ] Security - Speaking of vaults, I want to add a security layer to Dewen (Master Password, Vaults, Encryption, and more)
