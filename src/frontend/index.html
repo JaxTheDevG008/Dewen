@@ -83,6 +83,10 @@
           <img src="/images/Date-Icon.png" class="calendarIcon" />
           Calendar
         </button> -->
+        <button class="projectsBtn" data-i18n="projectsbtn">
+          <img src="/images/Projects-Icon.png" class="projectsIcon" data-i18n="projectsicon" />
+          Projects
+        </button>
         <button class="automationsBtn" data-i18n="automationsbtn">
           <img src="/images/Decrastinator-Icon.png" class="automationsIcon" data-i18n="automationsicon" />
           Automations
@@ -549,30 +553,22 @@
       </div>
     </div>
 
-    <!-- <div class="projectsDiv">
-      <div class="projectsHeader">
-        <h1 class="projectsName">Projects</h1>
-        <button class="closeProjectsBtn">✕</button>
-        <hr class="projectsLineSplit" />
+    <div class="projectsContent" data-i18n="projectscontent">
+      <div class="projectsHeader" data-i18n="projectsheader">
+        <h1 class="projectsName" data-i18n="projectsname">Projects</h1>
       </div>
 
-      <div class="projectsContent">
-        <ul class="projectsList">
-        </ul>
-
-        <div class="projectCreationDiv">
-          <input
-            type="text"
-            class="projectInput accentItem"
-            placeholder="Enter project name"
-          />
-          <div class="cancelAndAddProjectButtons">
-            <button class="cancelProjectCreationBtn accentItem">Cancel</button>
-            <button class="addProjectBtn accentItem">Add Project</button>
-          </div>
+      <div class="projectsListDiv" data-i18n="projectslistdiv">
+        <div class="projectsListHeader" data-i18n="projectslistheader">
+          <h2 class="projectsListTitle" data-i18n="projectslisttitle">Your Projects</h2>
+          <button class="addProjectBtn accentItem" data-i18n="addprojectbtn">Add Project</button>
         </div>
+
+        <ul class="projectsList" data-i18n="projectslist">
+          <!-- Project items will dynamically show up here -->
+        </ul>
       </div>
-    </div> -->
+    </div>
 
     <div class="automationsContent" data-i18n="automationscontent">
       <div class="automationsHeader" data-i18n="automationsheader">
@@ -659,25 +655,36 @@
             <label for="aiToggle" class="aiToggleBtn" data-i18n="aitogglebtn"></label>
           </div>
 
-          <div class="apiKeyDiv" data-i18n="apikeydiv">
-            <label for="apiKeyInput" class="apiKeyLabel" data-i18n="apikeylabel">AI API Key:</label>
+          <hr class="aiSection1Split" data-i18n="aisection1split" />
 
-            <input
-              type="password"
-              id="apiKeyInput"
-              class="apiKeyInput accentItem"
-              placeholder="Enter your AI API key" data-i18n="apikeyinput" />
+          <div class="aiOption1" data-i18n="aioption1">
+            <span class="aiOption1Label" data-i18n="aioption1label">Option 1: API Key</span>
+            <div class="apiKeyDiv" data-i18n="apikeydiv">
+              <label for="apiKeyInput" class="apiKeyLabel" data-i18n="apikeylabel">AI API Key:</label>
+
+              <input
+                type="password"
+                id="apiKeyInput"
+                class="apiKeyInput accentItem"
+                placeholder="Enter your AI API key" data-i18n="apikeyinput" />
+            </div>
+
+            <div class="apiKeyDiv tavilyApiKeyDiv" data-i18n="apikeydiv.2">
+              <label for="tavilyApiKeyInput" class="apiKeyLabel" data-i18n="apikeylabel.2">Tavily API Key (for the Researcher Agent):</label
+              >
+
+              <input
+                type="password"
+                id="tavilyApiKeyInput"
+                class="tavilyApiKeyInput apiKeyInput accentItem"
+                placeholder="Enter your Tavily API key" data-i18n="tavilyapikeyinput" />
+            </div>
           </div>
 
-          <div class="apiKeyDiv tavilyApiKeyDiv" data-i18n="apikeydiv.2">
-            <label for="tavilyApiKeyInput" class="apiKeyLabel" data-i18n="apikeylabel.2">Tavily API Key (for the Researcher Agent):</label
-            >
+          <hr class="aiSection2Split" data-i18n="aisection2split" />
 
-            <input
-              type="password"
-              id="tavilyApiKeyInput"
-              class="tavilyApiKeyInput apiKeyInput accentItem"
-              placeholder="Enter your Tavily API key" data-i18n="tavilyapikeyinput" />
+          <div class="aiOption2" data-i18n="aioption2">
+            <span class="aiOption2Label" data-i18n="aioption2label">Option 2: Local AI</span>
           </div>
         </div>
 

@@ -1996,8 +1996,8 @@ const commandsHelpListDiv = getElement<HTMLDivElement>(".commandsHelpListDiv");
 const closeCommandsHelpListBtn = getElement<HTMLButtonElement>(
   ".closeCommandsHelpList",
 );
+const projectsBtn = getElement<HTMLButtonElement>(".projectsBtn");
 const automationsBtn = getElement<HTMLButtonElement>(".automationsBtn");
-const automationsContent = getElement<HTMLDivElement>(".automationsContent");
 const ai_API_BASE = "http://127.0.0.1:5000";
 
 function safeParse(key: string): any[] {
@@ -2047,12 +2047,21 @@ interface Task {
   lastCompleted: string | null;
   // subtasks: Task[];
   blockedBy: string | null;
+  projectId: string | null;
 }
 
 interface Note {
   id: string;
   text: string;
   color: string;
+  createdAt: number;
+  projectId: string | null;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  createdAt: number;
 }
 
 interface Activity {
@@ -2790,6 +2799,32 @@ if (taskSortSelector) {
   });
 }
 
+function parseMarkdown(text: string): string {
+  if (!text) return "";
+  
+  let escapedText = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  return escapedText
+      // Headers (adds a specific class so they don't break note spacing)
+    .replace(/^### (.*$)/gim, '<h3 class="note-h3">$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2 class="note-h2">$1</h2>')
+    .replace(/^# (.*$)/gim, '<h1 class="note-h1">$1</h1>')
+    
+    // Inline Code (`code`)
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    
+    // Bold (**bold** or __bold__)
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/__([^_]+)__/g, '<strong>$1</strong>')
+    
+    // Italics (*italic* or _italic_)
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/_([^_]+)_/g, '<em>$1</em>');
+}
+
 function createNoteElement(note: Note) {
   if (noNotesYetAlert) noNotesYetAlert.style.display = "none";
 
@@ -2802,7 +2837,7 @@ function createNoteElement(note: Note) {
   if (note.color) mainNote.style.backgroundColor = note.color;
   const mainNoteText = document.createElement("span");
   mainNoteText.className = "mainNoteText";
-  mainNoteText.textContent = note.text;
+  mainNoteText.innerHTML = parseMarkdown(note.text);  
   mainNoteText.dataset.originalNoteText = note.text;
   mainNote.appendChild(mainNoteText);
 
@@ -4169,20 +4204,6 @@ function applyUrgencyStyle(el: HTMLElement | null, urgency: number) {
   el.style.animationDuration = `${duration.toFixed(2)}s`;
 }
 
-/* projectsBtn?.addEventListener("click", () => {
-  if (projectsDiv) projectsDiv.classList.toggle("show");
-  if (overlay) overlay.style.display = projectsDiv?.classList.contains("show") ? "block" : "none";
-  document.querySelectorAll("body > *").forEach((el) => {
-    if (el !== overlay && el !== projectsDiv) (el as HTMLElement).inert = projectsDiv?.classList.contains("show");
-  });
-});
-
-closeProjectsBtn?.addEventListener("click", () => {
-  if (projectsDiv) projectsDiv.classList.remove("show");
-  if (overlay) overlay.style.display = "none";
-  document.querySelectorAll("body >  *").forEach((el) => ((el as HTMLElement).inert = false));
-}); */
-
 customizeBtn?.addEventListener("click", () => {
   customizeDiv.classList.add("show");
   customizeDiv.classList.remove("closing");
@@ -5220,8 +5241,19 @@ dashboardBtn?.addEventListener("click", () => {
   document.documentElement.classList.remove("isSettingsView");
   document.documentElement.classList.remove("calendarView");
   document.documentElement.classList.remove("automationsActive");
+  document.documentElement.classList.remove("projectsActive");
 
   localStorage.setItem("lastActiveView", "dashboard");
+});
+
+projectsBtn?.addEventListener("click", () => {
+  document.documentElement.classList.add("projectsActive");
+  document.documentElement.classList.remove("isSettingsView");
+  document.documentElement.classList.remove("calendarView");
+  document.documentElement.classList.remove("automationsActive");
+  document.documentElement.classList.remove("dashboardActive");
+
+  localStorage.setItem("lastActiveView", "projects");
 });
 
 automationsBtn?.addEventListener("click", () => {
@@ -5229,6 +5261,7 @@ automationsBtn?.addEventListener("click", () => {
   document.documentElement.classList.remove("dashboardActive");
   document.documentElement.classList.remove("isSettingsView");
   document.documentElement.classList.remove("calendarView");
+  document.documentElement.classList.remove("projectsActive");
 
   localStorage.setItem("lastActiveView", "automations");
 });
@@ -5249,6 +5282,7 @@ settingsBtn?.addEventListener("click", () => {
   document.documentElement.classList.remove("dashboardActive");
   document.documentElement.classList.remove("calendarView");
   document.documentElement.classList.remove("automationsActive");
+  document.documentElement.classList.remove("projectsActive");
 
   localStorage.setItem("lastActiveView", "settings");
 

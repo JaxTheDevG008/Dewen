@@ -324,6 +324,7 @@ button:hover {
 
 .dashboardBtn,
 .calendarBtn,
+.projectsBtn,
 .automationsBtn,
 .settingsBtn,
 .closeSidebarBtn {
@@ -356,6 +357,7 @@ button:hover {
 .calendarBtn:hover,
 .automationsBtn:hover,
 .settingsBtn:hover,
+.projectsBtn:hover,
 .closeSidebarBtn {
   background-color: var(--btn-bg-color);
   cursor: pointer;
@@ -364,6 +366,7 @@ button:hover {
 .dashboardBtn.active,
 .calendarBtn.active,
 .automationsBtn.active,
+.projectsBtn.active,
 .settingsBtn.active {
   background-color: var(--btn-bg-color);
 }
@@ -482,6 +485,7 @@ button:hover {
 }
 
 :root.sidebarHidden .dashboardContent,
+:root.sidebarHidden .projectsContent,
 :root.sidebarHidden .automationsContent,
 :root.sidebarHidden .settingsContent {
   transform: translateX(0);
@@ -491,6 +495,7 @@ button:hover {
 }
 
 :root:not(.sidebarHidden) .dashboardContent,
+:root:not(.sidebarHidden) .projectsContent,
 :root:not(.sidebarHidden) .automationsContent,
 :root:not(.sidebarHidden) .settingsContent {
   transform: translateX(140px);
@@ -499,6 +504,7 @@ button:hover {
 
 @media (max-width: 1240px) {
   :root:not(.sidebarHidden) .dashboardContent,
+  :root:not(.sidebarHidden) .projectsContent,
   :root:not(.sidebarHidden) .automationsContent,
   :root:not(.sidebarHidden) .settingsContent {
     transform: translateX(0);
@@ -546,7 +552,7 @@ button:hover {
   }
 }
 
-.automationsContent {
+.projectsContent {
   position: relative;
   display: none;
   flex-direction: column;
@@ -569,8 +575,37 @@ button:hover {
   padding: 20px;
 }
 
-:root.automationsActive .automationsContent {
-  display: flex;
+:root.projectsActive .dashboardContent,
+:root.projectsActive .automationsContent,
+:root.projectsActive .settingsContent {
+  display: none;
+}
+
+:root:not(.projectsActive) .projectsContent {
+  display: none;
+}
+
+.automationsContent {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 80px;
+  width: 1160px;
+  height: 1837px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.3s;
+  transform: translateX(0);
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  border: 1px solid var(--bd-color);
+  padding: 20px;
 }
 
 :root.automationsActive .dashboardContent,
@@ -2108,23 +2143,6 @@ button:hover {
   bottom: 84px;
   gap: 14px;
   margin-top: 30px;
-}
-
-.projectsBtn {
-  position: relative;
-  background-color: var(--btn-bg-color);
-  color: var(--text-color);
-  font-weight: 600;
-  width: 100px;
-  height: 35px;
-  border: 1px solid var(--bd-color);
-  border-radius: 12px;
-  top: 22px;
-}
-
-.projectsBtn:hover {
-  background-color: var(--btn-hover-bg-color);
-  cursor: pointer;
 }
 
 .projectsDiv {
@@ -4354,6 +4372,25 @@ html:not([class*="settingsView"]) .personalSection {
 
 #aiToggle, #securityToggle {
   display: none;
+}
+
+.aiSection1Split,
+.aiSection2Split {
+  position: relative;
+  background-color: gray;
+  border: none;
+  border-top: 1px solid gray;
+  height: 0;
+  width: 100%;
+}
+
+.aiOption1,
+.aiOption2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .apiKeyInput,
