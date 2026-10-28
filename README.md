@@ -11,11 +11,11 @@
   <img src="https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
   <img src="https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7" alt="Netlify" />
   <img src="https://img.shields.io/badge/tauri-%2324C8DB.svg?style=for-the-badge&logo=tauri&logoColor=%23FFFFFF" alt="Tauri" />
+  <img src="https://img.shields.io/badge/MIT%20License-red?style=for-the-badge" alt="MIT License">
 </p>
 
-<img width="1365" height="596" alt="image" src="https://github.com/user-attachments/assets/9ed1db4a-926b-4b8a-990b-a7bd8ae3f38e" />
-
-[Check out my project here](https://dewen.netlify.app)
+<img width="3186" height="1998" alt="image" src="https://github.com/user-attachments/assets/79190dd1-4ea7-4b2a-80fb-e5d8fd41b012" />
+<h2><a href="https://dewen.netlify.app">Check out my project here</a></h2>
 
 ## Purpose
 Most task and project management websites these days force a subscription on you, obligate you to use AI, and use your data to train models without your consent. 
@@ -45,10 +45,13 @@ To master full-stack development, native browser APIs, and client-side database 
 - [ ] Calendar Tab - Gives the calendar its own section to help you manage your schedules more efficiently
 - [ ] Automation - If AI is enabled, this lets users create custom automations in a simple interface
 - [X] Desktop App - Gives Dewen a functional desktop version for users (macOS complete so far)
+- [ ] Local AI - Add a second option for agents where users can choose a local model
 - [ ] Landing Page - A functional landing page to add a Call-To-Action for Dewen
 - [ ] Collaboration - Utilizes CRDTs to sync edits and add collaboration to a Dewen vault
 - [ ] Security - Speaking of vaults, I want to add a security layer to Dewen (Master Password, Vaults, Encryption, and more)
 - [ ] Self-Hosted Version - Gives users the ability to self-host Dewen on a separate device
+- [ ] Projects - Gives users the ability to organize and group tasks and notes into a project
+- [ ] Congressional App Challenge - Crush the 2026 CAC with this being my submission for PA-15
 ---
 ## Architecture
 Dewen follows a simple architecture to fully operate locally on your device:
@@ -105,7 +108,7 @@ Contributions are welcome! Whether you want to fix a bug, optimize the custom DO
 5. Open a pull request
 
 ---
-## AI Usage
+## AI Usage Disclosure
 I used AI as a collaborative learning partner to help me with features, layout, and debugging, while still retaining the information the AI creates. Even though I used AI, this is not a fully "vibe-coded" or AI-generated app.
 
 ---
