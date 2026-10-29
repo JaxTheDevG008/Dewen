@@ -118,7 +118,7 @@ Get the native desktop experience for **Dewen** with offline-capable support and
 
 | Platform | Download |
 | :--- | :--- |
-| **macOS** (`.dmg`) | [📥 Download for Mac](https://github.com/JaxTheDevG008/Dewen/releases/download/v1.0.0/Dewen_0.1.0_aarch64.dmg) |
+| **macOS** (`.dmg`) | [📥 Download for Mac](https://github.com/JaxTheDevG008/Dewen/releases/download/v1.0.0/dewen.zip) |
 | **Windows** (`.exe`) | _Coming Soon_ |
 | **Linux** (`.deb`) | _Coming Soon_ |
 
