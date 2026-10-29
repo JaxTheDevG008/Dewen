@@ -128,7 +128,7 @@ Because this is an independent, open-source application bundle, macOS may displa
 1. Drag **Dewen** into your `/Applications` folder.
 2. Open your Terminal and run this single command:
    ```bash
-   sudo xattr -cr /Applications/Dewen.app
+   xattr -d com.apple.quarantine /Applications/Dewen.app
    ```
 3. Type your Mac screen-lock password when prompted, press **Enter**, and launch the app!
 
