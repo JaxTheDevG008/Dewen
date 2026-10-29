@@ -118,7 +118,7 @@ Get the native desktop experience for **Dewen** with offline-capable support and
 
 | Platform | Download |
 | :--- | :--- |
-| **macOS** (`.dmg`) | [📥 Download for Mac](https://github.com/JaxTheDevG008/Dewen/releases/download/v1.0.0/Dewen_0.1.0_aarch64.dmg) |
+| **macOS** (`.dmg`) | [📥 Download for Mac](https://github.com/JaxTheDevG008/Dewen/releases/download/v1.0.0/dewen.zip) |
 | **Windows** (`.exe`) | _Coming Soon_ |
 | **Linux** (`.deb`) | _Coming Soon_ |
 
@@ -128,7 +128,7 @@ Because this is an independent, open-source application bundle, macOS may displa
 1. Drag **Dewen** into your `/Applications` folder.
 2. Open your Terminal and run this single command:
    ```bash
-   sudo xattr -cr /Applications/Dewen.app
+   xattr -d com.apple.quarantine /Applications/Dewen.app
    ```
 3. Type your Mac screen-lock password when prompted, press **Enter**, and launch the app!
 
