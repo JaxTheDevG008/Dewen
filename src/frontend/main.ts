@@ -3756,13 +3756,17 @@ async function handleSearchKeys(e: KeyboardEvent) {
 
     if (input && input.startsWith(":dd ")) {
       console.log("add due date to task or update due date triggered");
-      const match = input
-        .slice(4)
-        .trim()
-        .match(/^(.+?)(?:\s*,\s*(.+))?$/);
+      const match = input.slice(4).trim().match(/^(.+?)(?:\s*,\s*(.+))?$/);
+
       if (match) {
         const taskTitle = match[1].trim();
         const newDueDate = match[2] ? match[2].trim() : null;
+        if (!newDueDate || isNaN(Date.parse(newDueDate))) {
+          if (searchBar) searchBar.placeholder = "Not a valid date. Please use MM/DD/YYYY format.";
+          closeSearchBar();
+          if (searchBar) searchBar.value = "";
+          return;
+        }
         const matchingTask = tasks.find((task) =>
           task.title.toLowerCase().includes(taskTitle.toLowerCase()),
         );
