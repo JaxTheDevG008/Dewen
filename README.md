@@ -15,8 +15,7 @@
 </p>
 
 <img width="3186" height="1998" alt="image" src="https://github.com/user-attachments/assets/79190dd1-4ea7-4b2a-80fb-e5d8fd41b012" />
-<h2><a href="https://dewen.netlify.app">Check out my project here</a></h2>
-<h2><a href="https://www.youtube.com/watch?v=zrY5aBHBmvA">Watch the showcase/CAC submission video</a></h2>
+<h2><a href="https://dewen.netlify.app">Check out my project here</a> and <a href="https://www.youtube.com/watch?v=zrY5aBHBmvA">watch the showcase/CAC submission video</a></h2>
 
 ## Purpose
 Most task and project management websites these days force a subscription on you, obligate you to use AI, and use your data to train models without your consent. 
