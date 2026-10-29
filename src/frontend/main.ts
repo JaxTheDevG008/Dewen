@@ -2011,6 +2011,32 @@ function safeParse(key: string): any[] {
   }
 }
 
+function updateState(newState: string) {
+  undoStack.push(currentState);
+  currentState = newState;
+  redoStack = [];
+  localStorage.setItem("undoStack", JSON.stringify(undoStack));
+  localStorage.setItem("redoStack", JSON.stringify(redoStack));
+  localStorage.setItem("currentState", currentState);
+}
+
+function undo() {
+  if (undoStack.length > 0) {
+    redoStack.push(currentState);    
+    currentState = undoStack.pop(); 
+  }
+}
+
+function redo() {
+  if (redoStack.length > 0) {
+    undoStack.push(currentState);    
+    currentState = redoStack.pop(); 
+  }
+}
+
+let undoStack: any[] = [];
+let redoStack: any[] = [];
+let currentState = "Initial value";
 let tasks: any[] = [];
 let allNotes: any[] = [];
 let isDraggable = false;
@@ -2808,19 +2834,15 @@ function parseMarkdown(text: string): string {
     .replace(/>/g, "&gt;");
 
   return escapedText
-      // Headers (adds a specific class so they don't break note spacing)
     .replace(/^### (.*$)/gim, '<h3 class="note-h3">$1</h3>')
     .replace(/^## (.*$)/gim, '<h2 class="note-h2">$1</h2>')
     .replace(/^# (.*$)/gim, '<h1 class="note-h1">$1</h1>')
     
-    // Inline Code (`code`)
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     
-    // Bold (**bold** or __bold__)
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     .replace(/__([^_]+)__/g, '<strong>$1</strong>')
     
-    // Italics (*italic* or _italic_)
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(/_([^_]+)_/g, '<em>$1</em>');
 }
@@ -3361,6 +3383,7 @@ function openEditTaskUI(taskId: string | null) {
   taskInput?.blur();
 
   if (taskInput) taskInput.value = "";
+  taskInput?.focus();
   if (taskPrioritySelector) taskPrioritySelector.value = "None";
   if (taskDateInput) taskDateInput.value = "";
   if (taskTimeInput) taskTimeInput.value = "";
@@ -4977,6 +5000,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         showOverlay();
 
         taskDateInput.value = info.dateStr;
+        if (taskInput) taskInput.focus();
 
         document.body.appendChild(taskCreationDiv);
 
@@ -4994,6 +5018,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           hideOverlay();
 
           if (taskInput) taskInput.value = "";
+          if (taskInput) taskInput.focus();
           if (taskDateInput) taskDateInput.value = "";
 
           if (toDoList && toDoListHeader)
@@ -5027,6 +5052,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           hideOverlay();
 
           if (taskInput) taskInput.value = "";
+          if (taskInput) taskInput.focus();
           if (taskDateInput) taskDateInput.value = "";
 
           toDoList.insertBefore(taskCreationDiv, toDoListHeader.nextSibling);
@@ -5569,6 +5595,7 @@ let currentDraggedTask = null;
 addBtn?.addEventListener("click", () => {
   if (taskCreationDiv) taskCreationDiv.style.display = "flex";
   if (taskInput) taskInput.value = "";
+  taskInput?.focus();
   if (taskPrioritySelector) taskPrioritySelector.value = "None";
   if (taskDateInput) taskDateInput.value = "";
   if (taskTimeInput) taskTimeInput.value = "";
@@ -6244,6 +6271,7 @@ updateTimerDisplay();
 
 addBtn2?.addEventListener("click", () => {
   if (noteCreationDiv) noteCreationDiv.style.display = "flex";
+  if (noteInput) noteInput.focus();
 });
 
 let selectedNoteColor: string | null = null;
