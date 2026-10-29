@@ -2827,24 +2827,31 @@ if (taskSortSelector) {
 
 function parseMarkdown(text: string): string {
   if (!text) return "";
-  
-  let escapedText = text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
 
-  return escapedText
-    .replace(/^### (.*$)/gim, '<h3 class="note-h3">$1</h3>')
-    .replace(/^## (.*$)/gim, '<h2 class="note-h2">$1</h2>')
-    .replace(/^# (.*$)/gim, '<h1 class="note-h1">$1</h1>')
-    
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    
-    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/__([^_]+)__/g, '<strong>$1</strong>')
-    
-    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-    .replace(/_([^_]+)_/g, '<em>$1</em>');
+  return text
+    // 1. Escape HTML blocks securely
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+
+    // 2. Headings
+    .replace(/^###### (.*$)/gim, "<h6 class=\"note-h6\">$1</h6>")
+    .replace(/^##### (.*$)/gim, "<h5 class=\"note-h5\">$1</h5>")
+    .replace(/^#### (.*$)/gim, "<h4 class=\"note-h4\">$1</h4>")
+    .replace(/^### (.*$)/gim, "<h3 class=\"note-h3\">$1</h3>")
+    .replace(/^## (.*$)/gim, "<h2 class=\"note-h2\">$1</h2>")
+    .replace(/^# (.*$)/gim, "<h1 class=\"note-h1\">$1</h1>")
+
+    // 3. Horizontal Lines (---)
+    .replace(/^---\s*$/gim, "<hr class=\"note-hr\">")
+
+    // 4. Links ([Text](URL))
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "<a href=\"$2\" target=\"_blank\" class=\"note-link\">$1</a>")
+
+    // 5. Code, Bold, and Italics
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([^*]+)\*/g, "<em>$1</em>")
+
+    .replace(/\n/g, "<br>");
 }
 
 function createNoteElement(note: Note) {
@@ -6016,7 +6023,10 @@ function updateRing(timeLeft: number) {
 
 lengthButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    saveTimerState();
+    if (timerOptionsDropdown) timerMode = timerOptionsDropdown.value;
     const minutes = parseInt(button.textContent);
+    if (!Number.isFinite(minutes)) return;
     totalTime = minutes * 60;
     restartTimer();
   });
@@ -6095,6 +6105,7 @@ function loadTimerState() {
     } = JSON.parse(savedState);
     totalTime = savedTotalTime;
     timerMode = savedTimerMode;
+    if (timerOptionsDropdown) timerOptionsDropdown.value = timerMode;
     isRunning = savedIsRunning;
     focusMode = savedFocusMode;
     activeFocusTask = savedActiveFocusTask;
@@ -6110,7 +6121,7 @@ function loadTimerState() {
         )
       : savedTotalSeconds;
 
-    if (activeFocusTask && currentFocusedTask) {
+    if (savedIsRunning && activeFocusTask && currentFocusedTask) {
       currentFocusedTask.textContent = "Focusing on: " + activeFocusTask;
       currentFocusedTask.style.display = "inline";
       currentFocusedTask.dataset.order = "2";
@@ -6118,9 +6129,17 @@ function loadTimerState() {
     }
 
     if (timerMode === "decrastinator") {
-      if (currentFocusedTask) currentFocusedTask.textContent = "Decrastinating";
+      if (currentFocusedTask) {
+        currentFocusedTask.textContent = "Decrastinating";
+        currentFocusedTask.style.display = "inline";
+      }
+      if (taskSelectionDropdown) taskSelectionDropdown.style.display = "none";
     } else if (timerMode === "break") {
-      if (currentFocusedTask) currentFocusedTask.textContent = "Taking a break";
+      if (currentFocusedTask) {
+        currentFocusedTask.textContent = "Taking a break";
+        currentFocusedTask.style.display = "inline";
+      }
+      if (taskSelectionDropdown) taskSelectionDropdown.style.display = "none";
     }
 
     updateTimerDisplay();
@@ -6133,6 +6152,25 @@ function loadTimerState() {
       restartTimer();
     } else {
       isRunning = false;
+      // Keep a paused timer's remaining time, but restore the controls for its
+      // mode instead of leaving behind the previous running layout.
+      focusMode = false;
+      activeFocusTask = undefined;
+      if (currentFocusedTask) currentFocusedTask.style.display = "none";
+      if (taskSelectionDropdown) {
+        taskSelectionDropdown.style.display =
+          timerMode === "focus" ? "block" : "none";
+        if (timerMode === "focus" && savedActiveFocusTask) {
+          const savedTaskOption = Array.from(taskSelectionDropdown.options).find(
+            (option) => option.text === savedActiveFocusTask,
+          );
+          if (savedTaskOption) taskSelectionDropdown.value = savedTaskOption.value;
+        }
+      }
+      lengthButtons.forEach((button) => {
+        button.style.display = "";
+      });
+      if (timerButtons) timerButtons.style.marginTop = "0px";
       if (startTimerBtn) startTimerBtn.style.display = "flex";
       if (pauseTimerBtn) pauseTimerBtn.style.display = "none";
     }
@@ -6170,9 +6208,6 @@ function startTimer(logActivity = true) {
     if (currentFocusedTask) {
       currentFocusedTask.textContent = "Decrastinating";
       currentFocusedTask.style.display = "inline";
-      lengthButtons.forEach((button) => {
-        button.style.display = "none";
-      });
     }
   } else {
     if (currentFocusedTask) {
@@ -6216,6 +6251,9 @@ function startTimer(logActivity = true) {
         ".currentFocusedTaskDiv",
       );
       if (currentFocusedTaskDiv) currentFocusedTaskDiv.style.display = "none";
+      if (taskSelectionDropdown) taskSelectionDropdown.style.display = "block";
+      if (startTimerBtn) startTimerBtn.style.display = "flex";
+      if (pauseTimerBtn) pauseTimerBtn.style.display = "none";
       restartTimer();
     }
     saveTimerState(endTime);
@@ -6248,7 +6286,11 @@ function restartTimer() {
   activeFocusTask = undefined;
 
   if (timerMode === "focus") {
+    const currentFocusedTaskDiv = document.querySelector<HTMLDivElement>(
+      ".currentFocusedTaskDiv",
+    );
     if (taskSelectionDropdown) taskSelectionDropdown.style.display = "block";
+    if (currentFocusedTaskDiv) currentFocusedTaskDiv.style.display = "flex";
     if (currentFocusedTask) currentFocusedTask.style.display = "none";
     if (timerButtons) timerButtons.style.marginTop = "0px";
   } else if (timerMode === "decrastinator") {
@@ -6263,7 +6305,14 @@ function restartTimer() {
   saveTimerState(null);
 }
 
-startTimerBtn?.addEventListener("click", enterFocusMode);
+startTimerBtn?.addEventListener("click", () => {
+  if (timerOptionsDropdown) timerMode = timerOptionsDropdown.value;
+  if (timerMode === "focus") {
+    enterFocusMode();
+  } else {
+    startTimer();
+  }
+});
 pauseTimerBtn?.addEventListener("click", pauseTimer);
 restartTimerBtn?.addEventListener("click", restartTimer);
 
