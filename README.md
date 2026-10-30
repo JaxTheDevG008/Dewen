@@ -52,6 +52,7 @@ To master full-stack development, native browser APIs, and client-side database 
 - [ ] Self-Hosted Version - Gives users the ability to self-host Dewen on a separate device
 - [ ] Projects - Gives users the ability to organize and group tasks and notes into a project
 - [ ] Congressional App Challenge - Crush the 2026 CAC with this being my submission for PA-15
+- [ ] Mobile App - Build a mobile version of Dewen for iOS and the Apple Swift Student Challenge
 ---
 ## Architecture
 Dewen follows a simple architecture to fully operate locally on your device:
