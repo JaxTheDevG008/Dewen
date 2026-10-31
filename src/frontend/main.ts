@@ -3378,9 +3378,11 @@ if (languageDropdown) {
 
 function loadActivities() {
   if (activityList) activityList.innerHTML = "";
-  activityLog.forEach((activity) => {
-    renderActivity(activity);
-  });
+  [...activityLog]
+    .sort((a, b) => b.timestamp - a.timestamp)
+    .forEach((activity) => {
+      renderActivity(activity);
+    });
 }
 
 function openEditTaskUI(taskId: string | null) {
@@ -5102,7 +5104,9 @@ async function loadSavedItems() {
   }
 
   if (savedActivities.length > 0) {
-    activityLog = savedActivities;
+    activityLog = savedActivities.sort(
+      (a, b) => b.timestamp - a.timestamp
+    )
   } else {
     const legacyActivities = safeParse("activity");
     if (legacyActivities.length > 0) {
