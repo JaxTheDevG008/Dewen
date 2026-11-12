@@ -25,7 +25,7 @@ To master full-stack development, native browser APIs, and client-side database 
 ---
 ## Materials
 - Frontend: HTML, CSS, and TypeScript (core web technologies for building the skeleton and skin, and TypeScript for the functionality with extra static typing and labeling)
-- Framework: None (deliberately chose none to learn how the website interacts with DOM and browser APIs (and it's also painful to convert to 😂))
+- Framework: None (deliberately chose none to learn how the website interacts with DOM and browser APIs (and it's also painful to convert to React 😂)(but maybe I might in the future, probably with Svelte or SolidJS))
 - Backend: Python (the obvious and simple choice for building the backend and agentic features)
 - Database: IndexedDB (chose this client-side database to keep data on the user's device instead of being sent to a random server)
 - Version Control: Git and GitHub
