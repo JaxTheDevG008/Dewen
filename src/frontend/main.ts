@@ -2984,17 +2984,39 @@ function renderUpcomingTasks(limit = 3) {
   });
 }
 
-function renderStaleTasks(limit = 3) {
+function renderStaleTasks(limit = 3, staleAfterDays = 2) {
   if (!staleTasksList) return;
 
+  const now = Date.now();
+  const staleThresholdMs = staleAfterDays * 24 * 60 * 60 * 1000;
+
+  const taskMap = new Map(tasks.map((t) => [t.id, t]));
+
   const staleTasks = [...tasks]
-    .filter(
-      (t) => !t.completed && t.dueDate && new Date(t.dueDate) < new Date(),
-    )
+    .filter((t) => {
+      if (t.completed || t.status === "Done" || t.status === "In Progress") {
+        return false;
+      }
+
+      if (t.status === "Blocked") return false;
+      if (t.blockedBy) {
+        const blocker = taskMap.get(t.blockedBy);
+        if (blocker && !blocker.completed && blocker.status !== "Done") {
+          return false;
+        }
+      }
+
+      const referenceDate = t.lastActivityAt || t.createdAt;
+      if (!referenceDate) return false;
+
+      const ageMs = now - new Date(referenceDate).getTime();
+      return ageMs >= staleThresholdMs;
+    })
+
     .sort((a, b) => {
-      const dateA = new Date(a.dueDate as string);
-      const dateB = new Date(b.dueDate as string);
-      return dateA.getTime() - dateB.getTime();
+      const dateA = new Date((a.lastActivityAt || a.createdAt) as string).getTime();
+      const dateB = new Date((b.lastActivityAt || b.createdAt) as string).getTime();
+      return dateA - dateB;
     })
     .slice(0, limit);
 
@@ -3006,13 +3028,16 @@ function renderStaleTasks(limit = 3) {
 
   staleTasks.forEach((task) => {
     const staleTaskItem = document.createElement("li");
-    const formattedDate = formatDate(task.dueDate);
-    const formattedTime = formatTime(task.dueTime);
-    const dueDate =
-      task.dueDate || task.dueTime
-        ? `Due ${formattedDate ? formattedDate : "today"}${formattedTime ? ` at  ${formattedTime}` : ""}`
-        : "No due date";
-    staleTaskItem.textContent = `${task.title} (${dueDate})`;
+    
+    const referenceDate = task.lastActivityAt || task.createdAt;
+    const daysOld = Math.floor(
+      (now - new Date(referenceDate as string).getTime()) / (1000 * 60 * 60 * 24)
+    )
+
+    const formattedDueDate = formatDate(task.dueDate);
+    const dueText = formattedDueDate ? ` • Due ${formattedDueDate}` : "";
+
+    staleTaskItem.textContent = `${task.title} (${daysOld} days old${dueText})`;
     staleTasksList.appendChild(staleTaskItem);
   });
 }
