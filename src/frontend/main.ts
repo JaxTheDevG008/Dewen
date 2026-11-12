@@ -2045,7 +2045,6 @@ let activityLog: any[] = [];
 let calendar: Calendar | null = null;
 let editingTaskId: string | null = null;
 let isEditing: boolean = false;
-let isAddingSubtask = false;
 let currentParentTaskId: string | null = null;
 let currentTaskSort = "dueDate";
 let focusMode = false;
@@ -2071,7 +2070,6 @@ interface Task {
   createdAt: number;
   recurrence: Recurrence;
   lastCompleted: string | null;
-  // subtasks: Task[];
   blockedBy: string | null;
   projectId: string | null;
 }
@@ -2156,16 +2154,12 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
   editOption.className = "taskOption";
   editOption.textContent = "Edit";
 
-  const addSubtaskOption = document.createElement("div");
-  addSubtaskOption.className = "taskOption";
-  addSubtaskOption.textContent = "Add Subtask";
-
   const deleteOption = document.createElement("div");
   deleteOption.className = "taskOption";
   deleteOption.textContent = "Delete";
   deleteOption.style.color = "red";
 
-  taskOptions.append(editOption, addSubtaskOption, deleteOption);
+  taskOptions.append(editOption, deleteOption);
 
   const listTask = document.createElement("li");
   listTask.className = "listTask";
@@ -2279,14 +2273,6 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
   const urgency = getTaskUrgency(task);
   applyUrgencyStyle(mainTask, urgency);
 
-  /* const subtaskList = document.createElement("ul");
-  subtaskList.className = "subtaskList";
-
-  task.subtasks?.forEach((subtask) => {
-    subtaskList.appendChild(createSubtaskElement(subtask));
-  });
-  listTask.appendChild(subtaskList); */
-
   taskTextAndCheckbox.prepend(taskCheckbox);
   taskCheckbox.addEventListener("change", () => {
     const t = tasks.find((t) => String(t.id) === String(taskId));
@@ -2364,45 +2350,6 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
     openEditTaskUI(taskId);
     taskOptions.classList.remove("show");
     enableScrolling();
-  });
-
-  addSubtaskOption.addEventListener("click", () => {
-    isAddingSubtask = true;
-    enableScrolling();
-    const parentTask = tasks.find((t) => String(t.id) === String(taskId));
-    if (!parentTask) return;
-
-    console.log("Selected task:", parentTask);
-    console.log("ID:", parentTask.id);
-    currentParentTaskId = parentTask.id;
-
-    if (taskInput) taskInput.blur();
-
-    if (taskInput) taskInput.value = "";
-    if (taskPrioritySelector) taskPrioritySelector.value = "None";
-    if (taskDateInput) taskDateInput.value = "";
-    if (taskTimeInput) taskTimeInput.value = "";
-    if (taskStatusSelector) taskStatusSelector.value = "To Do";
-    if (taskRecurrenceSelector) taskRecurrenceSelector.value = "none";
-
-    if (taskCreationDiv) document.body.appendChild(taskCreationDiv);
-
-    if (!taskCreationDiv) return;
-    taskCreationDiv.style.display = "flex";
-    taskCreationDiv.style.position = "fixed";
-    taskCreationDiv.style.zIndex = "9999";
-    taskCreationDiv.style.top = "50%";
-    taskCreationDiv.style.left = "50%";
-    taskCreationDiv.style.transform = "translate(-50%, -50%)";
-
-    if (addTaskBtn) {
-      addTaskBtn.textContent = "Add Subtask";
-      addTaskBtn.style.padding = "0px 8px";
-    }
-
-    taskOptions.style.display = "none";
-
-    showOverlay();
   });
 
   deleteOption.addEventListener("click", () => {
@@ -5191,85 +5138,6 @@ function saveEditedTask() {
     toDoList.insertBefore(taskCreationDiv, toDoListHeader.nextSibling);
 }
 
-/* function createSubtask() {
-  return {
-    id: crypto.randomUUID(),
-    title: taskInput?.value.trim(),
-    completed: false,
-    priority: taskPrioritySelector?.value,
-    dueDate: taskDateInput?.value || null,
-    dueTime: taskTimeInput?.value || null,
-    status: taskStatusSelector?.value,
-    recurrence: taskRecurrenceSelector?.value,
-    createdAt: Date.now(),
-  };
-}
-
-function addSubtask(parentTaskId: string) {
-  const parentTask = tasks.find((t) => String(t.id) === String(parentTaskId));
-  if (!parentTask) return;
-
-  if (!parentTask.subtasks) parentTask.subtasks = [];
-
-  const subtask = createSubtask();
-  parentTask.subtasks.push(subtask);
-  saveTasks();
-
-  if (!taskCreationDiv) return;
-  taskCreationDiv.style.display = "none";
-  taskCreationDiv.style.position = "relative";
-  taskCreationDiv.style.top = "0px";
-  taskCreationDiv.style.left = "0px";
-  taskCreationDiv.style.transform = "none";
-  taskCreationDiv.style.order = "0";
-  taskCreationDiv.style.zIndex = "0";
-
-  hideOverlay();
-  toDoList.insertBefore(taskCreationDiv, toDoListHeader.nextSibling);
-  renderTasks(currentTaskSort);
-}
-
-/* function createSubtaskElement(subtask: Task) {
-  const subtaskEl = document.createElement("li");
-  subtaskEl.className = "subtask";
-
-  const subtaskCheckbox = document.createElement("input");
-  subtaskCheckbox.type = "checkbox";
-  subtaskCheckbox.className = "subtaskCheckbox";
-  subtaskCheckbox.checked = subtask.completed;
-
-  const subtaskTitle = document.createElement("span");
-  subtaskTitle.textContent = subtask.title;
-
-  const subtaskDate = document.createElement("span");
-  subtaskDate.className = "subtaskDate";
-  if (subtask.dueDate) {
-    const dueDate = new Date(subtask.dueDate);
-    const options = { month: "short", day: "numeric" } as const;
-    subtaskDate.textContent = dueDate.toLocaleDateString("en-US", options);
-  }
-
-  const subtaskTime = document.createElement("span");
-  subtaskTime.className = "subtaskTime";
-  if (subtask.dueTime) {
-    const [hour, minute] = subtask.dueTime.split(":");
-    const date = new Date();
-    date.setHours(Number(hour), Number(minute));
-    const options = { hour: "numeric", minute: "numeric" } as const;
-    subtaskTime.textContent = date.toLocaleTimeString("en-US", options);
-  }
-
-  subtaskCheckbox.addEventListener("change", () => {
-    subtask.completed = subtaskCheckbox.checked;
-    saveTasks();
-    renderTasks(currentTaskSort);
-  });
-
-  subtaskEl.append(subtaskCheckbox, subtaskTitle);
-
-  return subtaskEl;
-} */
-
 sidebarBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     sidebarBtns.forEach((b) => b.classList.remove("active"));
@@ -5629,7 +5497,6 @@ cancelTaskCreationBtn?.addEventListener("click", () => {
 
 addTaskBtn?.addEventListener("click", async () => {
   if (currentParentTaskId) {
-    // addSubtask(String(currentParentTaskId));
     currentParentTaskId = null;
   } else if (isEditing) {
     await saveEditedTask();
