@@ -69,6 +69,28 @@ When turned on in the settings, Dewen lets you use agents to perform specific ta
 - [ ] Organizer Agent - Helps you organize your tasks and notes
 
 ---
+## Command Help
+### Create
+- :a <task description> - Create a task
+- :n <note text> - Create a note
+### Manage
+- :c <task title> - Complete a task
+- :uc <task title> - Uncomplete a task
+- :d <task title> - Delete a task
+- :dn <note text> - Delete a note
+- :x - Clear and delete all completed tasks
+- :p <task title>, <priority> - Prioritize a task
+- :et <task title> - Edit a task
+- :en <note text> - Edit a note
+- :f <duration>, <task title> - Start a focus timer
+### Focus
+- :pt - Pause the current timer
+- :rst - Resume the current timer
+- :rt - Restart the current timer
+### Other
+- :h - Show the help menu
+
+---
 ## Installation
 
 ### Prerequisites
@@ -86,7 +108,7 @@ cd Dewen
 ```bash
 cd src/backend
 pip install uvicorn fastapi  # Install server requirements
-uvicorn
+uvicorn main:app --reload
 ```
 
 3. Open a new terminal window and use `npm` to start Vite
