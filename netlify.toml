@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"
+  publish = "src/frontend/dist"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
