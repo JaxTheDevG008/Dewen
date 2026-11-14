@@ -4127,7 +4127,7 @@ function debounce(func: (...args: any[]) => void, delay: number) {
   return function (...args: any[]) {
     clearTimeout(timeout);
 
-    timeout = setTimeout(() => {
+    timeout = window.setTimeout(() => {
       func(...args);
     }, delay);
   };
@@ -6125,7 +6125,7 @@ function startTimer(logActivity = true) {
 
   const endTime = Date.now() + totalSeconds * 1000;
 
-  intervalId = setInterval(() => {
+  intervalId = window.setInterval(() => {
     const remaining = Math.max(0, Math.round((endTime - Date.now()) / 1000));
     totalSeconds = remaining;
     updateTimerDisplay();
