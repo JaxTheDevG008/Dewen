@@ -6,10 +6,14 @@ import { dirname, resolve } from "path"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
+const isTauri = Boolean(process.env.TAURI_ENV_PLATFORM)
+
 export default defineConfig({
   root: resolve(__dirname, "src/frontend"),
   plugins: [
     VitePWA({
+      disable: isTauri,
+      manifest: false,
       registerType: "autoUpdate",
       injectRegister: "inline",
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
@@ -17,8 +21,9 @@ export default defineConfig({
         enabled: false
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,jpg,jpeg,svg,webp,gif,PNG,JPG,JPEG,SVG,webmanifest}"],
-        maximumFileSizeToCacheInBytes: 3000000
+        globPatterns: ["**/*.{js,css,html,ico,png,jpg,jpeg,svg,webp,gif,PNG,JPG,JPEG,SVG,woff2}"],
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
+        navigateFallback: "index.html"
       }
     })
   ],
