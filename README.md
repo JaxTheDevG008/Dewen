@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/MIT%20License-red?style=for-the-badge" alt="MIT License">
 </p>
 
-<img width="3186" height="1998" alt="image" src="https://github.com/user-attachments/assets/79190dd1-4ea7-4b2a-80fb-e5d8fd41b012" />
+<img width="1594" height="998" alt="dewenPhoto" src="https://github.com/user-attachments/assets/bf86b010-d1b8-4c7c-bd0a-b7952ec1c198" />
 <h2><a href="https://dewen.netlify.app">Check out my project here</a> and <a href="https://www.youtube.com/watch?v=zrY5aBHBmvA">watch the showcase/CAC submission video</a></h2>
 
 ## Purpose
