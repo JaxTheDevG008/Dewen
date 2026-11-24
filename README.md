@@ -76,7 +76,7 @@ When turned on in the settings, Dewen lets you use agents to perform specific ta
 ### Manage
 - :c <task title> - Complete a task
 - :uc <task title> - Uncomplete a task
-- :d <task title> - Delete a task
+- :dt <task title> - Delete a task
 - :dn <note text> - Delete a note
 - :x - Clear and delete all completed tasks
 - :p <task title>, <priority> - Prioritize a task
