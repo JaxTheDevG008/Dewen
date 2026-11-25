@@ -233,11 +233,11 @@
             Terminal
           </button>
           <button
-            class="slatePresetBtn"
-            data-preset="slate"
-            data-i18n="slatepresetbtn"
+            class="skeuoPresetBtn"
+            data-preset="skeuo"
+            data-i18n="skeuoPresetbtn"
           >
-            Slate
+            Skeuomorphic
           </button>
         </div>
       </div>
@@ -1079,30 +1079,6 @@
       </div>
     </div>
 
-    <div class="automationsContent" data-i18n="automationscontent">
-      <div class="automationsHeader" data-i18n="automationsheader">
-        <h1 class="automationsName" data-i18n="automationsname">Automations</h1>
-      </div>
-
-      <div class="automationsListDiv" data-i18n="automationslistdiv">
-        <div class="automationsListHeader" data-i18n="automationslistheader">
-          <h2 class="automationsListTitle" data-i18n="automationslisttitle">
-            Your Automations
-          </h2>
-          <button
-            class="addAutomationBtn accentItem"
-            data-i18n="addautomationbtn"
-          >
-            Add Automation
-          </button>
-        </div>
-
-        <ul class="automationsList" data-i18n="automationslist">
-          <!-- Automation items will dynamically show up here -->
-        </ul>
-      </div>
-    </div>
-
     <div class="settingsContent" data-i18n="settingscontent">
       <div class="settingsNavigator" data-i18n="settingsnavigator">
         <h1 class="settingsHeader" data-i18n="settingsheader">Settings</h1>
@@ -1128,6 +1104,14 @@
               >Security</a
             >
           </li> -->
+          <li data-i18n="li.3">
+            <a
+              href="#dataandbackups"
+              class="settingsNavItem"
+              data-i18n="settingsnavitem.3"
+              >Data & Backups</a
+            >
+          </li>
           <li data-i18n="li.4">
             <a
               href="#accessibility"
@@ -1377,6 +1361,49 @@
           </div>
         </div> -->
 
+        <div class="dataAndBackupsSection" data-i18n="dataandbackupssection">
+          <div class="exportDataDiv" data-i18n="exportdatadiv">
+            <label
+              for="exportDataBtn"
+              class="exportDataLabel"
+              data-i18n="exportdatalabel"
+              >Export Data:</label
+            >
+
+            <button
+              class="exportDataBtn accentItem"
+              data-i18n="exportdatabtn"
+            >
+              Export Data
+            </button>
+          </div>
+
+          <hr class="dataAndBackupsSplit" data-i18n="dataandbackupssplit" />
+
+          <div class="importDataDiv" data-i18n="importdatadiv">
+            <label
+              for="importDataInput"
+              class="importDataLabel"
+              data-i18n="importdatalabel"
+              >Import Data:</label
+            >
+            <input
+              type="file"
+              id="importDataInput"
+              class="importDataInput accentItem"
+              accept=".json"
+              data-i18n="importdatainput"
+            />
+
+            <button
+              class="importDataBtn accentItem"
+              data-i18n="importdatabtn"
+            >
+              Import Data
+            </button>
+          </div>
+        </div>
+
         <div class="accessibilitySection" data-i18n="accessibilitysection">
           <div class="languageDropdownDiv" data-i18n="languagedropdowndiv">
             <label
@@ -1404,7 +1431,7 @@
               <option value="hi" data-i18n="option.19">Hindi</option>
             </select>
           </div>
-        </div> -->
+        </div>
 
         <div class="aboutSection" data-i18n="aboutsection">
           <div class="aboutSettingsInfo" data-i18n="aboutsettingsinfo">

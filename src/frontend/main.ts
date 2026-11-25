@@ -4,6 +4,8 @@ import interactionPlugin, {
   type DateClickArg,
 } from "@fullcalendar/interaction/index.js";
 import { db } from "./storage";
+import { exportData } from "./exportService";
+import { importData } from "./importService";
 
 type SupportedLanguage =
   | "en"
@@ -21,7 +23,7 @@ type SupportedLanguage =
 export const dewenTranslations: Record<
   SupportedLanguage,
   Record<string, string>
-> = {
+  > = {
   en: {
     title: "Dewen - Local-First Task & Project Management",
     enablenotimessage:
@@ -104,9 +106,11 @@ export const dewenTranslations: Record<
     settingsheader: "Settings",
     settingsnavitem: "Personal",
     "settingsnavitem.2": "Agents",
-    "settingsnavitem.3": "Security",
+    "settingsnavitem.3": "Data & Backups",
     "settingsnavitem.4": "Accessibility",
     "settingsnavitem.5": "About",
+    exportdatabtn: "Export Data",
+    importdatalabel: "Import Data:",
     avatarlabel: "Avatar:",
     changeavatarbtn: "Change Avatar",
     avatarpresetsbtn: "Browse Presets",
@@ -264,9 +268,11 @@ export const dewenTranslations: Record<
     settingsheader: "Configuración",
     settingsnavitem: "Personal",
     "settingsnavitem.2": "Agentes",
-    "settingsnavitem.3": "Seguridad",
+    "settingsnavitem.3": "Datos y copias de seguridad",
     "settingsnavitem.4": "Accesibilidad",
     "settingsnavitem.5": "Acerca de",
+    exportdatabtn: "Exportar datos",
+    importdatalabel: "Importar datos:",
     avatarlabel: "Avatar:",
     changeavatarbtn: "Cambiar avatar",
     avatarpresetsbtn: "Explorar preajustes",
@@ -425,9 +431,11 @@ export const dewenTranslations: Record<
     settingsheader: "Paramètres",
     settingsnavitem: "Personnel",
     "settingsnavitem.2": "Agents",
-    "settingsnavitem.3": "Sécurité",
+    "settingsnavitem.3": "Données et sauvegardes",
     "settingsnavitem.4": "Accessibilité",
     "settingsnavitem.5": "À propos",
+    exportdatabtn: "Exporter les données",
+    importdatalabel: "Importer des données :",
     avatarlabel: "Avatar :",
     changeavatarbtn: "Changer d’avatar",
     avatarpresetsbtn: "Parcourir les préréglages",
@@ -588,9 +596,11 @@ export const dewenTranslations: Record<
     settingsheader: "Einstellungen",
     settingsnavitem: "Persönlich",
     "settingsnavitem.2": "Agenten",
-    "settingsnavitem.3": "Sicherheit",
+    "settingsnavitem.3": "Daten & Sicherungen",
     "settingsnavitem.4": "Barrierefreiheit",
     "settingsnavitem.5": "Über",
+    exportdatabtn: "Daten exportieren",
+    importdatalabel: "Daten importieren:",
     avatarlabel: "Avatar:",
     changeavatarbtn: "Avatar ändern",
     avatarpresetsbtn: "Voreinstellungen durchsuchen",
@@ -749,9 +759,11 @@ export const dewenTranslations: Record<
     settingsheader: "设置",
     settingsnavitem: "个人",
     "settingsnavitem.2": "智能体",
-    "settingsnavitem.3": "安全",
+    "settingsnavitem.3": "数据与备份",
     "settingsnavitem.4": "无障碍",
     "settingsnavitem.5": "关于",
+    exportdatabtn: "导出数据",
+    importdatalabel: "导入数据：",
     avatarlabel: "头像：",
     changeavatarbtn: "更换头像",
     avatarpresetsbtn: "浏览预设",
@@ -909,9 +921,11 @@ export const dewenTranslations: Record<
     settingsheader: "設定",
     settingsnavitem: "個人設定",
     "settingsnavitem.2": "エージェント",
-    "settingsnavitem.3": "セキュリティ",
+    "settingsnavitem.3": "データとバックアップ",
     "settingsnavitem.4": "アクセシビリティ",
     "settingsnavitem.5": "このアプリについて",
+    exportdatabtn: "データを書き出す",
+    importdatalabel: "データを読み込む：",
     avatarlabel: "アバター：",
     changeavatarbtn: "アバターを変更",
     avatarpresetsbtn: "プリセットを見る",
@@ -1069,9 +1083,11 @@ export const dewenTranslations: Record<
     settingsheader: "설정",
     settingsnavitem: "개인",
     "settingsnavitem.2": "에이전트",
-    "settingsnavitem.3": "보안",
+    "settingsnavitem.3": "데이터 및 백업",
     "settingsnavitem.4": "접근성",
     "settingsnavitem.5": "정보",
+    exportdatabtn: "데이터 내보내기",
+    importdatalabel: "데이터 가져오기:",
     avatarlabel: "아바타:",
     changeavatarbtn: "아바타 변경",
     avatarpresetsbtn: "프리셋 둘러보기",
@@ -1229,9 +1245,11 @@ export const dewenTranslations: Record<
     settingsheader: "Настройки",
     settingsnavitem: "Личные",
     "settingsnavitem.2": "Агенты",
-    "settingsnavitem.3": "Безопасность",
+    "settingsnavitem.3": "Данные и резервные копии",
     "settingsnavitem.4": "Специальные возможности",
     "settingsnavitem.5": "О приложении",
+    exportdatabtn: "Экспортировать данные",
+    importdatalabel: "Импортировать данные:",
     avatarlabel: "Аватар:",
     changeavatarbtn: "Изменить аватар",
     avatarpresetsbtn: "Выбрать из шаблонов",
@@ -1391,9 +1409,11 @@ export const dewenTranslations: Record<
     settingsheader: "الإعدادات",
     settingsnavitem: "شخصي",
     "settingsnavitem.2": "الوكلاء",
-    "settingsnavitem.3": "الأمان",
+    "settingsnavitem.3": "البيانات والنسخ الاحتياطية",
     "settingsnavitem.4": "إمكانية الوصول",
     "settingsnavitem.5": "حول",
+    exportdatabtn: "تصدير البيانات",
+    importdatalabel: "استيراد البيانات:",
     avatarlabel: "الصورة الرمزية:",
     changeavatarbtn: "تغيير الصورة الرمزية",
     avatarpresetsbtn: "استعراض الإعدادات المسبقة",
@@ -1551,9 +1571,11 @@ export const dewenTranslations: Record<
     settingsheader: "Configurações",
     settingsnavitem: "Pessoal",
     "settingsnavitem.2": "Agentes",
-    "settingsnavitem.3": "Segurança",
+    "settingsnavitem.3": "Dados e backups",
     "settingsnavitem.4": "Acessibilidade",
     "settingsnavitem.5": "Sobre",
+    exportdatabtn: "Exportar dados",
+    importdatalabel: "Importar dados:",
     avatarlabel: "Avatar:",
     changeavatarbtn: "Alterar avatar",
     avatarpresetsbtn: "Explorar predefinições",
@@ -1713,9 +1735,11 @@ export const dewenTranslations: Record<
     settingsheader: "सेटिंग",
     settingsnavitem: "व्यक्तिगत",
     "settingsnavitem.2": "एजेंट",
-    "settingsnavitem.3": "सुरक्षा",
+    "settingsnavitem.3": "डेटा और बैकअप",
     "settingsnavitem.4": "सुलभता",
     "settingsnavitem.5": "परिचय",
+    exportdatabtn: "डेटा निर्यात करें",
+    importdatalabel: "डेटा आयात करें:",
     avatarlabel: "अवतार:",
     changeavatarbtn: "अवतार बदलें",
     avatarpresetsbtn: "प्रीसेट देखें",
@@ -1991,6 +2015,9 @@ const closeAvatarPresets = getElement<HTMLButtonElement>(".closeAvatarPresets");
 const avatarPresetItems = getAllElements<HTMLDivElement>(".avatarPresetItem");
 const fullNameInput = getElement<HTMLInputElement>(".fullNameInput");
 const preferredNameInput = getElement<HTMLInputElement>(".preferredNameInput");
+const exportDataBtn = getElement<HTMLButtonElement>(".exportDataBtn");
+const importDataInput = getElement<HTMLInputElement>(".importDataInput");
+const importDataBtn = getElement<HTMLButtonElement>(".importDataBtn");
 const languageDropdown = getElement<HTMLSelectElement>(".languageDropdown");
 const commandsHelpListDiv = getElement<HTMLDivElement>(".commandsHelpListDiv");
 const closeCommandsHelpListBtn = getElement<HTMLButtonElement>(
@@ -2071,7 +2098,6 @@ interface Task {
   recurrence: Recurrence;
   lastCompleted: string | null;
   blockedBy: string | null;
-  projectId: string | null;
 }
 
 interface Note {
@@ -2079,7 +2105,6 @@ interface Note {
   text: string;
   color: string;
   createdAt: number;
-  projectId: string | null;
 }
 
 interface Project {
@@ -2238,7 +2263,7 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
 
   const taskStatusSpan = document.createElement("span");
   taskStatusSpan.className = "taskStatusSpan";
-  taskStatusSpan.textContent = taskStatus;
+  taskStatusSpan.textContent = formatTaskStatus(taskStatus);
 
   const taskRecurrenceSpan = document.createElement("span");
   taskRecurrenceSpan.className = "taskRecurrenceSpan";
@@ -2715,6 +2740,14 @@ function moveRenderedTasksToKanban(listTask: HTMLElement | null = null) {
   if (taskList) taskList.classList.toggle("drag-mode", isDraggable);
   if (dropZones) dropZones.style.display = isDraggable ? "flex" : "none";
   if (noTasksYetAlert) noTasksYetAlert.style.display = "none";
+}
+
+function formatTaskStatus(status: string) {
+  if (status === "to-do") return "To Do";
+  if (status === "in-progress") return "In Progress";
+  if (status === "blocked") return "Blocked";
+  if (status === "done") return "Done";
+  return status;
 }
 
 function renderTasks(mode = currentTaskSort) {
@@ -3984,6 +4017,7 @@ interface SearchResult {
   score: number;
 }
 
+
 function searchBarMagic() {
   selectedIndex = -1;
 
@@ -4269,8 +4303,8 @@ const colorPresets = [
     darkMode: true,
   },
   {
-    name: "slate",
-    bg: "white",
+    name: "skeuomorphic",
+    bg: "#ba9364",
     accent: "teal",
     darkMode: false,
   },
@@ -5178,6 +5212,10 @@ dashboardBtn?.addEventListener("click", () => {
   document.documentElement.classList.remove("projectsActive");
 
   localStorage.setItem("lastActiveView", "dashboard");
+
+  requestAnimationFrame(() => {
+    calendar?.updateSize();
+  });
 });
 
 projectsBtn?.addEventListener("click", () => {
@@ -5222,6 +5260,14 @@ settingsBtn?.addEventListener("click", () => {
 
   preferredNameInput.value = localStorage.getItem("preferredName") || "";
   fullNameInput.value = localStorage.getItem("fullName") || "";
+  settingsNavOptions.forEach((option) => {
+    option.classList.toggle("active", option.getAttribute("href") === "#personal");
+  });
+  settingsSections.forEach((section) => {
+    section.style.display = section.classList.contains("personalSection")
+      ? "flex"
+      : "none";
+  });
 });
 
 const settingsSections = document.querySelectorAll<HTMLDivElement>(
@@ -5240,10 +5286,15 @@ settingsNavOptions.forEach((option) => {
     });
 
     const target = option.getAttribute("href")?.substring(1);
-    if (target)
-      (
-        document.querySelector(`.${target}Section`) as HTMLDivElement
-      ).style.display = "flex";
+    const sectionClass = target === "dataandbackups"
+      ? "dataAndBackupsSection"
+      : target
+        ? `${target}Section`
+        : "";
+    const section = sectionClass
+      ? document.querySelector<HTMLDivElement>(`.${sectionClass}`)
+      : null;
+    section?.style.setProperty("display", "flex");
   });
 });
 
@@ -5367,6 +5418,29 @@ preferredNameInput?.addEventListener("input", () => {
 
 setupDate(localStorage.getItem("appLanguage") as SupportedLanguage || "en");
 setupGreeting(localStorage.getItem("appLanguage") as SupportedLanguage || "en");
+
+exportDataBtn?.addEventListener("click", () => {
+  exportData();
+});
+
+importDataBtn?.addEventListener("click", async () => {
+  const file = importDataInput?.files?.[0];
+
+  if (!file) return;
+
+  await importData(file);
+
+  tasks = await db.tasks.toArray();
+  allNotes = await db.notes.toArray();
+  activityLog = await db.activity.toArray();
+
+  renderTasks(currentTaskSort);
+  renderNotes();
+  loadActivities();
+  renderCalendarEvents();
+  refreshTaskDropdown();
+  loadSavedItems();
+});
 
 enableNotificationsBtn?.addEventListener("click", () => {
   Notification.requestPermission().then((result) => {
