@@ -3578,7 +3578,40 @@ async function handleSearchKeys(e: KeyboardEvent) {
   if (e.key === "Enter") {
     e.preventDefault();
     const input = searchBar?.value.trim();
-    if (input && input.startsWith(":a ")) {
+    if (input && input.startsWith(":")) {
+      const commands = input
+        .split("&&")
+        .map((cmd) => cmd.trim())
+        .filter(Boolean);
+      
+      for (const cmd of commands) {
+        await executeCommand(cmd);
+      }
+      closeSearchBar();
+      if (searchBar) searchBar.value = "";
+      return;
+    }
+
+    if (selectedIndex >= 0) {
+      (searchResults[selectedIndex] as HTMLElement).click();
+      closeSearchBar();
+      return;
+    }
+    console.log({ input, selectedIndex, hasResults: searchResults.length });
+    closeSearchBar();
+    return;
+  }
+
+  if (e.key === "Escape") {
+    closeSearchBar();
+    return;
+  }
+
+  updateHighlightedResult(searchResults);
+}
+
+async function executeCommand(input: string) {
+  if (input && input.startsWith(":a ")) {
       console.log("create task triggered");
       const text = input.slice(3).trim();
       if (!text) return;
@@ -3626,9 +3659,6 @@ async function handleSearchKeys(e: KeyboardEvent) {
       }
 
       if (!taskCreated) createTask(localParse.task as Partial<Task>);
-
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
@@ -3645,8 +3675,6 @@ async function handleSearchKeys(e: KeyboardEvent) {
       saveNotes();
       renderNotes();
       addActivity("Added a note", "note");
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
@@ -3666,8 +3694,6 @@ async function handleSearchKeys(e: KeyboardEvent) {
         updateTasksDoneCount();
         addActivity(`Completed task: ${matchingTask.title}`, "task");
       }
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
@@ -3687,8 +3713,6 @@ async function handleSearchKeys(e: KeyboardEvent) {
         updateTasksDoneCount();
         addActivity(`Uncompleted task: ${matchingTask.title}`, "task");
       }
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
@@ -3708,8 +3732,6 @@ async function handleSearchKeys(e: KeyboardEvent) {
         if (tasks.length === 0 && noTasksYetAlert) showNoTasksYet();
         addActivity(`Deleted task: ${deletedTask.title}`, "task");
       }
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
@@ -3727,8 +3749,6 @@ async function handleSearchKeys(e: KeyboardEvent) {
         if (allNotes.length === 0 && noNotesYetAlert) showNoNotesYet();
         addActivity("Deleted a note", "note");
       }
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
@@ -3744,16 +3764,12 @@ async function handleSearchKeys(e: KeyboardEvent) {
         if (!isNaN(duration) && duration > 0)
           startTimerFromCommandBar(duration, taskTitle || undefined);
       }
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
     if (input && input.startsWith(":pt")) {
       console.log("pause timer triggered");
       pauseTimer();
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
@@ -3766,8 +3782,6 @@ async function handleSearchKeys(e: KeyboardEvent) {
         const newDueDate = match[2] ? match[2].trim() : null;
         if (!newDueDate || isNaN(Date.parse(newDueDate))) {
           if (searchBar) searchBar.placeholder = "Not a valid date. Please use MM/DD/YYYY format.";
-          closeSearchBar();
-          if (searchBar) searchBar.value = "";
           return;
         }
         const matchingTask = tasks.find((task) =>
@@ -3784,24 +3798,18 @@ async function handleSearchKeys(e: KeyboardEvent) {
           );
         }
       }
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
     if (input && input.startsWith(":rst")) {
       console.log("resume timer triggered");
       startTimer();
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
     if (input && input.startsWith(":rt")) {
       console.log("restart timer triggered");
       restartTimer();
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
@@ -3819,8 +3827,6 @@ async function handleSearchKeys(e: KeyboardEvent) {
           updateTasksDoneCount();
         }
       });
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
@@ -3847,8 +3853,6 @@ async function handleSearchKeys(e: KeyboardEvent) {
           );
         }
       }
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
@@ -3865,8 +3869,6 @@ async function handleSearchKeys(e: KeyboardEvent) {
         );
         if (matchingTask) openEditTaskUI(matchingTask.id);
       }
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
@@ -3883,35 +3885,15 @@ async function handleSearchKeys(e: KeyboardEvent) {
         );
         if (matchingNote) openEditNoteUI(matchingNote);
       }
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
     if (input && input.startsWith(":h")) {
       console.log("help triggered");
       showCommandsHelpList();
-      closeSearchBar();
-      if (searchBar) searchBar.value = "";
       return;
     }
 
-    if (selectedIndex >= 0) {
-      (searchResults[selectedIndex] as HTMLElement).click();
-      closeSearchBar();
-      return;
-    }
-    console.log({ input, selectedIndex, hasResults: searchResults.length });
-    closeSearchBar();
-    return;
-  }
-
-  if (e.key === "Escape") {
-    closeSearchBar();
-    return;
-  }
-
-  updateHighlightedResult(searchResults);
 }
 
 function showCommandsHelpList() {
