@@ -118,7 +118,34 @@ button:hover {
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: var(--text-color);
   width: 100%;
-  max-width: 600px;
+  max-width: 46em;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 6px;
+}
+
+.sampleWorkspaceBanner {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  position: fixed;
+  flex-wrap: nowrap !important;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 9998;
+  padding: 20px 20px;
+  background: var(--ask-for-noti-popup-bg-color);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--text-color);
+  width: 100%;
+  max-width: 46em;
   margin-left: auto;
   margin-right: auto;
   gap: 6px;
@@ -138,7 +165,8 @@ button:hover {
   overflow: hidden;
 }
 
-.enableNotificationsBtn {
+.enableNotificationsBtn,
+.loadSampleWorkspaceBtn {
   position: relative;
   background: rgba(255, 255, 255, 0.2);
   margin: 5px;
@@ -151,12 +179,19 @@ button:hover {
   color: var(--text-color);
 }
 
+.loadSampleWorkspaceBtn {
+  width: 200px;
+  height: 36px;
+  padding: 8px 15px;
+}
+
 .enableNotificationsBtn:hover {
   background: rgba(165, 165, 165, 0.2);
   cursor: pointer;
 }
 
-.closeNotiPopup {
+.closeNotiPopup,
+.closeSampleWorkspacePopup {
   border-radius: 20px;
   border: none;
   text-align: center;
@@ -167,7 +202,8 @@ button:hover {
   color: var(--text-color);
 }
 
-.closeNotiPopup:hover {
+.closeNotiPopup:hover,
+.closeSampleWorkspacePopup:hover {
   transform: scale(1.2);
   background-color: var(--close-noti-popup-hover-bg-color);
 }

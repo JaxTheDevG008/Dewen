@@ -108,7 +108,8 @@ export const dewenTranslations: Record<
     "settingsnavitem.2": "Agents",
     "settingsnavitem.3": "Data & Backups",
     "settingsnavitem.4": "Accessibility",
-    "settingsnavitem.5": "About",
+    "settingsnavitem.5": "Notifications",
+    "settingsnavitem.6": "About",
     exportdatabtn: "Export Data",
     importdatalabel: "Import Data:",
     avatarlabel: "Avatar:",
@@ -273,7 +274,8 @@ export const dewenTranslations: Record<
     "settingsnavitem.2": "Agentes",
     "settingsnavitem.3": "Datos y copias de seguridad",
     "settingsnavitem.4": "Accesibilidad",
-    "settingsnavitem.5": "Acerca de",
+    "settingsnavitem.5": "Notificaciones",
+    "settingsnavitem.6": "Acerca de",
     exportdatabtn: "Exportar datos",
     importdatalabel: "Importar datos:",
     avatarlabel: "Avatar:",
@@ -439,7 +441,8 @@ export const dewenTranslations: Record<
     "settingsnavitem.2": "Agents",
     "settingsnavitem.3": "Données et sauvegardes",
     "settingsnavitem.4": "Accessibilité",
-    "settingsnavitem.5": "À propos",
+    "settingsnavitem.5": "Notifications",
+    "settingsnavitem.6": "À propos",
     exportdatabtn: "Exporter les données",
     importdatalabel: "Importer des données :",
     avatarlabel: "Avatar :",
@@ -607,7 +610,8 @@ export const dewenTranslations: Record<
     "settingsnavitem.2": "Agenten",
     "settingsnavitem.3": "Daten & Sicherungen",
     "settingsnavitem.4": "Barrierefreiheit",
-    "settingsnavitem.5": "Über",
+    "settingsnavitem.5": "Benachrichtigungen",
+    "settingsnavitem.6": "Über",
     exportdatabtn: "Daten exportieren",
     importdatalabel: "Daten importieren:",
     avatarlabel: "Avatar:",
@@ -773,7 +777,8 @@ export const dewenTranslations: Record<
     "settingsnavitem.2": "智能体",
     "settingsnavitem.3": "数据与备份",
     "settingsnavitem.4": "无障碍",
-    "settingsnavitem.5": "关于",
+    "settingsnavitem.5": "通知",
+    "settingsnavitem.6": "关于",
     exportdatabtn: "导出数据",
     importdatalabel: "导入数据：",
     avatarlabel: "头像：",
@@ -938,7 +943,8 @@ export const dewenTranslations: Record<
     "settingsnavitem.2": "エージェント",
     "settingsnavitem.3": "データとバックアップ",
     "settingsnavitem.4": "アクセシビリティ",
-    "settingsnavitem.5": "このアプリについて",
+    "settingsnavitem.5": "通知",
+    "settingsnavitem.6": "このアプリについて",
     exportdatabtn: "データを書き出す",
     importdatalabel: "データを読み込む：",
     avatarlabel: "アバター：",
@@ -1103,7 +1109,8 @@ export const dewenTranslations: Record<
     "settingsnavitem.2": "에이전트",
     "settingsnavitem.3": "데이터 및 백업",
     "settingsnavitem.4": "접근성",
-    "settingsnavitem.5": "정보",
+    "settingsnavitem.5": "알림",
+    "settingsnavitem.6": "정보",
     exportdatabtn: "데이터 내보내기",
     importdatalabel: "데이터 가져오기:",
     avatarlabel: "아바타:",
@@ -1268,7 +1275,8 @@ export const dewenTranslations: Record<
     "settingsnavitem.2": "Агенты",
     "settingsnavitem.3": "Данные и резервные копии",
     "settingsnavitem.4": "Специальные возможности",
-    "settingsnavitem.5": "О приложении",
+    "settingsnavitem.5": "Уведомления",
+    "settingsnavitem.6": "О приложении",
     exportdatabtn: "Экспортировать данные",
     importdatalabel: "Импортировать данные:",
     avatarlabel: "Аватар:",
@@ -1435,7 +1443,8 @@ export const dewenTranslations: Record<
     "settingsnavitem.2": "الوكلاء",
     "settingsnavitem.3": "البيانات والنسخ الاحتياطية",
     "settingsnavitem.4": "إمكانية الوصول",
-    "settingsnavitem.5": "حول",
+    "settingsnavitem.5": "الإشعارات",
+    "settingsnavitem.6": "حول",
     exportdatabtn: "تصدير البيانات",
     importdatalabel: "استيراد البيانات:",
     avatarlabel: "الصورة الرمزية:",
@@ -1600,7 +1609,8 @@ export const dewenTranslations: Record<
     "settingsnavitem.2": "Agentes",
     "settingsnavitem.3": "Dados e backups",
     "settingsnavitem.4": "Acessibilidade",
-    "settingsnavitem.5": "Sobre",
+    "settingsnavitem.5": "Notificações",
+    "settingsnavitem.6": "Sobre",
     exportdatabtn: "Exportar dados",
     importdatalabel: "Importar dados:",
     avatarlabel: "Avatar:",
@@ -1767,7 +1777,8 @@ export const dewenTranslations: Record<
     "settingsnavitem.2": "एजेंट",
     "settingsnavitem.3": "डेटा और बैकअप",
     "settingsnavitem.4": "सुलभता",
-    "settingsnavitem.5": "परिचय",
+    "settingsnavitem.5": "सूचनाएँ",
+    "settingsnavitem.6": "परिचय",
     exportdatabtn: "डेटा निर्यात करें",
     importdatalabel: "डेटा आयात करें:",
     avatarlabel: "अवतार:",
@@ -1888,6 +1899,9 @@ const askForNotifications = getElement<HTMLDivElement>(".askForNotifications");
 const enableNotificationsBtn = getElement<HTMLButtonElement>(
   ".enableNotificationsBtn",
 );
+const sampleWorkspaceBanner = getElement<HTMLDivElement>(".sampleWorkspaceBanner");
+const loadSampleWorkspaceBtn = getElement<HTMLButtonElement>(".loadSampleWorkspaceBtn");
+const closeSampleWorkspaceBtn = getElement<HTMLButtonElement>(".closeSampleWorkspacePopup");
 const closeNotiPopup = getElement<HTMLButtonElement>(".closeNotiPopup");
 const sidebar = getElement<HTMLDivElement>(".sidebar");
 const sidebarBtns = getAllElements<HTMLButtonElement>(".sidebar button");
@@ -4967,6 +4981,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (toDoList) toDoList.style.marginTop = "0px";
   }
 
+  const savedLoadSampleWorksapceDisplay = localStorage.getItem("loadSampleWorkspaceDisplay");
+  if (savedLoadSampleWorksapceDisplay == "none") {
+    sampleWorkspaceBanner.remove();
+  } else {
+    document.body.appendChild(sampleWorkspaceBanner);
+  }
+
+  if (sidebar) sidebar.style.marginTop = "0px";
+  if (toDoList) toDoList.style.marginTop = "0px";
+
   const sidebarHidden = localStorage.getItem("sidebarHidden") === "true";
   let isSidebarVisible = !sidebarHidden;
   if (sidebarHidden) {
@@ -5475,7 +5499,15 @@ importDataBtn?.addEventListener("click", async () => {
   loadSavedItems();
 });
 
+function showSampleWorkspaceBanner() {
+  localStorage.removeItem("loadSampleWorkspaceDisplay");
+  if (!sampleWorkspaceBanner.isConnected) {
+    document.body.appendChild(sampleWorkspaceBanner);
+  }
+}
+
 enableNotificationsBtn?.addEventListener("click", () => {
+  showSampleWorkspaceBanner();
   Notification.requestPermission().then((result) => {
     if (result === "granted") {
       askForNotifications.style.display = "none";
@@ -5488,6 +5520,7 @@ enableNotificationsBtn?.addEventListener("click", () => {
 });
 
 closeNotiPopup?.addEventListener("click", () => {
+  showSampleWorkspaceBanner();
   askForNotifications.remove();
   localStorage.setItem("askForNotiDisplay", "none");
 
@@ -5507,6 +5540,80 @@ closeNotiPopup?.addEventListener("click", () => {
       notiReminderDiv.parentNode.removeChild(notiReminderDiv);
     }
   }, 4000);
+});
+
+loadSampleWorkspaceBtn?.addEventListener("click", async () => {
+  const now = Date.now();
+  const today = new Date().toISOString().split("T")[0];
+  const tomorrow = new Date(now + 86400000).toISOString().split("T")[0];
+
+  const sampleTasks: Task[] = [
+    {
+      id: (now + 1).toString(),
+      title: "reply to unread emails",
+      completed: false,
+      priority: "High",
+      dueDate: today,
+      dueTime: null,
+      status: "In Progress",
+      tags: [],
+      createdAt: now,
+      recurrence: "none",
+      lastCompleted: null,
+      blockedBy: null,
+    },
+    {
+      id: (now + 2).toString(),
+      title: "order groceries for the week",
+      completed: false,
+      priority: "Medium",
+      dueDate: tomorrow,
+      dueTime: null,
+      status: "To Do",
+      tags: [],
+      createdAt: now,
+      recurrence: "none",
+      lastCompleted: null,
+      blockedBy: null,
+    },
+    {
+      id: (now + 3).toString(),
+      title: "clean off desk and organize cables",
+      completed: false,
+      priority: "Low",
+      dueDate: null,
+      dueTime: null,
+      status: "To Do",
+      tags: [],
+      createdAt: now,
+      recurrence: "weekly",
+      lastCompleted: null,
+      blockedBy: null,
+    },
+  ];
+
+  const sampleNote: Note = {
+    id: (now + 4).toString(),
+    text: "This is a quick note to remind you of something important.",
+    color: "rgb(255, 136, 0)",
+    createdAt: now,
+  };
+
+  tasks = sampleTasks;
+  allNotes = [sampleNote];
+
+  await Promise.all([saveTasks(), saveNotes()]);
+
+  window.location.reload();
+  localStorage.setItem("loadSampleWorkspaceDisplay", "none");
+  sampleWorkspaceBanner.remove();
+  sampleWorkspaceBanner.style.display = "none";
+});
+
+closeSampleWorkspaceBtn?.addEventListener("click", () => {
+  localStorage.setItem("loadSampleWorkspaceDisplay", "none");
+  sampleWorkspaceBanner.remove();
+  sampleWorkspaceBanner.style.display = "none";
 });
 
 const savedMode = localStorage.getItem("mode");
