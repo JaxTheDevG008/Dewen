@@ -33,7 +33,6 @@ export const dewenTranslations: Record<
     nosearchresults: "No search results",
     customizebtn: "Customize",
     dashboardbtn: "Dashboard",
-    automationsbtn: "Automations",
     settingsbtn: "Settings",
     closesidebarbtn: "✕ Close",
     customizeheadertitle: "Customize",
@@ -100,9 +99,6 @@ export const dewenTranslations: Record<
     cancelnotecreationbtn: "Cancel",
     addnotebtn: "Add Note",
     activityname: "Activity",
-    automationsname: "Automations",
-    automationslisttitle: "Your Automations",
-    addautomationbtn: "Add Automation",
     settingsheader: "Settings",
     settingsnavitem: "Personal",
     "settingsnavitem.2": "Agents",
@@ -199,7 +195,6 @@ export const dewenTranslations: Record<
     nosearchresults: "No hay resultados de búsqueda",
     customizebtn: "Personalizar",
     dashboardbtn: "Panel",
-    automationsbtn: "Automatizaciones",
     settingsbtn: "Configuración",
     closesidebarbtn: "✕ Cerrar",
     customizeheadertitle: "Personalizar",
@@ -266,9 +261,6 @@ export const dewenTranslations: Record<
     cancelnotecreationbtn: "Cancelar",
     addnotebtn: "Añadir nota",
     activityname: "Actividad",
-    automationsname: "Automatizaciones",
-    automationslisttitle: "Tus automatizaciones",
-    addautomationbtn: "Añadir automatización",
     settingsheader: "Configuración",
     settingsnavitem: "Personal",
     "settingsnavitem.2": "Agentes",
@@ -366,7 +358,6 @@ export const dewenTranslations: Record<
     nosearchresults: "Aucun résultat",
     customizebtn: "Personnaliser",
     dashboardbtn: "Tableau de bord",
-    automationsbtn: "Automatisations",
     settingsbtn: "Paramètres",
     closesidebarbtn: "✕ Fermer",
     customizeheadertitle: "Personnaliser",
@@ -433,9 +424,6 @@ export const dewenTranslations: Record<
     cancelnotecreationbtn: "Annuler",
     addnotebtn: "Ajouter une note",
     activityname: "Activité",
-    automationsname: "Automatisations",
-    automationslisttitle: "Vos automatisations",
-    addautomationbtn: "Ajouter une automatisation",
     settingsheader: "Paramètres",
     settingsnavitem: "Personnel",
     "settingsnavitem.2": "Agents",
@@ -535,7 +523,6 @@ export const dewenTranslations: Record<
     nosearchresults: "Keine Suchergebnisse",
     customizebtn: "Anpassen",
     dashboardbtn: "Dashboard",
-    automationsbtn: "Automatisierungen",
     settingsbtn: "Einstellungen",
     closesidebarbtn: "✕ Schließen",
     customizeheadertitle: "Anpassen",
@@ -602,9 +589,6 @@ export const dewenTranslations: Record<
     cancelnotecreationbtn: "Abbrechen",
     addnotebtn: "Notiz hinzufügen",
     activityname: "Aktivität",
-    automationsname: "Automatisierungen",
-    automationslisttitle: "Deine Automatisierungen",
-    addautomationbtn: "Automatisierung hinzufügen",
     settingsheader: "Einstellungen",
     settingsnavitem: "Persönlich",
     "settingsnavitem.2": "Agenten",
@@ -702,7 +686,6 @@ export const dewenTranslations: Record<
     nosearchresults: "没有搜索结果",
     customizebtn: "自定义",
     dashboardbtn: "仪表板",
-    automationsbtn: "自动化",
     settingsbtn: "设置",
     closesidebarbtn: "✕ 关闭",
     customizeheadertitle: "自定义",
@@ -769,9 +752,6 @@ export const dewenTranslations: Record<
     cancelnotecreationbtn: "取消",
     addnotebtn: "添加笔记",
     activityname: "活动",
-    automationsname: "自动化",
-    automationslisttitle: "你的自动化",
-    addautomationbtn: "添加自动化",
     settingsheader: "设置",
     settingsnavitem: "个人",
     "settingsnavitem.2": "智能体",
@@ -868,7 +848,6 @@ export const dewenTranslations: Record<
     nosearchresults: "検索結果がありません",
     customizebtn: "カスタマイズ",
     dashboardbtn: "ダッシュボード",
-    automationsbtn: "自動化",
     settingsbtn: "設定",
     closesidebarbtn: "✕ 閉じる",
     customizeheadertitle: "カスタマイズ",
@@ -935,9 +914,6 @@ export const dewenTranslations: Record<
     cancelnotecreationbtn: "キャンセル",
     addnotebtn: "メモを追加",
     activityname: "アクティビティ",
-    automationsname: "自動化",
-    automationslisttitle: "自動化一覧",
-    addautomationbtn: "自動化を追加",
     settingsheader: "設定",
     settingsnavitem: "個人設定",
     "settingsnavitem.2": "エージェント",
@@ -1034,7 +1010,6 @@ export const dewenTranslations: Record<
     nosearchresults: "검색 결과 없음",
     customizebtn: "사용자 지정",
     dashboardbtn: "대시보드",
-    automationsbtn: "자동화",
     settingsbtn: "설정",
     closesidebarbtn: "✕ 닫기",
     customizeheadertitle: "사용자 지정",
@@ -1101,9 +1076,6 @@ export const dewenTranslations: Record<
     cancelnotecreationbtn: "취소",
     addnotebtn: "메모 추가",
     activityname: "활동",
-    automationsname: "자동화",
-    automationslisttitle: "내 자동화",
-    addautomationbtn: "자동화 추가",
     settingsheader: "설정",
     settingsnavitem: "개인",
     "settingsnavitem.2": "에이전트",
@@ -1200,7 +1172,6 @@ export const dewenTranslations: Record<
     nosearchresults: "Ничего не найдено",
     customizebtn: "Настроить",
     dashboardbtn: "Панель управления",
-    automationsbtn: "Автоматизация",
     settingsbtn: "Настройки",
     closesidebarbtn: "✕ Закрыть",
     customizeheadertitle: "Настроить",
@@ -1267,9 +1238,6 @@ export const dewenTranslations: Record<
     cancelnotecreationbtn: "Отмена",
     addnotebtn: "Добавить заметку",
     activityname: "Активность",
-    automationsname: "Автоматизация",
-    automationslisttitle: "Ваши автоматизации",
-    addautomationbtn: "Добавить автоматизацию",
     settingsheader: "Настройки",
     settingsnavitem: "Личные",
     "settingsnavitem.2": "Агенты",
@@ -1368,7 +1336,6 @@ export const dewenTranslations: Record<
     nosearchresults: "لا توجد نتائج بحث",
     customizebtn: "تخصيص",
     dashboardbtn: "لوحة المعلومات",
-    automationsbtn: "الأتمتة",
     settingsbtn: "الإعدادات",
     closesidebarbtn: "✕ إغلاق",
     customizeheadertitle: "تخصيص",
@@ -1435,9 +1402,6 @@ export const dewenTranslations: Record<
     cancelnotecreationbtn: "إلغاء",
     addnotebtn: "إضافة ملاحظة",
     activityname: "النشاط",
-    automationsname: "الأتمتة",
-    automationslisttitle: "الأتمتة الخاصة بك",
-    addautomationbtn: "إضافة أتمتة",
     settingsheader: "الإعدادات",
     settingsnavitem: "شخصي",
     "settingsnavitem.2": "الوكلاء",
@@ -1534,7 +1498,6 @@ export const dewenTranslations: Record<
     nosearchresults: "Nenhum resultado de pesquisa",
     customizebtn: "Personalizar",
     dashboardbtn: "Painel",
-    automationsbtn: "Automações",
     settingsbtn: "Configurações",
     closesidebarbtn: "✕ Fechar",
     customizeheadertitle: "Personalizar",
@@ -1601,9 +1564,6 @@ export const dewenTranslations: Record<
     cancelnotecreationbtn: "Cancelar",
     addnotebtn: "Adicionar nota",
     activityname: "Atividade",
-    automationsname: "Automações",
-    automationslisttitle: "Suas automações",
-    addautomationbtn: "Adicionar automação",
     settingsheader: "Configurações",
     settingsnavitem: "Pessoal",
     "settingsnavitem.2": "Agentes",
@@ -1702,7 +1662,6 @@ export const dewenTranslations: Record<
     nosearchresults: "कोई खोज परिणाम नहीं",
     customizebtn: "अनुकूलित करें",
     dashboardbtn: "डैशबोर्ड",
-    automationsbtn: "स्वचालन",
     settingsbtn: "सेटिंग",
     closesidebarbtn: "✕ बंद करें",
     customizeheadertitle: "अनुकूलित करें",
@@ -1769,9 +1728,6 @@ export const dewenTranslations: Record<
     cancelnotecreationbtn: "रद्द करें",
     addnotebtn: "नोट जोड़ें",
     activityname: "गतिविधि",
-    automationsname: "स्वचालन",
-    automationslisttitle: "आपके स्वचालन",
-    addautomationbtn: "स्वचालन जोड़ें",
     settingsheader: "सेटिंग",
     settingsnavitem: "व्यक्तिगत",
     "settingsnavitem.2": "एजेंट",
@@ -2009,11 +1965,6 @@ const dropZones = getElement<HTMLDivElement>(".dropZones");
 const toDoDropZone = getElement<HTMLDivElement>(".toDoDropZone");
 const inProgressDropZone = getElement<HTMLDivElement>(".inProgressDropZone");
 const allDoneDropZone = getElement<HTMLDivElement>(".allDoneDropZone");
-/* const projectsBtn = getElement<HTMLButtonElement>(".projectsBtn");
-const projectsDiv = getElement<HTMLDivElement>(".projectsDiv");
-const closeProjectsBtn = getElement<HTMLButtonElement>(".closeProjectsBtn");
-const projectList = getElement<HTMLUListElement>(".projectList");
-const addProjectBtn = getElement<HTMLButtonElement>(".addProjectBtn"); */
 const focusTimer = getElement<HTMLDivElement>(".focusTimer");
 const timerOptionsDropdown = getElement<HTMLSelectElement>(
   ".timerOptionsDropdown",
@@ -2070,8 +2021,6 @@ const commandsHelpListDiv = getElement<HTMLDivElement>(".commandsHelpListDiv");
 const closeCommandsHelpListBtn = getElement<HTMLButtonElement>(
   ".closeCommandsHelpList",
 );
-const projectsBtn = getElement<HTMLButtonElement>(".projectsBtn");
-const automationsBtn = getElement<HTMLButtonElement>(".automationsBtn");
 const ai_API_BASE = "http://127.0.0.1:5000";
 
 function safeParse(key: string): any[] {
@@ -2354,6 +2303,7 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
 
     if (t.completed) {
       t.completedAt = Date.now();
+      addActivity(`Completed task: ${task.title}`, "task");
     } else {
       t.completedAt = null;
     }
@@ -2364,7 +2314,6 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
     listTask.classList.toggle("completed", t.completed);
 
     saveTasks();
-    addActivity(`Completed task: ${task.title}`, "task");
     updateTasksDoneCount();
     renderWhatToFocusOn();
     renderUpcomingTasks();
@@ -2374,7 +2323,7 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
     updateBlockedTasksCount();
   });
 
-  taskTextAndCheckbox.appendChild(taskTextSpan);
+    taskTextAndCheckbox.appendChild(taskTextSpan);
   taskContents.appendChild(taskTextAndCheckbox);
 
   taskAttributes.appendChild(taskPrioritySpan);
@@ -2382,14 +2331,14 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
   taskDateAndTime.appendChild(taskDateAndTimeSpan);
 
   if (taskDate || taskTime) {
+    taskAttributes.appendChild(taskDateAndTime);
   }
 
   taskAttributes.appendChild(taskStatusSpan);
-  taskAttributes.appendChild(taskRecurrenceSpan);
+  if (recurrenceText) taskAttributes.appendChild(taskRecurrenceSpan);
+
   taskContents.appendChild(taskAttributes);
-
   mainTask.appendChild(taskContents);
-
   taskOptionsBtnDiv.appendChild(taskOptionsBtn);
 
   taskOptionsBtn.addEventListener("click", (e) => {
@@ -2404,6 +2353,7 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
 
     taskOptions.classList.toggle("show");
   });
+
 
   document.body.appendChild(taskOptions);
 
@@ -2798,6 +2748,8 @@ function formatTaskStatus(status: string) {
 }
 
 function renderTasks(mode = currentTaskSort) {
+  document.querySelectorAll(".taskOptions").forEach((el) => el.remove());
+
   if (taskList) taskList.innerHTML = "";
   if (toDoDropZone) toDoDropZone.innerHTML = "";
   if (inProgressDropZone) inProgressDropZone.innerHTML = "";
@@ -2871,7 +2823,7 @@ function parseMarkdown(text: string): string {
     .replace(/^---\s*$/gim, "<hr class=\"note-hr\">")
 
     // 4. Links ([Text](URL))
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "<a href=\"$2\" target=\"_blank\" class=\"note-link\">$1</a>")
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/gi, '<a href="$2" target="_blank" rel="noopener noreferrer" class="note-link">$1</a>')
 
     // 5. Code, Bold, and Italics
     .replace(/`([^`]+)`/g, "<code>$1</code>")
@@ -2976,7 +2928,7 @@ function renderWhatToFocusOn(limit = 3) {
   const getDueTime = (task: Task) => {
     if (!task.dueDate) return Infinity;
     const time = task.dueTime || "23:59";
-    return new Date(`${task.dueDate}T${time}`).getDate();
+    return new Date(`${task.dueDate}T${time}`).getTime();
   };
 
   const sortedFocusTasks = [...tasks]
@@ -3309,6 +3261,7 @@ function createTask(taskData: Partial<Task>) {
     createdAt: taskData.createdAt || Date.now(),
     recurrence,
     lastCompleted: taskData.lastCompleted || null,
+    blockedBy: taskData.blockedBy || null,
   };
 
   tasks.push(task);
@@ -3330,6 +3283,7 @@ async function addTask() {
     dueTime: taskTimeInput?.value || null,
     status: taskStatusSelector?.value as Status,
     recurrence: taskRecurrenceSelector?.value as Recurrence,
+    blockedBy: taskStatusSelector?.value === "Blocked" ? blockedByInput?.value || null : null
   });
   if (!task) return;
 
@@ -3745,7 +3699,7 @@ async function handleSearchKeys(e: KeyboardEvent) {
 
     if (input && input.startsWith(":dt ")) {
       console.log("delete task triggered");
-      const text = input.slice(3).trim();
+      const text = input.slice(4).trim();
       if (!text) return;
       const matchingTaskIndex = tasks.findIndex((task) => {
         return task.title.toLowerCase().includes(text.toLowerCase());
@@ -3766,7 +3720,7 @@ async function handleSearchKeys(e: KeyboardEvent) {
 
     if (input && input.startsWith(":dn ")) {
       console.log("delete note triggered");
-      const text = input.slice(3).trim();
+      const text = input.slice(4).trim();
       if (!text) return;
       const matchingNoteIndex = allNotes.findIndex((note) => {
         return note.text.toLowerCase().includes(text.toLowerCase());
@@ -5229,8 +5183,8 @@ function saveEditedTask() {
   if (taskTimeInput) task.dueTime = taskTimeInput.value || null;
   if (taskStatusSelector)
     task.status = normalizeTaskStatus(taskStatusSelector.value);
-  if (task.blockedByInput) task.blockedBy = task.blockedByInput.value || null;
-  if (taskRecurrenceSelector)
+  if (blockedByInput) task.blockedBy = task.status === "Blocked" ? blockedByInput.value || null : null;
+    if (taskRecurrenceSelector)
     task.recurrence = task.dueDate ? taskRecurrenceSelector.value : "none";
 
   saveTasks();
@@ -5265,8 +5219,6 @@ dashboardBtn?.addEventListener("click", () => {
   document.documentElement.classList.add("dashboardActive");
   document.documentElement.classList.remove("isSettingsView");
   document.documentElement.classList.remove("calendarView");
-  document.documentElement.classList.remove("automationsActive");
-  document.documentElement.classList.remove("projectsActive");
 
   localStorage.setItem("lastActiveView", "dashboard");
 
@@ -5275,31 +5227,10 @@ dashboardBtn?.addEventListener("click", () => {
   });
 });
 
-projectsBtn?.addEventListener("click", () => {
-  document.documentElement.classList.add("projectsActive");
-  document.documentElement.classList.remove("isSettingsView");
-  document.documentElement.classList.remove("calendarView");
-  document.documentElement.classList.remove("automationsActive");
-  document.documentElement.classList.remove("dashboardActive");
-
-  localStorage.setItem("lastActiveView", "projects");
-});
-
-automationsBtn?.addEventListener("click", () => {
-  document.documentElement.classList.add("automationsActive");
-  document.documentElement.classList.remove("dashboardActive");
-  document.documentElement.classList.remove("isSettingsView");
-  document.documentElement.classList.remove("calendarView");
-  document.documentElement.classList.remove("projectsActive");
-
-  localStorage.setItem("lastActiveView", "automations");
-});
-
 /* calendarBtn?.addEventListener("click", () => {
   /* document.documentElement.classList.add("calendarView");
   document.documentElement.classList.remove("dashboardActive");
   document.documentElement.classList.remove("isSettingsView");
-  document.documentElement.classList.remove("automationsActive");
 
   localStorage.setItem("lastActiveView", "calendar");
   alert("Calendar view coming soon!");
@@ -5310,8 +5241,6 @@ settingsBtn?.addEventListener("click", () => {
   document.documentElement.classList.add("isSettingsView");
   document.documentElement.classList.remove("dashboardActive");
   document.documentElement.classList.remove("calendarView");
-  document.documentElement.classList.remove("automationsActive");
-  document.documentElement.classList.remove("projectsActive");
 
   localStorage.setItem("lastActiveView", "settings");
 
@@ -5544,8 +5473,8 @@ closeNotiPopup?.addEventListener("click", () => {
 
 loadSampleWorkspaceBtn?.addEventListener("click", async () => {
   const now = Date.now();
-  const today = new Date().toISOString().split("T")[0];
-  const tomorrow = new Date(now + 86400000).toISOString().split("T")[0];
+  const today = formatDateInputValue(new Date(now));
+  const tomorrow = formatDateInputValue(new Date(now + 86400000));
 
   const sampleTasks: Task[] = [
     {
@@ -5604,16 +5533,14 @@ loadSampleWorkspaceBtn?.addEventListener("click", async () => {
 
   await Promise.all([saveTasks(), saveNotes()]);
 
-  window.location.reload();
   localStorage.setItem("loadSampleWorkspaceDisplay", "none");
   sampleWorkspaceBanner.remove();
-  sampleWorkspaceBanner.style.display = "none";
+  window.location.reload();
 });
 
 closeSampleWorkspaceBtn?.addEventListener("click", () => {
   localStorage.setItem("loadSampleWorkspaceDisplay", "none");
   sampleWorkspaceBanner.remove();
-  sampleWorkspaceBanner.style.display = "none";
 });
 
 const savedMode = localStorage.getItem("mode");
@@ -5763,7 +5690,7 @@ function showNoNotesYet() {
 
 function updateTasksOverdueCount() {
   const now = new Date();
-  const today = now.toISOString().split("T")[0];
+  const today = formatDateInputValue(now);
 
   const overdueTasks = tasks.filter((t) => {
     if (!t.dueDate) return false;
@@ -5783,7 +5710,7 @@ function updateTasksOverdueCount() {
 
 function updateTasksDueTodayCount() {
   const now = new Date();
-  const today = now.toISOString().split("T")[0];
+  const today = formatDateInputValue(now);
 
   const dueTodayTasks = tasks.filter((t) => {
     if (!t.dueDate) return false;
@@ -6307,7 +6234,6 @@ function startTimer(logActivity = true) {
       currentFocusedTask.dataset.order = "2";
     }
     if (taskSelectionDropdown) taskSelectionDropdown.style.display = "none";
-    addActivity(`Started focus session: ${selectedFocusedTask}`, "focus");
     if (logActivity)
       addActivity(`Started focus session: ${selectedFocusedTask}`, "focus");
     const currentFocusedTaskDiv = document.querySelector<HTMLDivElement>(

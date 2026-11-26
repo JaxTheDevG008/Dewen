@@ -360,8 +360,6 @@ button:hover {
 
 .dashboardBtn,
 .calendarBtn,
-.projectsBtn,
-.automationsBtn,
 .settingsBtn,
 .closeSidebarBtn {
   display: flex;
@@ -379,11 +377,6 @@ button:hover {
   color: var(--text-color);
 }
 
-.projectsBtn,
-.automationsBtn {
-  display: none;
-}
-
 .closeSidebarBtn {
   display: none;
 }
@@ -396,9 +389,7 @@ button:hover {
 
 .dashboardBtn:hover,
 .calendarBtn:hover,
-.automationsBtn:hover,
 .settingsBtn:hover,
-.projectsBtn:hover,
 .closeSidebarBtn {
   background-color: var(--btn-bg-color);
   cursor: pointer;
@@ -406,14 +397,11 @@ button:hover {
 
 .dashboardBtn.active,
 .calendarBtn.active,
-.automationsBtn.active,
-.projectsBtn.active,
 .settingsBtn.active {
   background-color: var(--btn-bg-color);
 }
 
 .dashboardIcon,
-.automationsIcon,
 .settingsIcon {
   width: 18px;
   height: 18px;
@@ -423,7 +411,6 @@ button:hover {
 }
 
 [data-mode="dark"] .dashboardIcon,
-[data-mode="dark"] .automationsIcon,
 [data-mode="dark"] .settingsIcon {
   filter: brightness(0) invert(1);
   opacity: 0.7;
@@ -526,8 +513,6 @@ button:hover {
 }
 
 :root.sidebarHidden .dashboardContent,
-:root.sidebarHidden .projectsContent,
-:root.sidebarHidden .automationsContent,
 :root.sidebarHidden .settingsContent {
   transform: translateX(0);
   align-items: center;
@@ -536,8 +521,6 @@ button:hover {
 }
 
 :root:not(.sidebarHidden) .dashboardContent,
-:root:not(.sidebarHidden) .projectsContent,
-:root:not(.sidebarHidden) .automationsContent,
 :root:not(.sidebarHidden) .settingsContent {
   transform: translateX(140px);
   align-items: flex-end;
@@ -545,8 +528,6 @@ button:hover {
 
 @media (max-width: 1240px) {
   :root:not(.sidebarHidden) .dashboardContent,
-  :root:not(.sidebarHidden) .projectsContent,
-  :root:not(.sidebarHidden) .automationsContent,
   :root:not(.sidebarHidden) .settingsContent {
     transform: translateX(0);
     align-items: center;
@@ -591,82 +572,6 @@ button:hover {
   .dashboardHeader {
     width: 100%;
   }
-}
-
-.projectsContent {
-  position: relative;
-  display: none;
-  flex-direction: column;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: 80px;
-  width: 1160px;
-  height: 1837px;
-  margin-left: auto;
-  margin-right: auto;
-  transition: transform 0.3s;
-  transform: translateX(0);
-  background: var(--sidebar-bg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  border: 1px solid var(--bd-color);
-  padding: 20px;
-}
-
-:root.projectsActive .dashboardContent,
-:root.projectsActive .automationsContent,
-:root.projectsActive .settingsContent {
-  display: none;
-}
-
-:root:not(.projectsActive) .projectsContent {
-  display: none;
-}
-
-.automationsContent {
-  position: relative;
-  display: none;
-  flex-direction: column;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: 80px;
-  width: 1160px;
-  height: 1837px;
-  margin-left: auto;
-  margin-right: auto;
-  transition: transform 0.3s;
-  transform: translateX(0);
-  background: var(--sidebar-bg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  border: 1px solid var(--bd-color);
-  padding: 20px;
-}
-
-:root.automationsActive .dashboardContent,
-:root.automationsActive .settingsContent {
-  display: none;
-}
-
-:root:not(.automationsActive) .automationsContent {
-  display: none;
-}
-
-.automationsContentHeader {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  height: fit-content;
-  border-radius: 20px;
 }
 
 :root.calendarView .dashboardHeader,
@@ -2186,80 +2091,6 @@ button:hover {
   margin-top: 30px;
 }
 
-.projectsDiv {
-  position: fixed;
-  z-index: 9999;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgb(255, 255, 255);
-  padding: 2rem;
-  border-radius: 15px;
-  width: min(90vw, 450px);
-  max-height: min(80vh, 420px);
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  overflow-y: auto;
-}
-
-.projectsDiv.show {
-  display: flex;
-}
-
-.projectsHeader {
-  align-items: center;
-  gap: 10px;
-  position: sticky;
-  top: 0px;
-  z-index: 1;
-  width: 100%;
-  height: 75px;
-  align-self: flex-start;
-}
-
-.projectsName {
-  position: relative;
-  bottom: 5px;
-  font-size: 1.2rem;
-}
-
-.closeProjectsBtn {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background-color: var(--btn-bg-color);
-  border: none;
-  border-radius: 12px;
-  padding: 5px 10px;
-  width: 30px;
-  height: 30px;
-  color: var(--text-color);
-}
-
-.projectsLineSplit {
-  position: relative;
-  background-color: var(--bd-color);
-  border: none;
-  height: 1px;
-}
-
-.projectsContent {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.projectsList {
-  list-style-type: none;
-  margin: 0px;
-  padding: 0px;
-}
-
 .taskSortSelector {
   position: relative;
   top: 21px;
@@ -2670,6 +2501,17 @@ input:focus {
   background-color: var(--btn-hover-bg-color);
 }
 
+.taskDateImg {
+  width: 18px;
+  filter: brightness(0);
+}
+
+[data-mode="dark"] .taskDateImg {
+  filter: brightness(0) invert(1);
+  opacity: 0.7;
+  transition: 0.2s ease;
+}
+
 .noTasksYetAlert {
   order: 1;
   display: flex;
@@ -2884,7 +2726,7 @@ input:focus {
 
 .taskPrioritySpan {
   position: relative;
-  border-right: 1px solid var(--task-attribute-separator-color);
+  border-right: 2px solid var(--task-attribute-separator-color);
   padding-right: 10px;
 }
 
@@ -2898,7 +2740,7 @@ input:focus {
 .taskDateAndTimeSpan {
   position: relative;
   order: 2;
-  border-right: 1px solid var(--task-attribute-separator-color);
+  border-right: 2px solid var(--task-attribute-separator-color);
   padding-right: 10px;
 }
 
@@ -2910,7 +2752,7 @@ input:focus {
 .taskStatusSpan {
   order: 3;
   position: relative;
-  border-right: 1px solid var(--task-attribute-separator-color);
+  border-right: 2px solid var(--task-attribute-separator-color);
   padding-right: 10px;
 }
 
@@ -2927,6 +2769,11 @@ input:focus {
   width: 18px;
   order: 1;
   filter: brightness(0);
+}
+
+.taskStatusSpan:last-child {
+  border-right: none;
+  padding-right: 0;
 }
 
 [data-mode="dark"] .taskRecurrenceImg {
