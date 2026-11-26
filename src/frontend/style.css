@@ -1404,7 +1404,7 @@ button:hover {
 .customBgColorInput::-webkit-color-swatch,
 .customAccentColorInput::-webkit-color-swatch {
   border: none;
-  border-radius: 20px; 
+  border-radius: 20px;
 }
 
 .customBgColorInput::-moz-color-swatch,
@@ -2053,10 +2053,6 @@ button:hover {
   }
 }
 
-:root.isKanbanView .toDoList {
-  height: 750px;
-}
-
 .toDoListHeader {
   align-items: center;
   gap: 10px;
@@ -2108,28 +2104,6 @@ button:hover {
   width: 130px;
 }
 
-@media (max-width: 1240px) {
-  .taskSortSelector,
-  .taskViewSelector {
-    width: auto;
-    min-width: 0px;
-    font-size: 0.8rem;
-  }
-}
-
-@media (max-width: 422px) {
-  .taskSortSelector,
-  .taskViewSelector {
-    font-size: 0.7rem;
-    padding-inline: 6px;
-  }
-}
-
-.taskSortSelector:hover {
-  background-color: var(--btn-hover-bg-color);
-  cursor: pointer;
-}
-
 .taskViewSelector {
   position: relative;
   top: 21px;
@@ -2144,72 +2118,27 @@ button:hover {
   border-radius: 12px;
   padding: 5px 10px;
   height: 35px;
-  width: 150px;
+  width: 130px;
 }
 
-.taskViewSelector:hover {
+@media (max-width: 1240px) {
+  .taskSortSelector {
+    width: auto;
+    min-width: 0px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 422px) {
+  .taskSortSelector {
+    font-size: 0.7rem;
+    padding-inline: 6px;
+  }
+}
+
+.taskSortSelector:hover {
   background-color: var(--btn-hover-bg-color);
   cursor: pointer;
-}
-
-.KanbanBoardIcon {
-  width: 18px;
-  height: 18px;
-  filter: brightness(0);
-}
-
-[data-mode="dark"] .KanbanBoardIcon {
-  filter: brightness(0) invert(1);
-  opacity: 0.7;
-  transition: 0.2s ease;
-}
-
-.dropZones {
-  display: none;
-  justify-content: space-around;
-  position: relative;
-  width: 700px;
-  gap: 5px;
-}
-
-.toDoDropZone {
-  background-color: rgb(241, 241, 241);
-  min-height: 650px;
-  width: 30%;
-  border-radius: 8px;
-  padding: 10px;
-  gap: 10px;
-  border: 1px solid rgb(217, 217, 217);
-}
-
-[data-mode="dark"] .toDoDropZone {
-  background-color: rgb(57, 57, 67);
-}
-
-.inProgressDropZone {
-  background-color: rgb(246, 254, 255);
-  min-height: 400px;
-  width: 30%;
-  border-radius: 8px;
-  padding: 10px;
-  border: 1px solid rgb(220, 220, 229);
-}
-
-[data-mode="dark"] .inProgressDropZone {
-  background-color: rgb(62, 62, 79);
-}
-
-.allDoneDropZone {
-  background-color: rgb(245, 255, 243);
-  min-height: 400px;
-  width: 30%;
-  border-radius: 8px;
-  padding: 10px;
-  border: 1px solid rgb(226, 226, 224);
-}
-
-[data-mode="dark"] .allDoneDropZone {
-  background-color: rgb(59, 59, 67);
 }
 
 .addBtn {
@@ -2565,6 +2494,91 @@ input:focus {
   order: 1;
 }
 
+.kanbanBoard {
+  display: none;
+  grid-template-columns: repeat(3, minmax(2em, 1fr));
+  gap: 16px;
+  width: 100%;
+  overflow-x: auto;
+  padding: 8px 0;
+}
+
+.kanbanColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 30em;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--btn-bg-color);
+}
+
+.kanbanColumn h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.kanbanTasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 200px;
+}
+
+.kanbanCard {
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--btn-hover-bg-color);
+  border: 1px solid var(--bd-color);
+  cursor: pointer;
+  overflow-wrap: anywhere;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  flex-direction: column;
+  display: flex;
+  gap: 8px;
+}
+
+.kanbanCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  cursor: grab;
+}
+
+.kanbanCard:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+  cursor: grabbing;
+}
+
+@media (max-width: 900px) {
+  .kanbanBoard {
+    grid-template-columns: repeat(4, 260px);
+  }
+}
+
+.kanbanCardAttrs {
+  display: flex;
+  flex-direction: row;
+  color: var(--text-color);
+}
+
+.kanbanTaskPriority {
+  font-size: 0.7rem;
+  border-radius: 20px;
+  padding: 10px;
+  margin-right: 8px;
+}
+
+.kanbanTaskDateAndTime {
+  font-size: 0.75rem;
+  padding: 10px;
+  background-color: var(--btn-bg-color);
+  border-radius: 20px;
+}
+
 .listTask {
   margin-left: 8px;
   display: flex;
@@ -2574,10 +2588,6 @@ input:focus {
   gap: 6px;
   color: var(--text-color);
   font-size: 20px;
-}
-
-:root.isKanbanView .listTask {
-  font-size: 15px;
 }
 
 .taskTextAndCheckbox {
@@ -2693,11 +2703,6 @@ input:focus {
 
 .mainTask:hover {
   background-color: var(--task-hover-bg-color);
-}
-
-.mainTask.dragging {
-  opacity: 0.5;
-  border: 2px dashed #ccc;
 }
 
 .taskTextSpan {
@@ -2960,10 +2965,6 @@ input:focus {
     margin-inline: auto;
     padding: 15px;
   }
-}
-
-:root.isKanbanView .focusTimer {
-  height: 750px;
 }
 
 .timerOptionsDropdown {
@@ -4233,7 +4234,8 @@ html:not([class*="settingsView"]) .personalSection {
   gap: 15px;
 }
 
-.aiToggleBtn, .securityToggleBtn {
+.aiToggleBtn,
+.securityToggleBtn {
   background-color: var(--btn-bg-color);
   width: 60px;
   height: 30px;
@@ -4243,7 +4245,8 @@ html:not([class*="settingsView"]) .personalSection {
   transition: background-color 0.2s;
 }
 
-.aiToggleBtn::before, .securityToggleBtn::before {
+.aiToggleBtn::before,
+.securityToggleBtn::before {
   position: absolute;
   content: "";
   background-color: var(--text-color);
@@ -4254,15 +4257,18 @@ html:not([class*="settingsView"]) .personalSection {
   transition: 0.2s;
 }
 
-#aiToggle:checked + .aiToggleBtn, #securityToggle:checked + .securityToggleBtn {
+#aiToggle:checked + .aiToggleBtn,
+#securityToggle:checked + .securityToggleBtn {
   background-color: rgb(70, 190, 140);
 }
 
-#aiToggle:checked + .aiToggleBtn::before, #securityToggle:checked + .securityToggleBtn::before {
+#aiToggle:checked + .aiToggleBtn::before,
+#securityToggle:checked + .securityToggleBtn::before {
   transform: translateX(30px);
 }
 
-#aiToggle, #securityToggle {
+#aiToggle,
+#securityToggle {
   display: none;
 }
 
@@ -4333,7 +4339,7 @@ html:not([class*="settingsView"]) .personalSection {
   border-top: 1px solid gray;
   height: 0;
   width: 100%;
-} 
+}
 
 .importDataDiv {
   display: flex;
@@ -4372,19 +4378,19 @@ html:not([class*="settingsView"]) .personalSection {
 }
 
 .appLogo {
-  width: 11em;         
-  height: 11em;        
+  width: 11em;
+  height: 11em;
   overflow: hidden;
-  display: inline-flex;  
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .appLogoIcon {
-  width: 100%;           
+  width: 100%;
   height: 100%;
   display: block;
-  object-fit: contain;   
+  object-fit: contain;
 }
 
 .aboutSettingsBtns {

@@ -60,6 +60,9 @@ export const dewenTranslations: Record<
     option: "Date Created",
     "option.2": "Priority",
     "option.3": "Due Date",
+    taskviewselector: "Task View",
+    taskviewlistoption: "List View",
+    taskviewkanbanoption: "Kanban Board",
     addbtn: "Add",
     notasksyet: "No tasks yet",
     tinytaskstip: "Add a task to get started.",
@@ -80,9 +83,6 @@ export const dewenTranslations: Record<
     "option.4": "Select a task",
     canceltaskcreationbtn: "Cancel",
     addtaskbtn: "Add Task",
-    tododropzone: "To Do",
-    inprogressdropzone: "In Progress",
-    alldonedropzone: "Completed",
     "option.5": "Focus Timer",
     "option.6": "Decrastinator",
     "option.7": "Break Timer",
@@ -222,6 +222,9 @@ export const dewenTranslations: Record<
     option: "Fecha de creación",
     "option.2": "Prioridad",
     "option.3": "Fecha de vencimiento",
+    taskviewselector: "Vista de tareas",
+    taskviewlistoption: "Vista de lista",
+    taskviewkanbanoption: "Tablero Kanban",
     addbtn: "Añadir",
     notasksyet: "Aún no hay tareas",
     tinytaskstip: "Añade una tarea para comenzar.",
@@ -242,9 +245,6 @@ export const dewenTranslations: Record<
     "option.4": "Selecciona una tarea",
     canceltaskcreationbtn: "Cancelar",
     addtaskbtn: "Añadir tarea",
-    tododropzone: "Por hacer",
-    inprogressdropzone: "En progreso",
-    alldonedropzone: "Completadas",
     "option.5": "Temporizador de enfoque",
     "option.6": "Antiprocrastinador",
     "option.7": "Temporizador de descanso",
@@ -385,6 +385,9 @@ export const dewenTranslations: Record<
     option: "Date de création",
     "option.2": "Priorité",
     "option.3": "Date d’échéance",
+    taskviewselector: "Affichage des tâches",
+    taskviewlistoption: "Vue en liste",
+    taskviewkanbanoption: "Tableau Kanban",
     addbtn: "Ajouter",
     notasksyet: "Aucune tâche pour le moment",
     tinytaskstip: "Ajoutez une tâche pour commencer.",
@@ -405,9 +408,6 @@ export const dewenTranslations: Record<
     "option.4": "Sélectionner une tâche",
     canceltaskcreationbtn: "Annuler",
     addtaskbtn: "Ajouter une tâche",
-    tododropzone: "À faire",
-    inprogressdropzone: "En cours",
-    alldonedropzone: "Terminées",
     "option.5": "Minuteur de concentration",
     "option.6": "Anti-procrastination",
     "option.7": "Minuteur de pause",
@@ -550,6 +550,9 @@ export const dewenTranslations: Record<
     option: "Erstellungsdatum",
     "option.2": "Priorität",
     "option.3": "Fälligkeitsdatum",
+    taskviewselector: "Aufgabenansicht",
+    taskviewlistoption: "Listenansicht",
+    taskviewkanbanoption: "Kanban-Board",
     addbtn: "Hinzufügen",
     notasksyet: "Noch keine Aufgaben",
     tinytaskstip: "Füge eine Aufgabe hinzu, um loszulegen.",
@@ -570,9 +573,6 @@ export const dewenTranslations: Record<
     "option.4": "Aufgabe auswählen",
     canceltaskcreationbtn: "Abbrechen",
     addtaskbtn: "Aufgabe hinzufügen",
-    tododropzone: "Zu erledigen",
-    inprogressdropzone: "In Bearbeitung",
-    alldonedropzone: "Abgeschlossen",
     "option.5": "Fokus-Timer",
     "option.6": "Aufschieber-Hilfe",
     "option.7": "Pausen-Timer",
@@ -713,6 +713,9 @@ export const dewenTranslations: Record<
     option: "创建日期",
     "option.2": "优先级",
     "option.3": "截止日期",
+    taskviewselector: "任务视图",
+    taskviewlistoption: "列表视图",
+    taskviewkanbanoption: "看板视图",
     addbtn: "添加",
     notasksyet: "还没有任务",
     tinytaskstip: "添加一个任务以开始使用。",
@@ -733,9 +736,6 @@ export const dewenTranslations: Record<
     "option.4": "选择任务",
     canceltaskcreationbtn: "取消",
     addtaskbtn: "添加任务",
-    tododropzone: "待办",
-    inprogressdropzone: "进行中",
-    alldonedropzone: "已完成",
     "option.5": "专注计时器",
     "option.6": "防拖延",
     "option.7": "休息计时器",
@@ -875,6 +875,9 @@ export const dewenTranslations: Record<
     option: "作成日",
     "option.2": "優先度",
     "option.3": "期限",
+    taskviewselector: "タスク表示",
+    taskviewlistoption: "リスト表示",
+    taskviewkanbanoption: "カンバンボード",
     addbtn: "追加",
     notasksyet: "タスクはまだありません",
     tinytaskstip: "タスクを追加して始めましょう。",
@@ -895,9 +898,6 @@ export const dewenTranslations: Record<
     "option.4": "タスクを選択",
     canceltaskcreationbtn: "キャンセル",
     addtaskbtn: "タスクを追加",
-    tododropzone: "未着手",
-    inprogressdropzone: "進行中",
-    alldonedropzone: "完了",
     "option.5": "集中タイマー",
     "option.6": "先延ばし防止",
     "option.7": "休憩タイマー",
@@ -1037,6 +1037,9 @@ export const dewenTranslations: Record<
     option: "생성 날짜",
     "option.2": "우선순위",
     "option.3": "마감일",
+    taskviewselector: "작업 보기",
+    taskviewlistoption: "목록 보기",
+    taskviewkanbanoption: "칸반 보드",
     addbtn: "추가",
     notasksyet: "아직 작업이 없습니다",
     tinytaskstip: "작업을 추가해 시작하세요.",
@@ -1057,9 +1060,6 @@ export const dewenTranslations: Record<
     "option.4": "작업 선택",
     canceltaskcreationbtn: "취소",
     addtaskbtn: "작업 추가",
-    tododropzone: "할 일",
-    inprogressdropzone: "진행 중",
-    alldonedropzone: "완료됨",
     "option.5": "집중 타이머",
     "option.6": "미루기 방지",
     "option.7": "휴식 타이머",
@@ -1199,6 +1199,9 @@ export const dewenTranslations: Record<
     option: "Дата создания",
     "option.2": "Приоритет",
     "option.3": "Срок выполнения",
+    taskviewselector: "Вид задач",
+    taskviewlistoption: "Список",
+    taskviewkanbanoption: "Канбан-доска",
     addbtn: "Добавить",
     notasksyet: "Пока нет задач",
     tinytaskstip: "Добавьте задачу, чтобы начать.",
@@ -1219,9 +1222,6 @@ export const dewenTranslations: Record<
     "option.4": "Выберите задачу",
     canceltaskcreationbtn: "Отмена",
     addtaskbtn: "Добавить задачу",
-    tododropzone: "К выполнению",
-    inprogressdropzone: "В процессе",
-    alldonedropzone: "Завершено",
     "option.5": "Таймер концентрации",
     "option.6": "Антипрокрастинатор",
     "option.7": "Таймер перерыва",
@@ -1363,6 +1363,9 @@ export const dewenTranslations: Record<
     option: "تاريخ الإنشاء",
     "option.2": "الأولوية",
     "option.3": "تاريخ الاستحقاق",
+    taskviewselector: "عرض المهام",
+    taskviewlistoption: "عرض القائمة",
+    taskviewkanbanoption: "لوحة كانبان",
     addbtn: "إضافة",
     notasksyet: "لا توجد مهام بعد",
     tinytaskstip: "أضف مهمة للبدء.",
@@ -1383,9 +1386,6 @@ export const dewenTranslations: Record<
     "option.4": "اختر مهمة",
     canceltaskcreationbtn: "إلغاء",
     addtaskbtn: "إضافة مهمة",
-    tododropzone: "المهام",
-    inprogressdropzone: "قيد التنفيذ",
-    alldonedropzone: "مكتملة",
     "option.5": "مؤقت التركيز",
     "option.6": "مكافحة التسويف",
     "option.7": "مؤقت الاستراحة",
@@ -1525,6 +1525,9 @@ export const dewenTranslations: Record<
     option: "Data de criação",
     "option.2": "Prioridade",
     "option.3": "Data de vencimento",
+    taskviewselector: "Visualização de tarefas",
+    taskviewlistoption: "Visualização em lista",
+    taskviewkanbanoption: "Quadro Kanban",
     addbtn: "Adicionar",
     notasksyet: "Ainda não há tarefas",
     tinytaskstip: "Adicione uma tarefa para começar.",
@@ -1545,9 +1548,6 @@ export const dewenTranslations: Record<
     "option.4": "Selecione uma tarefa",
     canceltaskcreationbtn: "Cancelar",
     addtaskbtn: "Adicionar tarefa",
-    tododropzone: "A fazer",
-    inprogressdropzone: "Em andamento",
-    alldonedropzone: "Concluídas",
     "option.5": "Temporizador de foco",
     "option.6": "Antiprocrastinação",
     "option.7": "Temporizador de pausa",
@@ -1689,6 +1689,9 @@ export const dewenTranslations: Record<
     option: "बनाने की तारीख",
     "option.2": "प्राथमिकता",
     "option.3": "अंतिम तिथि",
+    taskviewselector: "कार्य दृश्य",
+    taskviewlistoption: "सूची दृश्य",
+    taskviewkanbanoption: "कानबान बोर्ड",
     addbtn: "जोड़ें",
     notasksyet: "अभी कोई कार्य नहीं",
     tinytaskstip: "शुरू करने के लिए कोई कार्य जोड़ें।",
@@ -1709,9 +1712,6 @@ export const dewenTranslations: Record<
     "option.4": "कार्य चुनें",
     canceltaskcreationbtn: "रद्द करें",
     addtaskbtn: "कार्य जोड़ें",
-    tododropzone: "करना है",
-    inprogressdropzone: "जारी है",
-    alldonedropzone: "पूरा हुआ",
     "option.5": "ध्यान केंद्रित करने का टाइमर",
     "option.6": "टालमटोल रोकें",
     "option.7": "विश्राम टाइमर",
@@ -1826,6 +1826,8 @@ export function updateAppLanguage(language: SupportedLanguage) {
     if (key && dewenTranslations[language][key]) {
       if (element instanceof HTMLOptionElement) {
         element.text = dewenTranslations[language][key];
+      } else if (element instanceof HTMLSelectElement) {
+        element.setAttribute("aria-label", dewenTranslations[language][key]);
       } else {
         element.textContent = dewenTranslations[language][key];
       }
@@ -1936,7 +1938,7 @@ const section2 = getElement<HTMLDivElement>(".section2");
 const toDoList = getElement<HTMLUListElement>(".toDoList");
 const toDoListHeader = getElement<HTMLDivElement>(".toDoListHeader");
 const taskSortSelector = getElement<HTMLSelectElement>(".taskSortSelector");
-// const taskViewSelector = getElement<HTMLSelectElement>(".taskViewSelector");
+const taskViewSelector = getElement<HTMLSelectElement>(".taskViewSelector");
 const addBtn = getElement<HTMLButtonElement>(".addBtn");
 const taskCreationDiv = getElement<HTMLDivElement>(".taskCreationDiv");
 /** const actualTaskCreation = getElement<HTMLDivElement>(".actualTaskCreation"); */
@@ -1960,11 +1962,8 @@ const cancelTaskCreationBtn = getElement<HTMLButtonElement>(
 );
 const addTaskBtn = getElement<HTMLButtonElement>(".addTaskBtn");
 const taskList = getElement<HTMLUListElement>(".taskList");
+const kanbanBoard = getElement<HTMLDivElement>(".kanbanBoard");
 const noTasksYetAlert = getElement<HTMLDivElement>(".noTasksYetAlert");
-const dropZones = getElement<HTMLDivElement>(".dropZones");
-const toDoDropZone = getElement<HTMLDivElement>(".toDoDropZone");
-const inProgressDropZone = getElement<HTMLDivElement>(".inProgressDropZone");
-const allDoneDropZone = getElement<HTMLDivElement>(".allDoneDropZone");
 const focusTimer = getElement<HTMLDivElement>(".focusTimer");
 const timerOptionsDropdown = getElement<HTMLSelectElement>(
   ".timerOptionsDropdown",
@@ -2034,35 +2033,8 @@ function safeParse(key: string): any[] {
   }
 }
 
-function updateState(newState: string) {
-  undoStack.push(currentState);
-  currentState = newState;
-  redoStack = [];
-  localStorage.setItem("undoStack", JSON.stringify(undoStack));
-  localStorage.setItem("redoStack", JSON.stringify(redoStack));
-  localStorage.setItem("currentState", currentState);
-}
-
-function undo() {
-  if (undoStack.length > 0) {
-    redoStack.push(currentState);    
-    currentState = undoStack.pop(); 
-  }
-}
-
-function redo() {
-  if (redoStack.length > 0) {
-    undoStack.push(currentState);    
-    currentState = redoStack.pop(); 
-  }
-}
-
-let undoStack: any[] = [];
-let redoStack: any[] = [];
-let currentState = "Initial value";
 let tasks: any[] = [];
 let allNotes: any[] = [];
-let isDraggable = false;
 let editingNoteColor: string | null = null;
 let activityLog: any[] = [];
 let calendar: Calendar | null = null;
@@ -2196,7 +2168,6 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
 
   const mainTask = document.createElement("label") as HTMLLabelElement;
   mainTask.className = "mainTask";
-  mainTask.draggable = isDraggable;
   mainTask.dataset.id = taskId ? String(taskId) : "";
   mainTask.addEventListener("mouseenter", () => {
     const taskOptionsBtn = mainTask.querySelector(".taskOptionsBtn");
@@ -2212,16 +2183,6 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
     taskOptionsBtn.classList.remove("show");
   });
 
-  mainTask.addEventListener("dragstart", (e) => {
-    currentDraggedTask = mainTask;
-    mainTask.classList.add("dragging");
-
-    e.dataTransfer?.setData("text/plain", listTask.id);
-  });
-  mainTask.addEventListener("dragend", () => {
-    currentDraggedTask = null;
-    mainTask.classList.remove("dragging");
-  });
 
   const taskContents = document.createElement("div");
   taskContents.className = "taskContents";
@@ -2314,6 +2275,7 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
     listTask.classList.toggle("completed", t.completed);
 
     saveTasks();
+    if (taskViewSelector?.value === "KanbanView") renderKanban();
     updateTasksDoneCount();
     renderWhatToFocusOn();
     renderUpcomingTasks();
@@ -2323,7 +2285,7 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
     updateBlockedTasksCount();
   });
 
-    taskTextAndCheckbox.appendChild(taskTextSpan);
+  taskTextAndCheckbox.appendChild(taskTextSpan);
   taskContents.appendChild(taskTextAndCheckbox);
 
   taskAttributes.appendChild(taskPrioritySpan);
@@ -2710,35 +2672,6 @@ tasks.forEach((task) => {
   });
 });
 
-function moveRenderedTasksToKanban(listTask: HTMLElement | null = null) {
-  const renderedTasks = document.querySelectorAll(".listTask");
-
-  if (!renderedTasks) return;
-
-  renderedTasks.forEach((listTask) => {
-    const mainTask = listTask.querySelector<HTMLElement>(".mainTask");
-    if (mainTask) {
-      mainTask.draggable = isDraggable;
-      mainTask.style.cursor = isDraggable ? "grab" : "default";
-    }
-
-    if (listTask instanceof HTMLElement && listTask.dataset.status === "done") {
-      if (allDoneDropZone) allDoneDropZone.appendChild(listTask);
-    } else if (
-      listTask instanceof HTMLElement &&
-      listTask.dataset.status === "in-progress"
-    ) {
-      if (inProgressDropZone) inProgressDropZone.appendChild(listTask);
-    } else {
-      if (toDoDropZone) toDoDropZone.appendChild(listTask);
-    }
-  });
-
-  if (taskList) taskList.classList.toggle("drag-mode", isDraggable);
-  if (dropZones) dropZones.style.display = isDraggable ? "flex" : "none";
-  if (noTasksYetAlert) noTasksYetAlert.style.display = "none";
-}
-
 function formatTaskStatus(status: string) {
   if (status === "to-do") return "To Do";
   if (status === "in-progress") return "In Progress";
@@ -2751,9 +2684,6 @@ function renderTasks(mode = currentTaskSort) {
   document.querySelectorAll(".taskOptions").forEach((el) => el.remove());
 
   if (taskList) taskList.innerHTML = "";
-  if (toDoDropZone) toDoDropZone.innerHTML = "";
-  if (inProgressDropZone) inProgressDropZone.innerHTML = "";
-  if (allDoneDropZone) allDoneDropZone.innerHTML = "";
 
   if (!document) return;
 
@@ -2762,45 +2692,117 @@ function renderTasks(mode = currentTaskSort) {
     createTaskElement(task);
   });
 
-  if (document.documentElement.classList.contains("isKanbanView")) {
-    moveRenderedTasksToKanban();
-    if (inProgressDropZone && noTasksYetAlert)
-      inProgressDropZone.appendChild(noTasksYetAlert);
-  }
-
   showNoTasksYet();
   updateTasksDoneCount();
   renderWhatToFocusOn();
   renderUpcomingTasks();
   renderStaleTasks();
-  renderStaleTasks();
+  if (taskViewSelector?.value === "KanbanView") renderKanban();
 }
-
-/* function setTaskView(taskViewOption = "listView", shouldSave = true) {
-  const taskViewOptions = ["listView", "KanbanView", "timelineView"];
-  const selectedView = taskViewOptions.includes(taskViewOption)
-    ? taskViewOption
-    : "listView";
-  const isKanbanView = selectedView === "KanbanView";
-
-  if (taskViewSelector) taskViewSelector.value = selectedView;
-  if (shouldSave) localStorage.setItem("taskViewOption", selectedView);
-
-  if (!document) return;
-
-  document.documentElement.classList.toggle("isKanbanView", isKanbanView);
-  if (dropZones) dropZones.style.display = isKanbanView ? "flex" : "none";
-  isDraggable = isKanbanView;
-  if (taskList) taskList.classList.toggle("drag-mode", isKanbanView);
-
-  currentTaskSort = taskSortSelector?.value || currentTaskSort || "dateCreated";
-  renderTasks(currentTaskSort);
-} */
 
 if (taskSortSelector) {
   taskSortSelector.addEventListener("change", () => {
     currentTaskSort = taskSortSelector.value;
     renderTasks(currentTaskSort);
+  });
+}
+
+function renderKanban() {
+  const kanbanColumns = getAllElements<HTMLDivElement>(".kanbanColumn");
+
+  kanbanColumns.forEach((column) => {
+    const status = column.dataset.status as Status;
+    const taskContainer = column.querySelector<HTMLDivElement>(".kanbanTasks");
+
+    if (!taskContainer) return;
+
+    taskContainer.replaceChildren();
+    const columnTasks = tasks.filter((task) => (task.completed ? "Done" : normalizeTaskStatus(task.status)) === status);
+
+    columnTasks.forEach((task) => {
+      const taskCard = document.createElement("div");
+      taskCard.className = "kanbanCard";
+      taskCard.draggable = true;
+      taskCard.dataset.taskId = String(task.id);
+      taskCard.addEventListener("dragstart", (e) => {
+        e.dataTransfer?.setData("text/plain", String(task.id));
+      });
+
+      const kanbanTaskTitle = document.createElement("div");
+      kanbanTaskTitle.className = "kanbanTaskTitle";
+      kanbanTaskTitle.textContent = task.title;
+      taskCard.appendChild(kanbanTaskTitle);
+
+      const kanbanCardAttrs = document.createElement("div");
+      kanbanCardAttrs.className = "kanbanCardAttrs";
+
+      const kanbanPrioritySpan = document.createElement("span");
+      kanbanPrioritySpan.className = "kanbanTaskPriority";
+      kanbanPrioritySpan.textContent = task.priority;
+      if (task.priority === "High") {
+        kanbanPrioritySpan.style.background = "#ff6b6b";
+        kanbanPrioritySpan.style.color = "#6b0000";
+      } else if (task.priority === "Medium") {
+        kanbanPrioritySpan.style.background = "#ffcc00";
+        kanbanPrioritySpan.style.color = "#6f6f00";
+      } else if (task.priority === "Low") {
+        kanbanPrioritySpan.style.background = "#90ee90";
+        kanbanPrioritySpan.style.color = "#006400";
+      } else {
+        kanbanPrioritySpan.style.background = "none";
+        kanbanPrioritySpan.style.color = "inherit";
+      }
+      kanbanCardAttrs.appendChild(kanbanPrioritySpan);
+
+      const kanbanDateAndTimeSpan = document.createElement("span");
+      kanbanDateAndTimeSpan.className = "kanbanTaskDateAndTime";
+
+      if (task.dueDate) {
+        const dateObject = new Date(task.dueDate + "T00:00:00");
+        const formattedDate = dateObject.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        });
+        kanbanDateAndTimeSpan.textContent = `Due ${formattedDate}`;
+      }
+
+      if (task.dueTime) kanbanDateAndTimeSpan.textContent += ` at ${task.dueTime}`;
+      if (task.dueDate || task.dueTime) kanbanCardAttrs.appendChild(kanbanDateAndTimeSpan);
+
+      taskCard.appendChild(kanbanCardAttrs);
+      taskContainer.appendChild(taskCard);
+    });
+
+    column.ondragover = (e) => e.preventDefault();
+    column.ondrop = async (e) => {
+      e.preventDefault();
+      const taskId = e.dataTransfer?.getData("text/plain");
+      const draggedTask = tasks.find((task) => String(task.id) === taskId);
+      if (!draggedTask) return;
+
+      draggedTask.status = status;
+      draggedTask.completed = status === "Done";
+      draggedTask.completedAt = draggedTask.completed ? new Date().toISOString() : null;
+      await saveTasks();
+      if (taskViewSelector?.value === "KanbanView") renderKanban();
+      else renderTasks(currentTaskSort);
+    };
+  });
+}
+
+if (taskViewSelector) {
+  taskViewSelector?.addEventListener("change", () => {
+    const selectedView = taskViewSelector.value;
+
+    if (selectedView === "KanbanView") {
+      renderKanban();
+      if (kanbanBoard) kanbanBoard.style.display = "grid";
+      if (taskList) taskList.style.display = "none";
+    } else {
+      renderTasks();
+      if (kanbanBoard) kanbanBoard.style.display = "none";
+      if (taskList) taskList.style.display = "flex";
+    }
   });
 }
 
@@ -3072,14 +3074,6 @@ function renderStaleTasks(limit = 3, staleAfterDays = 2) {
     staleTaskItem.textContent = `${task.title} (${daysOld} days old${dueText})`;
     staleTasksList.appendChild(staleTaskItem);
   });
-}
-
-/* normalizes status so that it can be used for sorting */
-function normalizeTaskStatusLabel(status: string | null) {
-  const normalized = normalizeTaskStatus(status);
-  if (normalized === "done") return "Done";
-  if (normalized === "in-progress") return "In Progress";
-  return "To Do";
 }
 
 /* normalizes date and time so that it can be used */
@@ -5597,49 +5591,6 @@ function normalizeTaskStatus(status: string | null): string {
 
   return status;
 }
-
-/* taskViewSelector?.addEventListener("change", () => {
-  setTaskView(taskViewSelector.value);
-}); */
-
-let currentDraggedTask = null;
-
-[toDoDropZone, inProgressDropZone, allDoneDropZone].forEach((zone) => {
-  zone?.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    zone?.classList.add("drag-over-active");
-  });
-
-  zone?.addEventListener("dragleave", () => {
-    zone?.classList.remove("drag-over-active");
-  });
-
-  zone?.addEventListener("drop", (e) => {
-    e.preventDefault();
-    zone?.classList.remove("drag-over-active");
-
-    const taskId = e.dataTransfer?.getData("text/plain");
-    if (!taskId) return;
-
-    const draggedTaskCard = document.querySelector(`[data-id="${taskId}"]`);
-    if (!draggedTaskCard) return;
-
-    const draggedTask = draggedTaskCard.closest(".listTask") as HTMLElement;
-    if (!draggedTask) return;
-
-    const task = tasks.find((t) => String(t.id) === String(taskId));
-    if (!task) return;
-
-    const newStatus = normalizeTaskStatusLabel(zone.dataset.status ?? "");
-    task.status = newStatus;
-
-    draggedTask.dataset.status = normalizeTaskStatus(newStatus);
-    draggedTask.classList.toggle("completed", newStatus === "Done");
-    if (zone) zone.appendChild(draggedTask);
-
-    saveTasks();
-  });
-});
 
 addBtn?.addEventListener("click", () => {
   if (taskCreationDiv) taskCreationDiv.style.display = "flex";

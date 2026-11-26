@@ -588,11 +588,19 @@
                   </option>
                   <option value="dueDate" data-i18n="option.3">Due Date</option>
                 </select>
-                <!-- <select class="taskViewSelector accentItem">
-                  <option value="listView">List View</option>
-                  <option value="KanbanView">Kanban Board</option>
-                  <option value="timelineView">Timeline View</option>
-                </select> -->
+
+                <select
+                  class="taskViewSelector accentItem"
+                  data-i18n="taskviewselector"
+                >
+                  <option value="listView" data-i18n="taskviewlistoption">
+                    List View
+                  </option>
+                  <option value="KanbanView" data-i18n="taskviewkanbanoption">
+                    Kanban Board
+                  </option>
+                </select>
+
                 <button class="addBtn accentItem" data-i18n="addbtn">
                   Add
                 </button>
@@ -796,27 +804,18 @@
                 <!-- Tasks will dynamically show up here -->
               </ul>
 
-              <div class="dropZones" data-i18n="dropzones">
-                <div
-                  class="toDoDropZone"
-                  data-status="todo"
-                  data-i18n="tododropzone"
-                >
-                  To Do
+              <div class="kanbanBoard">
+                <div class="kanbanColumn" data-status="To Do">
+                  <h3 data-i18n="todostatus">To Do</h3>
+                  <div class="kanbanTasks"></div>
                 </div>
-                <div
-                  class="inProgressDropZone"
-                  data-status="in-progress"
-                  data-i18n="inprogressdropzone"
-                >
-                  In Progress
+                <div class="kanbanColumn" data-status="In Progress">
+                  <h3 data-i18n="inprogressstatus">In Progress</h3>
+                  <div class="kanbanTasks"></div>
                 </div>
-                <div
-                  class="allDoneDropZone"
-                  data-status="done"
-                  data-i18n="alldonedropzone"
-                >
-                  Completed
+                <div class="kanbanColumn" data-status="Done">
+                  <h3 data-i18n="donestatus">Done</h3>
+                  <div class="kanbanTasks"></div>
                 </div>
               </div>
             </div>
