@@ -4314,6 +4314,20 @@ html:not([class*="settingsView"]) .personalSection {
   width: 100%;
 }
 
+.backupReminder {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.backupReminderText {
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
 .exportDataDiv {
   display: flex;
   flex-direction: column;

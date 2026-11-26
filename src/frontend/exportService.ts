@@ -26,4 +26,14 @@ export async function exportData() {
     link.click();
 
     URL.revokeObjectURL(url);
+
+    localStorage.setItem("lastBackupDate", new Date().toISOString());
+}
+
+export function getBackupAge(): number | null {
+    const lastBackupDate = localStorage.getItem("lastBackupDate");
+    if (!lastBackupDate) return null;
+
+    const elapsed = Date.now() - new Date(lastBackupDate).getTime();
+    return Math.floor(elapsed / (1000 * 60 * 60 * 24));
 }

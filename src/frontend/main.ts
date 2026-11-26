@@ -4,7 +4,7 @@ import interactionPlugin, {
   type DateClickArg,
 } from "@fullcalendar/interaction/index.js";
 import { db } from "./storage";
-import { exportData } from "./exportService";
+import { exportData, getBackupAge } from "./exportService";
 import { importData } from "./importService";
 
 type SupportedLanguage =
@@ -2012,6 +2012,7 @@ const closeAvatarPresets = getElement<HTMLButtonElement>(".closeAvatarPresets");
 const avatarPresetItems = getAllElements<HTMLDivElement>(".avatarPresetItem");
 const fullNameInput = getElement<HTMLInputElement>(".fullNameInput");
 const preferredNameInput = getElement<HTMLInputElement>(".preferredNameInput");
+const backupReminderText = getElement<HTMLParagraphElement>(".backupReminderText");
 const exportDataBtn = getElement<HTMLButtonElement>(".exportDataBtn");
 const importDataInput = getElement<HTMLInputElement>(".importDataInput");
 const importDataBtn = getElement<HTMLButtonElement>(".importDataBtn");
@@ -5399,9 +5400,33 @@ preferredNameInput?.addEventListener("input", () => {
 setupDate(localStorage.getItem("appLanguage") as SupportedLanguage || "en");
 setupGreeting(localStorage.getItem("appLanguage") as SupportedLanguage || "en");
 
-exportDataBtn?.addEventListener("click", () => {
-  exportData();
+function renderBackupReminder() {
+  const backupAge = getBackupAge();
+
+  if (backupAge === null) {
+    backupReminderText.textContent =
+      "You haven't backed up your workspace yet.";
+    return;
+  }
+
+  if (backupAge >= 7) {
+    backupReminderText.textContent =
+      backupAge === 0
+      ? "Your last backup was less than a day ago."
+      : `Your last backup was ${backupAge} day${backupAge === 1 ? "" : "s"} ago. Consider exporting your workspace to save your data.`;
+    return;
+  }
+
+  backupReminderText.textContent =
+    `Your last backup was ${backupAge} days ago.`;
+}
+
+exportDataBtn?.addEventListener("click", async () => {
+  await exportData();
+  renderBackupReminder();
 });
+
+renderBackupReminder();
 
 importDataBtn?.addEventListener("click", async () => {
   const file = importDataInput?.files?.[0];
