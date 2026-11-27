@@ -3023,12 +3023,12 @@ function renderWhatToFocusOn(limit = 3) {
 
     const formattedDate = formatDate(task.dueDate);
     const formattedTime = formatTime(task.dueTime);
+
     const dueDate =
       task.dueDate || task.dueTime
-        ? `Due ${formattedDate ? formattedDate : "today"}${
-            formattedTime ? ` at ${formattedTime}` : ""
-          }`
+        ? `Due ${formattedDate ? formattedDate : "today"}${formattedTime ? ` at  ${formattedTime}` : ""}`
         : "No due date";
+    focusOnList.appendChild(focusTaskItem);
 
     const focusTaskText = document.createTextNode(`${task.title} (${dueDate})`);
     focusTaskItem.appendChild(focusTaskText);
