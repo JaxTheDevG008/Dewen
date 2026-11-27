@@ -2208,6 +2208,15 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
   const taskPrioritySpan = document.createElement("span");
   taskPrioritySpan.className = "taskPrioritySpan";
   taskPrioritySpan.textContent = taskPriority;
+  if (taskPriority === "High") {
+    taskPrioritySpan.style.color = "#ff4c4c";
+  } else if (taskPriority === "Medium") {
+    taskPrioritySpan.style.color = "#ff9900";
+  } else if (taskPriority === "Low") {
+    taskPrioritySpan.style.color = "#67a98e";
+  } else {
+    taskPrioritySpan.style.color = "none";
+  }
 
   const taskDateAndTime = document.createElement("div");
   taskDateAndTime.className = "taskDateAndTime";
@@ -2415,9 +2424,9 @@ function getEventColor(
   priority: "Low" | "Medium" | "High" | "None",
   isDark: boolean,
 ): string {
-  if (priority === "Low") return "#90ee90";
-  if (priority === "Medium") return "#ffcc00";
-  if (priority === "High") return "#ff6b6b";
+  if (priority === "Low") return "#67a98e";
+  if (priority === "Medium") return "#ff9900";
+  if (priority === "High") return "#ff4c4c";
   if (!priority || priority === "None") {
     return isDark ? "#06bdf9" : "#a9d6fb";
   }
@@ -2980,17 +2989,25 @@ function renderWhatToFocusOn(limit = 3) {
     priorityMarker.src = `/images/Versatile Circle.png`;
     priorityMarker.alt = `${task.priority}`;
 
+      // replace the filter colors with filters of these
+  //   if (taskPriority === "High") {
+    //taskPrioritySpan.style.color = "#ff4c4c";
+  //} else if (taskPriority === "Medium") {
+  //  taskPrioritySpan.style.color = "#ff9900";
+  //} else if (taskPriority === "Low") {
+  //  taskPrioritySpan.style.color = "#67a98e";
+
     if (priority === "High") {
       priorityMarker.style.filter =
-        "invert(47%) sepia(35%) saturate(3501%) hue-rotate(325deg) brightness(105%) contrast(105%)";
+        "brightness(0) saturate(100%) invert(15%) sepia(55%) saturate(2953%) hue-rotate(-20deg) brightness(266%) contrast(100%)";
       focusTaskItem.appendChild(priorityMarker);
     } else if (priority === "Medium") {
       priorityMarker.style.filter =
-        "brightness(0) invert(80%) sepia(50%) saturate(4000%) hue-rotate(15deg) brightness(103%) contrast(105%)";
+        "brightness(0) saturate(100%) invert(42%) sepia(70%) saturate(2465%) hue-rotate(2deg) brightness(150%) contrast(104%)";
       focusTaskItem.appendChild(priorityMarker);
     } else if (priority === "Low") {
       priorityMarker.style.filter =
-        "brightness(0) saturate(100%) invert(86%) sepia(8%) saturate(1478%) hue-rotate(85deg) brightness(97%) contrast(97%)";
+        "brightness(0) saturate(100%) invert(93%) sepia(3%) saturate(1430%) hue-rotate(464deg) brightness(58%) contrast(243%)";
       focusTaskItem.appendChild(priorityMarker);
     }
 
@@ -5195,7 +5212,7 @@ function saveEditedTask() {
       .map((tag) => tag.trim())
       .filter(Boolean);
   }
-  
+
   saveTasks();
   renderTasks(currentTaskSort);
   renderCalendarEvents();

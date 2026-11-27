@@ -2756,6 +2756,7 @@ input:focus {
 
 .taskPrioritySpan {
   position: relative;
+  font-weight: bold;
 }
 
 .taskDateAndTime {
