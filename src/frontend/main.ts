@@ -1953,6 +1953,7 @@ const taskStatusSelector = getElement<HTMLSelectElement>(".taskStatusSelector");
 const taskRecurrenceSelector = getElement<HTMLSelectElement>(
   ".taskRecurrenceSelector",
 );
+const taskTagsInput = getElement<HTMLInputElement>(".taskTagsInput");
 const blockedByDiv = getElement<HTMLDivElement>(".blockedByDiv");
 const blockedByInput = getElement<HTMLInputElement>(".blockedByInput");
 /** const blockedByList = getElement<HTMLUListElement>(".blockedByList");
@@ -2135,6 +2136,8 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
 
   const taskRecurrence = task.recurrence;
 
+  const taskTags = task.tags;
+
   const taskOptionsBtnDiv = document.createElement("div");
   taskOptionsBtnDiv.className = "taskOptionsBtnDiv";
 
@@ -2166,6 +2169,7 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
   listTask.dataset.dueTime = taskTime ?? undefined;
   listTask.dataset.status = taskStatus ?? undefined;
   listTask.dataset.recurrence = taskRecurrence ?? undefined;
+  listTask.dataset.tags = taskTags.join(",") ?? undefined;
   listTask.id = taskId ? `task-${taskId}` : "";
 
   const mainTask = document.createElement("label") as HTMLLabelElement;
@@ -2254,6 +2258,20 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
     taskAttributes.appendChild(taskRecurrenceSpan);
   }
 
+  const taskTagsSpan = document.createElement("span");
+  taskTagsSpan.className = "taskTagsSpan";
+
+  for (const tag of taskTags) {
+    const tagElement = document.createElement("span");
+    tagElement.className = "taskTag";
+    if (tag.startsWith("#")) {
+      tagElement.textContent = tag;
+    } else {
+      tagElement.textContent = `#${tag}`;
+    }
+    taskTagsSpan.appendChild(tagElement);
+  }
+
   const urgency = getTaskUrgency(task);
   applyUrgencyStyle(mainTask, urgency);
 
@@ -2301,6 +2319,8 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
   taskAttributes.appendChild(taskStatusSpan);
   if (recurrenceText) taskAttributes.appendChild(taskRecurrenceSpan);
 
+  if (taskTags.length > 0) taskAttributes.appendChild(taskTagsSpan);
+
   taskContents.appendChild(taskAttributes);
   mainTask.appendChild(taskContents);
   taskOptionsBtnDiv.appendChild(taskOptionsBtn);
@@ -2317,7 +2337,6 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
 
     taskOptions.classList.toggle("show");
   });
-
 
   document.body.appendChild(taskOptions);
 
@@ -3279,6 +3298,10 @@ async function addTask() {
     dueTime: taskTimeInput?.value || null,
     status: taskStatusSelector?.value as Status,
     recurrence: taskRecurrenceSelector?.value as Recurrence,
+    tags: taskTagsInput?.value
+    .split(",")
+    .map((tag) => tag.trim())
+    .filter(Boolean),
     blockedBy: taskStatusSelector?.value === "Blocked" ? blockedByInput?.value || null : null
   });
   if (!task) return;
@@ -3299,6 +3322,7 @@ async function addTask() {
   if (taskTimeInput) taskTimeInput.value = "";
   if (taskStatusSelector) taskStatusSelector.value = "To Do";
   if (taskRecurrenceSelector) taskRecurrenceSelector.value = "none";
+  if (taskTagsInput) taskTagsInput.value = "";
   if (blockedByInput) blockedByInput.value = "disabled";
 
   await saveTasks();
@@ -3400,6 +3424,7 @@ function openEditTaskUI(taskId: string | null) {
   if (taskTimeInput) taskTimeInput.value = "";
   if (taskStatusSelector) taskStatusSelector.value = "To Do";
   if (taskRecurrenceSelector) taskRecurrenceSelector.value = "none";
+  if (taskTagsInput) taskTagsInput.value = "";
 
   const task = tasks.find((t) => String(t.id) === editingTaskId);
 
@@ -3434,6 +3459,7 @@ function openEditTaskUI(taskId: string | null) {
       taskRecurrenceSelector.value = task.dueDate
         ? task.recurrence || "none"
         : "none";
+    if (taskTagsInput) taskTagsInput.value = task.tags?.join(", ") || "";
   }
 }
 
@@ -5162,9 +5188,14 @@ function saveEditedTask() {
   if (taskStatusSelector)
     task.status = normalizeTaskStatus(taskStatusSelector.value);
   if (blockedByInput) task.blockedBy = task.status === "Blocked" ? blockedByInput.value || null : null;
-    if (taskRecurrenceSelector)
-    task.recurrence = task.dueDate ? taskRecurrenceSelector.value : "none";
-
+  if (taskRecurrenceSelector) task.recurrence = task.dueDate ? taskRecurrenceSelector.value : "none";
+  if (taskTagsInput) {
+    task.tags = taskTagsInput.value
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+  }
+  
   saveTasks();
   renderTasks(currentTaskSort);
   renderCalendarEvents();

@@ -2343,6 +2343,26 @@ input:focus {
   cursor: pointer;
 }
 
+.taskTagsDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+}
+
+.taskTagsInput {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 1px 15px;
+  padding-right: 5px;
+  border-radius: 12px;
+  position: relative;
+  height: 36px;
+  left: 0px;
+  width: 440px;
+}
+
 .blockedByDiv {
   display: none;
   flex-direction: column;
@@ -2729,10 +2749,13 @@ input:focus {
   font-size: 15px;
 }
 
-.taskPrioritySpan {
-  position: relative;
+.taskAttributes > * {
   border-right: 2px solid var(--task-attribute-separator-color);
   padding-right: 10px;
+}
+
+.taskPrioritySpan {
+  position: relative;
 }
 
 .taskDateAndTime {
@@ -2745,8 +2768,6 @@ input:focus {
 .taskDateAndTimeSpan {
   position: relative;
   order: 2;
-  border-right: 2px solid var(--task-attribute-separator-color);
-  padding-right: 10px;
 }
 
 .taskDateImg {
@@ -2757,8 +2778,6 @@ input:focus {
 .taskStatusSpan {
   order: 3;
   position: relative;
-  border-right: 2px solid var(--task-attribute-separator-color);
-  padding-right: 10px;
 }
 
 .taskRecurrenceSpan {
@@ -2776,9 +2795,23 @@ input:focus {
   filter: brightness(0);
 }
 
-.taskStatusSpan:last-child {
+.taskTagsSpan {
+  order: 5;
+  position: relative;
+  gap: 4px;
+  display: flex;
+}
+
+.taskTag {
+  background-color: var(--btn-hover-bg-color);
+  color: var(--text-color);
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.taskAttributes > :last-child {
   border-right: none;
-  padding-right: 0;
 }
 
 [data-mode="dark"] .taskRecurrenceImg {
