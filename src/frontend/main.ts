@@ -1979,6 +1979,7 @@ const timerButtons = getElement<HTMLDivElement>(".timerButtons");
 const lengthButtons = getAllElements<HTMLButtonElement>(
   ".timerLengthOptions button",
 );
+const customTimerLengthInput = getElement<HTMLInputElement>(".customTimerLengthInput");
 const startTimerBtn = getElement<HTMLButtonElement>(".startTimerBtn");
 const pauseTimerBtn = getElement<HTMLButtonElement>(".pauseTimerBtn");
 const restartTimerBtn = getElement<HTMLButtonElement>(".restartTimerBtn");
@@ -6029,6 +6030,15 @@ lengthButtons.forEach((button) => {
     totalTime = minutes * 60;
     restartTimer();
   });
+});
+
+customTimerLengthInput?.addEventListener("input", () => {
+  const minutes = parseInt(customTimerLengthInput.value);
+  if (!Number.isFinite(minutes)) return;
+  totalTime = minutes * 60;
+  restartTimer();
+  updateTimerDisplay();
+  updateRing(totalTime);
 });
 
 timerOptionsDropdown?.addEventListener("change", () => {
