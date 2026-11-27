@@ -2132,6 +2132,19 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
 
   const taskTime = task.dueTime;
 
+  let formattedTime = "";
+  
+  if (taskTime) {
+    const [hours, minutes] = taskTime.split(":").map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes);
+    formattedTime = date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  }
+
   const taskStatus = task.status;
 
   const taskRecurrence = task.recurrence;
@@ -2231,7 +2244,7 @@ async function createTaskElement(task: Task): Promise<HTMLLIElement | null> {
 
   taskDateAndTimeSpan.textContent =
     (formattedDate ? "Due " + formattedDate : "") +
-    (taskTime ? " at " + taskTime : "");
+    (formattedTime ? " at " + formattedTime : "");
 
   const taskStatusSpan = document.createElement("span");
   taskStatusSpan.className = "taskStatusSpan";
@@ -2770,13 +2783,13 @@ function renderKanban() {
       kanbanPrioritySpan.className = "kanbanTaskPriority";
       kanbanPrioritySpan.textContent = task.priority;
       if (task.priority === "High") {
-        kanbanPrioritySpan.style.background = "#ff6b6b";
+        kanbanPrioritySpan.style.background = "#ff4c4c";
         kanbanPrioritySpan.style.color = "#6b0000";
       } else if (task.priority === "Medium") {
-        kanbanPrioritySpan.style.background = "#ffcc00";
+        kanbanPrioritySpan.style.background = "#ff9900";
         kanbanPrioritySpan.style.color = "#6f6f00";
       } else if (task.priority === "Low") {
-        kanbanPrioritySpan.style.background = "#90ee90";
+        kanbanPrioritySpan.style.background = "#67a98e";
         kanbanPrioritySpan.style.color = "#006400";
       } else {
         kanbanPrioritySpan.style.background = "none";
@@ -2892,13 +2905,18 @@ function createNoteElement(note: Note) {
   editNoteBtn.style.display = "none";
   editNoteBtn.innerHTML = `<img src="/images/Edit-Icon.png" class="editIcon" alt="Edit Icon">`;
   editNoteBtn.style.backgroundColor = "transparent";
+  const noteToTaskBtn = document.createElement("button");
+  noteToTaskBtn.className = "noteToTaskBtn";
+  noteToTaskBtn.style.display = "none";
+  noteToTaskBtn.innerHTML = `<img src="/images/Checkmark.png" class="noteToTaskIcon" alt="Note To Task Icon">`;
+  noteToTaskBtn.style.backgroundColor = "transparent";
   const deleteNoteBtn = document.createElement("button");
   deleteNoteBtn.className = "deleteNoteBtn";
   deleteNoteBtn.style.display = "none";
   deleteNoteBtn.innerHTML = `<img src="/images/Delete-Icon.png" class="deleteIcon" alt="Delete Icon">`;
   deleteNoteBtn.style.backgroundColor = "transparent";
 
-  noteOptionsDiv.append(editNoteBtn, deleteNoteBtn);
+  noteOptionsDiv.append(editNoteBtn, noteToTaskBtn, deleteNoteBtn);
 }
 
 /* normalizes priority so that it can be used for sorting */
@@ -2989,14 +3007,6 @@ function renderWhatToFocusOn(limit = 3) {
     priorityMarker.src = `/images/Versatile Circle.png`;
     priorityMarker.alt = `${task.priority}`;
 
-      // replace the filter colors with filters of these
-  //   if (taskPriority === "High") {
-    //taskPrioritySpan.style.color = "#ff4c4c";
-  //} else if (taskPriority === "Medium") {
-  //  taskPrioritySpan.style.color = "#ff9900";
-  //} else if (taskPriority === "Low") {
-  //  taskPrioritySpan.style.color = "#67a98e";
-
     if (priority === "High") {
       priorityMarker.style.filter =
         "brightness(0) saturate(100%) invert(15%) sepia(55%) saturate(2953%) hue-rotate(-20deg) brightness(266%) contrast(100%)";
@@ -3013,12 +3023,12 @@ function renderWhatToFocusOn(limit = 3) {
 
     const formattedDate = formatDate(task.dueDate);
     const formattedTime = formatTime(task.dueTime);
-
     const dueDate =
       task.dueDate || task.dueTime
-        ? `Due ${formattedDate ? formattedDate : "today"}${formattedTime ? ` at  ${formattedTime}` : ""}`
+        ? `Due ${formattedDate ? formattedDate : "today"}${
+            formattedTime ? ` at ${formattedTime}` : ""
+          }`
         : "No due date";
-    focusOnList.appendChild(focusTaskItem);
 
     const focusTaskText = document.createTextNode(`${task.title} (${dueDate})`);
     focusTaskItem.appendChild(focusTaskText);
@@ -3343,6 +3353,8 @@ async function addTask() {
   if (blockedByInput) blockedByInput.value = "disabled";
 
   await saveTasks();
+
+  hideOverlay();  
 }
 
 function addNote() {
@@ -6408,8 +6420,11 @@ notesList?.addEventListener("mouseover", (e) => {
   if (!closestMainNote) return;
 
   const editNoteBtn = closestMainNote.querySelector(".editNoteBtn");
+  const noteToTaskBtn = closestMainNote.querySelector(".noteToTaskBtn");
   const deleteNoteBtn = closestMainNote.querySelector(".deleteNoteBtn");
   if (editNoteBtn) (editNoteBtn as HTMLButtonElement).style.display = "flex";
+  if (noteToTaskBtn)
+    (noteToTaskBtn as HTMLButtonElement).style.display = "flex";
   if (deleteNoteBtn)
     (deleteNoteBtn as HTMLButtonElement).style.display = "flex";
 
@@ -6423,8 +6438,11 @@ notesList?.addEventListener("mouseout", (e) => {
   const closestMainNote = targetEl.closest(".mainNote");
   if (!closestMainNote) return;
   const editNoteBtn = closestMainNote.querySelector(".editNoteBtn");
+  const noteToTaskBtn = closestMainNote.querySelector(".noteToTaskBtn");
   const deleteNoteBtn = closestMainNote.querySelector(".deleteNoteBtn");
   if (editNoteBtn) (editNoteBtn as HTMLButtonElement).style.display = "none";
+  if (noteToTaskBtn)
+    (noteToTaskBtn as HTMLButtonElement).style.display = "none";
   if (deleteNoteBtn)
     (deleteNoteBtn as HTMLButtonElement).style.display = "none";
   (closestMainNote as HTMLDivElement).style.boxShadow = "none";
@@ -6444,6 +6462,45 @@ notesList?.addEventListener("click", (e) => {
     if (!note) return;
 
     openEditNoteUI(note);
+  }
+
+  if (targetEl?.closest(".noteToTaskBtn")) {
+    const noteId =
+      closestMainNote.closest(".listNote")?.id.replace("note-", "") || null;
+
+    const note = allNotes.find((n) => n.id === noteId);
+    if (!note) return;
+
+    const parsed = parseTaskLocally(note?.text);
+
+    editingTaskId = null;
+    isEditing = false;
+
+    if (taskInput) taskInput.value = parsed.task.title;
+    if (taskPrioritySelector)
+      taskPrioritySelector.value = parsed.task.priority;
+    if (taskDateInput)
+      taskDateInput.value = parsed.task.dueDate || "";
+    if (taskTimeInput)
+      taskTimeInput.value = parsed.task.dueTime || "";
+    if (taskStatusSelector)
+      taskStatusSelector.value = "To Do";
+    if (taskRecurrenceSelector)
+      taskRecurrenceSelector.value = "none";
+    if (taskTagsInput) taskTagsInput.value = "";
+
+    if (taskCreationDiv) {
+      document.body.appendChild(taskCreationDiv);
+      taskCreationDiv.style.display = "flex";
+      taskCreationDiv.style.position = "fixed";
+      taskCreationDiv.style.zIndex = "9999";
+      taskCreationDiv.style.top = "50%";
+      taskCreationDiv.style.left = "50%";
+      taskCreationDiv.style.transform = "translate(-50%, -50%)";
+    }
+
+    if (addTaskBtn) addTaskBtn.textContent = "Add Task";
+    showOverlay();
   }
 
   if (targetEl?.closest(".deleteNoteBtn")) {
