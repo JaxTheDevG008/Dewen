@@ -5128,6 +5128,53 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
+function completionGrid() {
+  // fetch the completed amount of tasks
+  // depending on the number of tasks, modify the current calendar day cell background color to reflect the completion percentage
+  if (!calendar) return;
+
+  const { startDate, endDate } = getCalendarRange();
+
+  const dateMap = new Map<string, { completed: number; total: number }>();
+
+  tasks.forEach((task) => {
+    if (!task.dueDate) return;
+
+    const dates =
+      task.recurrence !== "none"
+        ? getOccurrences(task, startDate, endDate)
+        : [getTaskOccurrenceStart(task)];
+
+    dates.filter((date): date is Date => date !== null).forEach((date) => {
+      const dateStr = date.toISOString().split("T")[0];
+      if (!dateMap.has(dateStr)) {
+        dateMap.set(dateStr, { completed: 0, total: 0 });
+      }
+      const entry = dateMap.get(dateStr);
+      if (entry) {
+        entry.total += 1;
+        if (task.completed) entry.completed += 1;
+      }
+    });
+  });
+
+  document
+    .querySelectorAll<HTMLElement>("#calendar .fc-daygrid-day[data-date]")
+    .forEach((cellEl) => {
+    const dateStr = cellEl.dataset.date;
+    if (!dateStr) return;
+
+    const entry = dateMap.get(dateStr);
+    if (entry) {
+      const completionPercentage =
+        entry.total > 0 ? (entry.completed / entry.total) * 100 : 0;
+      cellEl.style.backgroundColor = `rgba(0, 128, 0, ${
+        completionPercentage / 100
+      })`;
+    }
+  });
+}
+
 async function loadSavedItems() {
   const savedTasks = await db.tasks.toArray();
   const savedNotes = await db.notes.toArray();

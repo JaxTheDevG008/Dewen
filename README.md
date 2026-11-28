@@ -119,6 +119,11 @@ npm run dev
 
 4. Vite automatically opens the local site in your browser
 
+The root URL (`/`) is the Dewen landing page. The full task app lives at
+`/app/`, with its markup in `src/frontend/app/index.html` and its existing
+styles and TypeScript kept alongside the frontend source. The landing page is
+independent in `src/frontend/index.html` and `src/frontend/landing.css`.
+
 ---
 ## Contributing
 
