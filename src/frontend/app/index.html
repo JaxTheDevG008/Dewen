@@ -71,13 +71,13 @@
       <div class="sampleWorkspaceMessage" data-i18n="sampleworkspacemessage">
         First timer? Load a sample workspace to explore Dewen's features.
       </div>
-      <button
-        class="loadSampleWorkspaceBtn"
-        data-i18n="loadsampleworkspacebtn"
-      >
+      <button class="loadSampleWorkspaceBtn" data-i18n="loadsampleworkspacebtn">
         Load Sample Workspace
       </button>
-      <button class="closeSampleWorkspacePopup" data-i18n="closesampleworkspacepopup">
+      <button
+        class="closeSampleWorkspacePopup"
+        data-i18n="closesampleworkspacepopup"
+      >
         ✕
       </button>
     </div>
@@ -112,8 +112,6 @@
           </div>
         </div>
         <div class="sidebarHeaderRow2" data-i18n="sidebarheaderrow2">
-          <button class="themeBtn" data-i18n="themebtn"></button>
-
           <div class="agentBtnDiv" data-i18n="agentbtndiv">
             <button class="agentBtn" data-i18n="agentbtn">
               <img
@@ -168,6 +166,66 @@
         <button class="closeCustomizeBtn" data-i18n="closecustomizebtn">
           ✕
         </button>
+      </div>
+
+      <div class="customizeThemes" data-i18n="customizethemes">
+        <div class="customizeThemesHeader" data-i18n="customizethemesheader">
+          <h1
+            class="customizeThemesHeaderTitle"
+            data-i18n="customizethemesheadertitle"
+          >
+            Themes
+          </h1>
+        </div>
+
+        <div class="customizeThemesOptions" data-i18n="customizethemesoptions">
+          <div class="themeOption" data-theme="light" data-i18n="themeoption">
+            <img
+              src="/images/Light-Mode-Icon.png"
+              class="lightThemeIcon"
+              data-i18n="lightthemeicon"
+            />
+            <button
+              class="lightThemeBtn"
+              data-theme="light"
+              data-i18n="lightthemebtn"
+            >
+              Light
+            </button>
+          </div>
+          <div class="themeOption" data-theme="dark" data-i18n="themeoption.2">
+            <img
+              src="/images/Dark-Mode-Icon.png"
+              class="darkThemeIcon"
+              data-i18n="darkthemeicon"
+            />
+            <button
+              class="darkThemeBtn"
+              data-theme="dark"
+              data-i18n="darkthemebtn"
+            >
+              Dark
+            </button>
+          </div>
+          <div
+            class="themeOption"
+            data-theme="system"
+            data-i18n="themeoption.3"
+          >
+            <img
+              src="/images/Monitor-Icon.png"
+              class="systemThemeIcon"
+              data-i18n="systemthemeicon"
+            />
+            <button
+              class="systemThemeBtn"
+              data-theme="system"
+              data-i18n="systemthemebtn"
+            >
+              System
+            </button>
+          </div>
+        </div>
       </div>
 
       <div class="customizePresets" data-i18n="customizepresets">
@@ -914,7 +972,10 @@
                   >
                     60m
                   </button>
-                  <div class="customTimerLengthDiv" data-i18n="customtimerlengthdiv">
+                  <div
+                    class="customTimerLengthDiv"
+                    data-i18n="customtimerlengthdiv"
+                  >
                     <input
                       type="number"
                       class="customTimerLengthInput accentItem"
@@ -1291,7 +1352,7 @@
           </div>
         </div>
 
-       <!-- <div class="securitySection" data-i18n="securitysection">
+        <!-- <div class="securitySection" data-i18n="securitysection">
           <div class="securityToggleDiv" data-i18n="securitytogglediv">
             <span class="securityToggleLabel" data-i18n="securitytogglelabel"
               >Enable Security</span
@@ -1377,10 +1438,7 @@
               >Export Data:</label
             >
 
-            <button
-              class="exportDataBtn accentItem"
-              data-i18n="exportdatabtn"
-            >
+            <button class="exportDataBtn accentItem" data-i18n="exportdatabtn">
               Export Data
             </button>
           </div>
@@ -1402,10 +1460,7 @@
               data-i18n="importdatainput"
             />
 
-            <button
-              class="importDataBtn accentItem"
-              data-i18n="importdatabtn"
-            >
+            <button class="importDataBtn accentItem" data-i18n="importdatabtn">
               Import Data
             </button>
           </div>

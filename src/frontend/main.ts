@@ -1906,6 +1906,9 @@ const avatarAccentToggle =
 ); */
 const customizeBtn = getElement<HTMLButtonElement>(".customizeBtn");
 const customizeDiv = getElement<HTMLDivElement>(".customizeDiv");
+const lightThemeBtn = getElement<HTMLButtonElement>(".lightThemeBtn");
+const darkThemeBtn = getElement<HTMLButtonElement>(".darkThemeBtn");
+const systemThemeBtn = getElement<HTMLButtonElement>(".systemThemeBtn");
 const customizePresetsOptions = getAllElements<HTMLButtonElement>(
   ".customizePresetsOptions button",
 );
@@ -1984,7 +1987,6 @@ const customTimerLengthInput = getElement<HTMLInputElement>(".customTimerLengthI
 const startTimerBtn = getElement<HTMLButtonElement>(".startTimerBtn");
 const pauseTimerBtn = getElement<HTMLButtonElement>(".pauseTimerBtn");
 const restartTimerBtn = getElement<HTMLButtonElement>(".restartTimerBtn");
-const themeBtn = getElement<HTMLButtonElement>(".themeBtn");
 /** const notes = getElement<HTMLDivElement>(".notes"); */
 const addBtn2 = getElement<HTMLButtonElement>(".addBtn2");
 const notesList = getElement<HTMLUListElement>(".notesList");
@@ -4242,7 +4244,7 @@ searchBar?.addEventListener("focus", () => {
 });
 
 function isDark() {
-  return document.documentElement.dataset.mode === "dark";
+  return document.documentElement.dataset.theme === "dark";
 }
 
 function getTaskUrgency(task: Task) {
@@ -4292,6 +4294,37 @@ closeCustomizeBtn?.addEventListener("click", () => {
     customizeDiv.classList.remove("show", "closing");
   }, 300);
 });
+
+const osThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+function setThemeMode(mode: "light" | "dark" | "system", force = false) {
+  const currentMode = document.documentElement.dataset.mode;
+  if (currentMode === mode && !force) return;
+
+  document.documentElement.dataset.mode = mode;
+  document.documentElement.dataset.theme = mode === "system" ? (osThemeQuery.matches ? "dark" : "light") : mode;
+
+  localStorage.setItem("themeMode", mode);
+  void saveSettings("themeMode", mode);
+  updateFavicon();
+  updateAppLogo();
+  
+  const savedBgTheme = localStorage.getItem("customBgTheme") || "default";
+  applyBgTheme(savedBgTheme);
+
+  const savedAccentTheme = localStorage.getItem("customAccentTheme") || "default";
+  applyAccentTheme(savedAccentTheme);
+
+  resetCustomTextColors();
+}
+
+osThemeQuery.addEventListener("change", () => {
+  if (document.documentElement.dataset.mode === "system") setThemeMode("system", true);
+});
+
+lightThemeBtn?.addEventListener("click", () => setThemeMode("light"));
+darkThemeBtn?.addEventListener("click", () => setThemeMode("dark"));
+systemThemeBtn?.addEventListener("click", () => setThemeMode("system"));
 
 const colorPresets = [
   {
@@ -4597,15 +4630,9 @@ function applyColorPreset(presetName: string) {
   if (!preset) return;
   if (preset.darkMode !== isDark()) {
     document.documentElement.dataset.mode = preset.darkMode ? "dark" : "light";
-    localStorage.setItem("mode", preset.darkMode ? "dark" : "light");
-    if (themeBtn) {
-      themeBtn.querySelector("img")!.src = preset.darkMode
-        ? "/images/Light-Mode-Icon.png"
-        : "/images/Dark-Mode-Icon.png";
-      themeBtn.querySelector("img")!.alt = preset.darkMode
-        ? "Light Mode Icon"
-        : "Dark Mode Icon";
-    }
+    saveSettings("mode", preset.darkMode ? "dark" : "light");
+    updateFavicon();
+    updateAppLogo();
   }
 
   applyBgTheme(preset.bg);
@@ -4892,18 +4919,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (accentButton) accentButton.classList.add("active");
   }
 
-  if (savedCustomBgColor) {
-    applyCustomBgColor(savedCustomBgColor);
-  }
-  if (savedCustomAccentColor) {
-    applyCustomAccentColor(savedCustomAccentColor);
-  }
+  if (savedCustomBgColor) applyCustomBgColor(savedCustomBgColor);
+  if (savedCustomAccentColor) applyCustomAccentColor(savedCustomAccentColor);
 
-  const savedMode = localStorage.getItem("mode");
+  const savedMode = (localStorage.getItem("themeMode") || localStorage.getItem("mode")) as "light" | "dark" | "system" | null;
   if (savedMode) {
-    document.documentElement.dataset.mode = savedMode;
+    document.documentElement.dataset.theme = savedMode;
+    document.documentElement.dataset.mode = savedMode === "system" ? (osThemeQuery.matches ? "dark" : "light") : savedMode;
     updateFavicon();
     updateAppLogo();
+
+    setThemeMode(savedMode, true);
   }
 
   const savedLanguage =
@@ -5127,53 +5153,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Calendar error");
   }
 });
-
-function completionGrid() {
-  // fetch the completed amount of tasks
-  // depending on the number of tasks, modify the current calendar day cell background color to reflect the completion percentage
-  if (!calendar) return;
-
-  const { startDate, endDate } = getCalendarRange();
-
-  const dateMap = new Map<string, { completed: number; total: number }>();
-
-  tasks.forEach((task) => {
-    if (!task.dueDate) return;
-
-    const dates =
-      task.recurrence !== "none"
-        ? getOccurrences(task, startDate, endDate)
-        : [getTaskOccurrenceStart(task)];
-
-    dates.filter((date): date is Date => date !== null).forEach((date) => {
-      const dateStr = date.toISOString().split("T")[0];
-      if (!dateMap.has(dateStr)) {
-        dateMap.set(dateStr, { completed: 0, total: 0 });
-      }
-      const entry = dateMap.get(dateStr);
-      if (entry) {
-        entry.total += 1;
-        if (task.completed) entry.completed += 1;
-      }
-    });
-  });
-
-  document
-    .querySelectorAll<HTMLElement>("#calendar .fc-daygrid-day[data-date]")
-    .forEach((cellEl) => {
-    const dateStr = cellEl.dataset.date;
-    if (!dateStr) return;
-
-    const entry = dateMap.get(dateStr);
-    if (entry) {
-      const completionPercentage =
-        entry.total > 0 ? (entry.completed / entry.total) * 100 : 0;
-      cellEl.style.backgroundColor = `rgba(0, 128, 0, ${
-        completionPercentage / 100
-      })`;
-    }
-  });
-}
 
 async function loadSavedItems() {
   const savedTasks = await db.tasks.toArray();
@@ -5656,39 +5635,6 @@ const savedMode = localStorage.getItem("mode");
 if (savedMode) {
   document.documentElement.dataset.mode = savedMode;
 }
-
-themeBtn?.addEventListener("click", () => {
-  const currentMode = document.documentElement.dataset.mode;
-  const newMode = currentMode === "dark" ? "light" : "dark";
-  document.documentElement.dataset.mode = newMode;
-  localStorage.setItem("mode", newMode);
-  updateFavicon();
-  updateAppLogo();
-
-  const savedBgTheme = localStorage.getItem("customBgTheme") || "default";
-  if (savedBgTheme) applyBgTheme(savedBgTheme);
-
-  const savedAccentTheme = localStorage.getItem("customAccentTheme");
-  if (savedAccentTheme) applyAccentTheme(savedAccentTheme);
-
-  if (newMode === "dark") {
-    themeBtn.innerHTML = `<img src="/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
-    console.log("theme icon updated to:", themeBtn.querySelector("img")!.src);
-  } else {
-    themeBtn.innerHTML = `<img src="/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
-    console.log("theme icon updated to:", themeBtn.querySelector("img")!.src);
-  }
-  resetCustomTextColors();
-});
-
-window.addEventListener("load", () => {
-  if (isDark() && themeBtn) {
-    themeBtn.innerHTML = `<img src="/images/Light-Mode-Icon.png" alt="Light Mode Icon" class="themeIcon">`;
-  } else {
-    if (themeBtn)
-      themeBtn.innerHTML = `<img src="/images/Dark-Mode-Icon.png" alt="Dark Mode Icon" class="themeIcon">`;
-  }
-});
 
 if (noTasksYetAlert && noNotesYetAlert) {
   noTasksYetAlert.style.display = "inline";
